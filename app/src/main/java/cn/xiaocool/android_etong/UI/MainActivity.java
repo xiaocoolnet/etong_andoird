@@ -1,4 +1,4 @@
-package cn.xiaocool.android_etong;
+package cn.xiaocool.android_etong.UI;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.fragment.HomepageFragment;
 import cn.xiaocool.android_etong.fragment.LocalFragment;
 import cn.xiaocool.android_etong.fragment.MineFragment;
@@ -82,6 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 index = 4;
                 break;
         }
+
         if (currentIndex != index) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.hide(fragments[currentIndex]);

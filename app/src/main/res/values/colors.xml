@@ -37,5 +37,6 @@
     <!--首页上方蓝色、文字蓝色-->
     <color name="homepage_top_bule">#00aeff</color>
     <color name="homepage_orange">#FF8B30</color>
+    <color name="main_color_red">#FF5555</color>
 
 </resources>
