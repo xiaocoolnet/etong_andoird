@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="1dp"
     android:orientation="horizontal"
-    android:background="@color/white"
-    android:layout_marginBottom="10dp"
+    android:background="@color/whilte"
     android:layout_width="match_parent"
-    android:layout_height="76dp">
+    android:layout_marginBottom="14dp"
+    android:layout_height="62dp">
 
-    <!--周边游-->
+    <!--待付款-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -14,20 +15,20 @@
         >
 
         <Button
-            android:id="@+id/btn_zhoubianyou"
+            android:id="@+id/btn_daifukuan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_zhoubianyou"
+            android:drawableTop="@mipmap/ic_daifukuan"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="周边游"
+            android:text="待付款"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--生活服务-->
+    <!--待使用-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -35,20 +36,20 @@
         >
 
         <Button
-            android:id="@+id/btn_shenghuofuwu"
+            android:id="@+id/btn_daishiyong"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_shenghuo"
+            android:drawableTop="@mipmap/ic_daishiyong"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="生活服务"
+            android:text="待使用"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--KTV-->
+    <!--待发货-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -56,20 +57,21 @@
         >
 
         <Button
-            android:id="@+id/btn_ktv"
+            android:id="@+id/btn_daifahuo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_ktv"
+            android:drawableTop="@mipmap/ic_daifahuo"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="KTV"
+            android:text="待发货"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--手机充值-->
+
+    <!--待收货-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -77,20 +79,20 @@
         >
 
         <Button
-            android:id="@+id/btn_shoujichongzhi"
+            android:id="@+id/btn_daishouhuo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_shoujichongzhi"
+            android:drawableTop="@mipmap/ic_daishouhuo"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="手机充值"
+            android:text="待收货"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--全部-->
+    <!--待评价-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -98,17 +100,18 @@
         >
 
         <Button
-            android:id="@+id/btn_quanbu"
+            android:id="@+id/btn_daipingjia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_all"
+            android:drawableTop="@mipmap/ic_pinglun"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="全部"
+            android:text="待评论"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
+
 
 </LinearLayout>

@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@color/white"
-    android:layout_marginBottom="10dp"
+    android:background="@color/whilte"
     android:layout_width="match_parent"
-    android:layout_height="76dp">
+    android:layout_height="83dp">
+    <!--钱包-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
 
-    <!--周边游-->
+            <Button
+            android:id="@+id/btn_qianbao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_qianbao"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="我的钱包"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <!--会员中心-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -14,20 +33,20 @@
         >
 
         <Button
-            android:id="@+id/btn_zhoubianyou"
+            android:id="@+id/btn_huiyuanzhongxin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_zhoubianyou"
+            android:drawableTop="@mipmap/ic_huiyuan"
             android:background="@color/white"
             android:paddingBottom="2dip"
-            android:paddingTop="11.5dip"
+            android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="周边游"
+            android:text="会员中心"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--生活服务-->
+    <!--足迹-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -35,20 +54,20 @@
         >
 
         <Button
-            android:id="@+id/btn_shenghuofuwu"
+            android:id="@+id/btn_zuji"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_shenghuo"
+            android:drawableTop="@mipmap/ic_zuji"
             android:background="@color/white"
             android:paddingBottom="2dip"
-            android:paddingTop="11.5dip"
+            android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="生活服务"
+            android:text="我的足迹"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--KTV-->
+    <!--我要开店-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -56,59 +75,19 @@
         >
 
         <Button
-            android:id="@+id/btn_ktv"
+            android:id="@+id/btn_kaidian"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_ktv"
+            android:drawableTop="@mipmap/ic_dianpu"
             android:background="@color/white"
             android:paddingBottom="2dip"
-            android:paddingTop="11.5dip"
+            android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="KTV"
+            android:text="我要开店"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--手机充值-->
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
 
-        <Button
-            android:id="@+id/btn_shoujichongzhi"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_shoujichongzhi"
-            android:background="@color/white"
-            android:paddingBottom="2dip"
-            android:paddingTop="11.5dip"
-            android:scaleType="matrix"
-            android:text="手机充值"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-    </RelativeLayout>
-
-    <!--全部-->
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-
-        <Button
-            android:id="@+id/btn_quanbu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_all"
-            android:background="@color/white"
-            android:paddingBottom="2dip"
-            android:paddingTop="11.5dip"
-            android:scaleType="matrix"
-            android:text="全部"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-    </RelativeLayout>
 
 </LinearLayout>

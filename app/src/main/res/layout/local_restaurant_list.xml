@@ -6,9 +6,9 @@
     android:layout_height="105dp">
     <ImageView
         android:id="@+id/img_restaurant"
-        android:layout_width="108dp"
-        android:layout_height="81dp"
-        android:layout_marginLeft="13dp"
+        android:layout_width="81dp"
+        android:layout_height="61dp"
+        android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
         android:background="@mipmap/ic_shaitu"
         />
@@ -21,7 +21,7 @@
         android:textSize="15sp"
         android:text="咖啡时光西餐厅"
         android:layout_toRightOf="@+id/img_restaurant"
-        android:layout_marginLeft="14dp"
+        android:layout_marginLeft="10dp"
         />
     <TextView
         android:id="@+id/tx_restaurant_introduce"

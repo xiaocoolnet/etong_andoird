@@ -3,8 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="@color/whilte"
-    android:layout_marginBottom="13dp"
-    android:layout_height="145dp">
+    android:layout_marginBottom="10dp"
+    android:layout_height="109dp">
 <!--e抢购-->
     <RelativeLayout
         android:id="@+id/rl_eqianggou"
@@ -21,23 +21,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/main_color_red"
                 android:text="e抢购"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/main_color_red"
                 android:text="01:01:01"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 />
             <ImageView
-                android:layout_width="57dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="14dp"
+                android:layout_width="43dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_qianggou"
                 />
 
@@ -60,23 +60,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/blue"
                 android:text="今日特价"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/blue"
                 android:text="今日抢不停"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 />
             <ImageView
-                android:layout_width="57dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="14dp"
+                android:layout_width="41dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_qianggou"
                 />
 
@@ -99,23 +99,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/homepage_orange"
                 android:text="新客专享"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/homepage_orange"
                 android:text="一元抢大礼"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 />
             <ImageView
-                android:layout_width="57dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="14dp"
+                android:layout_width="43dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_qianggou"
                 />
 

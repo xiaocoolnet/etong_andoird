@@ -1,36 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/main_color_red"
-        >
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/main_color_red"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="本地专区"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                />
+    
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="编辑"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                />
+        </RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/shopping_cloth"/>
+                <include layout="@layout/shopping_cloth"/>
+                <include layout="@layout/shopping_cloth"/>
+                <include layout="@layout/shopping_cloth"/>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/whilte"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <ImageView
+            android:id="@+id/img_shopping_yuan"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/ic_yuan"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="本地专区"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_shopping_yuan"
+            android:text="全选"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="5dp"
+            />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/main_color_red"
+            android:gravity="center"
+            android:text="结算"
+            android:textColor="@color/whilte"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:id="@+id/tx_shopping_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="110dp"
+            android:textColor="@color/main_color_red"
+            android:text="￥0"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/tx_shopping_price"
+            android:textColor="@color/black"
+            android:text="合计："
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="110dp"
+            android:layout_below="@+id/tx_shopping_price"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:text="不含运费"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="编辑"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="24dp"
-            />
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="shopping"
-        />
-</LinearLayout>
+
+
+</RelativeLayout>
