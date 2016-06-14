@@ -34,11 +34,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <fragment
-            android:id="@+id/fragment_cycle_viewpager_content_local"
-            android:name="cn.xiaocool.android_etong.adapter.lib.CycleViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="171dip" />
+        <!--<fragment-->
+            <!--android:id="@+id/fragment_cycle_viewpager_content_local"-->
+            <!--android:name="cn.xiaocool.android_etong.adapter.lib.CycleViewPager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="171dip" />-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="171dp"
+                android:background="@mipmap/ic_banner"
+                />
         <!--美丽的小图标-->
         <include layout="@layout/loace_item1"/>
         <include layout="@layout/local_item2"/>

@@ -26,10 +26,38 @@
             android:layout_marginRight="24dp"
             />
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="prefecture"
-        />
-
+    <LinearLayout
+        android:background="@color/whilte"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="45dp">
+        <Button
+            android:id="@+id/btn_prefecture_my"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/whilte"
+            android:gravity="center"
+            android:textColor="@color/main_color_red"
+            android:textSize="15sp"
+            android:text="我的专区"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/btn_prefecture_product"
+            android:layout_width="0dp "
+            android:background="@color/whilte"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/main_color_red"
+            android:textSize="15sp"
+            android:text="农副产品专区"
+            android:layout_weight="1"
+            />
+        
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </RelativeLayout>
 </LinearLayout>
