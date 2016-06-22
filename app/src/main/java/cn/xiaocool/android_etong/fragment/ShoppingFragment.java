@@ -1,6 +1,7 @@
 package cn.xiaocool.android_etong.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,11 +14,20 @@ import cn.xiaocool.android_etong.R;
  * Created by 潘 on 2016/6/12.
  */
 public class ShoppingFragment extends Fragment implements View.OnClickListener {
+    private Context context;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping,container,false);
+        context = getActivity();
         return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        StatusBarCompat.compat(getActivity(), getResources().getColor(R.color.main_color_red));
+
     }
 
     @Override

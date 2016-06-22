@@ -47,6 +47,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         fragmentTransaction.add(R.id.fragment_container, homepageFragment);
         fragmentTransaction.commit();
         initBtn();
+        //透明状态栏
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        StatusBarCompat.compat(this);
+//        //透明导航栏
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     private void initBtn() {

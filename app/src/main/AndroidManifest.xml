@@ -44,22 +44,32 @@
 
 
     <application
+        android:name=".view.etongApplaction"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.AppCompat.Light" >
+        android:theme="@style/Theme.Design.Light.NoActionBar" >
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+        <activity android:name=".UI.SplashActivity">
+
+        </activity>
+        <activity android:name=".UI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.RegisiterActivity"></activity>
+        <activity android:name=".UI.ForgetPasswordActivity"></activity>
+        <activity android:name=".UI.MineEditActivity"></activity>
     </application>
 
 </manifest>

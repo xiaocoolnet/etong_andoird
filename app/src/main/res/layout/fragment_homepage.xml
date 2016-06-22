@@ -15,12 +15,18 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="160dp"-->
+                <!--android:background="@mipmap/ic_lunbotu"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--/>-->
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@mipmap/ic_lunbotu"
                 android:layout_marginBottom="10dp"
-                />
+                android:layout_height="160dp">
+            </com.daimajia.slider.library.SliderLayout>
            <LinearLayout
                android:orientation="horizontal"
                android:layout_width="match_parent"
@@ -283,6 +289,7 @@
             </LinearLayout>'
 
             <RelativeLayout
+                android:layout_marginBottom="1dp"
                 android:background="@color/whilte"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
@@ -295,203 +302,126 @@
                     android:text="加入e通，共享生活"
                     />
             </RelativeLayout>
+            <!--每日好店-->
             <RelativeLayout
+                android:layout_marginBottom="1dp"
+                android:background="@color/whilte"
                 android:layout_width="match_parent"
-                android:layout_height="36dp">
+                android:layout_height="34dp">
                 <ImageView
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/ic_meirihaodian"/>
             </RelativeLayout>
+            每日好店 网格
             <GridLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:columnCount="2"
+                android:columnCount="1"
                 android:layout_height="wrap_content">
-               <RelativeLayout
-                   android:layout_marginBottom="5dp"
-                   android:background="@color/whilte"
-                   android:layout_width="0dp"
-                   android:layout_columnWeight="1"
-                   android:layout_height="178.5dp">
-                   <ImageView
-                       android:id="@+id/img_homepage_dianpu"
-                       android:layout_centerHorizontal="true"
-                       android:layout_width="185dp"
-                       android:layout_height="140dp"
-                       android:background="@mipmap/ic_haodian"
-                       />
-                   <TextView
-                       android:id="@+id/tx_homepage_dianpu"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/img_homepage_dianpu"
-                       android:layout_marginTop="3dp"
-                       android:layout_marginLeft="10dp"
-                       android:text="女神の店"
-                       android:textColor="@color/black"
-                       android:textSize="13sp"
-                       android:textStyle="bold"
-                       />
-                   <TextView
-                       android:layout_below="@+id/tx_homepage_dianpu"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="23.5万人已收藏"
-                       android:textColor="@color/gray1"
-                       android:textSize="12sp"
-                       android:textStyle="bold"
-                       android:layout_marginTop="3dp"
-                       android:layout_marginLeft="10dp"
-                       />
-                   <ImageView
-                       android:layout_alignParentRight="true"
-                       android:layout_marginRight="10dp"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_alignTop="@+id/tx_homepage_dianpu"
-                       android:background="@mipmap/ic_yishoucang"
-                       />
-               </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/whilte"
-                    android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_height="178.5dp">
-                    <ImageView
-                        android:id="@+id/img_homepage_dianpu1"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="185dp"
-                        android:layout_height="140dp"
-                        android:background="@mipmap/ic_haodian"
-                        />
-                    <TextView
-                        android:id="@+id/tx_homepage_dianpu1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/img_homepage_dianpu1"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="女神の店"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_below="@+id/tx_homepage_dianpu1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="23.5万人已收藏"
-                        android:textColor="@color/gray1"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        />
-                    <ImageView
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tx_homepage_dianpu1"
-                        android:background="@mipmap/ic_yishoucang"
-                        />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/whilte"
-                    android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_height="178.5dp">
-                    <ImageView
-                        android:id="@+id/img_homepage_dianpu2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="185dp"
-                        android:layout_height="140dp"
-                        android:background="@mipmap/ic_haodian"
-                        />
-                    <TextView
-                        android:id="@+id/tx_homepage_dianpu2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/img_homepage_dianpu2"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="女神の店"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_below="@+id/tx_homepage_dianpu2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="23.5万人已收藏"
-                        android:textColor="@color/gray1"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        />
-                    <ImageView
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tx_homepage_dianpu2"
-                        android:background="@mipmap/ic_yishoucang"
-                        />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/whilte"
-                    android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_height="178.5dp">
-                    <ImageView
-                        android:id="@+id/img_homepage_dianpu3"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="185dp"
-                        android:layout_height="140dp"
-                        android:background="@mipmap/ic_haodian"
-                        />
-                    <TextView
-                        android:id="@+id/tx_homepage_dianpu3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/img_homepage_dianpu3"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="女神の店"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_below="@+id/tx_homepage_dianpu3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="23.5万人已收藏"
-                        android:textColor="@color/gray1"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        />
-                    <ImageView
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tx_homepage_dianpu3"
-                        android:background="@mipmap/ic_yishoucang"
-                        />
-                </RelativeLayout>
-            </GridLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="180.5dp">
+                   <RelativeLayout
+                       android:layout_marginRight="1dp"
+                       android:layout_marginBottom="5dp"
+                       android:background="@color/whilte"
+                       android:layout_width="0dp"
+                       android:layout_weight="1"
+                       android:layout_height="match_parent">
+                       <ImageView
+                           android:id="@+id/img_homepage_dianpu"
+                           android:layout_centerHorizontal="true"
+                           android:layout_width="170dp"
+                           android:layout_height="140dp"
+                           android:scaleType="matrix"
+                           android:background="@mipmap/ic_haodian"
+                           />
+                       <TextView
+                           android:id="@+id/tx_homepage_dianpu"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_below="@+id/img_homepage_dianpu"
+                           android:layout_marginTop="3dp"
+                           android:layout_marginLeft="10dp"
+                           android:text="女神の店"
+                           android:textColor="@color/black"
+                           android:textSize="13sp"
+                           android:textStyle="bold"
+                           />
+                       <TextView
+                           android:layout_below="@+id/tx_homepage_dianpu"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="23.5万人已收藏"
+                           android:textColor="@color/gray1"
+                           android:textSize="12sp"
+                           android:textStyle="bold"
+                           android:layout_marginLeft="10dp"
+                           />
+                       <ImageView
+                           android:layout_alignParentRight="true"
+                           android:layout_marginRight="10dp"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_alignTop="@+id/tx_homepage_dianpu"
+                           android:background="@mipmap/ic_yishoucang"
+                           />
+                   </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/whilte"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/img_homepage_dianpu1"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="170dp"
+                            android:layout_height="140dp"
+                            android:scaleType="matrix"
+                            android:background="@mipmap/ic_haodian"
+                            />
+                        <TextView
+                            android:id="@+id/tx_homepage_dianpu1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_homepage_dianpu1"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="女神の店"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_below="@+id/tx_homepage_dianpu1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="23.5万人已收藏"
+                            android:textColor="@color/gray1"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            />
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tx_homepage_dianpu1"
+                            android:background="@mipmap/ic_yishoucang"
+                            />
+                    </RelativeLayout>
+               </LinearLayout>
 
+            </GridLayout>
+<!--猜你喜欢-->
             <RelativeLayout
+                android:layout_marginBottom="1dp"
+                android:background="@color/whilte"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
                 <ImageView
@@ -501,7 +431,132 @@
                     android:background="@mipmap/ic_cainixihuan"
                     />
             </RelativeLayout>
+            <!--猜你喜欢 网格布局-->
+          <GridLayout
+              android:layout_width="match_parent"
+              android:columnCount="1"
+              android:layout_height="wrap_content">
+              <LinearLayout
+                android:layout_height="240dp"
+                android:layout_width="match_parent">
+                  <RelativeLayout
+                      android:layout_marginRight="1dp"
+                      android:layout_marginBottom="5dp"
+                      android:background="@color/whilte"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent">
+                      <ImageView
+                          android:id="@+id/img_homepage_xihuan1"
+                          android:layout_centerHorizontal="true"
+                          android:layout_width="170dp"
+                          android:layout_height="170dp"
+                          android:background="@mipmap/ic_xihuan"
+                          />
+                      <ImageView
+                          android:id="@+id/img_homepage_rexiao1"
+                          android:layout_below="@+id/img_homepage_xihuan1"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:background="@mipmap/ic_rexiao"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginLeft="10dp"
+                          />
+                      <TextView
+                          android:id="@+id/tx_homepage_name1"
+                          android:layout_alignTop="@+id/img_homepage_rexiao1"
+                          android:layout_toRightOf="@+id/img_homepage_rexiao1"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/black"
+                          android:layout_marginLeft="5dp"
+                          android:maxLines="2"
+                          android:text="泰国潮牌重工花朵刺绣九分袖透视连衣裙..."
+                          />
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_below="@+id/tx_homepage_name1"
+                          android:layout_marginTop="3dp"
+                          android:textColor="@color/main_color_red"
+                          android:text="￥199"
+                          android:textSize="14sp"
+                          />
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_below="@+id/tx_homepage_name1"
+                          android:layout_marginTop="3dp"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="10dp"
+                          android:textColor="@color/gray1"
+                          android:text="11122200人付款"
+                          android:textSize="14sp"
+                          />
+                  </RelativeLayout>
+                  <RelativeLayout
+                      android:layout_marginBottom="5dp"
+                      android:background="@color/whilte"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="match_parent">
+                      <ImageView
+                          android:id="@+id/img_homepage_xihuan"
+                          android:layout_centerHorizontal="true"
+                          android:layout_width="170dp"
+                          android:layout_height="170dp"
+                          android:background="@mipmap/ic_xihuan"
+                          />
+                      <ImageView
+                          android:id="@+id/img_homepage_rexiao"
+                          android:layout_below="@+id/img_homepage_xihuan"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:background="@mipmap/ic_rexiao"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginLeft="10dp"
+                          />
+                      <TextView
+                          android:id="@+id/tx_homepage_name"
+                          android:layout_alignTop="@+id/img_homepage_rexiao"
+                          android:layout_toRightOf="@+id/img_homepage_rexiao"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/black"
+                          android:layout_marginLeft="5dp"
+                          android:maxLines="2"
+                          android:text="泰国潮牌重工花朵刺绣九分袖透视连衣裙..."
+                          />
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_below="@+id/tx_homepage_name"
+                          android:layout_marginTop="3dp"
+                          android:textColor="@color/main_color_red"
+                          android:text="￥199"
+                          android:textSize="14sp"
+                          />
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_below="@+id/tx_homepage_name"
+                          android:layout_marginTop="3dp"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="10dp"
+                          android:textColor="@color/gray1"
+                          android:text="11122200人付款"
+                          android:textSize="14sp"
+                          />
+                  </RelativeLayout>
 
+              </LinearLayout>
+
+
+          </GridLayout>
         </LinearLayout>
 
     </ScrollView>

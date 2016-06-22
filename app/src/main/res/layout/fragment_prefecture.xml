@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:fitsSystemWindows="true"
+        android:clipToPadding="true"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/main_color_red"

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:fitsSystemWindows="true"
+        android:clipToPadding="true"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/main_color_red"
@@ -39,11 +41,12 @@
             <!--android:name="cn.xiaocool.android_etong.adapter.lib.CycleViewPager"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="171dip" />-->
-            <ImageView
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="171dp"
-                android:background="@mipmap/ic_banner"
-                />
+                android:layout_marginBottom="10dp"
+                android:layout_height="160dp">
+            </com.daimajia.slider.library.SliderLayout>
         <!--美丽的小图标-->
         <include layout="@layout/loace_item1"/>
         <include layout="@layout/local_item2"/>
@@ -59,17 +62,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@mipmap/ic_cainixihuan"
-              android:layout_centerVertical="true"
-              android:layout_toLeftOf="@+id/tx_cainixihuan"
-              />
-          <TextView
-              android:id="@+id/tx_cainixihuan"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
               android:layout_centerInParent="true"
-              android:text="猜你喜欢"
-              android:textSize="15sp"
-              android:textColor="@color/main_color_red"
               />
         </RelativeLayout>
             <!--餐厅信息-->
