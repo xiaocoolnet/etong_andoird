@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -19,26 +21,34 @@ import java.util.HashMap;
 
 import cn.xiaocool.android_etong.R;
 
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+
 /**
  * Created by 潘 on 2016/6/12.
  */
 public class LocalFragment extends Fragment implements View.OnClickListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
     private SliderLayout mDemoSlider;
+    private RelativeLayout ry_line;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local,container,false);
         context = getActivity();
-                //透明状态;
         return view;
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //设置状态栏高度
+        ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+        linearParams.height=getStatusBarHeight(context);
+        ry_line.setLayoutParams(linearParams);
         initview();
     }
+
 
     private void initview() {
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
@@ -101,7 +111,6 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     public void onPageScrollStateChanged(int state) {
 
     }
-
 
 
 

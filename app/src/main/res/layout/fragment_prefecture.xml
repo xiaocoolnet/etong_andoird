@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:id="@+id/lin"
+        android:background="@color/main_color_red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </RelativeLayout>
+    <RelativeLayout
         android:fitsSystemWindows="true"
         android:clipToPadding="true"
         android:layout_width="match_parent"

@@ -1,6 +1,8 @@
 package cn.xiaocool.android_etong.UI;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText et_login_phone , et_login_password;
     private TextView tx_forget_password , tx_zhuce;
     private Button btn_login;
+    private ProgressDialog progressDialog;
     private Handler handle = new Handler() {
      public void handleMessage(Message msg){
          switch (msg.what){
@@ -44,15 +47,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                      String status = json.getString("status");
                      String data = json.getString("data");
                      if (status.equals("success")) {
-                         Log.e("data",data);
+                         Log.e("data", data);
                          JSONObject item = new JSONObject(data);
                          user.setUserId(item.getString("id"));
                          user.writeData(context);;
+                         progressDialog.dismiss();
                          Toast.makeText(LoginActivity.this, "登陆成功",
                                  Toast.LENGTH_SHORT).show();
                          startActivity(new Intent(LoginActivity.this,MainActivity.class));
                          finish();
                      } else {
+                         progressDialog.dismiss();
                          Toast.makeText(LoginActivity.this, data,
                                  Toast.LENGTH_SHORT).show();
                      }
@@ -71,6 +76,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         context = this;
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initview();
     }
 
@@ -95,7 +101,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Selection.setSelection(spanText, charSequence.length());
         }
         KeyBoardUtils.showKeyBoardByTime(et_login_phone, 300);
-
     }
 
     @Override
@@ -124,6 +129,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         Log.e("et_login_password is",et_login_password.getText().toString());
         if(phone.length()==11){
             if (!password.equals("")){
+                progressDialog.setMessage("正在登陆");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
                 new MainRequest(context,handle).login(phone,password);
             }else {
                 Toast.makeText(context,"请输入密码",Toast.LENGTH_SHORT).show();

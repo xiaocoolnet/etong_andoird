@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,17 +23,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.MineEditActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+
 /**
  * Created by 潘 on 2016/6/12.
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
     private CircleImageView img_mine_head;
+    private RelativeLayout ry_line;
+    private Button btn_zhuxiao;
     private TextView tx_mine_name;
     private Context context;
     private Handler handler = new Handler(){
@@ -68,6 +76,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //设置状态栏高度
+        ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+        linearParams.height=getStatusBarHeight(context);
+        ry_line.setLayoutParams(linearParams);
         initview();
     }
 
@@ -76,6 +89,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         tx_mine_name = (TextView)getView().findViewById(R.id.tx_mine_name);
         img_mine_head = (CircleImageView)getView().findViewById(R.id.img_mine_head);
         img_mine_head.setOnClickListener(this);
+        btn_zhuxiao=(Button)getView().findViewById(R.id.btn_zhuxiao);
+        btn_zhuxiao.setOnClickListener(this);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,6 +109,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.img_mine_head:
                 startActivityForResult(new Intent(context, MineEditActivity.class), 1);
                 break;
+            case R.id.btn_zhuxiao:
+                startActivity(new Intent(context, LoginActivity.class));
+                getActivity().finish();
+                Toast.makeText(context,"退出登录",Toast.LENGTH_SHORT).show();
         }
     }
 }

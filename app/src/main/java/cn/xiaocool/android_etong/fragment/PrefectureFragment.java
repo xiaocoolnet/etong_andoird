@@ -8,14 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import cn.xiaocool.android_etong.R;
+
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
 /**
  * Created by 潘 on 2016/6/12.
  */
 public class PrefectureFragment extends Fragment implements View.OnClickListener {
     private Context context;
+    private RelativeLayout ry_line;
     private Button[] mTabs;
     private PrefectureMyFragment prefectureMyFragment;
     private PrefectureProductFragment prefectureProductFragment;
@@ -34,6 +39,11 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //设置状态栏高度
+        ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+        linearParams.height=getStatusBarHeight(context);
+        ry_line.setLayoutParams(linearParams);
 //        StatusBarCompat.compat(getActivity(), getResources().getColor(R.color.main_color_red));
         prefectureProductFragment = new  PrefectureProductFragment();
         prefectureMyFragment = new PrefectureMyFragment();

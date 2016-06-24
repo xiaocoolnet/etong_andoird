@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import cn.xiaocool.android_etong.R;
@@ -47,9 +48,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         fragmentTransaction.add(R.id.fragment_container, homepageFragment);
         fragmentTransaction.commit();
         initBtn();
-        //透明状态栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        StatusBarCompat.compat(this);
+       // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        //透明导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }

@@ -66,20 +66,16 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
                     break;
                 case CommunalInterfaces.REGISTER:
                     //判断与服务器的验证码是否一致，如果一致则提示注册成功，跳转到主界面；否则提示验证码错误
-                    //   Intent intent_is = new Intent(RegisterActivity.this, MainActivity.class);
-                    //  startActivity(intent_is);
                     try {
                         JSONObject json = (JSONObject) msg.obj;
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
-                            JSONObject item = new JSONObject(data);
-                            //实力化缓存类
-                            user.setUserId(item.getString("id"));
-                            user.writeData(context);;
+                            //实力化缓存类;
                             Toast.makeText(RegisiterActivity.this, "注册成功！",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisiterActivity.this,MainActivity.class);
+                            Intent intent = new Intent(RegisiterActivity.this,LoginActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                         else {
                             Toast.makeText(RegisiterActivity.this, data,Toast.LENGTH_SHORT).show();
@@ -88,7 +84,6 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-
                     break;
             }
         }

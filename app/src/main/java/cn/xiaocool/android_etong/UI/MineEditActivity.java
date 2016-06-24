@@ -130,6 +130,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         if (state.equals("success")) {
                             Log.e("success", "更新昵称成功");
                             tx_upname.setText("已更新");
+                            Toast.makeText(mContext,"更新昵称成功",Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(mContext, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
                         }
@@ -145,6 +146,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         String state=jsonObject.getString("status");
                         if (state.equals("success")) {
                             Log.e("success", "更新性别成功");
+                            Toast.makeText(mContext, "更新性别成功", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(mContext, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
                         }
