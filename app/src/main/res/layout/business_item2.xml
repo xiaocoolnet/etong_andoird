@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/whilte"
+    android:layout_height="116dp">
+    <!--售后管理-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_qianbao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_shouhou"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="售后管理"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <!--评价管理-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_huiyuanzhongxin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_pingjia_business"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="评价管理"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <!--我要求助-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_zuji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_phone"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="我要求助"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <!--常见问题-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_kaidian"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_question"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="常见问题"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</LinearLayout>

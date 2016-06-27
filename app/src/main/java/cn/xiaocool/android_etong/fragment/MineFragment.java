@@ -23,8 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.LoginActivity;
-import cn.xiaocool.android_etong.UI.MineEditActivity;
+import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -38,7 +39,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
 public class MineFragment extends Fragment implements View.OnClickListener {
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line;
-    private Button btn_zhuxiao;
+    private Button btn_zhuxiao,btn_kaidian;
     private TextView tx_mine_name;
     private Context context;
     private Handler handler = new Handler(){
@@ -91,6 +92,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         img_mine_head.setOnClickListener(this);
         btn_zhuxiao=(Button)getView().findViewById(R.id.btn_zhuxiao);
         btn_zhuxiao.setOnClickListener(this);
+        btn_kaidian=(Button)getView().findViewById(R.id.btn_kaidian);
+        btn_kaidian.setOnClickListener(this);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,6 +116,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(context, LoginActivity.class));
                 getActivity().finish();
                 Toast.makeText(context,"退出登录",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_kaidian:
+                startActivity(new Intent(context, BusinessActivity.class));
+                break;
         }
     }
 }

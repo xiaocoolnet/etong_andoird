@@ -58,7 +58,6 @@
 
         </activity>
         <activity android:name=".UI.SplashActivity">
-
         </activity>
         <activity android:name=".UI.LoginActivity">
             <intent-filter>
@@ -69,7 +68,9 @@
         </activity>
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
-        <activity android:name=".UI.MineEditActivity"></activity>
+        <activity android:name=".UI.Mine.MineEditActivity"></activity>
+        <activity android:name=".UI.Mine.BusinessActivity"></activity>
+        <activity android:name=".UI.Mine.EditNameActivity"></activity>
     </application>
 
 </manifest>
