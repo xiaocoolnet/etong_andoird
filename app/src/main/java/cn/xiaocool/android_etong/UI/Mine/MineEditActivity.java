@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,18 +42,21 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetBaseUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+
 
 /**
  * Created by 潘 on 2016/6/22.
  */
 public class MineEditActivity extends Activity implements View.OnClickListener {
 
-    private LinearLayout ln_name;
+    private LinearLayout ln_name,ln_phone,ln_address;
     private TextView my_edit_sex,tx_upname,tx_name,tx_edit_phone;
     private String head = null,name;
     private CircleImageView set_head_img;
     private Context mContext;
     private UserInfo user;
+    private RelativeLayout ry_line;
     private RelativeLayout btnBack;
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
@@ -126,23 +130,6 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
-//                //修改昵称
-//                case CommunalInterfaces.UPDATAUSERNAME:
-//                    try {
-//                        JSONObject jsonObject = (JSONObject)msg.obj;
-//                        String state=jsonObject.getString("status");
-//                        if (state.equals("success")) {
-//                            Log.e("success", "更新昵称成功");
-//                            tx_upname.setText("已更新");
-//                            Toast.makeText(mContext,"更新昵称成功",Toast.LENGTH_SHORT).show();
-//                        }else{
-//                            Toast.makeText(mContext, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    break;
                 //修改性别
                 case CommunalInterfaces.UPDATAUSERSEX:
                     try {
@@ -172,11 +159,17 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         mContext=this;
         user = new UserInfo();
         user.readData(mContext);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         initdata();
         new MainRequest(mContext,handler).userinfo();
     }
 
     private void initdata() {
+        //设置标题栏高度
+        ry_line = (RelativeLayout)findViewById(R.id.lin_edit);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+        linearParams.height=getStatusBarHeight(mContext);
+        ry_line.setLayoutParams(linearParams);
         //设置头像
         set_head_img = (CircleImageView) findViewById(R.id.set_head_img);
         set_head_img.setOnClickListener(this);
@@ -188,6 +181,10 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         tx_name=(TextView)findViewById(R.id.tx_name);
         ln_name=(LinearLayout)findViewById(R.id.ln_name);
         ln_name.setOnClickListener(this);
+        ln_phone=(LinearLayout)findViewById(R.id.ln_phone);
+        ln_phone.setOnClickListener(this);
+        ln_address=(LinearLayout)findViewById(R.id.ln_address);
+        ln_address.setOnClickListener(this);
         tx_edit_phone=(TextView)findViewById(R.id.tx_edit_phone);
     }
 
@@ -205,15 +202,18 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 setResult(1,dateIntent);
                 finish();
                 break;
-//           case R.id.tx_upname:
-//               if(!my_edit_name.getText().toString().equals("")){
-//                   new  MainRequest(mContext,handler).updatausername(my_edit_name.getText().toString());
-//               }else {
-//                    Toast.makeText(mContext,"请输入昵称",Toast.LENGTH_SHORT).show();
-//               }
             case R.id.ln_name:
                 Intent intent = new Intent(MineEditActivity.this,EditNameActivity.class);
                 startActivityForResult(intent, 4);
+                break;
+            case R.id.ln_phone:
+                Intent intent1 = new Intent(MineEditActivity.this,EditPhoneActivity.class);
+                startActivityForResult(intent1, 5);
+                break;
+            case R.id.ln_address:
+                Intent intent2 = new Intent();
+                intent2.setClass(MineEditActivity.this,AddressActivity.class);
+                startActivity(intent2);
                 break;
         }
     }
@@ -299,6 +299,9 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 case 4:
                     String name =data.getStringExtra("name");
                     tx_name.setText(name);
+                    break;
+                case 5:
+                    tx_edit_phone.setText(data.getStringExtra("phone"));
                     break;
             }
         }

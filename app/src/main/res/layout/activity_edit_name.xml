@@ -4,11 +4,18 @@
     android:background="@color/gray2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/lin_name"
+        android:background="@color/whilte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </RelativeLayout>
 
         <RelativeLayout
+            android:background="@color/whilte"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_size_45"
-            android:background="@color/main_color_red">
+            >
             <!--返回按钮的布局-->
             <RelativeLayout
                 android:id="@+id/rl_back"
@@ -17,7 +24,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_fanhui_left"
+                    android:background="@mipmap/ic_fanhui_left_red"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/activity_size_15"/>
             </RelativeLayout>
@@ -28,18 +35,18 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20"
                 android:layout_centerInParent="true"
-                android:textColor="@color/whilte"
-                android:text="修改资料"
+                android:textColor="@color/black"
+                android:text="姓名"
                 />
             <TextView
                 android:id="@+id/top_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="18sp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/whilte"
+                android:textColor="@color/black"
                 android:text="提交"
                 />
 
@@ -47,6 +54,7 @@
     <EditText
         android:id="@+id/ed_name"
         android:layout_marginTop="15dp"
+        android:paddingLeft="30dp"
         android:background="@color/whilte"
         android:layout_width="match_parent"
         android:layout_height="40dp" />

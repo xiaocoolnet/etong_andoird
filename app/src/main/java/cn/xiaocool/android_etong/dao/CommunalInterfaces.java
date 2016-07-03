@@ -18,4 +18,5 @@ public interface CommunalInterfaces {
     int GETUSERINFO = 0x0008;//获取用户基本资料
     int UPDATAUSERNAME = 0x0009;//修改姓名
     int UPDATAUSERSEX = 0x0010;//修改性别
+    int UPDATAUSERPHONE =0x0011;//修改手机号
 }

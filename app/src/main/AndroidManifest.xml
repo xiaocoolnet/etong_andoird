@@ -55,10 +55,8 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
-
         </activity>
-        <activity android:name=".UI.SplashActivity">
-        </activity>
+        <activity android:name=".UI.SplashActivity"></activity>
         <activity android:name=".UI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,6 +69,8 @@
         <activity android:name=".UI.Mine.MineEditActivity"></activity>
         <activity android:name=".UI.Mine.BusinessActivity"></activity>
         <activity android:name=".UI.Mine.EditNameActivity"></activity>
+        <activity android:name=".UI.Mine.EditPhoneActivity"></activity>
+        <activity android:name=".UI.Mine.AddressActivity"></activity>
     </application>
 
 </manifest>

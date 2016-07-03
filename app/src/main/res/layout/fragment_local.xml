@@ -57,19 +57,35 @@
         <include layout="@layout/loace_item1"/>
         <include layout="@layout/local_item2"/>
             <!--专区-->
-        <include layout="@layout/local_zhuanqu"/>
+        <!--<include layout="@layout/local_zhuanqu"/>-->
 
         <RelativeLayout
             android:background="@color/whilte"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             >
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@mipmap/ic_cainixihuan"
-              android:layout_centerInParent="true"
-              />
+            <LinearLayout
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_yishoucang"
+                    />
+              <TextView
+                  android:id="@+id/cainixihuan"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="2dp"
+                  android:text="猜你喜欢"
+                  android:textColor="@color/main_color_red"
+                  android:textSize="15sp"
+                  />
+
+            </LinearLayout>
+
         </RelativeLayout>
             <!--餐厅信息-->
         <include layout="@layout/local_restaurant_list"/>

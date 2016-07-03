@@ -135,9 +135,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 new MainRequest(context,handle).login(phone,password);
             }else {
                 Toast.makeText(context,"请输入密码",Toast.LENGTH_SHORT).show();
+                et_login_password.requestFocus();
             }
         }else {
             Toast.makeText(context,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+            et_login_phone.requestFocus();
         }
     }
 }

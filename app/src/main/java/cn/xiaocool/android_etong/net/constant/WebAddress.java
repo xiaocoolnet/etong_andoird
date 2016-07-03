@@ -41,7 +41,10 @@ public interface WebAddress extends NetBaseConstant {
    * 修改性别
    */
     String UPDATAUSERSEX = NET_BASE_PREFIX + "a=UpdateUserSex";
-
+    /*
+    * 修改手机
+    */
+    String UPDATAUSERPHONE = NET_BASE_PREFIX+"a=UpdateUserPhone";
 
 
     /*

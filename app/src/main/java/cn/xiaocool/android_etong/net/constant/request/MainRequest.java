@@ -222,4 +222,26 @@ public class MainRequest {
         }.start();
     }
 
+    //修改手机号
+    public  void updatauserphone(final String phone){
+        new Thread(){
+            Message msg = new Message();
+            public void run(){
+                String data = "&userid=" +user.getUserId()+"&phone="+phone;
+                Log.e("data is ",data);
+                String result_data =NetUtil.getResponse(WebAddress.UPDATAUSERPHONE,data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UPDATAUSERPHONE;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
 }
