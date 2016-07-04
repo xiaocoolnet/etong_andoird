@@ -26,4 +26,12 @@
         <item name="android:paddingTop">6.0dip</item>
         <item name="android:drawablePadding">2.0dip</item>
     </style>
+    <style name="Theme.PopupMenu"
+        parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/whilte</item>
+    </style>
+    <style name="Theme.Incallscreen"
+        parent="@android:style/Theme.Holo.NoActionBar">
+        <item name="android:popupMenuStyle">@style/Theme.PopupMenu</item>
+    </style>
 </resources>

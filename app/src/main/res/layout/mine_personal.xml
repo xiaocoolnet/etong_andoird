@@ -40,16 +40,7 @@
             android:textColor="@color/yellow"
             android:textSize="18sp"
             />
-        <Button
-            android:id="@+id/btn_zhuxiao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/main_color_red"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="退出登录"
-            android:textColor="@color/whilte"
-            />
+
     </RelativeLayout>
 
         <LinearLayout
