@@ -46,7 +46,10 @@ public interface WebAddress extends NetBaseConstant {
     */
     String UPDATAUSERPHONE = NET_BASE_PREFIX+"a=UpdateUserPhone";
 
-
+    /*
+    * 创建店铺
+    */
+    String CREATESHOP = NET_BASE_PREFIX +"a=CreateShop";
     /*
     * 下载头像
     */

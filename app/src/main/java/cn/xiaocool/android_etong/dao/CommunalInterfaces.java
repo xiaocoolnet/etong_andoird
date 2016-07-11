@@ -19,4 +19,11 @@ public interface CommunalInterfaces {
     int UPDATAUSERNAME = 0x0009;//修改姓名
     int UPDATAUSERSEX = 0x0010;//修改性别
     int UPDATAUSERPHONE =0x0011;//修改手机号
+
+    //商家
+    int AUTHENTICATION = 0x0012; //商家身份认证
+    int POSITIVE_PIC = 0x0013; //身份证前面照片
+    int OPPOSITE_PIC = 0x0014 ; //身份证后面照片
+    int LICENSE_PIC = 0x0015; //营业执照照片
+    int CREATESHOP = 0x0016;//创建店铺
 }

@@ -12,7 +12,7 @@
         >
 
         <Button
-            android:id="@+id/btn_qianbao"
+            android:id="@+id/btn_uploadgoods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_upload"

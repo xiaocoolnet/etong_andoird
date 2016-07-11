@@ -129,8 +129,8 @@ public class MainRequest {
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
                     params.add(new BasicNameValuePair("upfile", img));
                     String result = NetBaseUtils.getResponseForImg(WebAddress.UPLOADAVATAR, params, mContext);
-                    Log.e("头像路径", img);
-                    Log.e("result= ",result);
+//                    Log.e("头像路径", img);
+//                    Log.e("result= ",result);
                     msg.what = KEY;
                     msg.obj = result;
                     handler.sendMessage(msg);
@@ -244,4 +244,28 @@ public class MainRequest {
         }.start();
     }
 
+//创建店铺
+    public void CreateShop(final String legalperson,final String phone,final String idcard,final String address,
+                           final String positive_pic,final String opposite_pic,final String license_pic ,final int KEY){
+        new Thread(){
+            Message msg = new Message();
+            public void run(){
+                String data = "&userid="+user.getUserId()+"&city=yantai"+"&legalperson="+legalperson+
+                        "&phone="+phone+"&type=shangpin"+"&businesslicense=123"+"&address="+address+"&idcard="+idcard
+                        +"&positive_pic="+positive_pic+"&opposite_pic="+opposite_pic+"&license_pic="+license_pic;
+                Log.e("data is ",data);
+                String result_data =NetUtil.getResponse(WebAddress.CREATESHOP,data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = KEY;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

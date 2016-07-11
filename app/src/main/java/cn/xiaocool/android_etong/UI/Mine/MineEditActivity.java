@@ -80,6 +80,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         if (state1.equals("success")) {
                             Log.e("success", "头像上传成功");
                             Toast.makeText(mContext, "头像上传成功", Toast.LENGTH_SHORT).show();
+                            new MainRequest(mContext,handler).updatauseravatar(picname + ".jpg");
                         }else{
                             Toast.makeText(mContext, json.getString("data"),Toast.LENGTH_SHORT).show();
                         }
@@ -93,7 +94,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         JSONObject json1 = (JSONObject) msg.obj;
                         String state=json1.getString("status");
                         if (state.equals("success")) {
-                           Log.e("success","头像资料更新成功");
+                           Log.e("success", "头像资料更新成功");
                             Toast.makeText(mContext,"头像资料上传成功",Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(mContext, json1.getString("data"),Toast.LENGTH_SHORT).show();
@@ -146,7 +147,6 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
-
             }
         }
     };
@@ -343,7 +343,6 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
             storeImageToSDCARD(photo, picname, filepath);
             if(NetBaseUtils.isConnnected(mContext)){
                 new MainRequest(mContext,handler).uploadavatar(head, KEY);
-                new MainRequest(mContext,handler).updatauseravatar(picname+".jpg");
             }else {
                 Toast.makeText(mContext,"网络问题，请稍后再试！",Toast.LENGTH_SHORT).show();
             }

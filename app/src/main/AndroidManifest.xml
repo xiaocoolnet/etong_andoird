@@ -69,11 +69,18 @@
         </activity>
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
+
+        <!--Mine-->
         <activity android:name=".UI.Mine.MineEditActivity"></activity>
         <activity android:name=".UI.Mine.BusinessActivity"></activity>
         <activity android:name=".UI.Mine.EditNameActivity"></activity>
         <activity android:name=".UI.Mine.EditPhoneActivity"></activity>
         <activity android:name=".UI.Mine.AddressActivity"></activity>
+
+        <!--商家-->
+        <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.AuthenticationShopActivity"></activity>
     </application>
 
 </manifest>

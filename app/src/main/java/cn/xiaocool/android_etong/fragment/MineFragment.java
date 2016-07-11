@@ -27,7 +27,7 @@ import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
-import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.AuthenticationShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
@@ -118,7 +118,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(new Intent(context, MineEditActivity.class), 1);
                 break;
             case R.id.btn_kaidian:
-                startActivity(new Intent(context, BusinessActivity.class));
+//                startActivity(new Intent(context, BusinessActivity.class));
+                startActivity(new Intent(context, AuthenticationShopActivity.class));
                 break;
             case R.id.img_setup:
                 showPopupMenu(img_setup);
