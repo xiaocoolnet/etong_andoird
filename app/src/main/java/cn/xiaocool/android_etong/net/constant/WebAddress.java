@@ -54,4 +54,10 @@ public interface WebAddress extends NetBaseConstant {
     * 下载头像
     */
     String GETAVATAR = "http://mwn.xiaocool.net/uploads/microblog/";
+
+    /*
+    * 获取我的店铺
+    */
+
+    String GETMYSHOP = NET_BASE_PREFIX + "a=GetMyShop";
 }

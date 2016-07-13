@@ -268,4 +268,26 @@ public class MainRequest {
             }
         }.start();
     }
+
+    //获取店铺状态
+    public void getmyshop(){
+        new Thread(){
+            Message msg = new Message();
+            public void run(){
+                String data="&userid="+user.getUserId();
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GETMYSHOP,data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what =CommunalInterfaces.GETMYSHOP;
+                    msg.obj=obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

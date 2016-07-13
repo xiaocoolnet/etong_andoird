@@ -26,4 +26,5 @@ public interface CommunalInterfaces {
     int OPPOSITE_PIC = 0x0014 ; //身份证后面照片
     int LICENSE_PIC = 0x0015; //营业执照照片
     int CREATESHOP = 0x0016;//创建店铺
+    int GETMYSHOP = 0x0017;//获取我的店铺
 }

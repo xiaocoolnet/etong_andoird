@@ -16,6 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <RelativeLayout
+                    android:id="@+id/rl_back"
                     android:layout_width="50dp"
                     android:layout_height="match_parent">
                     <ImageView
@@ -173,6 +174,7 @@
                     />
             </LinearLayout>
             <RelativeLayout
+                android:id="@+id/rl_next"
                 android:layout_marginTop="128dp"
                 android:background="@color/main_color_red"
                 android:layout_width="match_parent"

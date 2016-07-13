@@ -27,11 +27,14 @@ import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.AuthenticationShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
@@ -57,7 +60,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         if (state.equals("success")) {
                             Log.e("success", "加载资料更新成功");
                             JSONObject object = jsonObject.getJSONObject("data");
-                            tx_mine_name.setText(object.getString("name"));
+                            if (object.getString("name").equals("null")){
+                                tx_mine_name.setText("未设置昵称");
+                            }else {
+                                tx_mine_name.setText(object.getString("name"));
+                            }
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), img_mine_head);
                         }else{
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
@@ -65,6 +72,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.GETMYSHOP:
+                    Log.e("getmyshop","getmyshop");
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    if(NetUtil.isConnnected(context)){
+                        try {
+                            String status = jsonObject.getString("status");
+                            String data = jsonObject.getString("data");
+                            if (status.equals("success")){
+                                startActivity(new Intent(context, BusinessActivity.class));
+                            }
+                            else if (data.equals("-10")){
+                                startActivity(new Intent(context, ApplyShopActivity.class));
+                            } else if(data.equals("0")){
+                                startActivity(new Intent(context, AuditShopActivity.class));
+                            }else if(data.equals("-1")){
+                                Toast.makeText(context,"您的认证失败",Toast.LENGTH_SHORT).show();
+                            }
+                            else if(data.equals("-2")){
+                                Toast.makeText(context,"您的店铺已被禁用",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                     }
                     break;
             }
@@ -119,7 +153,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_kaidian:
 //                startActivity(new Intent(context, BusinessActivity.class));
-                startActivity(new Intent(context, AuthenticationShopActivity.class));
+//                startActivity(new Intent(context, AuthenticationShopActivity.class));
+                    new MainRequest(context,handler).getmyshop();
                 break;
             case R.id.img_setup:
                 showPopupMenu(img_setup);
