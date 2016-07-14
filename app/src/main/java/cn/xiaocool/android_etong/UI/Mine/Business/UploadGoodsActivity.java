@@ -30,9 +30,11 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class UploadGoodsActivity extends Activity implements View.OnClickListener {
     private Context mContext;
-    private List<Provence> provences;
     private RelativeLayout rl_back;
+    private String show;
+    private List<Provence> provences;
     private Provence provence;
+    private City city;
     private static int visable = 0;
     ArrayAdapter<Provence> adapter01;
     ArrayAdapter<City>adapter02;
@@ -52,23 +54,23 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                             Provence p = new Provence();
                             JSONObject object_provence = array_provence.getJSONObject(i);
                             p.setName(object_provence.getString("name"));
-                            p.setId(object_provence.getString("id"));
+//                            p.setId(object_provence.getString("id"));
                             Log.e("省",p.getName());
-                            JSONArray array_city = object_provence.getJSONArray("c");
+                            JSONArray array_city = object_provence.getJSONArray("childlist");
                             List<City> l_c = new ArrayList<City>();
                             for (int j = 0 ; j<array_city.length();j++){
                                 City c = new City();
                                 JSONObject object_city = array_city.getJSONObject(j);
                                 c.setName(object_city.getString("name"));
-                                c.setId(object_city.getString("id"));
+//                                c.setId(object_city.getString("id"));
                                 Log.e("市",c.getName());
-                                JSONArray array_district = object_city.getJSONArray("a");
+                                JSONArray array_district = object_city.getJSONArray("childlist");
                                 List<District> l_d = new ArrayList<District>();
                                 for (int l = 0 ; l<array_district.length(); l++){
                                     District d = new District();
                                     JSONObject object_district = array_district.getJSONObject(l);
                                     d.setName(object_district.getString("name"));
-                                    d.setId(object_district.getString("id"));
+//                                    d.setId(object_district.getString("id"));
                                     Log.e("区", d.getName());
                                     l_d.add(d);
                                 }
@@ -131,7 +133,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 @Override
                 public void run() {
                     try {
-                        result_data = NetUtil.getResponse("http://www.xiaocool.net/index.php?g=apps&m=index&a=getcitylist", "");
+//                        result_data = NetUtil.getResponse("http://www.xiaocool.net/index.php?g=apps&m=index&a=getcitylist", "");
+                        result_data = NetUtil.getResponse("http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0", "");
                         Log.e("announcement", result_data);
                         JSONObject jsonObject = new JSONObject(result_data);
                         msg.obj = jsonObject;
@@ -168,21 +171,21 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
-        });
 
+        });
 
         spinner02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
+                city = provence.getCitys().get(position);
                 adapter03 = new ArrayAdapter<District>(UploadGoodsActivity.this,
                         R.layout.spinner_list_item, provence.getCitys().get(position)
                         .getDistricts());
                 spinner03.setAdapter(adapter03);
-                spinner03.setSelection(0, true);
+//                spinner03.setSelection(0, true);
 //				if(visable==1){
 //
 //				}else {
@@ -193,10 +196,23 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+            }
+
+        });
+
+        spinner03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                show = city.getDistricts().get(position).toString();
+                Log.e("show=",show);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -82,7 +82,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             String status = jsonObject.getString("status");
                             String data = jsonObject.getString("data");
                             if (status.equals("success")){
-                                startActivity(new Intent(context, BusinessActivity.class));
+                                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                String shopid = jsonObject1.getString("id");
+                                Intent intent = new Intent();
+                                intent.putExtra("shopid",shopid);
+                                intent.setClass(context, BusinessActivity.class);
+                                startActivity(intent);
                             }
                             else if (data.equals("-10")){
                                 startActivity(new Intent(context, ApplyShopActivity.class));

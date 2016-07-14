@@ -108,7 +108,8 @@ public class NetUtil {
             conn.setReadTimeout(5000);           // 設置讀取超時
             conn.setConnectTimeout(10000);       // 設置網路連結超時
             conn.setDoInput(true);               // 開啟輸入流
-            conn.setDoOutput(true);              // 開啟輸出流
+            conn.setDoOutput(true);              // 開啟
+            // 輸出流
             conn.setUseCaches(false);            // 使用Post方式不能使用暫存
 
             // post請求參數
