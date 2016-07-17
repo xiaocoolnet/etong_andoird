@@ -362,7 +362,8 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
             imagefile.createNewFile();
             FileOutputStream fos = new FileOutputStream(imagefile);
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            head = imagefile.getPath();
+            head = imagefile.getAbsolutePath();
+            Log.e("path=",head);
             user.setUserImg(head);
             fos.flush();
             fos.close();

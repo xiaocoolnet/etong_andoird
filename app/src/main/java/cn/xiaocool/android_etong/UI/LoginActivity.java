@@ -118,9 +118,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
-//登录
+    //登录
     private void login() {
         phone = et_login_phone.getText().toString();
+        phone = phone.trim();
         password = et_login_password.getText().toString();
         user.setUserPhone(phone);
         user.setUserPassword(password);

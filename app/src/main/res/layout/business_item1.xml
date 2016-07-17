@@ -33,7 +33,7 @@
         >
 
         <Button
-            android:id="@+id/btn_huiyuanzhongxin"
+            android:id="@+id/btn_dingdanguanli"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_dingdan"
@@ -54,7 +54,7 @@
         >
 
         <Button
-            android:id="@+id/btn_zuji"
+            android:id="@+id/btn_baobeiguanli"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_bag"
@@ -75,7 +75,7 @@
         >
 
         <Button
-            android:id="@+id/btn_kaidian"
+            android:id="@+id/btn_dianpuguanli"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_store"

@@ -27,4 +27,10 @@ public interface CommunalInterfaces {
     int LICENSE_PIC = 0x0015; //营业执照照片
     int CREATESHOP = 0x0016;//创建店铺
     int GETMYSHOP = 0x0017;//获取我的店铺
+    int PUBLISHGOODS = 0x0016;//发布商城
+    int GETSHOPGOODLIST = 0x0017;//获取商城商品——上架
+    int GETSHOPGOODLIST_XIAJIA = 0x0018;//获取商城商品——下架
+    int GOODSXIAJIA = 0x0019;//下架
+    int GOODSSHANGJIA = 0x0020;//上架
+    int DELETEGOODS = 0x0021;//删除产品
 }

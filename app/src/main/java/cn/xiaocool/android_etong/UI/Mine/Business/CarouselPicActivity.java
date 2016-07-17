@@ -1,0 +1,386 @@
+package cn.xiaocool.android_etong.UI.Mine.Business;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
+
+import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.bean.UserInfo;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
+
+/**
+ * Created by 潘 on 2016/7/14.
+ */
+public class CarouselPicActivity extends Activity implements View.OnClickListener {
+    private Context context;
+    private TextView tx_upload;
+    private UserInfo user;
+    private RelativeLayout rl_back;
+    private LinearLayout lin_lunbo2,lin_lunbo3;
+    private ImageView img_lunbo_pic1 , img_lunbo_pic2,img_lunbo_pic3;
+    // 保存的文件的路径
+    @SuppressLint("SdCardPath")
+    private String filepath = "/sdcard/goodspic";
+    private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
+    private static final int PHOTO_REQUEST_CUT = 3;// 相册
+    private static final int PHOTO_REQUEST_ALBUM = 2;// 剪裁
+    private static final int KEY1 = 0x666;
+    private static final int KEY2 = 0x667;
+    private static final int KEY3 = 0x668;
+    private String picname1,picname2,picname3;
+    private String pic_path1,pic_path2,pic_path3;
+    private int judge;
+    private int state = 0;
+    private ProgressDialog progressDialog;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case KEY1:
+                    Log.e("upload goodspic", "success");
+                    String key = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key);
+                        String state1=json.getString("status");
+                        if (state1.equals("success")) {
+                            state = 1;
+                           if(!(pic_path2==null||pic_path2.equals(""))){
+                               progressDialog.setMessage("正在上传第二张照片");
+                               new MainRequest(context,handler).uploadavatar(pic_path2,KEY2);
+                           }else{
+                               Log.e("path2","not set");
+                               progressDialog.dismiss();
+                           }
+                        }else{
+                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case KEY2:
+                    Log.e("upload goodspic", "success");
+                    String key2 = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key2);
+                        String state1=json.getString("status");
+                        if (state1.equals("success")) {
+                            if(!(pic_path3==null||pic_path3.equals(""))){
+                                progressDialog.setMessage("正在上传第三张照片");
+                                new MainRequest(context,handler).uploadavatar(pic_path3,KEY3);
+                            }else {
+                                Log.e("path3","not set");
+                                progressDialog.dismiss();
+                            }
+                        }else{
+                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case KEY3:
+                    Log.e("upload goodspic", "success");
+                    String key3 = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key3);
+                        String state1=json.getString("status");
+                        if (state1.equals("success")) {
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                Log.e("path3","not set");
+                                progressDialog.dismiss();
+                        }else{
+                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.business_carouselpic);
+        context = this;
+        user = new UserInfo(context);
+        user.readData(context);
+        progressDialog = new ProgressDialog(context,AlertDialog.THEME_HOLO_LIGHT);
+        intiview();
+    }
+
+    private void intiview() {
+        rl_back = (RelativeLayout)findViewById(R.id.rl_back);
+        rl_back.setOnClickListener(this);
+        lin_lunbo2 = (LinearLayout) findViewById(R.id.lin_lunbo2);
+        lin_lunbo2.setVisibility(View.GONE);
+        lin_lunbo3 = (LinearLayout) findViewById(R.id.lin_lunbo3);
+        lin_lunbo3.setVisibility(View.GONE);
+        img_lunbo_pic1 = (ImageView) findViewById(R.id.img_lunbo_pic1);
+        img_lunbo_pic1.setOnClickListener(this);
+        img_lunbo_pic2 = (ImageView) findViewById(R.id.img_lunbo_pic2);
+        img_lunbo_pic2.setOnClickListener(this);
+        img_lunbo_pic3 = (ImageView) findViewById(R.id.img_lunbo_pic3);
+        img_lunbo_pic3.setOnClickListener(this);
+        tx_upload = (TextView) findViewById(R.id.tx_upload);
+        tx_upload.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_back:
+                Intent intent_data = new Intent();
+                intent_data.putExtra("1111","111");
+                if(pic_path1==null||pic_path1.equals("")){
+                    pic_path1="";
+                }if(pic_path2==null||pic_path2.equals("")){
+                    pic_path2="";
+                }if(pic_path3==null||pic_path3.equals("")){
+                    pic_path3="";
+                }if(picname1==null||picname1.equals("")){
+                    picname1="";
+                }if(picname2==null||picname2.equals("")){
+                    picname2="";
+                }if(picname3==null||picname3.equals("")){
+                    picname3="";
+                }
+                intent_data.putExtra("state",state);
+                intent_data.putExtra("pic_path1",pic_path1);
+                intent_data.putExtra("pic_path2",pic_path2);
+                intent_data.putExtra("pic_path3",pic_path2);
+                intent_data.putExtra("picname1",picname1);
+                intent_data.putExtra("picname2",picname2);
+                intent_data.putExtra("picname3", picname3);
+                setResult(RESULT_OK, intent_data);
+                finish();
+                break;
+            case R.id.img_lunbo_pic1:
+                judge = 1;
+                ShowPickDialog();
+                break;
+            case R.id.img_lunbo_pic2:
+                judge = 2;
+                ShowPickDialog();
+                break;
+            case R.id.img_lunbo_pic3:
+                judge = 3;
+                ShowPickDialog();
+                break;
+            case R.id.tx_upload:
+                upload();
+                break;
+        }
+    }
+
+    private void upload() {
+        if(pic_path1==null||pic_path1.equals("")){
+            Toast.makeText(context,"请至少设置一张照片",Toast.LENGTH_SHORT).show();
+        }else if(NetUtil.isConnnected(context)){
+                progressDialog.setMessage("正在上传第一张轮播图片");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                new MainRequest(context,handler).uploadavatar(pic_path1,KEY1);
+        }else {
+            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void ShowPickDialog() {
+        new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT).setNegativeButton("相册", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intentFromGallery = new Intent();
+                intentFromGallery.setType("image/*"); // 设置文件类型
+                intentFromGallery.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intentFromGallery, PHOTO_REQUEST_ALBUM);
+            }
+        }).setPositiveButton("拍照", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                // 判断存储卡是否可以用，可用进行存储
+                String state = Environment.getExternalStorageState();
+                if (state.equals(Environment.MEDIA_MOUNTED)) {
+                    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                    File file = new File(path, "newpic.jpg");
+                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                }
+                startActivityForResult(intentFromCapture, PHOTO_REQUEST_CAMERA);
+            }
+        }).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case PHOTO_REQUEST_CAMERA:// 相册
+                    // 判断存储卡是否可以用，可用进行存储
+                    String state = Environment.getExternalStorageState();
+                    if (state.equals(Environment.MEDIA_MOUNTED)) {
+                        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                        File tempFile = new File(path, "newpic.jpg");
+                        startPhotoZoom(Uri.fromFile(tempFile));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case PHOTO_REQUEST_ALBUM:// 图库
+                    startPhotoZoom(data.getData());
+                    break;
+                case PHOTO_REQUEST_CUT: // 图片缩放完成后
+                    if (data != null) {
+                        getImageToView(data);
+                    }
+                    break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 340);
+        intent.putExtra("outputY", 340);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, PHOTO_REQUEST_CUT);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     *
+     * @param data
+     */
+    private void getImageToView(Intent data) {
+        Bundle extras = data.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(this.getResources(), photo);
+            if(judge==1){
+                img_lunbo_pic1.setImageDrawable(drawable);
+                lin_lunbo2.setVisibility(View.VISIBLE);
+                picname1 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo,picname1,filepath);
+            }else if(judge==2){
+                img_lunbo_pic2.setImageDrawable(drawable);
+                lin_lunbo3.setVisibility(View.VISIBLE);
+                picname2 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo,picname2,filepath);
+            }else if(judge==3){
+                img_lunbo_pic3.setImageDrawable(drawable);
+                picname3 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo,picname3,filepath);
+            }
+        }
+    }
+
+    /**
+     * storeImageToSDCARD 将bitmap存放到sdcard中
+     */
+    public void storeImageToSDCARD(Bitmap colorImage, String ImageName, String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File imagefile = new File(file, ImageName + ".jpg");
+        try {
+            imagefile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(imagefile);
+            colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            if(judge==1){
+                pic_path1 = imagefile.getPath();
+                Log.e("path=", pic_path1);
+            }else if(judge==2){
+                pic_path2 = imagefile.getPath();
+                Log.e("path=", pic_path2);
+            }else if(judge==3){
+                pic_path3 = imagefile.getPath();
+                Log.e("path=", pic_path3);
+            }
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            Intent intent_data = new Intent();
+            intent_data.putExtra("1111","111");
+            if(pic_path1==null||pic_path1.equals("")){
+                pic_path1="";
+            }if(pic_path2==null||pic_path2.equals("")){
+                pic_path2="";
+            }if(pic_path3==null||pic_path3.equals("")){
+                pic_path3="";
+            }if(picname1==null||picname1.equals("")){
+                picname1="";
+            }if(picname2==null||picname2.equals("")){
+                picname2="";
+            }if(picname3==null||picname3.equals("")){
+                picname3="";
+            }
+            intent_data.putExtra("pic_path1",pic_path1);
+            intent_data.putExtra("pic_path2",pic_path2);
+            intent_data.putExtra("pic_path3",pic_path2);
+            intent_data.putExtra("picname1",picname1);
+            intent_data.putExtra("picname2",picname2);
+            intent_data.putExtra("picname3", picname3);
+            setResult(RESULT_OK, intent_data);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+}

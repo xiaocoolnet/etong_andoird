@@ -129,7 +129,7 @@ public class MainRequest {
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
                     params.add(new BasicNameValuePair("upfile", img));
                     String result = NetBaseUtils.getResponseForImg(WebAddress.UPLOADAVATAR, params, mContext);
-//                    Log.e("头像路径", img);
+                    Log.e("头像路径", img);
 //                    Log.e("result= ",result);
                     msg.what = KEY;
                     msg.obj = result;
@@ -286,6 +286,142 @@ public class MainRequest {
                     e.printStackTrace();
                 }finally {
                     handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //发布商品
+public void publishgoods(final String shopid,final String pic1,final String pic2,final String pic3,final String goodsname,final String type,
+                         final String oprice,final String price,final String address,final String description ,
+                         final String unit , final String longitude){
+    new Thread(){
+        Message msg = new Message();
+        @Override
+        public void run() {
+            String data="&userid="+user.getUserId()+"&shopid="+shopid+"&piclist="+pic1+","+pic2+","+pic3+
+                    "&goodsname="+goodsname+"&type="+type+"&oprice="+oprice+"&price="+price+"&description="
+                    +description+"&address="+address+"&unit="+unit+"&longitude="+longitude+"&latitude=1";
+            Log.e("data=",data);
+            String result_data = NetUtil.getResponse(WebAddress.PUBLISHGOODS,data);
+            Log.e("successful", result_data);
+            try {
+                JSONObject obj = new JSONObject(result_data);
+                msg.what =CommunalInterfaces.PUBLISHGOODS;
+                msg.obj=obj;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }finally {
+                handler.sendMessage(msg);
+            }
+        }
+    }.start();
+}
+
+    //获取上架产品列表
+    public void getshopgoodlist(final String shopid){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data="&userid="+user.getUserId()+"&shopid="+shopid+"&xiajia=0";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GETSHOPGOODLIST,data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what =CommunalInterfaces.GETSHOPGOODLIST;
+                    msg.obj=obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取下架产品列表
+    public void getshopgoodlist_xiajia(final String shopid){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data="&userid="+user.getUserId()+"&shopid="+shopid+"&xiajia=1";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GETSHOPGOODLIST_XIAJIA,data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what =CommunalInterfaces.GETSHOPGOODLIST_XIAJIA;
+                    msg.obj=obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //下架产品
+    public void goodsxiajia(final String id){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&id="+id;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GOODSXIAJIA,data);
+                Log.e("result_data = ",result_data);
+                try {
+                    JSONObject jsonObject =new JSONObject(result_data) ;
+                    msg.what = CommunalInterfaces.GOODSXIAJIA;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    //上架产品
+    public void goodsshangjia(final String id){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&id="+id;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GOODSSHANGJIA,data);
+                Log.e("result_data = ",result_data);
+                try {
+                    JSONObject jsonObject =new JSONObject(result_data) ;
+                    msg.what = CommunalInterfaces.GOODSSHANGJIA;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    //上架产品
+    public void deletegoods(final String id){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&id="+id;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.DELETEGOODS,data);
+                Log.e("result_data = ",result_data);
+                try {
+                    JSONObject jsonObject =new JSONObject(result_data) ;
+                    msg.what = CommunalInterfaces.DELETEGOODS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }.start();

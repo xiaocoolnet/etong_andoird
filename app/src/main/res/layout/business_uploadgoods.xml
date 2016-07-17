@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/gray5"
+    android:background="@color/gray_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
@@ -13,7 +13,7 @@
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_marginBottom="1dp"
-                android:background="@color/gray4"
+                android:background="@color/gray_title"
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <RelativeLayout
@@ -49,6 +49,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_carousel_pic"
                 android:background="@color/whilte"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -84,14 +85,18 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:text="0/50"
-                    />
+              <EditText
+                  android:id="@+id/et_biaoti"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:background="@null"
+                  android:hint="请输入标题"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="130dp"
+                  android:textSize="16sp"
+                  android:layout_marginRight="10dp"
+                  android:maxLength="50"
+                  />
             </RelativeLayout>
 
             <LinearLayout
@@ -139,13 +144,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="品牌"
                     android:textColor="@color/black"
                     android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/et_pinpai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入品牌"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:maxLength="50"
                     />
             </RelativeLayout>
 
@@ -163,6 +178,18 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />
+                <EditText
+                    android:id="@+id/et_huohao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入货号"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -173,11 +200,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品轮播图"
+                    android:text="商品规格"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
                     android:textColor="@color/black"
                     android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/et_guige"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入商品规格"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
                     />
                 <ImageView
                     android:layout_width="wrap_content"
@@ -196,18 +234,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品轮播图"
+                    android:text="运费"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
                     android:textColor="@color/black"
                     android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/et_yunfei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入运费"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="￥"
+                    android:text="单位/元"
                     android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
@@ -225,6 +274,17 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />
+                <EditText
+                    android:id="@+id/et_fahuodi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入发货地"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -235,7 +295,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品轮播图"
+                    android:text="宝贝详情"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
                     android:textColor="@color/black"
@@ -249,8 +309,20 @@
                     android:background="@mipmap/ic_next"
                     android:layout_marginRight="10dp"
                     />
+                <EditText
+                    android:id="@+id/et_xiangqing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入宝贝详情"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
             </RelativeLayout>
             <TextView
+                android:id="@+id/tx_goods_upload"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
                 android:layout_marginTop="68dp"

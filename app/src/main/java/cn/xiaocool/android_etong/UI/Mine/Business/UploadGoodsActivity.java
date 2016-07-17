@@ -1,16 +1,23 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +30,8 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.app.text.City;
 import cn.xiaocool.android_etong.app.text.District;
 import cn.xiaocool.android_etong.app.text.Provence;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
@@ -30,8 +39,12 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class UploadGoodsActivity extends Activity implements View.OnClickListener {
     private Context mContext;
-    private RelativeLayout rl_back;
+    private RelativeLayout rl_back,rl_carousel_pic;
+    private EditText et_biaoti,et_pinpai,et_guige,et_huohao,et_yunfei,et_fahuodi,et_xiangqing;
+    private TextView tx_goods_upload;
+    private ProgressDialog progressDialog;
     private String show;
+    private String shopid;
     private List<Provence> provences;
     private Provence provence;
     private City city;
@@ -41,6 +54,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     ArrayAdapter<District> adapter03;
     private Spinner spinner01, spinner02, spinner03;
     private String result_data;
+    private String picname1,picname2,picname3;
+    private String pic_path1,pic_path2,pic_path3;
+    private String biaoti,pinpai,huohao,guige,yunfei,fahuodi,xiangqing;
+    private int state=0;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg){
             switch (msg.what){
@@ -101,6 +118,24 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.PUBLISHGOODS:
+                    Log.e("success","publish");
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        String data = jsonObject.getString("data");
+                        if (status.equals("success")){
+                            progressDialog.dismiss();
+                            Toast.makeText(mContext,"上传成功",Toast.LENGTH_SHORT).show();
+                            Log.e("success","publish");
+                        }else {
+                            progressDialog.dismiss();
+                            Toast.makeText(mContext, data,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     };
@@ -110,6 +145,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_uploadgoods);
         mContext=this;
+        Intent intent = getIntent();
+        shopid=intent.getStringExtra("shopid");
+        Log.e("shopid=", shopid);
+        progressDialog = new ProgressDialog(mContext, AlertDialog.THEME_HOLO_LIGHT);
         initview();
         initDatas();
         Log.e("解析完毕", "JSON");
@@ -124,6 +163,18 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         spinner03 = (Spinner) findViewById(R.id.spinner03);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        rl_carousel_pic = (RelativeLayout) findViewById(R.id.rl_carousel_pic);
+        rl_carousel_pic.setOnClickListener(this);
+        //输入信息
+        et_biaoti = (EditText) findViewById(R.id.et_biaoti);
+        et_pinpai = (EditText) findViewById(R.id.et_pinpai);
+        et_huohao = (EditText) findViewById(R.id.et_huohao);
+        et_guige = (EditText) findViewById(R.id.et_guige);
+        et_yunfei = (EditText) findViewById(R.id.et_yunfei);
+        et_fahuodi = (EditText) findViewById(R.id.et_fahuodi);
+        et_xiangqing = (EditText) findViewById(R.id.et_xiangqing);
+        tx_goods_upload = (TextView) findViewById(R.id.tx_goods_upload);
+        tx_goods_upload.setOnClickListener(this);
     }
 
     private void initDatas(){
@@ -144,7 +195,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                     }finally {
                         handler.sendMessage(msg);
                     }
-                    ;
                 }
             }.start();
 
@@ -219,6 +269,116 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             case R.id.rl_back:
                 finish();
                 break;
+            case R.id.rl_carousel_pic:
+                Intent intent = new Intent();
+                intent.setClass(mContext, CarouselPicActivity.class);
+                startActivityForResult(intent,1);
+                break;
+            case R.id.tx_goods_upload:
+                uploads();
+                break;
+        }
+    }
+
+    private void uploads() {
+        biaoti = et_biaoti.getText().toString();
+        pinpai = et_pinpai.getText().toString();
+        huohao = et_huohao.getText().toString();
+        guige = et_guige.getText().toString();
+        yunfei = et_yunfei.getText().toString();
+        fahuodi = et_fahuodi.getText().toString();
+        xiangqing = et_xiangqing.getText().toString();
+        if (state==1){
+            if (!TextUtils.isEmpty(biaoti)){
+                if (!TextUtils.isEmpty(pinpai)){
+                    if (!TextUtils.isEmpty(huohao)){
+                        if (!TextUtils.isEmpty(guige)){
+                            if (!TextUtils.isEmpty(yunfei)){
+                                if (!TextUtils.isEmpty(fahuodi)){
+                                    if (!TextUtils.isEmpty(xiangqing)){
+                                        if (!TextUtils.isEmpty(show)){
+                                            if(NetUtil.isConnnected(mContext)){
+                                                progressDialog.setMessage("正在上传");
+                                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                progressDialog.show();
+                                                new MainRequest(mContext,handler).publishgoods(shopid,picname1,picname2,picname3,
+                                                        biaoti,show,pinpai,yunfei,xiangqing,fahuodi,guige,huohao);
+                                            }else {
+                                                Toast.makeText(mContext,"请检查网络",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }else {
+                                            Toast.makeText(mContext,"请选择分类",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else {
+                                        Toast.makeText(mContext,"请输入宝贝详情",Toast.LENGTH_SHORT).show();
+                                        et_xiangqing.requestFocus();
+                                    }
+                                }else {
+                                    Toast.makeText(mContext,"请输入发货地",Toast.LENGTH_SHORT).show();
+                                    et_fahuodi.requestFocus();
+                                }
+                            }else {
+                                Toast.makeText(mContext,"请输入运费",Toast.LENGTH_SHORT).show();
+                                et_yunfei.requestFocus();
+                            }
+                        }else {
+                            Toast.makeText(mContext,"请输入规格",Toast.LENGTH_SHORT).show();
+                            et_guige.requestFocus();
+                        }
+                    }else {
+                        Toast.makeText(mContext,"请输入货号",Toast.LENGTH_SHORT).show();
+                        et_huohao.requestFocus();
+                    }
+                }else {
+                    Toast.makeText(mContext,"请输入品牌",Toast.LENGTH_SHORT).show();
+                    et_pinpai.requestFocus();
+                }
+            }else {
+                Toast.makeText(mContext,"请输入标题",Toast.LENGTH_SHORT).show();
+                et_biaoti.requestFocus();
+            }
+        }else {
+            Toast.makeText(mContext,"请传入至少一张照片",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            Log.e("success",data.getStringExtra("1111"));
+            state = data.getIntExtra("state",1);
+            pic_path1 = data.getStringExtra("pic_path1");
+            Log.e("pic_path1=",pic_path1);
+            pic_path2 = data.getStringExtra("pic_path2");
+            Log.e("pic_path2=",pic_path2);
+            pic_path3 = data.getStringExtra("pic_path3");
+            Log.e("pic_path3=",pic_path3);
+            picname1 = data.getStringExtra("picname1");
+            Log.e("picname1",picname1);
+            picname2 = data.getStringExtra("picname2");
+            Log.e("picname2",picname2);
+            picname3 = data.getStringExtra("picname3");
+            Log.e("picname3",picname3);
+            if(pic_path1==null||pic_path1.equals("")){
+                pic_path1="";
+            }if(pic_path2==null||pic_path2.equals("")){
+                pic_path2="";
+            }if(pic_path3==null||pic_path3.equals("")){
+                pic_path3="";
+            }if(picname1==null||picname1.equals("")){
+                picname1="";
+            }else {
+                picname1 = picname1+".jpg";
+            }if(picname2==null||picname2.equals("")){
+                picname2="";
+            }else {
+                picname2= picname2+".jpg";
+            }if(picname3==null||picname3.equals("")){
+                picname3="";
+            }else {
+                picname3 = picname3+".jpg";
+            }
         }
     }
 }

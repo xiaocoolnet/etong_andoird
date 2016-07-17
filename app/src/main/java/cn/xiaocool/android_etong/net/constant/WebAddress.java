@@ -60,4 +60,40 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GETMYSHOP = NET_BASE_PREFIX + "a=GetMyShop";
+    /*
+    *发布商品
+    */
+
+    String PUBLISHGOODS = NET_BASE_PREFIX + "a=PublishGoods";
+
+    /*
+    *获取上架产品列表
+    */
+
+    String GETSHOPGOODLIST = NET_BASE_PREFIX + "a=GetShopGoodList";
+
+    /*
+    *获取下架产品列表
+    */
+
+    String GETSHOPGOODLIST_XIAJIA = NET_BASE_PREFIX + "a=GetShopGoodList";
+
+    /*
+    * 下架产品
+    */
+
+    String GOODSXIAJIA = NET_BASE_PREFIX + "a=GoodsXiajia";
+
+    /*
+    * 上架产品
+    */
+    String GOODSSHANGJIA = NET_BASE_PREFIX + "a=GoodsShangjia";
+
+    /*
+    * 删除产品
+    */
+
+    String DELETEGOODS = NET_BASE_PREFIX +"a=DeleteGoods";
 }
+
+
