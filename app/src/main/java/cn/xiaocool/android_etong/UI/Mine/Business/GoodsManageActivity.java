@@ -1,9 +1,11 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
     private FragmentManager fragmentManager;
     private int index, currentIndex;
     private Context context;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
         context = this;
         Intent intent =getIntent();
         shopid = intent.getStringExtra("shopid");
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initfragment();
         initview();
 
@@ -51,7 +55,7 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
         //活动向碎片交互
         sellFragment = new SellFragment();
         Bundle bundle1 = new Bundle();
-        bundle1.putString("shopid",shopid);
+        bundle1.putString("shopid", shopid);
         sellFragment.setArguments(bundle1);
 
         removeFragment = new RemoveFragment();
@@ -62,7 +66,9 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
         fragments = new Fragment[]{sellFragment,removeFragment};
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container,removeFragment);
         fragmentTransaction.add(R.id.fragment_container, sellFragment);
+        fragmentTransaction.hide(removeFragment);
         fragmentTransaction.commit();
         initbtn();
     }

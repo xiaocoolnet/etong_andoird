@@ -52,7 +52,6 @@ public class RemoveFragment extends Fragment {
                         String state=jsonObject.getString("status");
                         if (state.equals("success")) {
                             progressDialog.dismiss();
-                            tx_no_content.setVisibility(View.GONE);
                             remove_list.clear();
                             Log.e("success", "getshopgoodlist");
                             JSONArray jsonarray = jsonObject.getJSONArray("data");
@@ -74,9 +73,17 @@ public class RemoveFragment extends Fragment {
                             if(removeListAdapter!=null){
                                 removeListAdapter.notifyDataSetChanged();
                             }else {
-                                removeListAdapter = new RemoveListAdapter(context,remove_list,myListener,handler);
-                                list_remove.setAdapter(removeListAdapter);
+                                if (remove_list.isEmpty()){
+                                    Log.e("remove list","is empty");
+                                    tx_no_content.setVisibility(View.VISIBLE);
+                                }else {
+                                    Log.e("remove list","is not empty");
+                                    tx_no_content.setVisibility(View.GONE);
+                                    removeListAdapter = new RemoveListAdapter(context,remove_list,myListener,handler);
+                                    list_remove.setAdapter(removeListAdapter);
+                                }
                             }
+
                         }else{
                             progressDialog.dismiss();
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
@@ -158,9 +165,14 @@ public class RemoveFragment extends Fragment {
         }
     }
     public void updataUI() {
-            progressDialog.setMessage("正在加载");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
+        progressDialog.setMessage("正在加载");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        if (NetUtil.isConnnected(context)){
             new MainRequest(context,handler).getshopgoodlist_xiajia(shopid);
+        }else {
+            Toast.makeText(context,"网络不稳定",Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
     }
 }

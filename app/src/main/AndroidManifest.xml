@@ -88,6 +88,8 @@
         <activity android:name=".UI.Mine.Business.EditStoreActivity"></activity>
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderManageActivity"></activity>
+        <activity android:name=".UI.Mine.Business.CommonProblemActivity"></activity>
+        <activity android:name=".UI.Mine.Business.StoreHomepageActivity"></activity>
     </application>
 
 </manifest>

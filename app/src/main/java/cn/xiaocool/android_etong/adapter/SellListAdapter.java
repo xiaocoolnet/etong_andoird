@@ -96,6 +96,7 @@ public class SellListAdapter extends BaseAdapter {
                                         selllist.remove(position);
                                         notifyDataSetChanged();
                                         myListener.showMessage(1);
+                                        Toast.makeText(context,"下架成功",Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
                                     }

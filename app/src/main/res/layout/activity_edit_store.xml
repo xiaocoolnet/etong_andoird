@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="132dp">
         <ImageView
+            android:id="@+id/img_store_head"
             android:layout_width="81dp"
             android:layout_height="81dp"
             android:layout_centerInParent="true"
@@ -56,6 +57,18 @@
         android:text="店铺名称"
         android:textColor="@color/black"
         />
+        <EditText
+            android:id="@+id/tx_store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="130dp"
+            android:hint="请输入店铺名称"
+            android:textSize="14sp"
+            android:background="@null"
+            android:textColor="@color/black"
+            android:maxLength="10"
+            />
 </RelativeLayout>
     <RelativeLayout
         android:background="@color/view_color"
@@ -90,7 +103,8 @@
             />
     </RelativeLayout>
         <Button
-            android:text="下一步"
+            android:id="@+id/btn_next"
+            android:text="完成"
             android:textSize="14sp"
             android:textColor="@color/whilte"
             android:layout_marginTop="83dp"

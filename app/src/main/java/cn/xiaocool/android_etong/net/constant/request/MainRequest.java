@@ -380,6 +380,8 @@ public void publishgoods(final String shopid,final String pic1,final String pic2
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
                 }
             }
         }.start();
@@ -401,12 +403,14 @@ public void publishgoods(final String shopid,final String pic1,final String pic2
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
                 }
             }
         }.start();
     }
 
-    //上架产品
+    //删除产品
     public void deletegoods(final String id){
         new Thread(){
             Message msg = new Message();
@@ -422,6 +426,53 @@ public void publishgoods(final String shopid,final String pic1,final String pic2
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+    //修改店铺头像(实为更改地址 先拿来储存头像信息)
+    public  void  updatashopaddress(final String id,final String address){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&id="+id+"&address="+address;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.UPDATASHOPADDRESS,data);
+                Log.e("result_data = ",result_data);
+                try {
+                    JSONObject jsonObject =new JSONObject(result_data) ;
+                    msg.what = CommunalInterfaces.UPDATASHOPADDRESS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //修改店铺名称
+    public void updateshopname(final String id ,final String shopname){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&id="+id+"&shopname="+shopname;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.UPDATASHOPNAME,data);
+                Log.e("result_data = ",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UPDATASHOPNAME;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
                 }
             }
         }.start();

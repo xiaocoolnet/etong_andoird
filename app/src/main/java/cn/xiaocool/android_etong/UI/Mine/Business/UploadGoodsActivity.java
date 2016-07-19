@@ -48,6 +48,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private List<Provence> provences;
     private Provence provence;
     private City city;
+    private District district;
     private static int visable = 0;
     ArrayAdapter<Provence> adapter01;
     ArrayAdapter<City>adapter02;
@@ -253,7 +254,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         spinner03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                show = city.getDistricts().get(position).toString();
+                show = spinner03.getSelectedItem().toString();
                 Log.e("show=",show);
             }
 

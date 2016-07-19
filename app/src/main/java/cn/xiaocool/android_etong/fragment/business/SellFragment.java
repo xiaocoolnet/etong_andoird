@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -43,6 +44,7 @@ public class SellFragment extends Fragment {
     private Context context;
     private ListView list_sell;
     private SellListAdapter sellListAdapter;
+    private TextView tx_no_content;
     private ProgressDialog progressDialog;
     private Handler handler = new Handler() {
         @Override
@@ -76,8 +78,15 @@ public class SellFragment extends Fragment {
                             if(sellListAdapter!=null){
                                 sellListAdapter.notifyDataSetChanged();
                             }else {
-                                sellListAdapter = new SellListAdapter(context,selllist,handler,myListener);
-                                list_sell.setAdapter(sellListAdapter);
+                                if (selllist.isEmpty()){
+                                    Log.e("sell list","is empty");
+                                    tx_no_content.setVisibility(View.VISIBLE);
+                                }else {
+                                    Log.e("sell list","is not empty");
+                                    tx_no_content.setVisibility(View.GONE);
+                                    sellListAdapter = new SellListAdapter(context,selllist,handler,myListener);
+                                    list_sell.setAdapter(sellListAdapter);
+                                }
                             }
                         }else{
                             progressDialog.dismiss();
@@ -134,16 +143,14 @@ public class SellFragment extends Fragment {
     }
 
     private void initview() {
-        progressDialog  = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         selllist = new ArrayList<sell.DataBean>();
         list_sell = (ListView) getView().findViewById(R.id.list_sell);
+        tx_no_content = (TextView) getView().findViewById(R.id.tx_no_content);
     }
 
     private void initdata() {
         if(NetUtil.isConnnected(context)){
-            progressDialog.setMessage("正在加载");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
             new MainRequest(context,handler).getshopgoodlist(shopid);
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
@@ -161,10 +168,15 @@ public class SellFragment extends Fragment {
         }
     }
     public void updataUI() {
-            progressDialog.setMessage("正在加载");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
+        progressDialog.setMessage("正在加载");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        if(NetUtil.isConnnected(context)){
             new MainRequest(context,handler).getshopgoodlist(shopid);
+        }else {
+            Toast.makeText(context,"网络不稳定",Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
     }
 
 }

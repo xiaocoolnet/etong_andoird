@@ -94,6 +94,18 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String DELETEGOODS = NET_BASE_PREFIX +"a=DeleteGoods";
+
+    /*
+    *修改店铺头像
+    */
+
+    String UPDATASHOPADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
+
+    /*
+    * 修改店铺名称
+    */
+
+    String UPDATASHOPNAME = NET_BASE_PREFIX +"a=UpdateShopName";
 }
 
 

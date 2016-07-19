@@ -89,6 +89,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 intent.setClass(context, BusinessActivity.class);
                                 startActivity(intent);
                             }
+                            //未开店
                             else if (data.equals("-10")){
                                 startActivity(new Intent(context, ApplyShopActivity.class));
                             } else if(data.equals("0")){
