@@ -43,7 +43,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
         HashMap<String,String> url_maps = new HashMap<String, String>();
         url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
-        url_maps.put("Big Bang Theory", "hq.xiaocool.net/uploads/microblog/sp2.jpg");
+        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
         url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
         url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
 

@@ -66,10 +66,10 @@ public class SellFragment extends Fragment {
                                 json = (JSONObject) jsonarray.get(i);
                                 sell.DataBean databean = new sell.DataBean();
                                 String pic = json.getString("picture");
-                                String[] arraypic = pic.split("[,]");
-                                Log.e("第一张图片名称",arraypic[0]);
+//                                String[] arraypic = pic.split("[,]");
+//                                Log.e("第一张图片名称",arraypic[0]);
                                 databean.setGoodsname(json.getString("goodsname"));
-                                databean.setPicture(arraypic[0]);
+                                databean.setPicture(pic);
                                 databean.setPrice(json.getString("price"));
                                 databean.setShopid(json.getString("shopid"));
                                 databean.setId(json.getString("id"));

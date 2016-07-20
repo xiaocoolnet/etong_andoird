@@ -89,7 +89,12 @@
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderManageActivity"></activity>
         <activity android:name=".UI.Mine.Business.CommonProblemActivity"></activity>
-        <activity android:name=".UI.Mine.Business.StoreHomepageActivity"></activity>
+        <activity android:name=".UI.Mine.Business.StoreHomepageActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".UI.Mine.Business.GoodsDetailActivity"></activity>
+        <activity android:name=".UI.Mine.Business.BuyNowActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ComfirmOrderActivity" android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>
