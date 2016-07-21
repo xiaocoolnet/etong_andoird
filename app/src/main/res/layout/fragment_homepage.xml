@@ -326,6 +326,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180.5dp">
                    <RelativeLayout
+                       android:id="@+id/rl_bestshop_left"
                        android:layout_marginRight="1dp"
                        android:layout_marginBottom="5dp"
                        android:background="@color/whilte"
@@ -372,6 +373,7 @@
                            />
                    </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_bestshop_right"
                         android:layout_marginBottom="5dp"
                         android:background="@color/whilte"
                         android:layout_width="0dp"

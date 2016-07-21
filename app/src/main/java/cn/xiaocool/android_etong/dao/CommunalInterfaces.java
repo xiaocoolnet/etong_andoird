@@ -37,4 +37,8 @@ public interface CommunalInterfaces {
     int UPDATASHOPNAME = 0x0025;//修改店铺名称
     int CHANGE_GOOD_INTRO = 0x0026;//修改宝贝详情
     int CHANGE_GOOD_INTRO_ITEM = 0x0027;//修改宝贝详情单条信息
+    int GET_GOODS_INFO = 0x0028;//获取单个商品详情
+    int GET_SHOP_INFO = 0x0029;//获取单个店铺详情
+    int BOOKING_SHOPPING = 0x0030;//商城产品购买
+    int GET_SHOPPING_ORDER_LIST = 0x0031;// 获取我的商城订单列表
 }

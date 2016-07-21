@@ -80,6 +80,7 @@ public class StoreHomePageAdapter extends BaseAdapter {
                     Intent intent = new Intent();
                     intent.putExtra("pic",dataBean.getPicture());
                     intent.putExtra("id",dataBean.getId());
+                    intent.putExtra("price",dataBean.getPrice());
                     intent.putExtra("goodsname",dataBean.getGoodsname());
                     intent.setClass(context, GoodsDetailActivity.class);
                     context.startActivity(intent);

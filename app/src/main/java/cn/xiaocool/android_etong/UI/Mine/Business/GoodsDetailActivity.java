@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -19,10 +22,16 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
  * Created by 潘 on 2016/7/20.
@@ -32,10 +41,33 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private Context context;
     private RelativeLayout rl_back;
     private SliderLayout mDemoSlider;
+    private TextView tx_goods_name,tx_goods_price;
     private ImageView img_goods_pic;
     private Button btn_lijigoumai;
-    private String id , pic , goodsname;
+    private String id , pic , goodsname , price;
     private String[] arraypic;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case CommunalInterfaces.GET_GOODS_INFO:
+                    JSONObject json = (JSONObject) msg.obj;
+                    try {
+                        String status = json.getString("status");
+                        String data = json.getString("data");
+                        if (status.equals("success")){
+
+                        }else {
+                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +78,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         Intent intent = getIntent();
         id=intent.getStringExtra("id");
         pic = intent.getStringExtra("pic");
+        price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         arraypic = pic.split("[,]");
         for (String pic_name:arraypic){
@@ -53,6 +86,12 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         }
         Log.e("id=", id);
         initview();
+        if (NetUtil.isConnnected(context)){
+            new MainRequest(context,handler).getgoodsinfo(id);
+        }else {
+            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        }
+        setview();
         initpic();
     }
 
@@ -62,6 +101,13 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
         btn_lijigoumai = (Button) findViewById(R.id.btn_lijigoumai);
         btn_lijigoumai.setOnClickListener(this);
+        tx_goods_name = (TextView) findViewById(R.id.tx_goods_name);
+        tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
+    }
+
+    private void setview() {
+        tx_goods_name.setText(goodsname);
+        tx_goods_price.setText("￥"+price);
     }
 
     private void initpic() {
@@ -116,6 +162,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_lijigoumai:
                 Intent intent = new Intent();
+                intent.putExtra("id",id);
                 intent.setClass(context,BuyNowActivity.class);
                 startActivity(intent);
                 break;

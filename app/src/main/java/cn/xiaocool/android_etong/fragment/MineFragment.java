@@ -31,6 +31,7 @@ import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
+import cn.xiaocool.android_etong.UI.Mine.MyShoppingOrderListActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -45,7 +46,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
 public class MineFragment extends Fragment implements View.OnClickListener {
     private ImageView img_setup;
     private CircleImageView img_mine_head;
-    private RelativeLayout ry_line;
+    private RelativeLayout ry_line,rl_mine_shoucang,rl_order_list;
     private Button btn_kaidian;
     private TextView tx_mine_name;
     private Context context;
@@ -138,7 +139,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btn_kaidian.setOnClickListener(this);
         img_setup=(ImageView)getView().findViewById(R.id.img_setup);
         img_setup.setOnClickListener(this);
-
+        rl_mine_shoucang = (RelativeLayout)getView().findViewById(R.id.rl_mine_shoucang);
+        rl_mine_shoucang.setOnClickListener(this);
+        rl_order_list = (RelativeLayout)getView().findViewById(R.id.rl_order_list);
+        rl_order_list.setOnClickListener(this);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -165,7 +169,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.img_setup:
                 showPopupMenu(img_setup);
                 break;
-
+            case R.id.rl_order_list:
+                Intent intent = new Intent();
+                intent.setClass(context, MyShoppingOrderListActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
