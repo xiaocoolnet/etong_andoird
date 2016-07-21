@@ -35,4 +35,6 @@ public interface CommunalInterfaces {
     int DELETEGOODS = 0x0023;//删除产品
     int UPDATASHOPADDRESS = 0x0024;//修改商铺地址(头像)
     int UPDATASHOPNAME = 0x0025;//修改店铺名称
+    int CHANGE_GOOD_INTRO = 0x0026;//修改宝贝详情
+    int CHANGE_GOOD_INTRO_ITEM = 0x0027;//修改宝贝详情单条信息
 }

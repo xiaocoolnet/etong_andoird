@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="46dp">
         <Button
+            android:id="@+id/btn_edit_good_intro"
             android:background="@color/whilte"
             android:layout_width="0dp"
             android:layout_height="match_parent"
