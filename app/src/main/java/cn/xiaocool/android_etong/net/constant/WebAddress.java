@@ -12,100 +12,111 @@ public interface WebAddress extends NetBaseConstant {
      * 注册后缀
     */
     String REGISTER = NET_BASE_PREFIX + "a=AppRegister";
-    /*
-    *修改密码
+    /**
+     * 修改密码
     */
     String FORGETPASSWORD = NET_BASE_PREFIX + "a=forgetpwd";
-    /*
+    /**
     * 登录
     */
     String LOGIN = NET_BASE_PREFIX+ "a=applogin";
-    /*
+    /**
        * 获取个人资料
        */
     String GETUSERINFO = NET_BASE_PREFIX +"a=getuserinfo";
 
-    /*
+    /**
     *上传头像
     */
     String UPLOADAVATAR = NET_BASE_PREFIX +"a=uploadavatar";
-    /*
+    /**
     *修改头像资料
     */
     String UPLOADUSERAVATAR = NET_BASE_PREFIX + "a=UpdateUserAvatar";
-    /*
+    /**
     * 修改昵称
     */
     String UPDATAUSERNAME =NET_BASE_PREFIX + "a=UpdateUserName";
-   /*
+   /**
    * 修改性别
    */
     String UPDATAUSERSEX = NET_BASE_PREFIX + "a=UpdateUserSex";
-    /*
+    /**
     * 修改手机
     */
     String UPDATAUSERPHONE = NET_BASE_PREFIX+"a=UpdateUserPhone";
 
-    /*
+    /**
     * 创建店铺
     */
     String CREATESHOP = NET_BASE_PREFIX +"a=CreateShop";
-    /*
+    /**
     * 下载头像
     */
     String GETAVATAR = "http://mwn.xiaocool.net/uploads/microblog/";
 
-    /*
+    /**
     * 获取我的店铺
     */
 
     String GETMYSHOP = NET_BASE_PREFIX + "a=GetMyShop";
-    /*
+    /**
     *发布商品
     */
 
     String PUBLISHGOODS = NET_BASE_PREFIX + "a=PublishGoods";
 
-    /*
+    /**
     *获取上架产品列表
     */
 
     String GETSHOPGOODLIST = NET_BASE_PREFIX + "a=GetShopGoodList";
 
-    /*
+    /**
     *获取下架产品列表
     */
 
     String GETSHOPGOODLIST_XIAJIA = NET_BASE_PREFIX + "a=GetShopGoodList";
 
-    /*
+    /**
     * 下架产品
     */
 
     String GOODSXIAJIA = NET_BASE_PREFIX + "a=GoodsXiajia";
 
-    /*
+    /**
     * 上架产品
     */
     String GOODSSHANGJIA = NET_BASE_PREFIX + "a=GoodsShangjia";
 
-    /*
+    /**
     * 删除产品
     */
 
     String DELETEGOODS = NET_BASE_PREFIX +"a=DeleteGoods";
 
-    /*
+    /**
     *修改店铺头像
     */
 
     String UPDATASHOPADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
 
-    /*
+    /**
     * 修改店铺名称
     */
 
     String UPDATASHOPNAME = NET_BASE_PREFIX +"a=UpdateShopName";
+
+    /**
+    * 修改商品详情信息
+    */
+
+    String CHANGE_GOOD_INTRO = NET_BASE_PREFIX +"a=GetGoodsInfo";
+    /**
+     * 修改商品详情单条信息
+     */
+
+    String CHANGE_GOOD_INTRO_ITEM = NET_BASE_PREFIX;
 }
 
 

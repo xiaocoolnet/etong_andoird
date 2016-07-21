@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -85,6 +86,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             }
         }
     };
+    private Button btnWantHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,8 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         }
     }
     private void initview() {
+        btnWantHelp = (Button) findViewById(R.id.btn_want_help);
+        btnWantHelp.setOnClickListener(this);
         rl_back=(RelativeLayout)findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         btn_uploadgoods=(Button)findViewById(R.id.btn_uploadgoods);
@@ -174,6 +178,11 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 intent7.setClass(BusinessActivity.this, StoreHomepageActivity   .class);
                 startActivity(intent7);
                 break;
+            case R.id.btn_want_help:
+                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + "15853503932");
+                intentCall.setData(data);
+                startActivity(intentCall);
         }
     }
 

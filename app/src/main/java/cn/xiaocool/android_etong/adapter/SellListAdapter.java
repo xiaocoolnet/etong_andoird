@@ -1,10 +1,13 @@
 package cn.xiaocool.android_etong.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +24,12 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.util.ArrayList;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.EditGoodIntroActivity;
 import cn.xiaocool.android_etong.bean.business.sell;
 import cn.xiaocool.android_etong.fragment.business.SellFragment;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
@@ -81,7 +86,7 @@ public class SellListAdapter extends BaseAdapter {
 
         imageLoader.displayImage(WebAddress.GETAVATAR+dataBean.getPicture(),holder.img_pic,displayImageOptions);
         holder.tx_biaoti.setText(dataBean.getGoodsname());
-        holder.tx_price.setText(dataBean.getPrice() + " ￥");
+        holder.tx_price.setText("¥" + dataBean.getPrice());
         holder.btn_xiajia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,18 +148,33 @@ public class SellListAdapter extends BaseAdapter {
                 }
             }
         });
+
+        holder.btnEditGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getId()==R.id.btn_edit_good_intro){
+                    Intent intent = new Intent();
+                    intent.setClass(context,EditGoodIntroActivity.class);
+                    intent.putExtra("goodId",selllist.get(position).getId());
+                    Log.e("id isisisisisisi",selllist.get(position).getId());
+                    context.startActivity(intent);
+                }
+            }
+        });
         return convertView;
     }
     class ViewHolder{
         ImageView img_pic;
         TextView tx_biaoti,tx_price;
         Button btn_xiajia,btn_shanchu;
+        Button btnEditGood;
         public ViewHolder(View convertView) {
             img_pic = (ImageView)convertView.findViewById(R.id.img_pic);
             tx_biaoti = (TextView)convertView.findViewById(R.id.tx_biaoti);
             tx_price = (TextView)convertView.findViewById(R.id.tx_price);
             btn_xiajia = (Button)convertView.findViewById(R.id.btn_xiajia);
             btn_shanchu = (Button)convertView.findViewById(R.id.btn_shanchu);
+            btnEditGood = (Button) convertView.findViewById(R.id.btn_edit_good_intro);
         }
     }
 }

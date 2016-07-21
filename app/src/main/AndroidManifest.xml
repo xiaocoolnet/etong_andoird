@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.hardware.sensor.accelerometer" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -77,6 +77,9 @@
         <activity android:name=".UI.Mine.EditNameActivity"></activity>
         <activity android:name=".UI.Mine.EditPhoneActivity"></activity>
         <activity android:name=".UI.Mine.AddressActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditGoodIntroActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ChangeGoodInforActivity"></activity>
+
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
