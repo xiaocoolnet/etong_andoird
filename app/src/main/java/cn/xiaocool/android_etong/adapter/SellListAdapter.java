@@ -83,8 +83,9 @@ public class SellListAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-
-        imageLoader.displayImage(WebAddress.GETAVATAR+dataBean.getPicture(),holder.img_pic,displayImageOptions);
+        String pic = dataBean.getPicture();
+        String[] arraypic = pic.split("[,]");
+        imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_pic,displayImageOptions);
         holder.tx_biaoti.setText(dataBean.getGoodsname());
         holder.tx_price.setText("¥" + dataBean.getPrice());
         holder.btn_xiajia.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package cn.xiaocool.android_etong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.util.ArrayList;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.bean.business.StoreHomepage;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 
@@ -65,9 +67,25 @@ public class StoreHomePageAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        imageLoader.displayImage(WebAddress.GETAVATAR+dataBean.getPicture(),holder.img_goods_pic,displayImageOptions);
-        holder.tx_goods_price.setText(dataBean.getPrice()+"￥");
+
+        String pic = dataBean.getPicture();
+        String[] arraypic = pic.split("[,]");
+        imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_goods_pic,displayImageOptions);
+        holder.tx_goods_price.setText(dataBean.getPrice() + "￥");
         holder.tx_goods_name.setText(dataBean.getGoodsname());
+        holder.img_goods_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId()==R.id.img_goods_pic){
+                    Intent intent = new Intent();
+                    intent.putExtra("pic",dataBean.getPicture());
+                    intent.putExtra("id",dataBean.getId());
+                    intent.putExtra("goodsname",dataBean.getGoodsname());
+                    intent.setClass(context, GoodsDetailActivity.class);
+                    context.startActivity(intent);
+                }
+            }
+        });
         return convertView;
     }
     class ViewHolder{

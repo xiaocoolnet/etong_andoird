@@ -62,9 +62,9 @@ public class RemoveFragment extends Fragment {
                                 json = (JSONObject) jsonarray.get(i);
                                 remove.DataBean databean = new remove.DataBean();
                                 String pic = json.getString("picture");
-                                String[] arraypic = pic.split("[,]");
+//                                String[] arraypic = pic.split("[,]");
                                 databean.setGoodsname(json.getString("goodsname"));
-                                databean.setPicture(arraypic[0]);
+                                databean.setPicture(pic);
                                 databean.setPrice(json.getString("price"));
                                 databean.setShopid(json.getString("shopid"));
                                 databean.setId(json.getString("id"));
