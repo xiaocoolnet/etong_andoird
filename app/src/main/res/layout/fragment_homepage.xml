@@ -86,6 +86,7 @@
                    android:layout_height="match_parent">
                    <!--每日精选-->
                    <RelativeLayout
+                       android:id="@+id/rl_meirijingxuan"
                        android:background="@color/whilte"
                        android:layout_width="match_parent"
                        android:layout_height="74dp">

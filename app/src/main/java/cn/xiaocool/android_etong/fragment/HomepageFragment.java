@@ -2,10 +2,12 @@ package cn.xiaocool.android_etong.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -17,6 +19,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import java.util.HashMap;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
 
 /**
  * Created by 潘 on 2016/6/12.
@@ -24,6 +27,7 @@ import cn.xiaocool.android_etong.R;
 public class HomepageFragment extends Fragment implements View.OnClickListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
     private SliderLayout mDemoSlider;
+    private RelativeLayout rl_meirijingxuan;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +40,15 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initview();
+        initdata();
     }
 
     private void initview() {
+        rl_meirijingxuan = (RelativeLayout) getView().findViewById(R.id.rl_meirijingxuan);
+        rl_meirijingxuan.setOnClickListener(this);
+    }
+
+    private void initdata() {
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 
         HashMap<String,String> url_maps = new HashMap<String, String>();
@@ -79,6 +89,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_meirijingxuan:
+                Intent intent7 = new Intent();
+                intent7.putExtra("shopid", "2");
+                intent7.setClass(context, StoreHomepageActivity.class);
+                startActivity(intent7);
+                break;
+        }
 
     }
     @Override
