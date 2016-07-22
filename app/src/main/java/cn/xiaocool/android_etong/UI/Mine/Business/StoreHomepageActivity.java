@@ -86,7 +86,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                         e.printStackTrace();
                     }
                     break;
-                case CommunalInterfaces.GETMYSHOP:
+                case CommunalInterfaces.GET_SHOP_INFO:
                     Log.e("getmyshop","getmyshop");
                     JSONObject jsonObject0 = (JSONObject) msg.obj;
                     if(NetUtil.isConnnected(context)){
@@ -129,7 +129,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
         if(NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).getmyshop();
+            new MainRequest(context,handler).getshopinfo(shopid);
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }

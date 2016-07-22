@@ -136,6 +136,30 @@ public interface WebAddress extends NetBaseConstant {
      *
      */
     String MY_LIKE_SHOP = NET_BASE_PREFIX + "a=getfavoritelist";
+
+    /*
+    *获取单个商品详情
+    */
+
+    String GET_GOODS_INFO = NET_BASE_PREFIX + "a=GetGoodsInfo";
+
+    /*
+    *获取单个店铺详情
+    */
+
+    String GET_SHOP_INFO = NET_BASE_PREFIX + "a=GetShopInfo";
+
+    /*
+    *商城产品购买
+    */
+
+    String BOOKING_SHOPPING = NET_BASE_PREFIX + "a=bookingshopping";
+
+    /*
+    * 获取我的商城订单列表
+    */
+
+    String GETSHOPPINGORDERLIST = NET_BASE_PREFIX + "a=getshoppingorderlist";
 }
 
 

@@ -28,6 +28,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private Context context;
     private SliderLayout mDemoSlider;
     private RelativeLayout rl_meirijingxuan;
+    private RelativeLayout rl_bestshop_left , rl_bestshop_right;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +47,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private void initview() {
         rl_meirijingxuan = (RelativeLayout) getView().findViewById(R.id.rl_meirijingxuan);
         rl_meirijingxuan.setOnClickListener(this);
+        rl_bestshop_left = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_left);
+        rl_bestshop_left.setOnClickListener(this);
+        rl_bestshop_right = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_right);
+        rl_bestshop_right.setOnClickListener(this);
     }
 
     private void initdata() {
@@ -90,11 +95,23 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rl_meirijingxuan:
-                Intent intent7 = new Intent();
-                intent7.putExtra("shopid", "2");
-                intent7.setClass(context, StoreHomepageActivity.class);
-                startActivity(intent7);
+//            case R.id.rl_meirijingxuan:
+//                Intent intent7 = new Intent();
+//                intent7.putExtra("shopid", "2");
+//                intent7.setClass(context, StoreHomepageActivity.class);
+//                startActivity(intent7);
+//                break;
+            case R.id.rl_bestshop_left:
+                Intent intent8 = new Intent();
+                intent8.putExtra("shopid", "2");
+                intent8.setClass(context, StoreHomepageActivity.class);
+                startActivity(intent8);
+                break;
+            case R.id.rl_bestshop_right:
+                Intent intent9 = new Intent();
+                intent9.putExtra("shopid", "2");
+                intent9.setClass(context, StoreHomepageActivity.class);
+                startActivity(intent9);
                 break;
         }
 

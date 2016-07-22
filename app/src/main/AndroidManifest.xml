@@ -51,6 +51,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar" >
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="58OG1xnCFSuuiGtV7KGttlSF5EhaLsgm" />
         <!--设置popupmenu颜色 用下面theme-->
         <activity
             android:name=".UI.MainActivity"
@@ -99,6 +104,8 @@
         <activity android:name=".UI.Mine.Business.GoodsDetailActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.ComfirmOrderActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
+        <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
     </application>
 
 </manifest>

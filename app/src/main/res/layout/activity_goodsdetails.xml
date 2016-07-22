@@ -75,8 +75,9 @@
             <RelativeLayout
                 android:background="@color/whilte"
                 android:layout_width="match_parent"
-                android:layout_height="53dp">
+                android:layout_height="58dp">
                 <TextView
+                    android:id="@+id/tx_goods_name"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +94,18 @@
                     android:background="@drawable/btn_selected_shop_like"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="35dp"
+                    />
+                <TextView
+                    android:id="@+id/tx_goods_price"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="￥199"
+                    android:maxLines="2"
+                    android:textColor="@color/main_color_red"
                     />
             </RelativeLayout>
             <RelativeLayout
