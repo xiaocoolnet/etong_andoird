@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private String id;
     private String deliveryAddress = "";
     private String money;
+    private String judge = "0";
     private int count = 0;
     private ImageView img_goods_pic;
     private TextView tx_goods_name,tx_goods_count,tx_goods_price,tx_goods_price_subtotal,tx_goods_price_total;
@@ -127,11 +129,13 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_back:
+                judge = "0";
                 finish();
                 break;
             case R.id.ll_delivery_address:
                 Intent intent = new Intent();
                 intent.setClass(context, DeliveryAddressActivity.class);
+                intent.putExtra("judge",judge);
                 intent.putExtra("deliveryaddress",deliveryAddress);
                 startActivityForResult(intent, 1);
                 break;
@@ -169,7 +173,17 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         if (requestCode==1){
             Log.e("success","deliveryaddress");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
+            judge = data.getStringExtra("judge");
             Log.e("deliveryaddress=",deliveryAddress);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            judge="0";
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

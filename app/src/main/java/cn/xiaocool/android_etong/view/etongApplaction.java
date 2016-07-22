@@ -1,9 +1,11 @@
 package cn.xiaocool.android_etong.view;
 
 import android.app.Application;
+import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Vibrator;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -17,6 +19,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 
+import cn.xiaocool.android_etong.bean.business.LocationService;
+
 /**
  * Created by 潘 on 2016/6/21.
  */
@@ -24,7 +28,8 @@ public class etongApplaction extends Application {
     private static etongApplaction  mInstance = null;
     public static int UID;
     public static String isFrist="yes";
-
+    public LocationService locationService;
+    public Vibrator mVibrator;
 
     @Override
     public void onCreate() {
@@ -36,6 +41,11 @@ public class etongApplaction extends Application {
         isFrist=sp.getString("isFrist", "");
         Log.e("hou", "APPlication:UID=" + UID);
 
+        /***
+         * 初始化定位sdk，建议在Application中创建
+         */
+        locationService = new LocationService(getApplicationContext());
+        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
     }
     public static etongApplaction getInstance() {
         return mInstance;
@@ -74,4 +84,5 @@ public class etongApplaction extends Application {
                 .build();
         ImageLoader.getInstance().init(config);// 全局初始化此配置
     }
+
 }
