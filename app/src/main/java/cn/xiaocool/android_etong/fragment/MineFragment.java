@@ -1,5 +1,6 @@
 package cn.xiaocool.android_etong.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -31,10 +32,12 @@ import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
+import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyShoppingOrderListActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -139,7 +142,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btn_kaidian.setOnClickListener(this);
         img_setup=(ImageView)getView().findViewById(R.id.img_setup);
         img_setup.setOnClickListener(this);
-        rl_mine_shoucang = (RelativeLayout)getView().findViewById(R.id.rl_mine_shoucang);
+        rl_mine_shoucang = (RelativeLayout)getView().findViewById(R.id.mine_btn_my_like);
         rl_mine_shoucang.setOnClickListener(this);
         rl_order_list = (RelativeLayout)getView().findViewById(R.id.rl_order_list);
         rl_order_list.setOnClickListener(this);
@@ -173,6 +176,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.setClass(context, MyShoppingOrderListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.mine_btn_my_like:
+                IntentUtils.getIntent((Activity) context, MyLikeActivity.class);
                 break;
         }
     }
