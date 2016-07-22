@@ -79,6 +79,7 @@
         <activity android:name=".UI.Mine.AddressActivity"></activity>
         <activity android:name=".UI.Mine.Business.EditGoodIntroActivity"></activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodInforActivity"></activity>
+        <activity android:name=".UI.Mine.MyLikeActivity"></activity>
 
 
         <!--商家-->

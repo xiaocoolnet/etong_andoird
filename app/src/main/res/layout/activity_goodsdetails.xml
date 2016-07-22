@@ -87,9 +87,10 @@
                     android:textColor="@color/black"
                     />
                 <ImageView
+                    android:id="@+id/good_details_iv_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_weishoucang"
+                    android:background="@drawable/btn_selected_shop_like"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="30dp"

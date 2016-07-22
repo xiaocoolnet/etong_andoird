@@ -13,5 +13,5 @@ public interface NetBaseConstant {
     /**
      * 图片网址前缀
      */
-    String NET_PIC_PREFIX = "http://mwn.xiaocool.net";
+    String NET_PIC_PREFIX = "http://mwn.xiaocool.net/uploads/microblog/";
 }

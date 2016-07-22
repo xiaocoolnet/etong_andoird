@@ -69,4 +69,45 @@ public class MineRequest {
          }
      }.start();
  }
+
+    //我的收藏的宝贝
+    public void myLikeGood() {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&type=1";
+                String result_data = NetUtil.getResponse(WebAddress.MY_LIKE_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.MY_LIKE_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+    //我的收藏店铺
+    public void myLikeShop() {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&type=2";
+                String result_data = NetUtil.getResponse(WebAddress.MY_LIKE_SHOP, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.MY_LIKE_SHOP;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

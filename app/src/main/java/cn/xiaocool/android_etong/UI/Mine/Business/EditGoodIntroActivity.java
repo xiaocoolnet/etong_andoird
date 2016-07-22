@@ -71,6 +71,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             new MineRequest(this, handler).changeGoodIntro(goodId);
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();

@@ -11,6 +11,9 @@ public interface CommunalInterfaces {
     int REGISTER = 0x0003;//注册
     int FORGETPASSWORD = 0x0004;//忘记密码
     int LOGIN = 0x0005;//登录
+    //首页商城(0x0100开始)
+    int LIKE_GOOD = 0x0100;//收藏商城商品
+    int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品
 
     //修改资料
     int UPLOADAVATAR = 0x0006;//上传头像
@@ -37,4 +40,6 @@ public interface CommunalInterfaces {
     int UPDATASHOPNAME = 0x0025;//修改店铺名称
     int CHANGE_GOOD_INTRO = 0x0026;//修改宝贝详情
     int CHANGE_GOOD_INTRO_ITEM = 0x0027;//修改宝贝详情单条信息
+    int MY_LIKE_GOOD = 0x0028;//我喜欢的宝贝
+    int MY_LIKE_SHOP = 0x0029;//我喜欢的商店
 }

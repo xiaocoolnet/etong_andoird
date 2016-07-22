@@ -117,6 +117,25 @@ public interface WebAddress extends NetBaseConstant {
      */
 
     String CHANGE_GOOD_INTRO_ITEM = NET_BASE_PREFIX;
+    /**
+     * 收藏商品
+     */
+
+    String LIKE_GOOD = NET_BASE_PREFIX + "a=addfavorite";
+    /**
+     * 取消收藏商品
+     */
+
+    String CANCLE_LIKE_GOOD = NET_BASE_PREFIX + "a=cancelfavorite";
+    /**
+     * 我收藏的宝贝
+     */
+    String MY_LIKE_GOOD = NET_BASE_PREFIX + "a=getfavoritelist";
+    /**
+     * 我收藏的店铺
+     *
+     */
+    String MY_LIKE_SHOP = NET_BASE_PREFIX + "a=getfavoritelist";
 }
 
 
