@@ -96,10 +96,10 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                             if (status.equals("success")){
                                 JSONObject jsonObject1 = jsonObject0.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
-                                String head = jsonObject1.getString("address");
+                                String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
                                 Log.e("head=",head);
-                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("address"), img_store_head);
+                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
                                     tx_store_name.setText("未设置");
                                 }else {

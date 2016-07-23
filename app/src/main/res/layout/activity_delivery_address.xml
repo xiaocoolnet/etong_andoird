@@ -51,5 +51,63 @@
             android:background="@null"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:background="@color/whilte"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:text="手机号"
+            />
+
+        <EditText
+            android:id="@+id/et_customer_phone"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="110dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:inputType="number"
+            android:maxLength="11"
+            android:background="@null"
+            android:hint="请输入手机号"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/whilte"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:text="姓名"
+            />
+
+        <EditText
+            android:id="@+id/et_customer_name"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="123dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:inputType="text"
+            android:maxLength="11"
+            android:background="@null"
+            android:hint="请输入姓名"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
 
 </LinearLayout>

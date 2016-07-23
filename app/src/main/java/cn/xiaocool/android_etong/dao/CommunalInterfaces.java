@@ -46,4 +46,7 @@ public interface CommunalInterfaces {
     int GET_SHOPPING_ORDER_LIST = 0x0031;// 获取我的商城订单列表
     int MY_LIKE_GOOD = 0x0032;//我喜欢的宝贝
     int MY_LIKE_SHOP = 0x0033;//我喜欢的商店
+    int UPDATE_SHOP_PHOTO = 0x0034;//修改店铺头像
+    int GET_SHOP_LIST = 0x0035;//获取店铺列表
+    int UPDATA_SHOP_ADDRESS = 0x0036;//修改店铺地址
 }
