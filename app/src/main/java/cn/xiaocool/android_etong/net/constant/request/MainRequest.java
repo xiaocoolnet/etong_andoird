@@ -531,9 +531,7 @@ public class MainRequest {
         }.start();
     }
 
-    //获取单个商品详情
-    public void getgoodsinfo(final String id) {
-        new Thread() {
+
     //修改店铺地址
     public void UpdateShopAddress(final String id,final String address){
         new Thread(){
