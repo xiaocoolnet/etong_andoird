@@ -185,6 +185,10 @@ public interface WebAddress extends NetBaseConstant {
      * 获取商品对应的附加属性列表
      */
     String GOOD_ATTACHED_PROPERTY = NET_BASE_PREFIX + "a=GetGoodPropertyList";
+    /**
+     * 上传商品的附加属性
+     */
+    String UPLOAD_GOOD_ATTRIBUTE = NET_BASE_PREFIX + "a=AddGoodsProperty";
 
     /*
     * 获取店铺列表

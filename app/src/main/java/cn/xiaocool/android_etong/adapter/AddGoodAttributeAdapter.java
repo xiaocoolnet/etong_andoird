@@ -20,10 +20,12 @@ import cn.xiaocool.android_etong.bean.UploadGoodSanndard.UploadStandardBean;
 public class AddGoodAttributeAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private List<UploadStandardBean.DataBean.PlistBean> plistBeanList;
+    private Context context;
 
     public AddGoodAttributeAdapter(Context context, List<UploadStandardBean.DataBean.PlistBean> plistBeanList) {
         this.layoutInflater = LayoutInflater.from(context);
         this.plistBeanList = plistBeanList;
+        this.context = context;
 //        List<UploadStandardBean.DataBean.PlistBean> plist = dataBeenList.get(0).getPlist();
     }
 
@@ -43,7 +45,7 @@ public class AddGoodAttributeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
 //        List<UploadStandardBean.DataBean.PlistBean> plist = plistBeanList.get(position).getName();
         Log.e("plist size", String.valueOf(plistBeanList.size()));
@@ -53,9 +55,11 @@ public class AddGoodAttributeAdapter extends BaseAdapter {
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
             viewHolder.tvAttributeName.setText(plistBeanList.get(position).getName());
+            viewHolder.tvAttributeName.setTag(plistBeanList.get(position).getId());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
             viewHolder.tvAttributeName.setText(plistBeanList.get(position).getName());
+            viewHolder.tvAttributeName.setTag(plistBeanList.get(position).getId());
         }
         viewHolder.tvAttributeName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +67,10 @@ public class AddGoodAttributeAdapter extends BaseAdapter {
                 if (v.getId() == R.id.add_good_attribute_tv_name) {
                     if (!viewHolder.tvAttributeName.isSelected()) {
                         viewHolder.tvAttributeName.setSelected(true);
+                        viewHolder.tvAttributeName.setTextColor(context.getResources().getColor(R.color.whilte));
                     } else {
                         viewHolder.tvAttributeName.setSelected(false);
+                        viewHolder.tvAttributeName.setTextColor(context.getResources().getColor(R.color.black2));
                     }
                 }
             }
@@ -80,4 +86,5 @@ public class AddGoodAttributeAdapter extends BaseAdapter {
         }
 
     }
+
 }

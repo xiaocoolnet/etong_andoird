@@ -49,6 +49,7 @@ public interface CommunalInterfaces {
     int MY_LIKE_SHOP = 0x0033;//我喜欢的商店
     int UPLOAD_GOOD_STANDARD = 0x0050;//上传商品属性
     int GOOD_ATTACHED_PROPERTY = 0x0051;//获取商品附加属性
+    int UPLOAD_GOOD_ATTRIBUTE = 0x0052;//上传商品附加属性
     int UPDATE_SHOP_PHOTO = 0x0034;//修改店铺头像
     int GET_SHOP_LIST = 0x0035;//获取店铺列表
     int UPDATA_SHOP_ADDRESS = 0x0036;//修改店铺地址

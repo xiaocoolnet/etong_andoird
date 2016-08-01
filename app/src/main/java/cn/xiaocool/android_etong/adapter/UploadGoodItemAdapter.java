@@ -34,11 +34,12 @@ public class UploadGoodItemAdapter extends BaseAdapter {
     private List<UploadStandardBean.DataBean.PlistBean> pList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
-
-    public UploadGoodItemAdapter(Context context, List<UploadStandardBean.DataBean> dataBeanList) {
+    private String goodId;
+    public UploadGoodItemAdapter(Context context, List<UploadStandardBean.DataBean> dataBeanList,String goodId) {
         this.layoutInflater = LayoutInflater.from(context);
         this.dataBeanList = dataBeanList;
         this.context = context;
+        this.goodId = goodId;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -80,9 +81,12 @@ public class UploadGoodItemAdapter extends BaseAdapter {
                     Intent intent = new Intent();
                     intent.setClass(context, AddGoodAttributeActivity.class);
                     pList = dataBeanList.get(position).getPlist();//???
+                    String type = dataBeanList.get(position).getId();
                     Log.e("size is", String.valueOf(pList.size()));
 //                    Log.e("name is here",name);
                     intent.putExtra("list", (Serializable) pList);
+                    intent.putExtra("goodId",goodId);
+                    intent.putExtra("type",type);
                     context.startActivity(intent);
                 }
             }

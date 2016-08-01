@@ -110,4 +110,26 @@ public class ShopRequest {
         }.start();
     }
 
+
+    //上传商品附加属性
+    public void uploadGoodAttribute(final String goodsId,final String type,final String propertyList) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&goodsid=" + goodsId + "&type=" + type + "&propertylist=" + propertyList;
+                String result_data = NetUtil.getResponse(WebAddress.UPLOAD_GOOD_ATTRIBUTE, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UPLOAD_GOOD_ATTRIBUTE;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
 }
