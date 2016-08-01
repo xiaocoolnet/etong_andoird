@@ -725,4 +725,26 @@ public class MainRequest {
             }
         }.start();
     }
+    //修改购物车
+    public void EditShoppingCart(final String goodsid,final String goodsnum){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&goodsnum=" + goodsnum;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(WebAddress.Edit_Shopping_Cart, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.EDIT_SHOPPING_CART;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

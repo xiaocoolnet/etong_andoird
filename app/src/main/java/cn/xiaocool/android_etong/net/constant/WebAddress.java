@@ -203,6 +203,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
+
+    /*
+    * 修改购物车
+    */
+
+    String Edit_Shopping_Cart = NET_BASE_PREFIX + "a=EditShoppingCart";
 }
 
 

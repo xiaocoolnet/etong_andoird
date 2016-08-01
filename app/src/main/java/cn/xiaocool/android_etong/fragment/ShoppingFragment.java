@@ -45,6 +45,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private ListView list_Shopping_Cart;
     private StoreAdapter storeAdapter;
     private List<ShoppingCart_StoreName.DataBean> dataBeans;
+    private List<ShoppingCart_StoreName.DataBean> dataBeans_spare;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -81,13 +82,28 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                 }
                                 store.setGoodslist(goodses);
                                 dataBeans.add(store);
-                            }if (storeAdapter!=null){
+                            }
+                            dataBeans_spare = dataBeans;
+                            if (storeAdapter!=null){
                                 storeAdapter.notifyDataSetChanged();
                             }else {
                                 storeAdapter = new StoreAdapter(ShoppingFragment.this,dataBeans);
                                 list_Shopping_Cart.setAdapter(storeAdapter);
                                 fixListViewHeight(list_Shopping_Cart);
                             }
+                        } else {
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.EDIT_SHOPPING_CART:
+                    try {
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
+                        if (state.equals("success")) {
+                            Log.e("success","edit_shoppingcart");
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -177,6 +193,24 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 //        gid.substring(0,gid.length()-1);
 //        Log.e("id=", id.toString());
 //        Log.e("gid=", gid.toString());
+    }
+
+    public void setGoodsNumber(int storePosition,int goodsPosition,String number){
+        dataBeans.get(storePosition).getGoodslist().get(goodsPosition).setNumber(number);
+        Log.e("success",number);
+    }
+
+    public void setUpdate(){
+//        storeAdapter = new StoreAdapter(ShoppingFragment.this,dataBeans);
+//        list_Shopping_Cart.setAdapter(storeAdapter);
+        for (int i = 0;i<dataBeans.size();i++){
+            for (int j = 0;j<dataBeans.get(i).getGoodslist().size();j++){
+                if (dataBeans_spare.get(i).getGoodslist().get(j).getNumber().equals(dataBeans.get(i).getGoodslist().get(j).getNumber())){
+                }else {
+                    new MainRequest(context,handler).EditShoppingCart(dataBeans.get(i).getGoodslist().get(j).getGid(),dataBeans.get(i).getGoodslist().get(j).getNumber());
+                }
+            }
+        }
     }
 
     public void fixListViewHeight(ListView listView) {

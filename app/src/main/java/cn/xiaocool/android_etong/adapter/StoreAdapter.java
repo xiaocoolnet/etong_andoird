@@ -85,6 +85,7 @@ public class StoreAdapter extends BaseAdapter {
         });
         if (judge){
             holder.tv_edit.setText("完成");
+            context.setUpdate();
         }else {
             holder.tv_edit.setText("编辑");
         }

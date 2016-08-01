@@ -54,4 +54,5 @@ public interface CommunalInterfaces {
     int UPDATA_SHOP_ADDRESS = 0x0036;//修改店铺地址
     int ADD_SHOPPING_CART = 0x0037;//添加购物车
     int GET_SHOPPING_CART = 0x0038;//获取我的购物车
+    int EDIT_SHOPPING_CART = 0x0039;//修改购物车
 }

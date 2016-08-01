@@ -88,13 +88,30 @@ public class ProductAdapter extends BaseAdapter {
         String pic = product.getPicture();
         String[] arraypic = pic.split("[,]");
         imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
+        if (flag){
+            holder.tx_shopping_cloth_size.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_color.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_name.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_price.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_oldprice.setVisibility(View.GONE);
+            holder.tx_goods_count.setVisibility(View.GONE);
+            holder.rl_select.setVisibility(View.VISIBLE);
+        }else {
+            holder.tx_shopping_cloth_size.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_color.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_name.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_price.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_oldprice.setVisibility(View.VISIBLE);
+            holder.tx_goods_count.setVisibility(View.VISIBLE);
+            holder.rl_select.setVisibility(View.GONE);
+        }
         holder.tx_shopping_cloth_oldprice.setText(product.getOprice());
         holder.tx_shopping_cloth_price.setText(product.getPrice());
         holder.tx_shopping_cloth_name.setText(product.getGoodsname());
         holder.tx_goods_count.setText(product.getNumber());
+        holder.tv_number.setText(product.getNumber());
         holder.cb_select.setChecked(selected.get(position));
         holder.cb_select.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 System.out.println("selected set position:" + position);
@@ -116,23 +133,28 @@ public class ProductAdapter extends BaseAdapter {
                 adapter.notifyDataSetChanged();
             }
         });
-        if (flag){
-            holder.tx_shopping_cloth_size.setVisibility(View.GONE);
-            holder.tx_shopping_cloth_color.setVisibility(View.GONE);
-            holder.tx_shopping_cloth_name.setVisibility(View.GONE);
-            holder.tx_shopping_cloth_price.setVisibility(View.GONE);
-            holder.tx_shopping_cloth_oldprice.setVisibility(View.GONE);
-            holder.tx_goods_count.setVisibility(View.GONE);
-            holder.rl_select.setVisibility(View.VISIBLE);
-        }else {
-            holder.tx_shopping_cloth_size.setVisibility(View.VISIBLE);
-            holder.tx_shopping_cloth_color.setVisibility(View.VISIBLE);
-            holder.tx_shopping_cloth_name.setVisibility(View.VISIBLE);
-            holder.tx_shopping_cloth_price.setVisibility(View.VISIBLE);
-            holder.tx_shopping_cloth_oldprice.setVisibility(View.VISIBLE);
-            holder.tx_goods_count.setVisibility(View.VISIBLE);
-            holder.rl_select.setVisibility(View.GONE);
-        }
+        final TextView tv_number = holder.tv_number;
+        holder.btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int number = Integer.parseInt(tv_number.getText().toString());
+                number++;
+                tv_number.setText(String.valueOf(number));
+                context.setGoodsNumber(storePosition,position,String.valueOf(number));
+            }
+        });
+
+        holder.btn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int number = Integer.parseInt(tv_number.getText().toString());
+                number--;
+                if (number>0){
+                    tv_number.setText(String.valueOf(number));
+                    context.setGoodsNumber(storePosition, position, String.valueOf(number));
+                }
+            }
+        });
         return convertView;
     }
 
