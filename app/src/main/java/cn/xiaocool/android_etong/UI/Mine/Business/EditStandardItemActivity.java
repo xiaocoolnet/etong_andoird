@@ -70,7 +70,7 @@ public class EditStandardItemActivity extends Activity implements View.OnClickLi
                                 dataBeenList.add(dataBean);
                             }
 //                            Log.e("aaaaa", plistBeenList.get(0).getName());
-                            uploadGoodItemAdapter = new UploadGoodItemAdapter(EditStandardItemActivity.this, dataBeenList);
+                            uploadGoodItemAdapter = new UploadGoodItemAdapter(EditStandardItemActivity.this, dataBeenList,goodId);
                             listView.setAdapter(uploadGoodItemAdapter);
                         }
                     } catch (JSONException e) {
@@ -79,12 +79,14 @@ public class EditStandardItemActivity extends Activity implements View.OnClickLi
             }
         }
     };
+    private String goodId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_good_standard_list);
+        goodId = getIntent().getStringExtra("goodId");
         new ShopRequest(this, handler).obtainAttachedProperty("1");
         dataBeenList = new ArrayList<>();
 //        plistBeenList = new ArrayList<>();
