@@ -100,8 +100,12 @@ public class SellFragment extends Fragment {
                     try {
                         JSONObject jsonObject = (JSONObject)msg.obj;
                         String state=jsonObject.getString("status");
+                        String data = jsonObject.getString("data");
                         if (state.equals("success")) {
                             Toast.makeText(context, "下架成功", Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {

@@ -120,6 +120,7 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
         <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
+        <activity android:name=".UI.HomePage.ShopListActivity"></activity>
     </application>
 
 </manifest>

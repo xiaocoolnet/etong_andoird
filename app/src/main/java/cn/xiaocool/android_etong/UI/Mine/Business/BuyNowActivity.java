@@ -31,7 +31,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class BuyNowActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
-    private String id,goods_name,goods_price,goods_pic;
+    private String id,goods_name,goods_price,goods_pic,shopname;
     private Button btn_comfirm;
     private TextView tx_goods_name,tx_goods_price;
     private ImageView img_jia,img_jian;
@@ -77,6 +77,7 @@ public class BuyNowActivity extends Activity implements View.OnClickListener {
         context = this;
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        shopname = intent.getStringExtra("shopname");
         initview();
         if (NetUtil.isConnnected(context)){
             new MainRequest(context,handler).getgoodsinfo(id);
@@ -121,6 +122,7 @@ public class BuyNowActivity extends Activity implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.putExtra("count",count);
                 intent.putExtra("id",id);
+                intent.putExtra("shopname",shopname);
                 intent.setClass(context,ComfirmOrderActivity.class);
                 startActivity(intent);
                 break;

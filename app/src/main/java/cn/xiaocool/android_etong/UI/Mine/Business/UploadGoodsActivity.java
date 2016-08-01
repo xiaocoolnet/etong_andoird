@@ -126,11 +126,12 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                     try {
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
-                        if (status.equals("success")) {
+                        if (status.equals("success")){
                             progressDialog.dismiss();
-                            Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
-                            Log.e("success", "publish");
-                        } else {
+                            Toast.makeText(mContext,"上传成功",Toast.LENGTH_SHORT).show();
+                            Log.e("success","publish");
+                            finish();
+                        }else {
                             progressDialog.dismiss();
                             Toast.makeText(mContext, data,
                                     Toast.LENGTH_SHORT).show();

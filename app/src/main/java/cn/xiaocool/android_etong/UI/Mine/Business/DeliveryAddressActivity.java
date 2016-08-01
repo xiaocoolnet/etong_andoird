@@ -28,8 +28,8 @@ import cn.xiaocool.android_etong.util.KeyBoardUtils;
 public class DeliveryAddressActivity extends Activity implements View.OnClickListener {
 
     private Context context;
-    private String deliveryAddress;
-    private EditText et_change_infor;
+    private String deliveryAddress,phone,name;
+    private EditText et_change_infor,et_customer_phone,et_customer_name;
     private RelativeLayout rl_back;
     private String judge = "0";
     private LocationService locationService;
@@ -45,6 +45,10 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         judge = intent.getStringExtra("judge");
         deliveryAddress = intent.getStringExtra("deliveryaddress");
         et_change_infor.setText(deliveryAddress);
+        phone = intent.getStringExtra("phone");
+        et_customer_phone.setText(phone);
+        name = intent.getStringExtra("name");
+        et_customer_name.setText(name);
         // 切换后将EditText光标置于末尾
         CharSequence charSequence = et_change_infor.getText();
         if (charSequence instanceof Spannable) {
@@ -56,7 +60,8 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
 
     private void initview() {
         et_change_infor = (EditText) findViewById(R.id.et_change_infor);
-        et_change_infor.setText(deliveryAddress);
+        et_customer_phone = (EditText) findViewById(R.id.et_customer_phone);
+        et_customer_name = (EditText) findViewById(R.id.et_customer_name);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
     }
@@ -66,9 +71,13 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         switch (v.getId()){
             case R.id.rl_back:
                 deliveryAddress = et_change_infor.getText().toString();
+                phone = et_customer_phone.getText().toString();
+                name = et_customer_name.getText().toString();
                 Intent intent1 = new Intent();
                 intent1.putExtra("deliveryaddress1",deliveryAddress);
                 intent1.putExtra("judge1",judge);
+                intent1.putExtra("phone",phone);
+                intent1.putExtra("name",name);
                 Log.e("deliveryaddress=",deliveryAddress);
                 setResult(RESULT_OK,intent1);
                 finish();
@@ -83,6 +92,8 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
             Intent intent1 = new Intent();
             intent1.putExtra("deliveryaddress1",deliveryAddress);
             intent1.putExtra("judge1",judge);
+            intent1.putExtra("phone",phone);
+            intent1.putExtra("name",name);
             setResult(RESULT_OK,intent1);
             finish();
         }

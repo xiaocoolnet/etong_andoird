@@ -1,0 +1,163 @@
+package cn.xiaocool.android_etong.adapter;
+
+import android.graphics.Bitmap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.bean.Shop.ShoppingCart_StoreName;
+import cn.xiaocool.android_etong.fragment.ShoppingFragment;
+import cn.xiaocool.android_etong.net.constant.WebAddress;
+
+/**
+ * Created by 潘 on 2016/7/31.
+ */
+public class ProductAdapter extends BaseAdapter {
+    private final List<Boolean> selected = new ArrayList<Boolean>();
+
+    private LayoutInflater inflater;
+    private DisplayImageOptions displayImageOptions;
+    private List<ShoppingCart_StoreName.DataBean.GoodslistBean> list;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private Boolean flag;
+    StoreAdapter adapter;
+    int storePosition;
+    ShoppingFragment context;
+
+    public ProductAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean.GoodslistBean> list, StoreAdapter adapter, int storePosition,Boolean flag) {
+        this.inflater = LayoutInflater.from(context.getActivity());
+        this.list = list;
+        this.adapter = adapter;
+        this.storePosition = storePosition;
+        this.context = context;
+        this.flag = flag;
+        for (int j = 0; j < list.size(); j++) {
+            getSelect().add(false);
+        }
+        displayImageOptions = new DisplayImageOptions.Builder()
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
+                .cacheInMemory(true).cacheOnDisc(true).build();
+    }
+
+    public List<Boolean> getSelect() {
+        return selected;
+    }
+
+    public void setFlag(Boolean flag){
+        this.flag = flag;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        final ShoppingCart_StoreName.DataBean.GoodslistBean product = list.get(position);
+        if (convertView==null){
+            convertView = inflater.inflate(R.layout.shopping_cloth_item, null);
+            holder = new ViewHolder();
+            holder.img_shopping_chanpin = (ImageView) convertView.findViewById(R.id.img_shopping_chanpin);
+            holder.tx_shopping_cloth_name = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_name);
+            holder.tx_shopping_cloth_price = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_price);
+            holder.tx_shopping_cloth_oldprice = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_oldprice);
+            holder.tx_goods_count = (TextView) convertView.findViewById(R.id.tx_goods_count);
+            holder.tx_shopping_cloth_color = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_color);
+            holder.tx_shopping_cloth_size = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_size);
+            holder.rl_select = (RelativeLayout) convertView.findViewById(R.id.rl_select);
+            holder.btn_down = (Button) convertView.findViewById(R.id.btn_down);
+            holder.btn_up = (Button) convertView.findViewById(R.id.btn_up);
+            holder.tv_number = (TextView) convertView.findViewById(R.id.tv_number);
+            holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
+            convertView.setTag(holder);
+        }else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        String pic = product.getPicture();
+        String[] arraypic = pic.split("[,]");
+        imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
+        holder.tx_shopping_cloth_oldprice.setText(product.getOprice());
+        holder.tx_shopping_cloth_price.setText(product.getPrice());
+        holder.tx_shopping_cloth_name.setText(product.getGoodsname());
+        holder.tx_goods_count.setText(product.getNumber());
+        holder.cb_select.setChecked(selected.get(position));
+        holder.cb_select.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("selected set position:" + position);
+                selected.set(position, !selected.get(position));
+
+                if (selected.contains(false)) {
+                    adapter.getSelect().set(storePosition, false);
+                } else {
+                    adapter.getSelect().set(storePosition, true);
+                }
+
+                if (adapter.getSelect().contains(false)) {
+                    context.checkAll(false);
+                } else {
+                    context.checkAll(true);
+                }
+
+                context.updateAmount();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        if (flag){
+            holder.tx_shopping_cloth_size.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_color.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_name.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_price.setVisibility(View.GONE);
+            holder.tx_shopping_cloth_oldprice.setVisibility(View.GONE);
+            holder.tx_goods_count.setVisibility(View.GONE);
+            holder.rl_select.setVisibility(View.VISIBLE);
+        }else {
+            holder.tx_shopping_cloth_size.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_color.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_name.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_price.setVisibility(View.VISIBLE);
+            holder.tx_shopping_cloth_oldprice.setVisibility(View.VISIBLE);
+            holder.tx_goods_count.setVisibility(View.VISIBLE);
+            holder.rl_select.setVisibility(View.GONE);
+        }
+        return convertView;
+    }
+
+    class ViewHolder {
+        ImageView img_shopping_chanpin;
+        TextView tx_shopping_cloth_name, tx_shopping_cloth_price, tx_shopping_cloth_oldprice, tx_goods_count;
+        CheckBox cb_select;
+        RelativeLayout rl_select;
+        Button btn_down,btn_up;
+        TextView tv_number,tx_shopping_cloth_color,tx_shopping_cloth_size;
+    }
+
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+}

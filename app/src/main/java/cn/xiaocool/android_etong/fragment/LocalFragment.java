@@ -2,11 +2,13 @@ package cn.xiaocool.android_etong.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import java.util.HashMap;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.HomePage.ShopListActivity;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
@@ -30,6 +33,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     private Context context;
     private SliderLayout mDemoSlider;
     private RelativeLayout ry_line;
+    private Button btn_quanbu;
 
     @Nullable
     @Override
@@ -51,6 +55,9 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
 
 
     private void initview() {
+        btn_quanbu = (Button)getView().findViewById(R.id.btn_quanbu);
+        btn_quanbu.setOnClickListener(this);
+
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 
         HashMap<String,String> url_maps = new HashMap<String, String>();
@@ -88,15 +95,22 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         super.onStop();
     }
 
-
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.btn_quanbu:
+                Intent intent = new Intent();
+                intent.setClass(context, ShopListActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
+
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

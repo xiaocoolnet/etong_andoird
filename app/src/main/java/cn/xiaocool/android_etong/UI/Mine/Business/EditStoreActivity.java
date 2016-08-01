@@ -56,8 +56,8 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
     private ImageView img_store_head;
     private UserInfo user;
     private String head;
-    private String shopid;
-    private EditText tx_store_name;
+    private String shopid,shopname;
+    private EditText tx_store_name,tx_store_addrss;
     private Button btn_next;
     private ProgressDialog progressDialog;
 
@@ -81,7 +81,7 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                         String state1=json.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "商店头像上传成功");
-                            new MainRequest(context,handler).updatashopaddress(shopid, picname + ".jpg");
+                            new MainRequest(context,handler).UpdateShopPhoto(shopid, picname + ".jpg");
                         }else{
                             Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
                         }
@@ -89,7 +89,7 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                         e.printStackTrace();
                     }
                     break;
-                case CommunalInterfaces.UPDATASHOPADDRESS:
+                case CommunalInterfaces.UPDATE_SHOP_PHOTO:
                     JSONObject json = (JSONObject) msg.obj;
                     try {
                         String state1=json.getString("status");
@@ -114,14 +114,20 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                                 progressDialog.dismiss();
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
-                                String head = jsonObject1.getString("address");
+                                String head = jsonObject1.getString("photo");
+                                String address = jsonObject1.getString("address");
                                 String shopname = jsonObject1.getString("shopname");
                                 Log.e("head=",head);
-                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + jsonObject1.getString("address"), img_store_head);
+                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + jsonObject1.getString("photo"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
                                     tx_store_name.setText("未设置");
                                 }else {
                                     tx_store_name.setText(shopname);
+                                }
+                                if (address.equals("null")||address==null||address.equals("")){
+                                    tx_store_addrss.setText("未设置");
+                                }else {
+                                    tx_store_addrss.setText(address);
                                 }
                                 // 切换后将EditText光标置于末尾
                                 CharSequence charSequence =tx_store_name.getText();
@@ -142,10 +148,24 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                         Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case CommunalInterfaces.UPDATASHOPNAME:
+                case CommunalInterfaces.UPDATA_SHOP_ADDRESS:
                     JSONObject jsonObject1 = (JSONObject) msg.obj;
                     try {
                         String state1=jsonObject1.getString("status");
+                        if (state1.equals("success")) {
+                            Log.e("success", "商店地址上传成功");
+                            new MainRequest(context,handler).updateshopname(shopid,shopname);
+                        }else{
+                            Toast.makeText(context, jsonObject1.getString("data"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.UPDATASHOPNAME:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        String state1=jsonObject2.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "商店名称上传成功");
                             Intent dateIntent = new Intent();
@@ -153,7 +173,7 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                             finish();
                             Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(context, jsonObject1.getString("data"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, jsonObject2.getString("data"),Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -192,6 +212,7 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
         img_store_head.setOnClickListener(this);
         tx_store_name = (EditText) findViewById(R.id.tx_store_name);
+        tx_store_addrss = (EditText) findViewById(R.id.tx_store_address);
         btn_next = (Button) findViewById(R.id.btn_next);
         btn_next.setOnClickListener(this);
     }
@@ -220,17 +241,26 @@ public class EditStoreActivity extends Activity implements View.OnClickListener 
                 ShowPickDialog();
                 break;
             case R.id.btn_next:
-                String shopname = tx_store_name.getText().toString();
+                shopname = tx_store_name.getText().toString();
                 shopname = shopname.trim();
-                if (!TextUtils.isEmpty(shopname)){
-                    if(NetUtil.isConnnected(context)){
-                        new MainRequest(context,handler).updateshopname(shopid,shopname);
+                String shopaddress = tx_store_addrss.getText().toString();
+                shopaddress = shopaddress.trim();
+                if (!TextUtils.isEmpty(shopaddress)){
+                    if (!TextUtils.isEmpty(shopname)){
+                        if(NetUtil.isConnnected(context)){
+                            new MainRequest(context,handler).UpdateShopAddress(shopid, shopaddress);
+                        }else {
+                            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                        }
                     }else {
-                        Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"请输入店铺名",Toast.LENGTH_SHORT).show();
+                        tx_store_name.findFocus();
                     }
                 }else {
-                    Toast.makeText(context,"请输入店铺名",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"请输入店铺地址",Toast.LENGTH_SHORT).show();
+                    tx_store_addrss.findFocus();
                 }
+
                 break;
         }
     }

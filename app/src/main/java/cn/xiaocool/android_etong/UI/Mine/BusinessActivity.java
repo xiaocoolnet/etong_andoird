@@ -64,7 +64,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 progressDialog.dismiss();
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
-                                String head = jsonObject1.getString("address");
+                                String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
                                 String shopType = jsonObject1.getString("type");
                                 userInfo.setUserShopId(shopid);
@@ -72,7 +72,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 userInfo.setUserShopType(shopType);
                                 userInfo.writeData(BusinessActivity.this);
                                 Log.e("head=",head);
-                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("address"), img_store_head);
+                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
                                     tx_store_name.setText("未设置");
                                 }else {
@@ -184,7 +184,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             case R.id.img_store:
                 Intent intent7 = new Intent();
                 intent7.putExtra("shopid", shopid);
-                intent7.setClass(BusinessActivity.this, StoreHomepageActivity   .class);
+                intent7.setClass(BusinessActivity.this, StoreHomepageActivity.class);
                 startActivity(intent7);
                 break;
             case R.id.btn_want_help:

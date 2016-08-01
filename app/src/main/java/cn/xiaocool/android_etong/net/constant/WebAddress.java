@@ -96,16 +96,29 @@ public interface WebAddress extends NetBaseConstant {
     String DELETEGOODS = NET_BASE_PREFIX +"a=DeleteGoods";
 
     /**
-    *修改店铺头像
+    *修改店铺地址
+     *
     */
 
     String UPDATASHOPADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
+
+    /*
+    * 修改店铺头像
+    */
+
+    String UPDATESHOPPHOTO = NET_BASE_PREFIX + "a=UpdateShopPhoto";
 
     /**
     * 修改店铺名称
     */
 
     String UPDATASHOPNAME = NET_BASE_PREFIX +"a=UpdateShopName";
+
+    /*
+    *修改店铺地址
+    */
+
+    String UPDATA_SHOP_ADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
 
     /**
     * 修改商品详情信息
@@ -172,6 +185,24 @@ public interface WebAddress extends NetBaseConstant {
      * 获取商品对应的附加属性列表
      */
     String GOOD_ATTACHED_PROPERTY = NET_BASE_PREFIX + "a=GetGoodPropertyList";
+
+    /*
+    * 获取店铺列表
+    */
+
+    String GET_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopList";
+
+    /*
+    * 添加购物车
+    */
+
+    String  ADD_SHOPPING_CART = NET_BASE_PREFIX + "a=AddShoppingCart";
+
+    /*
+    *获取我的购物车
+    */
+
+    String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
 }
 
 

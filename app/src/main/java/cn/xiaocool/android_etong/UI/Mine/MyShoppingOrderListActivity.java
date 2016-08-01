@@ -110,4 +110,5 @@ public class MyShoppingOrderListActivity extends Activity implements View.OnClic
                 break;
         }
     }
+
 }
