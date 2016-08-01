@@ -70,5 +70,44 @@ public class ShopRequest {
             }
         }.start();
     }
+    public void uploadStandard(final String goodId, final String standardName, final String standardType) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&goodsid=" + goodId + "&type=" + standardName + "&propertylist=" + standardType;
+                String result_data = NetUtil.getResponse(WebAddress.UPLOAD_GOOD_STANDARD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UPLOAD_GOOD_STANDARD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+    //获取商品附加属性
+    public void obtainAttachedProperty(final String goodType) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&goodstype=" + goodType;//传入商店类型type
+                String result_data = NetUtil.getResponse(WebAddress.GOOD_ATTACHED_PROPERTY, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GOOD_ATTACHED_PROPERTY;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 
 }

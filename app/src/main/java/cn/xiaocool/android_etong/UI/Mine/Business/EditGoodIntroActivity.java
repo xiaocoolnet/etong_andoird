@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,9 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
-import cn.xiaocool.android_etong.bean.UserInfo;
-import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
@@ -25,9 +24,11 @@ import cn.xiaocool.android_etong.util.NetUtil;
  * Created by wzh on 2016/7/20.
  */
 public class EditGoodIntroActivity extends Activity implements View.OnClickListener {
-    private String picName, title, type, brand, artNo, standard, freight, shipAddress, goodDetails;
-    private RelativeLayout btnBack;
-    private TextView etTitle, etBrand, etartNo, etStandard, etFreight, etShipAddress, etGoodDetails;
+    private String picName, title, type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress;
+    private RelativeLayout btnBack,btnStandard;
+    private TextView tvTitle, tvType, tvBrand, tvArtNo, tvStandard, tvPrice, tvOprice, tvFreight, tvInventory,
+            etGoodDetails, etShipAddress;
+    private RelativeLayout rlPic;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -37,18 +38,32 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
                             JSONObject object = jsonObject.getJSONObject("data");
+                            picName = object.getString("picture");
+                            Log.e("aaaabbbb", picName);
                             title = object.getString("goodsname");
-                            standard = object.getString("unit");
-                            freight = object.getString("price");
-                            shipAddress = object.getString("address");
+//                            type = object.getString("type");
+                            brand = object.getString("brand");
+//                            artNo = object.getString("artno");
+//                            standard = object.getString("unit");
+                            price = object.getString("price");
+                            oprice = object.getString("oprice");
+//                            freight = object.getString("freight");
+//                            inventory = object.getString("inventory");
                             goodDetails = object.getString("description");
-                            etTitle.setText(title);
-                            //etBrand.setText(title);
-                            //etartNo.setText(title);
-                            etStandard.setText(standard);
-                            etFreight.setText(freight);
-                            etShipAddress.setText(shipAddress);
+                            shipAddress = object.getString("address");
+                            Log.e("result", picName + title + type + brand + artNo + standard + price
+                                    + oprice + freight + inventory + goodDetails + shipAddress);
+                            tvTitle.setText(title);
+                            tvType.setText(type);
+                            tvBrand.setText(brand);
+                            tvArtNo.setText(artNo);
+//                            tvStandard.setText(standard);
+                            tvPrice.setText(price);
+                            tvOprice.setText(oprice);
+                            tvFreight.setText(freight);
+                            tvInventory.setText(inventory);
                             etGoodDetails.setText(goodDetails);
+                            etShipAddress.setText(shipAddress);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -69,7 +84,9 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         goodId = intent.getStringExtra("goodId");
         if (NetUtil.isConnnected(this)) {
             new MineRequest(this, handler).changeGoodIntro(goodId);
+            Log.e("next", "next");
         }
+
     }
 
     @Override
@@ -83,20 +100,32 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
     private void initView() {
         btnBack = (RelativeLayout) findViewById(R.id.rl_back);
         btnBack.setOnClickListener(this);
-        etTitle = (TextView) findViewById(R.id.business_tv_good_name);
-        etTitle.setOnClickListener(this);
-        etBrand = (TextView) findViewById(R.id.business_tv_good_brand);
-        etBrand.setOnClickListener(this);
-        etartNo = (TextView) findViewById(R.id.business_tv_good_art_no);
-        etartNo.setOnClickListener(this);
-        etStandard = (TextView) findViewById(R.id.business_tv_good_standard);
-        etStandard.setOnClickListener(this);
-        etFreight = (TextView) findViewById(R.id.business_tv_good_freight);
-        etFreight.setOnClickListener(this);
+        rlPic = (RelativeLayout) findViewById(R.id.rl_carousel_pic);
+        rlPic.setOnClickListener(this);
+        tvTitle = (TextView) findViewById(R.id.business_tv_good_name);
+        tvTitle.setOnClickListener(this);
+        tvType = (TextView) findViewById(R.id.business_et_change_type2);
+        tvType.setOnClickListener(this);
+        tvBrand = (TextView) findViewById(R.id.business_tv_good_brand);
+        tvBrand.setOnClickListener(this);
+        tvArtNo = (TextView) findViewById(R.id.business_tv_good_art_no);
+        tvArtNo.setOnClickListener(this);
+        btnStandard = (RelativeLayout) findViewById(R.id.business_tv_good_standard);
+        btnStandard.setOnClickListener(this);
+//        tvStandard = (TextView) findViewById(R.id.business_tv_good_standard);
+//        tvStandard.setOnClickListener(this);
+        tvPrice = (TextView) findViewById(R.id.editGood_et_price);
+        tvPrice.setOnClickListener(this);
+        tvOprice = (TextView) findViewById(R.id.editGood_et_oprice);
+        tvOprice.setOnClickListener(this);
+        tvFreight = (TextView) findViewById(R.id.business_tv_good_freight);
+        tvFreight.setOnClickListener(this);
+        tvInventory = (TextView) findViewById(R.id.editGood_et_inventory);
+        tvInventory.setOnClickListener(this);
+        etGoodDetails = (TextView) findViewById(R.id.editGood_et_details);
+        etGoodDetails.setOnClickListener(this);
         etShipAddress = (TextView) findViewById(R.id.business_tv_good_ship_address);
         etShipAddress.setOnClickListener(this);
-        etGoodDetails = (TextView) findViewById(R.id.business_tv_good_details);
-        etGoodDetails.setOnClickListener(this);
     }
 
     @Override
@@ -105,28 +134,53 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             case R.id.rl_back:
                 finish();
                 break;
+            case R.id.rl_carousel_pic:
+                Intent intent = new Intent();
+                intent.setClass(this, EditGoodLookPicActivity.class);
+                intent.putExtra("picName", picName);
+                startActivity(intent);
+                break;
             case R.id.business_tv_good_name:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etTitle.getText(),
-                        "a=UpdateGoodsName&id=" + goodId + "&goodsname=");
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvTitle.getText(), "a=UpdateGoodsName&id=" + goodId + "&goodsname=");
                 break;
             case R.id.business_tv_good_brand:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etBrand.getText(), "");
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvBrand.getText(), "a=UpdateGoodsBand" + goodId + "&band=");
                 break;
             case R.id.business_tv_good_art_no:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etartNo.getText(), "");
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvArtNo.getText(), "");
                 break;
             case R.id.business_tv_good_standard:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etStandard.getText(), "");
+                Intent standardIntent = new Intent();
+                standardIntent.setClass(this, EditStandardItemActivity.class);//跳转修改商品规格
+                standardIntent.putExtra("goodId", goodId);
+                startActivity(standardIntent);
+                break;
+            case R.id.editGood_et_price:
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvPrice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
+                break;
+            case R.id.editGood_et_oprice:
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvOprice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
                 break;
             case R.id.business_tv_good_freight:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etFreight.getText(), "");
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvFreight.getText(), "");
+                break;
+            case R.id.uploadGood_et_inventory:
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvFreight.getText(), "");
+                break;
+            case R.id.editGood_et_details:
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) etGoodDetails.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&description=");
                 break;
             case R.id.business_tv_good_ship_address:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etShipAddress.getText(), "");
-                break;
-            case R.id.business_tv_good_details:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class, (String) etGoodDetails.getText(),
-                        "a=UpdateGoodsDescription&id=" + goodId + "&description=");
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) etShipAddress.getText(), "");
                 break;
         }
     }

@@ -31,6 +31,9 @@ public class UserInfo implements Serializable {
     private String userCurrentCarBrand;
     private String userCurrentCarType;
     private String userCurrentCarEnginenumber;
+    private String userShopName;
+    private String userShopId;
+    private String userShopType;
     private Set set = new HashSet();
 
     public UserInfo() {
@@ -304,6 +307,43 @@ public class UserInfo implements Serializable {
             return "";
         }
         return userBranch;
+    }
+    public void setUserShopName(String userShopName) {
+        this.userShopName = userShopName;
+    }
+
+    public String getUserShopName() {
+        if (userShopName == null) {
+            return "";
+        } else if (userShopName.equals("null")) {
+            return "";
+        }
+        return userShopName;
+    }
+
+    public void setUserShopId(String userShopId) {
+        this.userShopId = userShopId;
+    }
+
+    public String getUserShopId() {
+        if (userShopId == null) {
+            return "";
+        } else if (userShopId.equals("null")) {
+            return "";
+        }
+        return userShopId;
+    }
+    public void setUserShopType(String userShopType) {
+        this.userShopType = userShopType;
+    }
+
+    public String getUserShopType() {
+        if (userShopType == null) {
+            return "";
+        } else if (userShopType.equals("null")) {
+            return "";
+        }
+        return userShopType;
     }
 
     @Override

@@ -226,6 +226,80 @@
                     android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
+            <!--现价原价-->
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="现价"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/uploadGood_et_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="（必填）"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="¥"
+                    android:textSize="@dimen/activity_size_15"
+                    android:layout_marginRight="10dp"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="原价"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/uploadGood_et_oprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="（非必填）"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="¥"
+                    android:textSize="@dimen/activity_size_15"
+                    android:layout_marginRight="10dp"
+                    />
+            </RelativeLayout>
+
+
             <RelativeLayout
                 android:layout_marginTop="1dp"
                 android:background="@color/whilte"
@@ -260,6 +334,7 @@
                     android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
+            <!--库存-->
             <RelativeLayout
                 android:background="#ffffff"
                 android:layout_marginTop="1dp"
@@ -270,22 +345,24 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="发货地"
+                    android:text="库存"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     />
                 <EditText
-                    android:id="@+id/et_fahuodi"
+                    android:id="@+id/uploadGood_et_inventory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="请输入发货地"
+                    android:hint="请输入库存数量"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"                    android:textSize="16sp"
                     android:layout_marginRight="10dp"
                     android:maxLength="50"
                     />
             </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:layout_marginTop="10dp"
@@ -315,6 +392,34 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入宝贝详情"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLength="50"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:background="#ffffff"
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="发货地"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    />
+                <EditText
+                    android:id="@+id/et_fahuodi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入发货地"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"                    android:textSize="16sp"
                     android:layout_marginRight="10dp"

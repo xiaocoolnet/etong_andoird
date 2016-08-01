@@ -14,6 +14,7 @@ public interface CommunalInterfaces {
     //首页商城(0x0100开始)
     int LIKE_GOOD = 0x0100;//收藏商城商品
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品
+    int GET_NEW_ARRIVAL = 0x0102;//获取首页新品上市
 
     //修改资料
     int UPLOADAVATAR = 0x0006;//上传头像
@@ -46,4 +47,6 @@ public interface CommunalInterfaces {
     int GET_SHOPPING_ORDER_LIST = 0x0031;// 获取我的商城订单列表
     int MY_LIKE_GOOD = 0x0032;//我喜欢的宝贝
     int MY_LIKE_SHOP = 0x0033;//我喜欢的商店
+    int UPLOAD_GOOD_STANDARD = 0x0050;//上传商品属性
+    int GOOD_ATTACHED_PROPERTY = 0x0051;//获取商品附加属性
 }

@@ -75,6 +75,15 @@ public class UserSp extends BaseSp<UserInfo> {
             user.SetshopId(getSP().getStringSet("usershopId", new HashSet()));
 //            Log.e("usershopId is",getSP().getStringSet("usershId",new HashSet<String>()).toString());
         }
+        if (getSP().contains("userShopName")) {
+            user.setUserShopName(getSP().getString("userShopName", ""));
+        }
+        if (getSP().contains("userShopId")) {
+            user.setUserShopId(getSP().getString("userShopId", ""));
+        }
+        if (getSP().contains("userShopType")) {
+            user.setUserShopType(getSP().getString("userShopType", ""));
+        }
     }
 
     @Override
@@ -136,6 +145,15 @@ public class UserSp extends BaseSp<UserInfo> {
         }
         if(!user.getshopId().isEmpty()){
             editor.putStringSet("usershopId",user.getshopId());
+        }
+        if (!user.getUserShopName().equals("")) {
+            editor.putString("userShopName", user.getUserShopName());
+        }
+        if (!user.getUserShopId().equals("")) {
+            editor.putString("userShopId", user.getUserShopId());
+        }
+        if (!user.getUserShopType().equals("")) {
+            editor.putString("userShopType", user.getUserShopType());
         }
         editor.commit();
     }

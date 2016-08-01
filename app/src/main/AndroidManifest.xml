@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.xiaocool.android_etong" >
+    package="cn.xiaocool.android_etong">
     //访问网络权限
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -50,9 +50,11 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar" >
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="58OG1xnCFSuuiGtV7KGttlSF5EhaLsgm" />
@@ -75,7 +77,17 @@
         </activity>
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
-
+        <!--Main-->
+        <activity android:name=".UI.Main.NewArrivalActivity"></activity>
+        <activity android:name=".UI.Main.EverydayBargainActivity"></activity>
+        <activity android:name=".UI.Main.EverydayChoicenessActivity"></activity>
+        <activity android:name=".UI.Main.FlashSaleActivity"></activity>
+        <activity android:name=".UI.Main.QualityLifeActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditGoodLookPicActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodStandardActivity"></activity>
+        <activity android:name=".UI.Mine.Business.AddGoodStandardActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditStandardItemActivity"></activity>
+        <activity android:name=".UI.Mine.Business.AddGoodAttributeActivity"></activity>
         <!--Mine-->
         <activity android:name=".UI.Mine.MineEditActivity"></activity>
         <activity android:name=".UI.Mine.BusinessActivity"></activity>
@@ -98,12 +110,14 @@
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderManageActivity"></activity>
         <activity android:name=".UI.Mine.Business.CommonProblemActivity"></activity>
-        <activity android:name=".UI.Mine.Business.StoreHomepageActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+        <activity
+            android:name=".UI.Mine.Business.StoreHomepageActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".UI.Mine.Business.GoodsDetailActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyNowActivity"></activity>
-        <activity android:name=".UI.Mine.Business.ComfirmOrderActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".UI.Mine.Business.ComfirmOrderActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
         <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
     </application>

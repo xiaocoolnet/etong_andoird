@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray2">
+
+    <include layout="@layout/activity_top"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_size_130">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte">
+
+            <ImageView
+                android:id="@+id/editGood_iv_pic0"
+                android:layout_width="@dimen/activity_size_120"
+                android:layout_height="@dimen/activity_size_120"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/activity_size_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte">
+
+            <ImageView
+                android:id="@+id/editGood_iv_pic1"
+                android:layout_width="@dimen/activity_size_120"
+                android:layout_height="@dimen/activity_size_120"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/activity_size_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte">
+
+            <ImageView
+                android:id="@+id/editGood_iv_pic2"
+                android:layout_width="@dimen/activity_size_120"
+                android:layout_height="@dimen/activity_size_120"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

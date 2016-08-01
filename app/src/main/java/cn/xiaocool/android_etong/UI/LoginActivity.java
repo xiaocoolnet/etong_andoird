@@ -50,7 +50,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                          Log.e("data", data);
                          JSONObject item = new JSONObject(data);
                          user.setUserId(item.getString("id"));
-                         user.writeData(context);;
+                         user.writeData(context);
                          progressDialog.dismiss();
                          Toast.makeText(LoginActivity.this, "登陆成功",
                                  Toast.LENGTH_SHORT).show();

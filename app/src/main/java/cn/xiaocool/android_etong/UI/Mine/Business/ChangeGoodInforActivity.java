@@ -60,6 +60,7 @@ public class ChangeGoodInforActivity extends Activity implements View.OnClickLis
         infor = intent.getStringExtra("changeInfor");
         suffix = intent.getStringExtra("webAddress");
         etGoodInforItem.setText(infor);
+        etGoodInforItem.setSelection(etGoodInforItem.getText().length());//光标置于最后
     }
 
     private void initView() {

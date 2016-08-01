@@ -95,7 +95,8 @@ public class MyLikeShopAdapter extends BaseAdapter {
         }
         Button btnBuy = (Button) convertView.findViewById(R.id.my_like_shop_btn_buy);
         String picName = myLikeShopDataBeanList.get(position).getPhoto();
-        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + "goods5861469000552629.jpg", imgPic, displayImageOptions);
+        String[] arrayPic = picName.split("[,]");
+        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0], imgPic, displayImageOptions);
         return convertView;
     }
 }

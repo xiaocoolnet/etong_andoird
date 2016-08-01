@@ -31,6 +31,7 @@ import cn.xiaocool.android_etong.UI.Mine.Business.GoodsManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.UploadGoodsActivity;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -47,6 +48,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     private Context context;
     private ImageView img_store_head;
     private ProgressDialog progressDialog;
+    private UserInfo userInfo;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -64,6 +66,11 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("address");
                                 String shopname = jsonObject1.getString("shopname");
+                                String shopType = jsonObject1.getString("type");
+                                userInfo.setUserShopId(shopid);
+                                userInfo.setUserShopName(shopname);
+                                userInfo.setUserShopType(shopType);
+                                userInfo.writeData(BusinessActivity.this);
                                 Log.e("head=",head);
                                 ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("address"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
@@ -95,6 +102,8 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_business);
         context = this;
         initview();
+        userInfo = new UserInfo();
+        userInfo.readData(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");

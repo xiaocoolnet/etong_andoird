@@ -29,7 +29,7 @@ public class OrderListAdapter extends BaseAdapter {
     private Context context;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    public OrderListAdapter(Context context,ArrayList<OrderList.DataBean> orderlist){
+    public OrderListAdapter(Context context, ArrayList<OrderList.DataBean> orderlist) {
         this.layoutInflater = LayoutInflater.from(context);
         this.orderlist = orderlist;
         this.context = context;
@@ -58,29 +58,31 @@ public class OrderListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         final OrderList.DataBean dataBean = orderlist.get(position);
-        if(convertView==null){
-            convertView = layoutInflater.inflate(R.layout.activity_my_shopping_order_list_item,null);
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.activity_my_shopping_order_list_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         String pic = dataBean.getPicture();
         String[] arraypic = pic.split("[,]");
-        imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_pic,displayImageOptions);
+        imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_pic, displayImageOptions);
         holder.tx_biaoti.setText(dataBean.getGoodsname());
         holder.tx_price.setText("¥" + dataBean.getMoney());
-        holder.tx_number.setText("x"+dataBean.getNumber());
+        holder.tx_number.setText("x" + dataBean.getNumber());
         return convertView;
     }
-    class ViewHolder{
+
+    class ViewHolder {
         ImageView img_pic;
-        TextView tx_biaoti,tx_price,tx_number;
-        public ViewHolder(View convertView){
-            img_pic = (ImageView)convertView.findViewById(R.id.img_pic);
-            tx_biaoti = (TextView)convertView.findViewById(R.id.tx_biaoti);
-            tx_price = (TextView)convertView.findViewById(R.id.tx_price);
-            tx_number = (TextView)convertView.findViewById(R.id.tx_number);
+        TextView tx_biaoti, tx_price, tx_number;
+
+        public ViewHolder(View convertView) {
+            img_pic = (ImageView) convertView.findViewById(R.id.img_pic);
+            tx_biaoti = (TextView) convertView.findViewById(R.id.tx_biaoti);
+            tx_price = (TextView) convertView.findViewById(R.id.tx_price);
+            tx_number = (TextView) convertView.findViewById(R.id.tx_number);
         }
     }
 }

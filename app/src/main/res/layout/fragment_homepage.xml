@@ -39,6 +39,7 @@
                    android:layout_height="match_parent">
                    <!--限时抢购-->
                    <LinearLayout
+                       android:id="@+id/homepage_ll_flash_sale"
                        android:background="@color/whilte"
                        android:gravity="center_horizontal"
                        android:orientation="vertical"
@@ -86,7 +87,7 @@
                    android:layout_height="match_parent">
                    <!--每日精选-->
                    <RelativeLayout
-                       android:id="@+id/rl_meirijingxuan"
+                       android:id="@+id/homepage_rl_everyday_choiceness"
                        android:background="@color/whilte"
                        android:layout_width="match_parent"
                        android:layout_height="74dp">
@@ -124,6 +125,7 @@
                    </RelativeLayout>
                    <!--天天特价-->
                    <RelativeLayout
+                       android:id="@+id/homepage_rl_everyday_bargain_price"
                        android:layout_marginTop="1dp"
                        android:background="@color/whilte"
                        android:layout_width="match_parent"
@@ -174,6 +176,7 @@
                     android:layout_height="match_parent">
                     <!--新品上市-->
                     <RelativeLayout
+                        android:id="@+id/homepage_rl_new_arrival"
                         android:background="@color/whilte"
                         android:layout_width="match_parent"
                         android:layout_height="74dp">
@@ -255,6 +258,7 @@
                     android:layout_height="match_parent">
                     <!--品质生活-->
                     <LinearLayout
+                        android:id="@+id/homepage_ll_quality_life"
                         android:background="@color/whilte"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
