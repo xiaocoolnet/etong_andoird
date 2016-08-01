@@ -179,6 +179,18 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GET_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopList";
+
+    /*
+    * 添加购物车
+    */
+
+    String  ADD_SHOPPING_CART = NET_BASE_PREFIX + "a=AddShoppingCart";
+
+    /*
+    *获取我的购物车
+    */
+
+    String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
 }
 
 

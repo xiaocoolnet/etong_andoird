@@ -129,6 +129,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                             progressDialog.dismiss();
                             Toast.makeText(mContext,"上传成功",Toast.LENGTH_SHORT).show();
                             Log.e("success","publish");
+                            finish();
                         }else {
                             progressDialog.dismiss();
                             Toast.makeText(mContext, data,
@@ -145,7 +146,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_uploadgoods);
-        mContext=this;
+        mContext = this;
         Intent intent = getIntent();
         shopid=intent.getStringExtra("shopid");
         Log.e("shopid=", shopid);
@@ -303,7 +304,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                                 progressDialog.show();
                                                 new MainRequest(mContext,handler).publishgoods(shopid,picname1,picname2,picname3,
-                                                        biaoti,show,pinpai,yunfei,xiangqing,fahuodi,guige,huohao);
+                                                        biaoti,show,pinpai,yunfei,fahuodi,xiangqing,guige,huohao);
                                             }else {
                                                 Toast.makeText(mContext,"请检查网络",Toast.LENGTH_SHORT).show();
                                             }
@@ -383,6 +384,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         }
     }
 }
+
 
 
 

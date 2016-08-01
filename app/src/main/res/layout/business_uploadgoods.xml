@@ -87,7 +87,7 @@
                     />
               <EditText
                   android:id="@+id/et_biaoti"
-                  android:layout_width="wrap_content"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:background="@null"
                   android:hint="请输入标题"
@@ -154,7 +154,7 @@
                     />
                 <EditText
                     android:id="@+id/et_pinpai"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入品牌"
@@ -180,7 +180,7 @@
                     />
                 <EditText
                     android:id="@+id/et_huohao"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入货号"
@@ -208,7 +208,7 @@
                     />
                 <EditText
                     android:id="@+id/et_guige"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入商品规格"
@@ -242,13 +242,15 @@
                     />
                 <EditText
                     android:id="@+id/et_yunfei"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入运费"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="130dp"
+                    android:textSize="16sp"
+                    android:inputType="number"
+                    android:layout_marginRight="60dp"
                     android:maxLength="50"
                     />
                 <TextView
@@ -276,7 +278,7 @@
                     />
                 <EditText
                     android:id="@+id/et_fahuodi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入发货地"
@@ -309,18 +311,24 @@
                     android:background="@mipmap/ic_next"
                     android:layout_marginRight="10dp"
                     />
-                <EditText
-                    android:id="@+id/et_xiangqing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint="请输入宝贝详情"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="130dp"                    android:textSize="16sp"
-                    android:layout_marginRight="10dp"
-                    android:maxLength="50"
-                    />
+
             </RelativeLayout>
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/et_xiangqing"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edit_border_gray"
+                android:hint="请输入宝贝详情"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginRight="10dp"
+                android:gravity="top"
+                android:maxLength="50"
+                />
             <TextView
                 android:id="@+id/tx_goods_upload"
                 android:layout_width="match_parent"

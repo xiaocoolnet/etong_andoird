@@ -300,8 +300,8 @@ public void publishgoods(final String shopid,final String pic1,final String pic2
         @Override
         public void run() {
             String data="&userid="+user.getUserId()+"&shopid="+shopid+"&piclist="+pic1+","+pic2+","+pic3+
-                    "&goodsname="+goodsname+"&type="+type+"&oprice="+oprice+"&price="+price+"&description="
-                    +description+"&address="+address+"&unit="+unit+"&longitude="+longitude+"&latitude=1";
+                    "&goodsname="+goodsname+"&type="+type+"&oprice="+oprice+"&price="+price+"&address="+address+"&description="
+                    +description+"&unit="+unit+"&longitude="+longitude+"&latitude=1";
             Log.e("data=",data);
             String result_data = NetUtil.getResponse(WebAddress.PUBLISHGOODS,data);
             Log.e("successful", result_data);
@@ -634,6 +634,53 @@ public void publishgoods(final String shopid,final String pic1,final String pic2
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.GET_SHOP_LIST;
                     msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+
+//    添加购物车
+    public void addShoppingCart(final String goodsid,final String goodsnum,final String shopid){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&userid="+user.getUserId()+"&goodsid="+goodsid+"&goodsnum="+goodsnum+"&shopid="+shopid;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.ADD_SHOPPING_CART,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what=CommunalInterfaces.ADD_SHOPPING_CART;
+                    msg.obj=jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //    获取我的购物车
+    public void GetShoppingCart(){
+        new Thread(){
+            Message msg = new Message();
+            @Override
+            public void run() {
+                String data = "&userid="+user.getUserId();
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GET_SHOPPPING_CART,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what=CommunalInterfaces.GET_SHOPPING_CART;
+                    msg.obj=jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }finally {

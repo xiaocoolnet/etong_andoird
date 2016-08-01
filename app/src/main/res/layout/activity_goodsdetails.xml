@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
+        android:id="@+id/goodsdetail_scrollview"
         android:layout_above="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -123,17 +124,18 @@
                         android:text="快递：0.00"
                         />
                     <TextView
+                        android:id="@+id/tv_goods_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:text="江苏常州"
                         />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:text="已售:240"
-                        />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="100dp"-->
+                        <!--android:text="已售:240"-->
+                        <!--/>-->
                 </LinearLayout>
             </RelativeLayout>
 
@@ -146,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="商品规格"
+                    android:text="商品描述"
                     android:textColor="@color/black"
                     />
             </RelativeLayout>
@@ -156,95 +158,105 @@
                 android:layout_marginTop="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="95dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="品牌：e小姐"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="风格：波西米亚"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="颜色：图片色"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="上市时间：2016年"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
+                    <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="match_parent">-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="品牌：e小姐"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="风格：波西米亚"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="颜色：图片色"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="上市时间：2016年"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
 
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="产地：江苏"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="尺码：S M L"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="款号：8887#"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:text="面料材质：其他"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
+                    <!--</LinearLayout>-->
+                    <!--<LinearLayout-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_height="match_parent">-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="产地：江苏"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="尺码：S M L"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="款号：8887#"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:text="面料材质：其他"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
+                <TextView
+                    android:id="@+id/tv_goods_description"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="商品描述"
+                    android:textColor="@color/black"
+                    />
             </RelativeLayout>
             <include layout="@layout/business_goods_evaluate"/>
             <include layout="@layout/business_goods_evaluate"/>
@@ -278,6 +290,7 @@
             android:layout_height="match_parent"
             />
         <Button
+            android:id="@+id/btn_shopping_cart"
             android:background="#FF9800"
             android:text="加入购物车"
             android:textColor="@color/whilte"

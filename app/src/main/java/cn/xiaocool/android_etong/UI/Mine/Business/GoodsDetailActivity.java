@@ -1,17 +1,25 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +48,15 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
     private Context context;
     private RelativeLayout rl_back;
+    private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name,tx_goods_price;
+    private TextView tx_goods_name,tx_goods_price,tv_goods_address,tv_goods_description;
     private ImageView img_goods_pic;
-    private Button btn_lijigoumai;
-    private String id , pic , goodsname , price;
+    private Button btn_lijigoumai,btn_shopping_cart;
+    private String id , pic , goodsname , price,shopname,address,description,shopid;
     private String[] arraypic;
+    private int count = 1;
+    private ProgressDialog progressDialog;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -56,7 +67,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")){
-
+                            JSONObject jsonObject = json.getJSONObject("data");
+                            address = jsonObject.getString("address");
+                            tv_goods_address.setText(address);
+                            description = jsonObject.getString("description");
+                            tv_goods_description.setText(description);
                         }else {
                             Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
                         }
@@ -64,7 +79,21 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     break;
-
+                case CommunalInterfaces.ADD_SHOPPING_CART:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        String data = jsonObject.getString("data");
+                        if (status.equals("success")){
+                            progressDialog.dismiss();
+                            Toast.makeText(context,"添加购物车成功",Toast.LENGTH_SHORT).show();
+                        }else {
+                            progressDialog.dismiss();
+                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     };
@@ -76,10 +105,13 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_goodsdetails);
         context = this;
         Intent intent = getIntent();
+        shopid=intent.getStringExtra("shopid");
+        Log.e("shopid=",shopid);
         id=intent.getStringExtra("id");
         pic = intent.getStringExtra("pic");
         price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
+        shopname = intent.getStringExtra("shopname");
         arraypic = pic.split("[,]");
         for (String pic_name:arraypic){
             Log.e("pic_name=",pic_name);
@@ -101,8 +133,14 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
         btn_lijigoumai = (Button) findViewById(R.id.btn_lijigoumai);
         btn_lijigoumai.setOnClickListener(this);
+        btn_shopping_cart = (Button) findViewById(R.id.btn_shopping_cart);
+        btn_shopping_cart.setOnClickListener(this);
         tx_goods_name = (TextView) findViewById(R.id.tx_goods_name);
         tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
+        tv_goods_address = (TextView) findViewById(R.id.tv_goods_address);
+        tv_goods_description = (TextView) findViewById(R.id.tv_goods_description);
+        goodsdetail_scrollview = (ScrollView)findViewById(R.id.goodsdetail_scrollview);
+        progressDialog = new ProgressDialog(context,ProgressDialog.STYLE_SPINNER);
     }
 
     private void setview() {
@@ -151,8 +189,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         }
     }
 
-
-
     //对应轮播图片部分
     @Override
     public void onClick(View v) {
@@ -161,10 +197,12 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.btn_lijigoumai:
-                Intent intent = new Intent();
-                intent.putExtra("id",id);
-                intent.setClass(context,BuyNowActivity.class);
-                startActivity(intent);
+                goodsdetail_scrollview.scrollTo(0,0);
+                showPopwindow(context, arraypic[0], price, goodsname);
+                break;
+            case R.id.btn_shopping_cart:
+                goodsdetail_scrollview.scrollTo(0,0);
+                showPopwindow_shoppingcart(context, arraypic[0], price, goodsname);
                 break;
         }
     }
@@ -195,5 +233,194 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+
+    /**
+     * 显示popupWindow
+     */
+    private void showPopwindow(final Context context,String picname,String goodsprice,String goodsname) {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popwindow_buynow, null);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        PopupWindow window = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        window.setFocusable(true);
+
+
+        // 实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        window.setBackgroundDrawable(dw);
+
+
+        // 设置popWindow的显示和消失动画
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(GoodsDetailActivity.this.findViewById(R.id.btn_lijigoumai),
+                Gravity.BOTTOM, 0, 0);
+
+//        // 这里检验popWindow里的button是否可以点击
+//        Button first = (Button) view.findViewById(R.id.first);
+//        first.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                System.out.println("第一个按钮被点击了");
+//            }
+//        });
+
+        ImageView img_pic = (ImageView)view.findViewById(R.id.img_goods_pic_small);
+        ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
+        TextView tx_goodsname = (TextView)view.findViewById(R.id.tx_goods_name);
+        tx_goodsname.setText(goodsname);
+        TextView tx_goods_price = (TextView)view.findViewById(R.id.tx_goods_price);
+        tx_goods_price.setText(goodsprice);
+        final TextView tx_goods_count = (TextView)view.findViewById(R.id.tx_goods_count);
+        tx_goods_count.setText(String.valueOf(count));
+        ImageView img_jia = (ImageView)view.findViewById(R.id.img_jia);
+        ImageView img_jian = (ImageView)view.findViewById(R.id.img_jian);
+        Button btn_comfirm = (Button)view.findViewById(R.id.btn_comfirm);
+
+        btn_comfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("count",count);
+                intent.putExtra("id",id);
+                intent.putExtra("shopname",shopname);
+                intent.setClass(context,ComfirmOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        img_jia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count++;
+                tx_goods_count.setText(String.valueOf(count));
+            }
+        });
+
+        img_jian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count>1){
+                    count--;
+                    tx_goods_count.setText(String.valueOf(count));
+                }
+            }
+        });
+
+        //popWindow消失监听方法
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                System.out.println("popWindow消失");
+            }
+        });
+    }
+
+    /**
+     * 显示popupWindow
+     */
+    private void showPopwindow_shoppingcart(final Context context,String picname,String goodsprice,String goodsname) {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popwindow_buynow, null);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        PopupWindow window = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        window.setFocusable(true);
+
+
+        // 实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        window.setBackgroundDrawable(dw);
+
+
+        // 设置popWindow的显示和消失动画
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(GoodsDetailActivity.this.findViewById(R.id.btn_lijigoumai),
+                Gravity.BOTTOM, 0, 0);
+
+//        // 这里检验popWindow里的button是否可以点击
+//        Button first = (Button) view.findViewById(R.id.first);
+//        first.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                System.out.println("第一个按钮被点击了");
+//            }
+//        });
+
+        ImageView img_pic = (ImageView)view.findViewById(R.id.img_goods_pic_small);
+        ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
+        TextView tx_goodsname = (TextView)view.findViewById(R.id.tx_goods_name);
+        tx_goodsname.setText(goodsname);
+        TextView tx_goods_price = (TextView)view.findViewById(R.id.tx_goods_price);
+        tx_goods_price.setText(goodsprice);
+        final TextView tx_goods_count = (TextView)view.findViewById(R.id.tx_goods_count);
+        tx_goods_count.setText(String.valueOf(count));
+        ImageView img_jia = (ImageView)view.findViewById(R.id.img_jia);
+        ImageView img_jian = (ImageView)view.findViewById(R.id.img_jian);
+        Button btn_comfirm = (Button)view.findViewById(R.id.btn_comfirm);
+
+        btn_comfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setProgressStyle(AlertDialog.THEME_HOLO_LIGHT);
+                progressDialog.setMessage("正在加载");
+                progressDialog.show();
+                if (NetUtil.isConnnected(context)){
+                    Log.e("shopid=",shopid);
+                    new MainRequest(context,handler).addShoppingCart(id,String.valueOf(count),shopid);
+                }else {
+                    Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }
+        });
+
+        img_jia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count++;
+                tx_goods_count.setText(String.valueOf(count));
+            }
+        });
+
+        img_jian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count>1){
+                    count--;
+                    tx_goods_count.setText(String.valueOf(count));
+                }
+            }
+        });
+
+        //popWindow消失监听方法
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                System.out.println("popWindow消失");
+            }
+        });
     }
 }

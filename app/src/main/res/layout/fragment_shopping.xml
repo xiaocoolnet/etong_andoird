@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/ll_top"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,6 +14,7 @@
             android:layout_height="wrap_content">
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_top"
             android:fitsSystemWindows="true"
             android:clipToPadding="true"
             android:layout_width="match_parent"
@@ -39,39 +41,47 @@
                 android:layout_marginRight="14dp"
                 />
         </RelativeLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <include layout="@layout/shopping_cloth"/>
-                <include layout="@layout/shopping_cloth"/>
-                <include layout="@layout/shopping_cloth"/>
-                <include layout="@layout/shopping_cloth"/>
-            </LinearLayout>
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--&lt;!&ndash;<include layout="@layout/shopping_cloth"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include layout="@layout/shopping_cloth"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include layout="@layout/shopping_cloth"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include layout="@layout/shopping_cloth"/>&ndash;&gt;-->
+            <!--</LinearLayout>-->
 
-        </ScrollView>
+        <!--</ScrollView>-->
     </LinearLayout>
+    <ListView
+        android:layout_below="@+id/ll_top"
+        android:layout_above="@+id/rl_bottom"
+        android:id="@+id/list_shopping_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
     <RelativeLayout
+        android:id="@+id/rl_bottom"
         android:layout_alignParentBottom="true"
         android:background="@color/whilte"
         android:layout_width="match_parent"
         android:layout_height="44dp">
-        <ImageView
-            android:id="@+id/img_shopping_yuan"
+        <CheckBox
+            android:id="@+id/cb_all_select"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@mipmap/ic_yuan"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_shopping_yuan"
+            android:layout_toRightOf="@+id/cb_all_select"
             android:text="全选"
             android:textSize="15sp"
             android:textColor="@color/black"

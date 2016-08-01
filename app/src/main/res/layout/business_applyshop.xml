@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:text="申请店铺认证"
+                    android:text="店铺认证"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     />
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:text="签订合作协议"
+                    android:text="填写店铺信息"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     />

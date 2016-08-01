@@ -38,7 +38,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class StoreHomepageActivity extends Activity implements View.OnClickListener {
     private Context context;
-    private String shopid;
+    private String shopid,shopname;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
     private ImageView img_store_head;
@@ -70,12 +70,13 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 databean.setPrice(json.getString("price"));
                                 databean.setShopid(json.getString("shopid"));
                                 databean.setId(json.getString("id"));
+                                databean.setShowid(shopname);
                                 goods_list.add(databean);
                             }
                             if (storeHomePageAdapter!=null){
                                 storeHomePageAdapter.notifyDataSetChanged();
                             }else {
-                                storeHomePageAdapter = new StoreHomePageAdapter(context,goods_list);
+                                storeHomePageAdapter = new StoreHomePageAdapter(context,goods_list,shopid);
                                 list_store_goods.setAdapter(storeHomePageAdapter);
                                 setListViewHeightBasedOnChildren(list_store_goods);
                             }
@@ -97,7 +98,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 JSONObject jsonObject1 = jsonObject0.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
-                                String shopname = jsonObject1.getString("shopname");
+                                shopname = jsonObject1.getString("shopname");
                                 Log.e("head=",head);
                                 ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
@@ -105,6 +106,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 }else {
                                     tx_store_name.setText(shopname);
                                 }
+                                initdata();
                             }else {
                                 Toast.makeText(context,jsonObject0.getString("data"),Toast.LENGTH_SHORT).show();
                             }
@@ -134,7 +136,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }
         initview();
-        initdata();
+
     }
 
     private void initview() {

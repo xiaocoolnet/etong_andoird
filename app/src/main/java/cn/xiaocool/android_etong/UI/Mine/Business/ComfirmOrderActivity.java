@@ -38,13 +38,14 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private LinearLayout ll_delivery_address;
     private EditText et_customer_remark;
     private TextView tx_comfirm_order;
-    private String id;
+    private String id,shopname;
     private String deliveryAddress = "",phone="",name="";
     private String money;
     private String judge = "0";
     private int count = 0;
     private ImageView img_goods_pic;
-    private TextView tx_goods_name,tx_goods_count,tx_goods_price,tx_goods_price_subtotal,tx_goods_price_total;
+    private TextView tx_goods_name,tx_goods_count,tx_goods_price,
+            tx_goods_price_subtotal,tx_goods_price_total,tx_shopname;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -98,6 +99,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         count = intent.getIntExtra("count", 0);
         Log.e("count=", String.valueOf(count));
         id = intent.getStringExtra("id");
+        shopname = intent.getStringExtra("shopname");
         initview();
         if (NetUtil.isConnnected(context)){
             new MainRequest(context,handler).getgoodsinfo(id);
@@ -121,6 +123,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tx_comfirm_order = (TextView) findViewById(R.id.tx_comfirm_order);
         tx_comfirm_order.setOnClickListener(this);
         et_customer_remark = (EditText) findViewById(R.id.et_customer_remark);
+        tx_shopname = (TextView)findViewById(R.id.tx_shop_name);
+        tx_shopname.setText(shopname);
     }
 
     @Override
