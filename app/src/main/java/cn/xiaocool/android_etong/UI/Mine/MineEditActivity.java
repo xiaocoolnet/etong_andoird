@@ -50,9 +50,9 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class MineEditActivity extends Activity implements View.OnClickListener {
 
-    private LinearLayout ln_name,ln_phone,ln_address;
-    private TextView my_edit_sex,tx_upname,tx_name,tx_edit_phone;
-    private String head = null,name;
+    private LinearLayout ln_name, ln_phone, ln_address;
+    private TextView my_edit_sex, tx_upname, tx_name, tx_edit_phone;
+    private String head = null, name;
     private CircleImageView set_head_img;
     private Context mContext;
     private UserInfo user;
@@ -68,36 +68,36 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
     private static final int KEY = CommunalInterfaces.UPLOADAVATAR;
 
     private Handler handler = new Handler() {
-        public void handleMessage(Message msg){
-            switch (msg.what){
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 //上传头像
                 case CommunalInterfaces.UPLOADAVATAR:
-                    Log.e("upavatar","success");
+                    Log.e("upavatar", "success");
                     String key = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "头像上传成功");
                             Toast.makeText(mContext, "头像上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(mContext,handler).updatauseravatar(picname + ".jpg");
-                        }else{
-                            Toast.makeText(mContext, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            new MainRequest(mContext, handler).updatauseravatar(picname + ".jpg");
+                        } else {
+                            Toast.makeText(mContext, json.getString("data"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                break;
+                    break;
                 //更新头像资料
                 case CommunalInterfaces.UPUSERAVATAR:
                     try {
                         JSONObject json1 = (JSONObject) msg.obj;
-                        String state=json1.getString("status");
+                        String state = json1.getString("status");
                         if (state.equals("success")) {
-                           Log.e("success", "头像资料更新成功");
-                            Toast.makeText(mContext,"头像资料上传成功",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(mContext, json1.getString("data"),Toast.LENGTH_SHORT).show();
+                            Log.e("success", "头像资料更新成功");
+                            Toast.makeText(mContext, "头像资料上传成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, json1.getString("data"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -106,25 +106,25 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 //获取个人资料
                 case CommunalInterfaces.GETUSERINFO:
                     try {
-                        JSONObject jsonObject = (JSONObject)msg.obj;
-                        String state=jsonObject.getString("status");
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             Log.e("success", "加载资料更新成功");
                             JSONObject object = jsonObject.getJSONObject("data");
                             tx_name.setText(object.getString("name"));
-                            name=object.getString("name");
+                            name = object.getString("name");
                             user.setUserPhone(object.getString("phone"));
                             user.setUserName(name);
                             user.writeData(mContext);
                             tx_edit_phone.setText(object.getString("phone"));
-                            if(object.getString("sex").equals("0")){
+                            if (object.getString("sex").equals("0")) {
                                 my_edit_sex.setText("女");
-                            }else if(object.getString("sex").equals("1")){
+                            } else if (object.getString("sex").equals("1")) {
                                 my_edit_sex.setText("男");
                             }
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), set_head_img);
-                        }else{
-                            Toast.makeText(mContext, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {
@@ -134,13 +134,13 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 //修改性别
                 case CommunalInterfaces.UPDATAUSERSEX:
                     try {
-                        JSONObject jsonObject = (JSONObject)msg.obj;
-                        String state=jsonObject.getString("status");
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             Log.e("success", "更新性别成功");
                             Toast.makeText(mContext, "更新性别成功", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(mContext, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {
@@ -156,41 +156,41 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.my_edit);
-        mContext=this;
+        mContext = this;
         user = new UserInfo();
         user.readData(mContext);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         initdata();
-        new MainRequest(mContext,handler).userinfo();
+        new MainRequest(mContext, handler).userinfo();
     }
 
     private void initdata() {
         //设置标题栏高度
-        ry_line = (RelativeLayout)findViewById(R.id.lin_edit);
+        ry_line = (RelativeLayout) findViewById(R.id.lin_edit);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height=getStatusBarHeight(mContext);
+        linearParams.height = getStatusBarHeight(mContext);
         ry_line.setLayoutParams(linearParams);
         //设置头像
         set_head_img = (CircleImageView) findViewById(R.id.set_head_img);
         set_head_img.setOnClickListener(this);
-        my_edit_sex = (TextView)findViewById(R.id.my_edit_sex);
+        my_edit_sex = (TextView) findViewById(R.id.my_edit_sex);
         my_edit_sex.setOnClickListener(this);
 //        my_edit_name = (EditText)findViewById(R.id.my_edit_name);
         btnBack = (RelativeLayout) findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
-        tx_name=(TextView)findViewById(R.id.tx_name);
-        ln_name=(LinearLayout)findViewById(R.id.ln_name);
+        tx_name = (TextView) findViewById(R.id.tx_name);
+        ln_name = (LinearLayout) findViewById(R.id.ln_name);
         ln_name.setOnClickListener(this);
-        ln_phone=(LinearLayout)findViewById(R.id.ln_phone);
+        ln_phone = (LinearLayout) findViewById(R.id.ln_phone);
         ln_phone.setOnClickListener(this);
-        ln_address=(LinearLayout)findViewById(R.id.ln_address);
+        ln_address = (LinearLayout) findViewById(R.id.ln_address);
         ln_address.setOnClickListener(this);
-        tx_edit_phone=(TextView)findViewById(R.id.tx_edit_phone);
+        tx_edit_phone = (TextView) findViewById(R.id.tx_edit_phone);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.set_head_img:
                 ShowPickDialog();
                 break;
@@ -199,20 +199,20 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_back:
                 Intent dateIntent = new Intent();
-                setResult(1,dateIntent);
+                setResult(1, dateIntent);
                 finish();
                 break;
             case R.id.ln_name:
-                Intent intent = new Intent(MineEditActivity.this,EditNameActivity.class);
+                Intent intent = new Intent(MineEditActivity.this, EditNameActivity.class);
                 startActivityForResult(intent, 4);
                 break;
             case R.id.ln_phone:
-                Intent intent1 = new Intent(MineEditActivity.this,EditPhoneActivity.class);
+                Intent intent1 = new Intent(MineEditActivity.this, EditPhoneActivity.class);
                 startActivityForResult(intent1, 5);
                 break;
             case R.id.ln_address:
                 Intent intent2 = new Intent();
-                intent2.setClass(MineEditActivity.this,AddressActivity.class);
+                intent2.setClass(MineEditActivity.this, AddressActivity.class);
                 startActivity(intent2);
                 break;
         }
@@ -223,22 +223,22 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 my_edit_sex.setText("男");
-                new MainRequest(mContext,handler).updatausersex("1");
+                new MainRequest(mContext, handler).updatausersex("1");
             }
         }).setPositiveButton("女", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
                 my_edit_sex.setText("女");
-                new MainRequest(mContext,handler).updatausersex("0");
+                new MainRequest(mContext, handler).updatausersex("0");
             }
         }).show();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent dateIntent2 = new Intent();
-            setResult(1,dateIntent2);
+            setResult(1, dateIntent2);
             finish();
             return true;
         }
@@ -297,7 +297,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                     }
                     break;
                 case 4:
-                    String name =data.getStringExtra("name");
+                    String name = data.getStringExtra("name");
                     tx_name.setText(name);
                     break;
                 case 5:
@@ -339,12 +339,12 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(this.getResources(), photo);
             set_head_img.setImageDrawable(drawable);
-            picname = "avatar"+user.getUserId()+String.valueOf(new Date().getTime());
+            picname = "avatar" + user.getUserId() + String.valueOf(new Date().getTime());
             storeImageToSDCARD(photo, picname, filepath);
-            if(NetBaseUtils.isConnnected(mContext)){
-                new MainRequest(mContext,handler).uploadavatar(head, KEY);
-            }else {
-                Toast.makeText(mContext,"网络问题，请稍后再试！",Toast.LENGTH_SHORT).show();
+            if (NetBaseUtils.isConnnected(mContext)) {
+                new MainRequest(mContext, handler).uploadavatar(head, KEY);
+            } else {
+                Toast.makeText(mContext, "网络问题，请稍后再试！", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -363,7 +363,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
             FileOutputStream fos = new FileOutputStream(imagefile);
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             head = imagefile.getAbsolutePath();
-            Log.e("path=",head);
+            Log.e("path=", head);
             user.setUserImg(head);
             fos.flush();
             fos.close();

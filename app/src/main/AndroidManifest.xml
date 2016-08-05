@@ -97,7 +97,11 @@
         <activity android:name=".UI.Mine.Business.EditGoodIntroActivity"></activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodInforActivity"></activity>
         <activity android:name=".UI.Mine.MyLikeActivity"></activity>
-
+        <activity android:name=".UI.Mine.PendingPaymentActivity"></activity>
+        <activity android:name=".UI.Mine.PendingUsedActivity"></activity>
+        <activity android:name=".UI.Mine.PendingDeliverActivity"></activity>
+        <activity android:name=".UI.Mine.PendingConfirmActivity"></activity>
+        <activity android:name=".UI.Mine.PendingCommentActivity"></activity>
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>

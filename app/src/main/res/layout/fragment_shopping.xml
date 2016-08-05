@@ -73,8 +73,10 @@
         <CheckBox
             android:id="@+id/cb_all_select"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@null"
+            android:button="@drawable/checkbox_good"
             android:layout_marginLeft="10dp"
             />
         <TextView

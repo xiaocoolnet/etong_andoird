@@ -22,12 +22,12 @@ public interface CommunalInterfaces {
     int GETUSERINFO = 0x0008;//获取用户基本资料
     int UPDATAUSERNAME = 0x0009;//修改姓名
     int UPDATAUSERSEX = 0x0010;//修改性别
-    int UPDATAUSERPHONE =0x0011;//修改手机号
+    int UPDATAUSERPHONE = 0x0011;//修改手机号
 
     //商家
     int AUTHENTICATION = 0x0012; //商家身份认证
     int POSITIVE_PIC = 0x0013; //身份证前面照片
-    int OPPOSITE_PIC = 0x0014 ; //身份证后面照片
+    int OPPOSITE_PIC = 0x0014; //身份证后面照片
     int LICENSE_PIC = 0x0015; //营业执照照片
     int CREATESHOP = 0x0016;//创建店铺
     int GETMYSHOP = 0x0017;//获取我的店铺
@@ -56,4 +56,5 @@ public interface CommunalInterfaces {
     int ADD_SHOPPING_CART = 0x0037;//添加购物车
     int GET_SHOPPING_CART = 0x0038;//获取我的购物车
     int EDIT_SHOPPING_CART = 0x0039;//修改购物车
+    int DELETE_SHOPPING_CART = 0x0040;//删除购物车
 }

@@ -26,21 +26,21 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
  * Created by 潘 on 2016/6/21.
  */
 public class RegisiterActivity extends Activity implements View.OnClickListener {
-    private static int second =30;
+    private static int second = 30;
     private Context context;
-    private EditText et_register_phone ,et_register_password,et_sure_password;
+    private EditText et_register_phone, et_register_password, et_sure_password;
     private UserInfo user;
     private RelativeLayout re_back;
-    private Button btn_register,btn_send_code;
+    private Button btn_register, btn_send_code;
     private String phoneNumber, code;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CommunalInterfaces.SEND_CODE:
-                    JSONObject jsonObject=(JSONObject)msg.obj;
+                    JSONObject jsonObject = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject.getString("status");
-                        Log.e("status = ",status);
+                        Log.e("status = ", status);
                         if (status.equals("success")) {
                             Toast.makeText(RegisiterActivity.this, "发送验证码成功！", Toast.LENGTH_SHORT).show();
                             String data = jsonObject.getString("data");
@@ -62,7 +62,7 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
                 case CommunalInterfaces.BTN_TOUCH:
                     btn_send_code.setText("发送验证码");
                     btn_send_code.setClickable(true);
-                    second =30;
+                    second = 30;
                     break;
                 case CommunalInterfaces.REGISTER:
                     //判断与服务器的验证码是否一致，如果一致则提示注册成功，跳转到主界面；否则提示验证码错误
@@ -72,13 +72,12 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
                         String data = json.getString("data");
                         if (status.equals("success")) {
                             //实力化缓存类;
-                            Toast.makeText(RegisiterActivity.this, "注册成功！",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisiterActivity.this,LoginActivity.class);
+                            Toast.makeText(RegisiterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisiterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                        }
-                        else {
-                            Toast.makeText(RegisiterActivity.this, data,Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegisiterActivity.this, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -102,20 +101,20 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
     }
 
     private void initView() {
-        et_register_phone = (EditText)findViewById(R.id.et_register_phone);
-        et_register_password=(EditText)findViewById(R.id.et_register_password);
-        et_sure_password = (EditText)findViewById(R.id.et_sure_password);
-        btn_register = (Button)findViewById(R.id.btn_register);
+        et_register_phone = (EditText) findViewById(R.id.et_register_phone);
+        et_register_password = (EditText) findViewById(R.id.et_register_password);
+        et_sure_password = (EditText) findViewById(R.id.et_sure_password);
+        btn_register = (Button) findViewById(R.id.btn_register);
         btn_register.setOnClickListener(this);
-        btn_send_code = (Button)findViewById(R.id.btn_send_code);
+        btn_send_code = (Button) findViewById(R.id.btn_send_code);
         btn_send_code.setOnClickListener(this);
-        re_back = (RelativeLayout)findViewById(R.id.re_back);
+        re_back = (RelativeLayout) findViewById(R.id.re_back);
         re_back.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_send_code:
                 sendCode();
                 break;
@@ -133,14 +132,14 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
         String phone = et_register_phone.getText().toString();
         String code = et_register_password.getText().toString();
         String password = et_sure_password.getText().toString();
-        if(code.length()==6){
-            if(!password.equals("")){
-                new MainRequest(this, handler).register(phone,password,code);
-            }else {
-                Toast.makeText(context,"请输入密码",Toast.LENGTH_SHORT).show();
+        if (code.length() == 6) {
+            if (!password.equals("")) {
+                new MainRequest(this, handler).register(phone, password, code);
+            } else {
+                Toast.makeText(context, "请输入密码", Toast.LENGTH_SHORT).show();
             }
-        }else {
-            Toast.makeText(context,"请输入正确验证码",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "请输入正确验证码", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -149,20 +148,20 @@ public class RegisiterActivity extends Activity implements View.OnClickListener 
         phoneNumber = et_register_phone.getText().toString();
         Log.e("phone number is", phoneNumber);
         if (phoneNumber.length() == 11) {
-            new Thread(){
+            new Thread() {
                 public void run() {
-                    new MainRequest(context,handler).sendCode(phoneNumber);
-                            for (int i = 0; i < 30; i++) {
-                                try {
-                                    handler.sendEmptyMessage(CommunalInterfaces.BTN_UNTOUCH);
-                                    Thread.sleep(1000);
-                                    second--;
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            handler.sendEmptyMessage(CommunalInterfaces.BTN_TOUCH);
+                    new MainRequest(context, handler).sendCode(phoneNumber);
+                    for (int i = 0; i < 30; i++) {
+                        try {
+                            handler.sendEmptyMessage(CommunalInterfaces.BTN_UNTOUCH);
+                            Thread.sleep(1000);
+                            second--;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
+                    }
+                    handler.sendEmptyMessage(CommunalInterfaces.BTN_TOUCH);
+                }
             }.start();
         } else {
             Toast.makeText(RegisiterActivity.this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();

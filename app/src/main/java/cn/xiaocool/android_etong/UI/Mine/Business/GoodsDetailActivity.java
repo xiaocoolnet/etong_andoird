@@ -57,6 +57,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private String[] arraypic;
     private int count = 1;
     private ProgressDialog progressDialog;
+    public static final String action = "jason.broadcast.action";
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -246,7 +247,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
-        PopupWindow window = new PopupWindow(view,
+        final PopupWindow window = new PopupWindow(view,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
@@ -295,8 +296,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent.putExtra("count",count);
                 intent.putExtra("id",id);
                 intent.putExtra("shopname",shopname);
-                intent.setClass(context,ComfirmOrderActivity.class);
+                intent.setClass(context, ComfirmOrderActivity.class);
                 startActivity(intent);
+                window.dismiss();
             }
         });
 
@@ -338,7 +340,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
-        PopupWindow window = new PopupWindow(view,
+        final PopupWindow window = new PopupWindow(view,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
@@ -387,8 +389,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 progressDialog.setMessage("正在加载");
                 progressDialog.show();
                 if (NetUtil.isConnnected(context)){
-                    Log.e("shopid=",shopid);
-                    new MainRequest(context,handler).addShoppingCart(id,String.valueOf(count),shopid);
+                    Log.e("shopid=", shopid);
+                    window.dismiss();
+                    new MainRequest(context,handler).addShoppingCart(id, String.valueOf(count), shopid);
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();

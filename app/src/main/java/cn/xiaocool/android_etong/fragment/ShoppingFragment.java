@@ -45,7 +45,6 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private ListView list_Shopping_Cart;
     private StoreAdapter storeAdapter;
     private List<ShoppingCart_StoreName.DataBean> dataBeans;
-    private List<ShoppingCart_StoreName.DataBean> dataBeans_spare;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -83,11 +82,10 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                 store.setGoodslist(goodses);
                                 dataBeans.add(store);
                             }
-                            dataBeans_spare = dataBeans;
-                            if (storeAdapter!=null){
+                            if (storeAdapter != null) {
                                 storeAdapter.notifyDataSetChanged();
-                            }else {
-                                storeAdapter = new StoreAdapter(ShoppingFragment.this,dataBeans);
+                            } else {
+                                storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
                                 list_Shopping_Cart.setAdapter(storeAdapter);
                                 fixListViewHeight(list_Shopping_Cart);
                             }
@@ -103,7 +101,20 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                         JSONObject jsonObject = (JSONObject) msg.obj;
                         String state = jsonObject.getString("status");
                         if (state.equals("success")) {
-                            Log.e("success","edit_shoppingcart");
+                            Log.e("success", "edit_shoppingcart");
+                        } else {
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.DELETE_SHOPPING_CART:
+                    try {
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
+                        if (state.equals("success")) {
+                            Log.e("success", "delete_shoppingcart");
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -118,7 +129,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shopping,container,false);
+        View view = inflater.inflate(R.layout.fragment_shopping, container, false);
         context = getActivity();
         return view;
     }
@@ -127,34 +138,34 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //设置状态栏高度
-        ry_line = (RelativeLayout)getView().findViewById(R.id.lin2);
+        ry_line = (RelativeLayout) getView().findViewById(R.id.lin2);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height=getStatusBarHeight(context);
+        linearParams.height = getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
         initView();
-        if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShoppingCart();
-        }else {
-            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).GetShoppingCart();
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void initView() {
         dataBeans = new ArrayList<>();
-        list_Shopping_Cart = (ListView)getView().findViewById(R.id.list_shopping_cart);
-        tx_shopping_price = (TextView)getView().findViewById(R.id.tx_shopping_price);
-        cb_all_select = (CheckBox)getView().findViewById(R.id.cb_all_select);
+        list_Shopping_Cart = (ListView) getView().findViewById(R.id.list_shopping_cart);
+        tx_shopping_price = (TextView) getView().findViewById(R.id.tx_shopping_price);
+        cb_all_select = (CheckBox) getView().findViewById(R.id.cb_all_select);
         cb_all_select.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.cb_all_select:
                 boolean flag = cb_all_select.isChecked();
                 for (int i = 0; i < storeAdapter.getSelect().size(); i++) {
                     storeAdapter.getSelect().set(i, flag);
-                    for(int j=0;j<storeAdapter.getPAdapter(i).getSelect().size();j++) {
+                    for (int j = 0; j < storeAdapter.getPAdapter(i).getSelect().size(); j++) {
                         storeAdapter.getPAdapter(i).getSelect().set(j, flag);
                     }
                 }
@@ -170,46 +181,39 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
     public void updateAmount() {
         double amount = 0;
-//        StringBuffer id = new StringBuffer();
-//        StringBuffer gid = new StringBuffer();
         tx_shopping_price.setText("￥");
         for (int i = 0; i < dataBeans.size(); i++) {
-            for(int j=0; j < dataBeans.get(i).getGoodslist().size(); j++) {
-                if(storeAdapter.getPAdapter(i).getSelect().get(j)) {
+            for (int j = 0; j < dataBeans.get(i).getGoodslist().size(); j++) {
+                if (storeAdapter.getPAdapter(i).getSelect().get(j)) {
                     amount += Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
-                            *Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getNumber());
-//                    Log.e("id=",dataBeans.get(i).getGoodslist().get(j).getId().toString());
-//                    id.append(dataBeans.get(i).getGoodslist().get(j).getId().toString());
-//                    id.append(",");
-//                    gid.append(dataBeans.get(i).getGoodslist().get(j).getGid().toString());
-//                    gid.append(",");
+                            * Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getNumber());
                 }
             }
         }
-        if(amount !=0 ){
-            tx_shopping_price.setText("￥"+amount);
+        if (amount != 0) {
+            tx_shopping_price.setText("￥" + amount);
         }
-//        id.substring(0,id.length()-1);
-//        gid.substring(0,gid.length()-1);
-//        Log.e("id=", id.toString());
-//        Log.e("gid=", gid.toString());
     }
 
-    public void setGoodsNumber(int storePosition,int goodsPosition,String number){
+    public void setGoodsNumber(int storePosition, int goodsPosition, String number) {
         dataBeans.get(storePosition).getGoodslist().get(goodsPosition).setNumber(number);
-        Log.e("success",number);
+        Log.e("success", number);
     }
 
-    public void setUpdate(){
-//        storeAdapter = new StoreAdapter(ShoppingFragment.this,dataBeans);
-//        list_Shopping_Cart.setAdapter(storeAdapter);
-        for (int i = 0;i<dataBeans.size();i++){
-            for (int j = 0;j<dataBeans.get(i).getGoodslist().size();j++){
-                if (dataBeans_spare.get(i).getGoodslist().get(j).getNumber().equals(dataBeans.get(i).getGoodslist().get(j).getNumber())){
-                }else {
-                    new MainRequest(context,handler).EditShoppingCart(dataBeans.get(i).getGoodslist().get(j).getGid(),dataBeans.get(i).getGoodslist().get(j).getNumber());
-                }
+    public void setUpdate() {
+        for (int i = 0; i < dataBeans.size(); i++) {
+            for (int j = 0; j < dataBeans.get(i).getGoodslist().size(); j++) {
+                new MainRequest(context, handler).EditShoppingCart(dataBeans.get(i).getGoodslist().get(j).getGid(), dataBeans.get(i).getGoodslist().get(j).getNumber());
             }
+        }
+    }
+
+    public void DeleteDate(String goodsid) {
+        if (NetUtil.isConnnected(context)) {
+            Log.e("ready", "delete_shopping_cart");
+            new MainRequest(context, handler).DeleteShoppingCart(goodsid);
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -229,7 +233,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
         for (int index = 0, len = listAdapter.getCount(); index < len; index++) {
 
-            View listViewItem = listAdapter.getView(index , null, listView);
+            View listViewItem = listAdapter.getView(index, null, listView);
 
             // 计算子项View 的宽高
 
@@ -247,7 +251,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
         // params.height设置ListView完全显示需要的高度
 
-        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 
         listView.setLayoutParams(params);
     }

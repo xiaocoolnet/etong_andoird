@@ -1,6 +1,9 @@
 package cn.xiaocool.android_etong.adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,7 @@ public class ProductAdapter extends BaseAdapter {
     int storePosition;
     ShoppingFragment context;
 
-    public ProductAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean.GoodslistBean> list, StoreAdapter adapter, int storePosition,Boolean flag) {
+    public ProductAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean.GoodslistBean> list, StoreAdapter adapter, int storePosition, Boolean flag) {
         this.inflater = LayoutInflater.from(context.getActivity());
         this.list = list;
         this.adapter = adapter;
@@ -58,7 +61,7 @@ public class ProductAdapter extends BaseAdapter {
         return selected;
     }
 
-    public void setFlag(Boolean flag){
+    public void setFlag(Boolean flag) {
         this.flag = flag;
     }
 
@@ -66,13 +69,15 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         final ShoppingCart_StoreName.DataBean.GoodslistBean product = list.get(position);
-        if (convertView==null){
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.shopping_cloth_item, null);
             holder = new ViewHolder();
             holder.img_shopping_chanpin = (ImageView) convertView.findViewById(R.id.img_shopping_chanpin);
             holder.tx_shopping_cloth_name = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_name);
+            holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
             holder.tx_shopping_cloth_price = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_price);
             holder.tx_shopping_cloth_oldprice = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_oldprice);
+            holder.tx_shopping_cloth_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             holder.tx_goods_count = (TextView) convertView.findViewById(R.id.tx_goods_count);
             holder.tx_shopping_cloth_color = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_color);
             holder.tx_shopping_cloth_size = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_size);
@@ -82,13 +87,13 @@ public class ProductAdapter extends BaseAdapter {
             holder.tv_number = (TextView) convertView.findViewById(R.id.tv_number);
             holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         String pic = product.getPicture();
         String[] arraypic = pic.split("[,]");
         imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
-        if (flag){
+        if (flag) {
             holder.tx_shopping_cloth_size.setVisibility(View.GONE);
             holder.tx_shopping_cloth_color.setVisibility(View.GONE);
             holder.tx_shopping_cloth_name.setVisibility(View.GONE);
@@ -96,7 +101,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.tx_shopping_cloth_oldprice.setVisibility(View.GONE);
             holder.tx_goods_count.setVisibility(View.GONE);
             holder.rl_select.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.tx_shopping_cloth_size.setVisibility(View.VISIBLE);
             holder.tx_shopping_cloth_color.setVisibility(View.VISIBLE);
             holder.tx_shopping_cloth_name.setVisibility(View.VISIBLE);
@@ -140,7 +145,7 @@ public class ProductAdapter extends BaseAdapter {
                 int number = Integer.parseInt(tv_number.getText().toString());
                 number++;
                 tv_number.setText(String.valueOf(number));
-                context.setGoodsNumber(storePosition,position,String.valueOf(number));
+                context.setGoodsNumber(storePosition, position, String.valueOf(number));
             }
         });
 
@@ -149,10 +154,36 @@ public class ProductAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int number = Integer.parseInt(tv_number.getText().toString());
                 number--;
-                if (number>0){
+                if (number > 0) {
                     tv_number.setText(String.valueOf(number));
                     context.setGoodsNumber(storePosition, position, String.valueOf(number));
                 }
+            }
+        });
+
+        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context.getActivity());
+                dialog.setMessage("确认删除？");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        context.DeleteDate(list.get(position).getGid());
+                        list.remove(position);
+                        if (list.size()==0){
+                            adapter.removePosition(storePosition);
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
         return convertView;
@@ -160,11 +191,11 @@ public class ProductAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView img_shopping_chanpin;
-        TextView tx_shopping_cloth_name, tx_shopping_cloth_price, tx_shopping_cloth_oldprice, tx_goods_count;
+        TextView tx_shopping_cloth_name, tv_delete, tx_shopping_cloth_price, tx_shopping_cloth_oldprice, tx_goods_count;
         CheckBox cb_select;
         RelativeLayout rl_select;
-        Button btn_down,btn_up;
-        TextView tv_number,tx_shopping_cloth_color,tx_shopping_cloth_size;
+        Button btn_down, btn_up;
+        TextView tv_number, tx_shopping_cloth_color, tx_shopping_cloth_size;
     }
 
     @Override

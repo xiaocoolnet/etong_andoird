@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,10 +27,10 @@ public class MyLikeActivity extends Activity implements View.OnClickListener {
     private Fragment[] fragment;
     private FragmentManager fragmentManager;
     private Button[] button;
-    private int currentIndex,index;
+    private int currentIndex, index;
     private TextView tvTitle;
     private RelativeLayout btnback;
-    private Button lineButton0,lineButton1;
+    private Button lineButton0, lineButton1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class MyLikeActivity extends Activity implements View.OnClickListener {
         llContainer = (LinearLayout) findViewById(R.id.mine_order_fragment_container);
         myLikeShopFragment = new MyLikeShopFragment();
         myLikeGoodFragment = new MyLikeGoodFragment();
-        fragment = new Fragment[]{myLikeGoodFragment,myLikeShopFragment};
+        fragment = new Fragment[]{myLikeGoodFragment, myLikeShopFragment};
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.mine_order_fragment_container, myLikeGoodFragment);

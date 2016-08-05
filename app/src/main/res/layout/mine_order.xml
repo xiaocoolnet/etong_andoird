@@ -79,7 +79,7 @@
         >
 
         <Button
-            android:id="@+id/btn_daishouhuo"
+            android:id="@+id/btn_daiqueren"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_daishouhuo"
@@ -87,7 +87,7 @@
             android:paddingBottom="2dip"
             android:paddingTop="11.5dip"
             android:scaleType="matrix"
-            android:text="待收货"
+            android:text="待确认"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>

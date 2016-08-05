@@ -46,22 +46,22 @@ public class EditPhoneActivity extends Activity implements View.OnClickListener 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case CommunalInterfaces.UPDATAUSERPHONE:
                     try {
-                        JSONObject jsonObject = (JSONObject)msg.obj;
-                        String state=jsonObject.getString("status");
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             progressDialog.dismiss();
                             Log.e("success", "更新手机号成功");
-                            Toast.makeText(context,"更新手机号成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "更新手机号成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent();
-                            intent.putExtra("phone",phone);
+                            intent.putExtra("phone", phone);
                             setResult(RESULT_OK, intent);
                             finish();
-                        }else{
+                        } else {
                             progressDialog.dismiss();
-                            Toast.makeText(context, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {
@@ -71,6 +71,7 @@ public class EditPhoneActivity extends Activity implements View.OnClickListener 
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,34 +95,34 @@ public class EditPhoneActivity extends Activity implements View.OnClickListener 
     }
 
     private void initview() {
-        ry_line = (RelativeLayout)findViewById(R.id.lin_phone);
+        ry_line = (RelativeLayout) findViewById(R.id.lin_phone);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height=getStatusBarHeight(context);
+        linearParams.height = getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
 
-        ed_phone=(EditText)findViewById(R.id.ed_phone);
-        top_upload=(TextView)findViewById(R.id.top_upload);
+        ed_phone = (EditText) findViewById(R.id.ed_phone);
+        top_upload = (TextView) findViewById(R.id.top_upload);
         top_upload.setOnClickListener(this);
-        rl_back=(RelativeLayout)findViewById(R.id.rl_back);
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.top_upload:
-                if(ed_phone.getText().toString().equals("")){
+                if (ed_phone.getText().toString().equals("")) {
                     Toast.makeText(context, "请输入手机号", Toast.LENGTH_SHORT).show();
                     ed_phone.requestFocus();
-                }else if(ed_phone.getText().toString().length()!=11){
-                      Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
-                  }else {
+                } else if (ed_phone.getText().toString().length() != 11) {
+                    Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
+                } else {
                     progressDialog.setMessage("正在提交");
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     progressDialog.show();
                     phone = ed_phone.getText().toString();
-                    new MainRequest(context,handler).updatauserphone(ed_phone.getText().toString());
+                    new MainRequest(context, handler).updatauserphone(ed_phone.getText().toString());
                 }
                 break;
             case R.id.rl_back:

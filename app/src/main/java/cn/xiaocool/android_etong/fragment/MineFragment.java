@@ -34,6 +34,11 @@ import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyShoppingOrderListActivity;
+import cn.xiaocool.android_etong.UI.Mine.PendingCommentActivity;
+import cn.xiaocool.android_etong.UI.Mine.PendingConfirmActivity;
+import cn.xiaocool.android_etong.UI.Mine.PendingDeliverActivity;
+import cn.xiaocool.android_etong.UI.Mine.PendingPaymentActivity;
+import cn.xiaocool.android_etong.UI.Mine.PendingUsedActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -50,7 +55,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private ImageView img_setup;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line,rl_mine_shoucang,rl_order_list;
-    private Button btn_kaidian;
+    private Button btn_kaidian,btn_daifukuan,btn_daishiyong,btn_daifahuo,btn_daiqueren,btn_daipinglun;
     private TextView tx_mine_name;
     private Context context;
     private Handler handler = new Handler(){
@@ -140,6 +145,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         img_mine_head.setOnClickListener(this);
         btn_kaidian=(Button)getView().findViewById(R.id.btn_kaidian);
         btn_kaidian.setOnClickListener(this);
+        btn_daifukuan = (Button)getView().findViewById(R.id.btn_daifukuan);
+        btn_daifukuan.setOnClickListener(this);
+        btn_daishiyong = (Button)getView().findViewById(R.id.btn_daishiyong);
+        btn_daishiyong.setOnClickListener(this);
+        btn_daifahuo = (Button)getView().findViewById(R.id.btn_daifahuo);
+        btn_daifahuo.setOnClickListener(this);
+        btn_daiqueren = (Button)getView().findViewById(R.id.btn_daiqueren);
+        btn_daiqueren.setOnClickListener(this);
+        btn_daipinglun = (Button)getView().findViewById(R.id.btn_daipingjia);
+        btn_daipinglun.setOnClickListener(this);
         img_setup=(ImageView)getView().findViewById(R.id.img_setup);
         img_setup.setOnClickListener(this);
         rl_mine_shoucang = (RelativeLayout)getView().findViewById(R.id.mine_btn_my_like);
@@ -165,8 +180,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(new Intent(context, MineEditActivity.class), 1);
                 break;
             case R.id.btn_kaidian:
-//                startActivity(new Intent(context, BusinessActivity.class));
-//                startActivity(new Intent(context, AuthenticationShopActivity.class));
                     new MainRequest(context,handler).getmyshop();
                 break;
             case R.id.img_setup:
@@ -179,6 +192,21 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_btn_my_like:
                 IntentUtils.getIntent((Activity) context, MyLikeActivity.class);
+                break;
+            case R.id.btn_daifukuan:
+                startActivity(new Intent(context, PendingPaymentActivity.class));
+                break;
+            case R.id.btn_daishiyong:
+                startActivity(new Intent(context, PendingUsedActivity.class));
+                break;
+            case R.id.btn_daifahuo:
+                startActivity(new Intent(context, PendingDeliverActivity.class));
+                break;
+            case R.id.btn_daiqueren:
+                startActivity(new Intent(context, PendingConfirmActivity.class));
+                break;
+            case R.id.btn_daipingjia:
+                startActivity(new Intent(context, PendingCommentActivity.class));
                 break;
         }
     }
