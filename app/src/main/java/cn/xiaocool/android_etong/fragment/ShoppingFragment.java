@@ -1,7 +1,10 @@
 package cn.xiaocool.android_etong.fragment;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +28,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.adapter.StoreAdapter;
 import cn.xiaocool.android_etong.bean.Shop.ShoppingCart_StoreName;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -82,13 +87,9 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                 store.setGoodslist(goodses);
                                 dataBeans.add(store);
                             }
-                            if (storeAdapter != null) {
-                                storeAdapter.notifyDataSetChanged();
-                            } else {
                                 storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
                                 list_Shopping_Cart.setAdapter(storeAdapter);
                                 fixListViewHeight(list_Shopping_Cart);
-                            }
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -122,6 +123,9 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
+//                case CommunalInterfaces.UPDATA_SHOPPING_CART:
+//                    new MainRequest(context,handler).GetShoppingCart();
+//                    break;
             }
         }
     };
@@ -131,6 +135,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
         context = getActivity();
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -142,6 +147,8 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
         linearParams.height = getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
+//        MyApp myApp = (MyApp)getActivity().getApplication();
+//        myApp.setHandler(handler);
         initView();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).GetShoppingCart();
@@ -156,7 +163,31 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         tx_shopping_price = (TextView) getView().findViewById(R.id.tx_shopping_price);
         cb_all_select = (CheckBox) getView().findViewById(R.id.cb_all_select);
         cb_all_select.setOnClickListener(this);
+        initShoppingCart();
     }
+
+    private void initShoppingCart() {
+        IntentFilter filter = new IntentFilter(GoodsDetailActivity.action);
+        context.registerReceiver(broadcastReceiver, filter);
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO Auto-generated method stub
+            Log.e("data=", intent.getExtras().getString("data"));
+            if (NetUtil.isConnnected(context)) {
+                new MainRequest(context, handler).GetShoppingCart();
+            } else {
+                Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    public void onDestroy() {
+        context.unregisterReceiver(broadcastReceiver);
+    };
 
     @Override
     public void onClick(View v) {
@@ -198,6 +229,13 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     public void setGoodsNumber(int storePosition, int goodsPosition, String number) {
         dataBeans.get(storePosition).getGoodslist().get(goodsPosition).setNumber(number);
         Log.e("success", number);
+    }
+
+    public void removePosition(int storePosition){
+        dataBeans.remove(storePosition);
+        storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
+        list_Shopping_Cart.setAdapter(storeAdapter);
+        fixListViewHeight(list_Shopping_Cart);
     }
 
     public void setUpdate() {

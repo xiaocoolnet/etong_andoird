@@ -118,6 +118,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             Log.e("pic_name=",pic_name);
         }
         Log.e("id=", id);
+//        MyApp mAPP = (MyApp) getApplication();
+//        handler = mAPP.getHandler();
+//        handler.sendEmptyMessage(CommunalInterfaces.UPDATA_SHOPPING_CART);
         initview();
         if (NetUtil.isConnnected(context)){
             new MainRequest(context,handler).getgoodsinfo(id);
@@ -381,7 +384,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_jia = (ImageView)view.findViewById(R.id.img_jia);
         ImageView img_jian = (ImageView)view.findViewById(R.id.img_jian);
         Button btn_comfirm = (Button)view.findViewById(R.id.btn_comfirm);
-
+        //添加购物车
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -391,6 +394,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 if (NetUtil.isConnnected(context)){
                     Log.e("shopid=", shopid);
                     window.dismiss();
+                    Intent intent = new Intent(action);
+                    intent.putExtra("data", "yes i am data");
+                    sendBroadcast(intent);
                     new MainRequest(context,handler).addShoppingCart(id, String.valueOf(count), shopid);
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();

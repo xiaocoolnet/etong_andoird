@@ -41,11 +41,6 @@ public class StoreAdapter extends BaseAdapter {
         }
     }
 
-    public void removePosition(int storePosition){
-        list.remove(storePosition);
-        notifyDataSetChanged();
-    }
-
     public List<Boolean> getSelect() {
         return selected;
     }

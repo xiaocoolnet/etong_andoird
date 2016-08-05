@@ -57,4 +57,5 @@ public interface CommunalInterfaces {
     int GET_SHOPPING_CART = 0x0038;//获取我的购物车
     int EDIT_SHOPPING_CART = 0x0039;//修改购物车
     int DELETE_SHOPPING_CART = 0x0040;//删除购物车
+    int UPDATA_SHOPPING_CART = 0x0041;//更新购物车
 }

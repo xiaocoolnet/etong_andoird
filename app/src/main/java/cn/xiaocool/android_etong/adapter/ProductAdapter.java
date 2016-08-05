@@ -139,6 +139,7 @@ public class ProductAdapter extends BaseAdapter {
             }
         });
         final TextView tv_number = holder.tv_number;
+        final CheckBox cb_select = holder.cb_select;
         holder.btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +147,9 @@ public class ProductAdapter extends BaseAdapter {
                 number++;
                 tv_number.setText(String.valueOf(number));
                 context.setGoodsNumber(storePosition, position, String.valueOf(number));
+                if (cb_select.isChecked()){
+                    context.updateAmount();
+                }
             }
         });
 
@@ -157,6 +161,9 @@ public class ProductAdapter extends BaseAdapter {
                 if (number > 0) {
                     tv_number.setText(String.valueOf(number));
                     context.setGoodsNumber(storePosition, position, String.valueOf(number));
+                    if (cb_select.isChecked()){
+                        context.updateAmount();
+                    }
                 }
             }
         });
@@ -172,9 +179,10 @@ public class ProductAdapter extends BaseAdapter {
                         context.DeleteDate(list.get(position).getGid());
                         list.remove(position);
                         if (list.size()==0){
-                            adapter.removePosition(storePosition);
+                            context.removePosition(storePosition);
+                        }else {
+                            adapter.notifyDataSetChanged();
                         }
-                        notifyDataSetChanged();
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         fragments = new Fragment[]{homepageFragment, localFragment,prefectureFragment,shoppingFragment,mineFragment};
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, homepageFragment);
+        fragmentTransaction.add(R.id.fragment_container, homepageFragment).add(R.id.fragment_container,shoppingFragment).hide(shoppingFragment).show(homepageFragment);
         fragmentTransaction.commit();
         initBtn();
        // 透明状态栏
