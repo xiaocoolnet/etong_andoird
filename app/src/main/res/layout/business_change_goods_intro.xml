@@ -387,6 +387,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/edit_good_invrntpry"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -412,6 +413,13 @@
                     android:hint=""
                     android:maxLength="50"
                     android:textSize="16sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/ic_next" />
             </RelativeLayout>
 
 

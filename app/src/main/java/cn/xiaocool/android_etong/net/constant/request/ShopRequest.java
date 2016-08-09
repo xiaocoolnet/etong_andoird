@@ -132,4 +132,24 @@ public class ShopRequest {
         }.start();
     }
 
+    //获取商品附加属性(传入goodid)
+    public void obtainGoodProperty(final String goodId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&goodsid=" + goodId;
+                String result_data = NetUtil.getResponse(WebAddress.OBTAIN_GOOD_ATTRIBUTE, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.OBTAIN_GOOD_ATTRIBUTE;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

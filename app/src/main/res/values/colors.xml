@@ -9,6 +9,7 @@
     <color name="black2">#333333</color>
     <color name="black3">#999999</color>
     <color name="black4">#1a1a1a</color>
+    <color name="black5">#808080</color>
     <color name="canlendar_text_color">#323232</color>
     <color name="view_color">#dfdfdf</color>
     <color name="red">#eb382f</color>
@@ -21,6 +22,7 @@
     <color name="gray1">#999999</color>
     <color name="gray2">#F2F2F2</color>
     <color name="gray3">#4f5555</color>
+    <color name="gray4">#ebebeb</color>
     <color name="gray_title">#F7F7F7</color>
     <color name="gray_content">#F5F5F5</color>
     <color name="blue">#2db3f8</color>

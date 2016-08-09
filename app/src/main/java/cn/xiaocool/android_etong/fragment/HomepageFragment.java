@@ -3,8 +3,9 @@ package cn.xiaocool.android_etong.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,13 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
@@ -25,8 +32,15 @@ import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
 import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
 import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
 import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
+import cn.xiaocool.android_etong.adapter.EverydayGoodShopAdapter;
+import cn.xiaocool.android_etong.adapter.HomepageGuessLikeAdapter;
+import cn.xiaocool.android_etong.adapter.QualityLifeAdapter;
+import cn.xiaocool.android_etong.bean.HomePage.EveryDayGoodShopBean;
+import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
+import cn.xiaocool.android_etong.util.NoScrollGridView;
 
 /**
  * Created by 潘 on 2016/6/12.
@@ -35,12 +49,71 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private Context context;
     private SliderLayout mDemoSlider;
     private RelativeLayout rl_meirijingxuan;
-    private RelativeLayout rl_bestshop_left , rl_bestshop_right,rlNewArrival,rlEverydayBargain,rlEverydayChoiceness;
-    private LinearLayout llQualityLife,llFlashSale;
+    private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
+    private LinearLayout llQualityLife, llFlashSale;
+    private NoScrollGridView gridView0,gridView1;
+    private List<EveryDayGoodShopBean.DataBean> dataBeenList;
+    private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
+    private EverydayGoodShopAdapter everydayGoodShopAdapter;
+    private HomepageGuessLikeAdapter homepageGuessLikeAdapter;
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CommunalInterfaces.GET_HOMEPAGE_EVERY_GOODSHOP:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        if (status.equals("success")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            int length = jsonArray.length();
+                            JSONObject dataObject;
+                            for (int i = 0; i < length; i++) {
+                                dataObject = (JSONObject) jsonArray.get(i);
+                                EveryDayGoodShopBean.DataBean dataBean = new EveryDayGoodShopBean.DataBean();
+                                dataBean.setId(dataObject.getString("id"));
+                                dataBean.setShopname(dataObject.getString("shopname"));
+                                dataBean.setFavorite(dataObject.getString("favorite"));
+                                dataBean.setPhoto(dataObject.getString("photo"));
+                                dataBeenList.add(dataBean);
+                            }
+                            everydayGoodShopAdapter = new EverydayGoodShopAdapter(context, dataBeenList);
+                            gridView0.setAdapter(everydayGoodShopAdapter);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.GET_NEW_ARRIVAL:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject1.getString("status");
+                        if (status.equals("success")) {
+                            JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                            int length = jsonArray.length();
+                            JSONObject dataObject;
+                            for (int i = 0; i < length; i++) {
+                                dataObject = (JSONObject) jsonArray.get(i);
+                                NewArrivalBean.NewArrivalDataBean newArrivalDataBean = new NewArrivalBean.NewArrivalDataBean();
+                                newArrivalDataBean.setId(dataObject.getString("id"));
+                                newArrivalDataBean.setDescription(dataObject.getString("description"));
+                                newArrivalDataBean.setPrice(dataObject.getString("price"));
+                                newArrivalDataBean.setPicture(dataObject.getString("picture"));
+                                newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
+                                newArrivalDataBeanList.add(newArrivalDataBean);
+                            }
+                            homepageGuessLikeAdapter = new HomepageGuessLikeAdapter(context, newArrivalDataBeanList);
+                            gridView1.setAdapter(homepageGuessLikeAdapter);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homepage,container,false);
+        View view = inflater.inflate(R.layout.fragment_homepage, container, false);
         context = getActivity();
         return view;
     }
@@ -50,13 +123,15 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         super.onActivityCreated(savedInstanceState);
         initview();
         initdata();
+        new HomeRequest(context, handler).getGuessLike("烟台市");//获取每日好店
+        new HomeRequest(context, handler).getNewArrival("&recommend=6");//获取猜你喜欢
     }
 
     private void initview() {
-        rl_bestshop_left = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_left);
-        rl_bestshop_left.setOnClickListener(this);
-        rl_bestshop_right = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_right);
-        rl_bestshop_right.setOnClickListener(this);
+//        rl_bestshop_left = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_left);
+//        rl_bestshop_left.setOnClickListener(this);
+//        rl_bestshop_right = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_right);
+//        rl_bestshop_right.setOnClickListener(this);
         rlNewArrival = (RelativeLayout) getView().findViewById(R.id.homepage_rl_new_arrival);
         rlNewArrival.setOnClickListener(this);
         llQualityLife = (LinearLayout) getView().findViewById(R.id.homepage_ll_quality_life);
@@ -67,18 +142,22 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         rlEverydayBargain.setOnClickListener(this);
         rlEverydayChoiceness = (RelativeLayout) getView().findViewById(R.id.homepage_rl_everyday_choiceness);
         rlEverydayChoiceness.setOnClickListener(this);
+        gridView0 = (NoScrollGridView) getView().findViewById(R.id.homepage_everyday_goodshop_gridview);
+        gridView1 = (NoScrollGridView) getView().findViewById(R.id.homepage_guess_like_gridview);
+        dataBeenList = new ArrayList<>();
+        newArrivalDataBeanList = new ArrayList<>();
     }
 
     private void initdata() {
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
+        HashMap<String, String> url_maps = new HashMap<String, String>();
         url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
         url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
         url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
         url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
 
-        for(String name : url_maps.keySet()){
+        for (String name : url_maps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(context);
             textSliderView
                     .description(name)
@@ -89,7 +168,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra",name);
+                    .putString("extra", name);
 
             mDemoSlider.addSlider(textSliderView);
         }
@@ -110,25 +189,25 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 //            case R.id.rl_meirijingxuan:
 //                Intent intent7 = new Intent();
 //                intent7.putExtra("shopid", "2");
 //                intent7.setClass(context, StoreHomepageActivity.class);
 //                startActivity(intent7);
 //                break;
-            case R.id.rl_bestshop_left:
-                Intent intent8 = new Intent();
-                intent8.putExtra("shopid", "2");
-                intent8.setClass(context, StoreHomepageActivity.class);
-                startActivity(intent8);
-                break;
-            case R.id.rl_bestshop_right:
-                Intent intent9 = new Intent();
-                intent9.putExtra("shopid", "2");
-                intent9.setClass(context, StoreHomepageActivity.class);
-                startActivity(intent9);
-                break;
+//            case R.id.rl_bestshop_left:
+//                Intent intent8 = new Intent();
+//                intent8.putExtra("shopid", "2");
+//                intent8.setClass(context, StoreHomepageActivity.class);
+//                startActivity(intent8);
+//                break;
+//            case R.id.rl_bestshop_right:
+//                Intent intent9 = new Intent();
+//                intent9.putExtra("shopid", "2");
+//                intent9.setClass(context, StoreHomepageActivity.class);
+//                startActivity(intent9);
+//                break;
             case R.id.homepage_rl_new_arrival:
                 IntentUtils.getIntent((Activity) context, NewArrivalActivity.class);
                 break;
@@ -147,10 +226,12 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         }
 
     }
+
     @Override
     public void onSliderClick(BaseSliderView slider) {
 //        Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;
@@ -25,7 +26,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class EditGoodIntroActivity extends Activity implements View.OnClickListener {
     private String picName, title, type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress;
-    private RelativeLayout btnBack,btnStandard;
+    private RelativeLayout btnBack, btnStandard, btnInventory;
     private TextView tvTitle, tvType, tvBrand, tvArtNo, tvStandard, tvPrice, tvOprice, tvFreight, tvInventory,
             etGoodDetails, etShipAddress;
     private RelativeLayout rlPic;
@@ -43,12 +44,12 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             title = object.getString("goodsname");
 //                            type = object.getString("type");
                             brand = object.getString("brand");
-//                            artNo = object.getString("artno");
-//                            standard = object.getString("unit");
+                            artNo = object.getString("artno");
+                            standard = object.getString("unit");
                             price = object.getString("price");
                             oprice = object.getString("oprice");
-//                            freight = object.getString("freight");
-//                            inventory = object.getString("inventory");
+                            freight = object.getString("freight");
+                            inventory = object.getString("inventory");
                             goodDetails = object.getString("description");
                             shipAddress = object.getString("address");
                             Log.e("result", picName + title + type + brand + artNo + standard + price
@@ -57,7 +58,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             tvType.setText(type);
                             tvBrand.setText(brand);
                             tvArtNo.setText(artNo);
-//                            tvStandard.setText(standard);
+                            tvStandard.setText(standard);
                             tvPrice.setText(price);
                             tvOprice.setText(oprice);
                             tvFreight.setText(freight);
@@ -79,10 +80,13 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.business_change_goods_intro);
+        ButterKnife.bind(this);
         initView();
         Intent intent = getIntent();
         goodId = intent.getStringExtra("goodId");
         if (NetUtil.isConnnected(this)) {
+
+
             new MineRequest(this, handler).changeGoodIntro(goodId);
             Log.e("next", "next");
         }
@@ -118,10 +122,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         tvPrice.setOnClickListener(this);
         tvOprice = (TextView) findViewById(R.id.editGood_et_oprice);
         tvOprice.setOnClickListener(this);
+        tvInventory = (TextView) findViewById(R.id.editGood_et_inventory);
         tvFreight = (TextView) findViewById(R.id.business_tv_good_freight);
         tvFreight.setOnClickListener(this);
-        tvInventory = (TextView) findViewById(R.id.editGood_et_inventory);
-        tvInventory.setOnClickListener(this);
+        btnInventory = (RelativeLayout) findViewById(R.id.edit_good_invrntpry);
+        btnInventory.setOnClickListener(this);
         etGoodDetails = (TextView) findViewById(R.id.editGood_et_details);
         etGoodDetails.setOnClickListener(this);
         etShipAddress = (TextView) findViewById(R.id.business_tv_good_ship_address);
@@ -168,11 +173,15 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.business_tv_good_freight:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvFreight.getText(), "");
+                        (String) tvFreight.getText(), "a=UpdateGoodsFreight&id=" + goodId + "&freight=");
                 break;
-            case R.id.uploadGood_et_inventory:
+            case R.id.editGood_et_inventory:
+//                Intent inventoryIntent = new Intent();
+//                inventoryIntent.setClass(this, UploadInventoryActivity.class);//跳转修改库存
+//                inventoryIntent.putExtra("goodId", goodId);
+//                startActivity(inventoryIntent);
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvFreight.getText(), "");
+                        (String) tvInventory.getText(), "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.editGood_et_details:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,

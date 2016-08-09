@@ -145,6 +145,7 @@ public interface WebAddress extends NetBaseConstant {
     String MY_LIKE_GOOD = NET_BASE_PREFIX + "a=getfavoritelist";
     /**
      * 我收藏的店铺
+     *
      */
     String MY_LIKE_SHOP = NET_BASE_PREFIX + "a=getfavoritelist";
 
@@ -187,7 +188,10 @@ public interface WebAddress extends NetBaseConstant {
      * 上传商品的附加属性
      */
     String UPLOAD_GOOD_ATTRIBUTE = NET_BASE_PREFIX + "a=AddGoodsProperty";
-
+    /**
+     * 获取商品对应的附加属性列表
+     */
+    String OBTAIN_GOOD_ATTRIBUTE = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
     /*
     * 获取店铺列表
     */
@@ -206,6 +210,7 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
 
+
     /*
     * 修改购物车
     */
@@ -217,6 +222,11 @@ public interface WebAddress extends NetBaseConstant {
      */
 
     String Delete_Shopping_Cart = NET_BASE_PREFIX + "a=DeleteShoppingCart";
+    /**
+     *获取首页每日好店列表
+     */
+
+    String GET_HOMEPAGE_EVERY_GOODSHOP = NET_BASE_PREFIX + "a=GetShopList";
 
 }
 

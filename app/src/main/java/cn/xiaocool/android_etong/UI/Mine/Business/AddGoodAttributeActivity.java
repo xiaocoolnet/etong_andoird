@@ -1,12 +1,18 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +49,8 @@ public class AddGoodAttributeActivity extends Activity {
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
                             ToastUtils.makeShortToast(AddGoodAttributeActivity.this, "上传规格成功！");
+                            finish();
+//                            popupDialog();
                         } else {
                             ToastUtils.makeShortToast(AddGoodAttributeActivity.this, "上传规格失败！");
                         }
@@ -53,6 +61,43 @@ public class AddGoodAttributeActivity extends Activity {
             }
         }
     };
+
+//    private void popupDialog() {
+//            LayoutInflater inflater = LayoutInflater.from(this);
+//            RelativeLayout layout = (RelativeLayout) inflater.inflate(
+//                    R.layout.upload_inventory_dialog, null);
+//
+//            // 对话框
+//            final Dialog dialog = new AlertDialog.Builder(this)
+//                    .create();
+//            dialog.show();
+//            dialog.getWindow().setContentView(layout);
+//
+//            // 取消按钮
+//            Button btnCancel = (Button) layout.findViewById(R.id.dialog_cancel);
+//            btnCancel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//
+//                }
+//            });
+//
+//            // 确定按钮
+//            Button btnOK = (Button) layout.findViewById(R.id.dialog_ok);
+//            btnOK.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//                    Intent intent = new Intent();
+//                    intent.setClass(this,UploadInventoryActivity.class);
+//                    intent.putExtra("goodId",goodId);
+//                    startActivity(intent);
+//                    AddGoodAttributeActivity.this.finish();
+//                }
+//            });
+//        }
+
     private StringBuffer plist;
 
     @Override

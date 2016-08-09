@@ -52,6 +52,7 @@
     <dimen name="activity_size_15">15dp</dimen>
     <dimen name="activity_size_60">60dp</dimen>
     <dimen name="activity_size_65">65dp</dimen>
+    <dimen name="activity_size_58">58dp</dimen>
     <dimen name="activity_size_56">56dp</dimen>
     <dimen name="activity_size_50">50dp</dimen>
     <dimen name="activity_size_42">42dp</dimen>
@@ -75,6 +76,7 @@
     <dimen name="activity_size_18">18dp</dimen>
     <dimen name="activity_size_8">8dp</dimen>
     <dimen name="activity_size_9">9dp</dimen>
+    <dimen name="activity_size_6">6dp</dimen>
     <dimen name="activity_size_5">5dp</dimen>
     <dimen name="activity_size_4">4dp</dimen>
     <dimen name="activity_size_3">3dp</dimen>

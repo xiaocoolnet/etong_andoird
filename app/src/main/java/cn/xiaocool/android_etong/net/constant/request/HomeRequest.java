@@ -49,4 +49,25 @@ public class HomeRequest {
             }
         }.start();
     }
+
+    //获取首页每日好店
+    public void getGuessLike(final String city) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&city=" + city + "&getgoodshop";
+                String result_data = NetUtil.getResponse(WebAddress.GET_HOMEPAGE_EVERY_GOODSHOP, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_HOMEPAGE_EVERY_GOODSHOP;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

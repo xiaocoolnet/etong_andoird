@@ -88,6 +88,7 @@
         <activity android:name=".UI.Mine.Business.AddGoodStandardActivity"></activity>
         <activity android:name=".UI.Mine.Business.EditStandardItemActivity"></activity>
         <activity android:name=".UI.Mine.Business.AddGoodAttributeActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadInventoryActivity"></activity>
         <!--Mine-->
         <activity android:name=".UI.Mine.MineEditActivity"></activity>
         <activity android:name=".UI.Mine.BusinessActivity"></activity>
@@ -102,6 +103,8 @@
         <activity android:name=".UI.Mine.PendingDeliverActivity"></activity>
         <activity android:name=".UI.Mine.PendingConfirmActivity"></activity>
         <activity android:name=".UI.Mine.PendingCommentActivity"></activity>
+        <activity android:name=".UI.Mine.MyEvaluateActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.OrderDetailsActivity"></activity>
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>

@@ -30,7 +30,7 @@ import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 public class EditStandardItemActivity extends Activity implements View.OnClickListener {
     private UploadGoodItemAdapter uploadGoodItemAdapter;
     private List<UploadStandardBean.DataBean> dataBeenList;
-//    private List<UploadStandardBean.DataBean.PlistBean> plistBeenList;
+    //    private List<UploadStandardBean.DataBean.PlistBean> plistBeenList;
     private ListView listView;
     private TextView tvTitle;
     private RelativeLayout rlBack;
@@ -69,8 +69,7 @@ public class EditStandardItemActivity extends Activity implements View.OnClickLi
                                 dataBean.setPlist(plistBeenList);
                                 dataBeenList.add(dataBean);
                             }
-//                            Log.e("aaaaa", plistBeenList.get(0).getName());
-                            uploadGoodItemAdapter = new UploadGoodItemAdapter(EditStandardItemActivity.this, dataBeenList,goodId);
+                            uploadGoodItemAdapter = new UploadGoodItemAdapter(EditStandardItemActivity.this, dataBeenList, goodId);
                             listView.setAdapter(uploadGoodItemAdapter);
                         }
                     } catch (JSONException e) {
