@@ -42,6 +42,7 @@ public class ApplyShopActivity extends Activity implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setClass(context,AuthenticationShopActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

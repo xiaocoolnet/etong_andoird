@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopFailActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
@@ -100,14 +101,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             }
                             //未开店
                             else if (data.equals("-10")){
+                                //申请店铺
                                 startActivity(new Intent(context, ApplyShopActivity.class));
                             } else if(data.equals("0")){
+                                //正在审核
                                 startActivity(new Intent(context, AuditShopActivity.class));
                             }else if(data.equals("-1")){
-                                Toast.makeText(context,"您的认证失败",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(context, ApplyShopFailActivity.class));
                             }
                             else if(data.equals("-2")){
-                                Toast.makeText(context,"您的店铺已被禁用",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,"您的店铺已被禁用,请联系客服",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

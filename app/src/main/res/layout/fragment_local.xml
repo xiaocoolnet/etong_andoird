@@ -57,7 +57,7 @@
         <include layout="@layout/loace_item1"/>
         <include layout="@layout/local_item2"/>
             <!--专区-->
-        <!--<include layout="@layout/local_zhuanqu"/>-->
+        <include layout="@layout/local_zhuanqu"/>
 
         <RelativeLayout
             android:background="@color/whilte"

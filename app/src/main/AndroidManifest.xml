@@ -105,6 +105,7 @@
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ApplyShopFailActivity"></activity>
         <activity android:name=".UI.Mine.Business.UploadGoodsActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuthenticationShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuditShopActivity"></activity>
@@ -125,6 +126,18 @@
         <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
         <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
         <activity android:name=".UI.HomePage.ShopListActivity"></activity>
+
+        <!--本地-->
+        <activity android:name=".UI.Local.FoodActivity"></activity>
+        <activity android:name=".UI.Local.MoiveActivity"></activity>
+        <activity android:name=".UI.Local.HotelActivity"></activity>
+        <activity android:name=".UI.Local.TakeOutFoodAcitvity"></activity>
+        <activity android:name=".UI.Local.EntertainmentActivity"></activity>
+        <activity android:name=".UI.Local.TravelAroundActivity"></activity>
+        <activity android:name=".UI.Local.ServiceActivity"></activity>
+        <activity android:name=".UI.Local.KtvActivity"></activity>
+        <activity android:name=".UI.Local.RechargeActivity"></activity>
+
     </application>
 
 </manifest>

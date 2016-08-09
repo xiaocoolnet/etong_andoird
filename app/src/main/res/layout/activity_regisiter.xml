@@ -36,13 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="152dp">
-        <ImageView
-            android:id="@+id/img_register_head"
-            android:background="@mipmap/ic_moren"
-            android:layout_marginTop="27dp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="81dp"
-            android:layout_height="81dp" />
+
     </RelativeLayout>
 
     <!--验证码-->

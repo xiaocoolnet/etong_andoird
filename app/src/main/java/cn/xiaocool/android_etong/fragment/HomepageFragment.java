@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -150,7 +149,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -16,12 +16,16 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,12 +52,16 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private TextView tx_next;
     private int judge = 0 , state1=0,state2=0,state3=0;
     private ProgressDialog progressDialog;
+    ArrayAdapter<String> adapter01;
+    private Spinner spinner_shop_type;
+    private String[] type = new String[]{"美食","电影","酒店","外卖","生活娱乐","周边游","生活服务","KTV","手机充值"};
     private UserInfo user;
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/myheader";
     private String positive_pic ,opposite_pic,licences_pic;
     private String positive_path,opposite_path,licences_path;
+    private String show = "";
     String name,id_card,phone,address;
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
@@ -131,8 +139,12 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                         String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             progressDialog.dismiss();
-                            Log.e("success","createshop");
+                            Log.e("success", "createshop");
                             Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.setClass(AuthenticationShopActivity.this, AuditShopActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(context, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -170,6 +182,22 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         tx_next.setOnClickListener(this);
         rl_back = (RelativeLayout)findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        spinner_shop_type = (Spinner)findViewById(R.id.spinner_shop_type);
+        adapter01 = new ArrayAdapter<String>(context,R.layout.support_simple_spinner_dropdown_item,type);
+        spinner_shop_type.setAdapter(adapter01);
+        spinner_shop_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                show = spinner_shop_type.getSelectedItem().toString();
+                Log.e("show=",show);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -206,13 +234,17 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 if(id_card.length()==18){
                     if(!address.equals("")){
                         if(state1==1&&state2==1&&state3==1){
-                            if(NetUtil.isConnnected(context)){
-                                progressDialog.setMessage("正在上传资料");
-                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                progressDialog.show();
-                                new MainRequest(context,handler).uploadavatar(positive_path,KEY1);
+                            if (!TextUtils.isEmpty(show)){
+                                if(NetUtil.isConnnected(context)){
+                                    progressDialog.setMessage("正在上传资料");
+                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                    progressDialog.show();
+                                    new MainRequest(context,handler).uploadavatar(positive_path,KEY1);
+                                }else {
+                                    Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                                }
                             }else {
-                                Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                             Toast.makeText(context,"请选择一种店铺类型",Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             Toast.makeText(context,"请完善图片信息",Toast.LENGTH_SHORT).show();
@@ -256,7 +288,6 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                     File file = new File(path, "newpic.jpg");
                     intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
                 }
-
                 startActivityForResult(intentFromCapture, PHOTO_REQUEST_CAMERA);
             }
         }).show();
@@ -337,9 +368,6 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 licences_pic = "positive_pic"+user.getUserId()+String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, licences_pic, filepath);
             }
-//            set_head_img.setImageDrawable(drawable);
-//            picname = "avatar"+user.getUserId()+String.valueOf(new Date().getTime());
-//            storeImageToSDCARD(photo, picname, filepath);
         }
     }
 

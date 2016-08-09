@@ -99,7 +99,7 @@ public class ShopListActivity extends Activity implements View.OnClickListener {
 
     private void initdate(){
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台");
+            new MainRequest(context,handler).GetShopList("烟台市");
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }

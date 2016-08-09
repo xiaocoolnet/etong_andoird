@@ -185,10 +185,6 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         }
     };
 
-    public void onDestroy() {
-        context.unregisterReceiver(broadcastReceiver);
-    };
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

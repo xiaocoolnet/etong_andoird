@@ -73,7 +73,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                             Provence p = new Provence();
                             JSONObject object_provence = array_provence.getJSONObject(i);
                             p.setName(object_provence.getString("name"));
-//                            p.setId(object_provence.getString("id"));
                             Log.e("省", p.getName());
                             JSONArray array_city = object_provence.getJSONArray("childlist");
                             List<City> l_c = new ArrayList<City>();
@@ -81,7 +80,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                 City c = new City();
                                 JSONObject object_city = array_city.getJSONObject(j);
                                 c.setName(object_city.getString("name"));
-//                                c.setId(object_city.getString("id"));
                                 Log.e("市", c.getName());
                                 JSONArray array_district = object_city.getJSONArray("childlist");
                                 List<District> l_d = new ArrayList<District>();
@@ -89,7 +87,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                     District d = new District();
                                     JSONObject object_district = array_district.getJSONObject(l);
                                     d.setName(object_district.getString("name"));
-//                                    d.setId(object_district.getString("id"));
                                     Log.e("区", d.getName());
                                     l_d.add(d);
                                 }
@@ -159,7 +156,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         initDatas();
         Log.e("解析完毕", "JSON");
         setonclick();
-
     }
 
     private void initview() {
@@ -184,19 +180,15 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);
         etOprice = (EditText) findViewById(R.id.uploadGood_et_oprice);
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
-
-
     }
 
     private void initDatas() {
         if (NetUtil.isConnnected(this)) {
             new Thread() {
                 Message msg = Message.obtain();
-
                 @Override
                 public void run() {
                     try {
-//                        result_data = NetUtil.getResponse("http://www.xiaocool.net/index.php?g=apps&m=index&a=getcitylist", "");
                         result_data = NetUtil.getResponse("http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0", "");
                         Log.e("announcement", result_data);
                         JSONObject jsonObject = new JSONObject(result_data);
@@ -209,7 +201,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                     }
                 }
             }.start();
-
         } else {
             Log.e("net", "is not open");
         }
