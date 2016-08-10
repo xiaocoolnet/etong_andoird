@@ -69,7 +69,6 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
             }
         }
     };
@@ -85,12 +84,9 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         Intent intent = getIntent();
         goodId = intent.getStringExtra("goodId");
         if (NetUtil.isConnnected(this)) {
-
-
             new MineRequest(this, handler).changeGoodIntro(goodId);
             Log.e("next", "next");
         }
-
     }
 
     @Override
@@ -116,8 +112,6 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         tvArtNo.setOnClickListener(this);
         btnStandard = (RelativeLayout) findViewById(R.id.business_tv_good_standard);
         btnStandard.setOnClickListener(this);
-//        tvStandard = (TextView) findViewById(R.id.business_tv_good_standard);
-//        tvStandard.setOnClickListener(this);
         tvPrice = (TextView) findViewById(R.id.editGood_et_price);
         tvPrice.setOnClickListener(this);
         tvOprice = (TextView) findViewById(R.id.editGood_et_oprice);

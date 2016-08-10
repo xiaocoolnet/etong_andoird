@@ -140,7 +140,9 @@
         <activity android:name=".UI.Local.ServiceActivity"></activity>
         <activity android:name=".UI.Local.KtvActivity"></activity>
         <activity android:name=".UI.Local.RechargeActivity"></activity>
-
+        <activity android:name=".UI.Local.PanicBuyingActivity"></activity>
+        <activity android:name=".UI.Local.NewUsersActivity"></activity>
+        <activity android:name=".UI.Local.DailySpecialActivity"></activity>
     </application>
 
 </manifest>

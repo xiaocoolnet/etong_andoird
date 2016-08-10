@@ -67,6 +67,7 @@ public class RemoveFragment extends Fragment {
                                 databean.setPicture(pic);
                                 databean.setPrice(json.getString("price"));
                                 databean.setShopid(json.getString("shopid"));
+                                databean.setOprice(json.getString("oprice"));
                                 databean.setId(json.getString("id"));
                                 remove_list.add(databean);
                             }

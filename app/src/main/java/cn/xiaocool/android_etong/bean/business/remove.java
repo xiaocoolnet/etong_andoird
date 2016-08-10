@@ -53,6 +53,7 @@ public class remove {
         private String shopid;
         private String goodsname;
         private String price;
+        private String oprice;
         private String unit;
         private String description;
         private String picture;
@@ -80,6 +81,8 @@ public class remove {
         public String getGoodsname() {
             return goodsname;
         }
+
+        public void setOprice(String oprice){this.oprice = oprice;}
 
         public void setGoodsname(String goodsname) {
             this.goodsname = goodsname;
@@ -140,6 +143,8 @@ public class remove {
         public void setLongitude(String longitude) {
             this.longitude = longitude;
         }
+
+        public String getOprice(){return oprice;}
 
         public String getLatitude() {
             return latitude;

@@ -50,8 +50,8 @@ public class HotelAdapter extends BaseAdapter {
         ImageView imgRestaurant;
         @BindView(R.id.tx_restaurant_name)
         TextView txRestaurantName;
-        @BindView(R.id.tx_restaurant_introduce)
-        TextView txRestaurantIntroduce;
+        @BindView(R.id.img_shop_pingxing)
+        ImageView img_shop_pingxing;
         @BindView(R.id.tx_restaurant_distance)
         TextView txRestaurantDistance;
         @BindView(R.id.tx_restaurant_price)

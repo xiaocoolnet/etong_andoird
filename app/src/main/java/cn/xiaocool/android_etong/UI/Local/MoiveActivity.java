@@ -23,8 +23,8 @@ import cn.xiaocool.android_etong.R;
  */
 public class MoiveActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private RelativeLayout rl_back;
-    private GridView gv_moive;
     private SliderLayout mDemoSlider;
+    private GridView gv_moive;
     private Context context;
 
     @Override

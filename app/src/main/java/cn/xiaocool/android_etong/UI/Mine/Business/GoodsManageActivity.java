@@ -119,4 +119,12 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
           sellFragment.updataUI();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showMessage(1);
+        showMessage(2);
+    }
+
 }
