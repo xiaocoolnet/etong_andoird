@@ -261,14 +261,14 @@ public class MainRequest {
     }
 
     //创建店铺
-    public void CreateShop(final String legalperson, final String phone, final String idcard, final String address,
+    public void CreateShop(final String type,final String legalperson, final String phone, final String idcard, final String address,
                            final String positive_pic, final String opposite_pic, final String license_pic, final int KEY) {
         new Thread() {
             Message msg = new Message();
 
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&city=yantai" + "&legalperson=" + legalperson +
-                        "&phone=" + phone + "&type=shangpin" + "&businesslicense=123" + "&address=" + address + "&idcard=" + idcard
+                        "&phone=" + phone + "&type=" + type+"&businesslicense=123" + "&address=" + address + "&idcard=" + idcard
                         + "&positive_pic=" + positive_pic + "&opposite_pic=" + opposite_pic + "&license_pic=" + license_pic;
                 Log.e("data is ", data);
                 String result_data = NetUtil.getResponse(WebAddress.CREATESHOP, data);

@@ -222,6 +222,4 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
 
     }
 
-
-
 }

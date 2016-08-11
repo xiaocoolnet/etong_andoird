@@ -200,8 +200,8 @@
                     <ImageView
                         android:id="@+id/img_ren"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="175dp"
+                        android:layout_height="120dp"
                         android:scaleType="fitXY"
                         android:background="@mipmap/ic_shangchuan"
                         />
@@ -231,8 +231,8 @@
                     <ImageView
                         android:id="@+id/img_shenfenzheng"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="175dp"
+                        android:layout_height="120dp"
                         android:scaleType="fitXY"
                         android:background="@mipmap/ic_shangchuan"
                         />
@@ -263,8 +263,8 @@
                     <ImageView
                         android:id="@+id/img_zhizhao"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="175dp"
+                        android:layout_height="120dp"
                         android:scaleType="fitXY"
                         android:background="@mipmap/ic_shangchuan"
                         />

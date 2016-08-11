@@ -52,8 +52,8 @@
             android:background="@mipmap/ic_etc"
             />
     </RelativeLayout>
-    <include layout="@layout/mine_item1"/>
-    <include layout="@layout/mine_item2"/>
+    <include layout="@layout/activity_travel_around_item1"/>
+    <include layout="@layout/activity_travel_around_item2"/>
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:background="@color/whilte"

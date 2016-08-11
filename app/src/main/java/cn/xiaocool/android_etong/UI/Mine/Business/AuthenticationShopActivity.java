@@ -61,7 +61,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private String filepath = "/sdcard/myheader";
     private String positive_pic ,opposite_pic,licences_pic;
     private String positive_path,opposite_path,licences_path;
-    private String show = "";
+    private String show_type = "";
     String name,id_card,phone,address;
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
@@ -124,7 +124,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                             Log.e("success", "license_pic");
                             progressDialog.setMessage("正在上传资料");
                             Toast.makeText(context, "营业执照上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context,handler).CreateShop(name,phone,id_card,address,positive_pic+".jpg",opposite_pic+".jpg",licences_pic+".jpg",KEY4);
+                            new MainRequest(context,handler).CreateShop(show_type,name,phone,id_card,address,positive_pic+".jpg",opposite_pic+".jpg",licences_pic+".jpg",KEY4);
                         }else{
                             Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -189,8 +189,43 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                show = spinner_shop_type.getSelectedItem().toString();
-                Log.e("show=",show);
+                show_type = spinner_shop_type.getSelectedItem().toString();
+                Log.e("show=", show_type);
+                if (show_type.equals("美食")) {
+                    show_type = "1";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("电影")) {
+                    show_type = "2";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("酒店")) {
+                    show_type = "3";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("外卖")) {
+                    show_type = "4";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("生活娱乐")) {
+                    show_type = "5";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("周边游")) {
+                    show_type = "6";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("生活服务")) {
+                    show_type = "7";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("KTV")) {
+                    show_type = "8";
+                    Log.e("show=", show_type);
+                }
+                else if (show_type.equals("手机充值")) {
+                    show_type = "9";
+                    Log.e("show=", show_type);
+                }
             }
 
             @Override
@@ -234,7 +269,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 if(id_card.length()==18){
                     if(!address.equals("")){
                         if(state1==1&&state2==1&&state3==1){
-                            if (!TextUtils.isEmpty(show)){
+                            if (!TextUtils.isEmpty(show_type)){
                                 if(NetUtil.isConnnected(context)){
                                     progressDialog.setMessage("正在上传资料");
                                     progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
