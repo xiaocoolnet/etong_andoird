@@ -3,6 +3,7 @@ package cn.xiaocool.android_etong.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
 import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
@@ -34,7 +37,6 @@ import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
 import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
 import cn.xiaocool.android_etong.adapter.EverydayGoodShopAdapter;
 import cn.xiaocool.android_etong.adapter.HomepageGuessLikeAdapter;
-import cn.xiaocool.android_etong.adapter.QualityLifeAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.EveryDayGoodShopBean;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -48,6 +50,7 @@ import cn.xiaocool.android_etong.util.NoScrollGridView;
 public class HomepageFragment extends Fragment implements View.OnClickListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
     private SliderLayout mDemoSlider;
+    private TextView et_search;
     private RelativeLayout rl_meirijingxuan;
     private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
     private LinearLayout llQualityLife, llFlashSale;
@@ -150,10 +153,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void initview() {
-//        rl_bestshop_left = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_left);
-//        rl_bestshop_left.setOnClickListener(this);
-//        rl_bestshop_right = (RelativeLayout)getView().findViewById(R.id.rl_bestshop_right);
-//        rl_bestshop_right.setOnClickListener(this);
+        et_search = (TextView) getView().findViewById(R.id.et_search);
+        et_search.clearFocus();
+        et_search.setOnClickListener(this);
         rlNewArrival = (RelativeLayout) getView().findViewById(R.id.homepage_rl_new_arrival);
         rlNewArrival.setOnClickListener(this);
         llQualityLife = (LinearLayout) getView().findViewById(R.id.homepage_ll_quality_life);
@@ -212,24 +214,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.rl_meirijingxuan:
-//                Intent intent7 = new Intent();
-//                intent7.putExtra("shopid", "2");
-//                intent7.setClass(context, StoreHomepageActivity.class);
-//                startActivity(intent7);
-//                break;
-//            case R.id.rl_bestshop_left:
-//                Intent intent8 = new Intent();
-//                intent8.putExtra("shopid", "2");
-//                intent8.setClass(context, StoreHomepageActivity.class);
-//                startActivity(intent8);
-//                break;
-//            case R.id.rl_bestshop_right:
-//                Intent intent9 = new Intent();
-//                intent9.putExtra("shopid", "2");
-//                intent9.setClass(context, StoreHomepageActivity.class);
-//                startActivity(intent9);
-//                break;
             case R.id.homepage_rl_new_arrival:
                 IntentUtils.getIntent((Activity) context, NewArrivalActivity.class);
                 break;
@@ -244,6 +228,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.homepage_rl_everyday_choiceness:
                 IntentUtils.getIntent((Activity) context, EverydayChoicenessActivity.class);
+                break;
+            case R.id.et_search:
+                Intent intent = new Intent();
+                intent.setClass(context, SearchActivity.class);
+                startActivity(intent);
                 break;
         }
 

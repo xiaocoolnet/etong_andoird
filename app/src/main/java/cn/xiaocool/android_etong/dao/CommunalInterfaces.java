@@ -67,4 +67,8 @@ public interface CommunalInterfaces {
     int EDIT_SHOPPING_CART = 0x0039;//修改购物车
     int DELETE_SHOPPING_CART = 0x0040;//删除购物车
     int UPDATA_SHOPPING_CART = 0x0041;//更新购物车
+    int SEARCH_SHOPS = 0x0042;//搜索店铺
+    int SEARCH_GOODS = 0x0043;//搜索商品
+    int IsE = 0x0044;//e抢购
+
 }

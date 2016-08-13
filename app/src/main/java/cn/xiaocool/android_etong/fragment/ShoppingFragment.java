@@ -87,9 +87,9 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                 store.setGoodslist(goodses);
                                 dataBeans.add(store);
                             }
-                                storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
-                                list_Shopping_Cart.setAdapter(storeAdapter);
-                                fixListViewHeight(list_Shopping_Cart);
+                            storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
+                            list_Shopping_Cart.setAdapter(storeAdapter);
+                            fixListViewHeight(list_Shopping_Cart);
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -143,7 +143,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //设置状态栏高度
-        ry_line = (RelativeLayout) getView().findViewById(R.id.lin2);
+        ry_line = (RelativeLayout) getView().findViewById(R.id.lin);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
         linearParams.height = getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
@@ -227,7 +227,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         Log.e("success", number);
     }
 
-    public void removePosition(int storePosition){
+    public void removePosition(int storePosition) {
         dataBeans.remove(storePosition);
         storeAdapter = new StoreAdapter(ShoppingFragment.this, dataBeans);
         list_Shopping_Cart.setAdapter(storeAdapter);

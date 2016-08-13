@@ -47,22 +47,23 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class AuthenticationShopActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
-    private EditText et_name,et_phone,et_id_card,et_address;
-    private ImageView img_ren,img_shenfenzheng,img_zhizhao;
+    private EditText et_name, et_phone, et_id_card, et_address, et_city;
+    private ImageView img_ren, img_shenfenzheng, img_zhizhao;
     private TextView tx_next;
-    private int judge = 0 , state1=0,state2=0,state3=0;
+    private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter01;
+    private String city;
     private Spinner spinner_shop_type;
-    private String[] type = new String[]{"美食","电影","酒店","外卖","生活娱乐","周边游","生活服务","KTV","手机充值"};
+    private String[] type = new String[]{"美食", "电影", "酒店", "外卖", "生活娱乐", "周边游", "生活服务", "KTV", "手机充值"};
     private UserInfo user;
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/myheader";
-    private String positive_pic ,opposite_pic,licences_pic;
-    private String positive_path,opposite_path,licences_path;
-    private String show = "";
-    String name,id_card,phone,address;
+    private String positive_pic, opposite_pic, licences_pic;
+    private String positive_path, opposite_path, licences_path;
+    private String show_type = "";
+    String name, id_card, phone, address;
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
     private static final int PHOTO_REQUEST_ALBUM = 2;// 剪裁
@@ -74,21 +75,21 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 //上传头像
                 case KEY1:
                     Log.e("upavatar", "success");
                     String key = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "positive_pic");
                             progressDialog.setMessage("正在上传身份证照片");
                             Toast.makeText(context, "头像上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context,handler).uploadavatar(opposite_path,KEY2);
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            new MainRequest(context, handler).uploadavatar(opposite_path, KEY2);
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -100,14 +101,14 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                     String key2 = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key2);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "opposite_pic");
                             progressDialog.setMessage("正在上传营业执照照片");
                             Toast.makeText(context, "身份证上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context,handler).uploadavatar(licences_path,KEY3);
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            new MainRequest(context, handler).uploadavatar(licences_path, KEY3);
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -119,14 +120,14 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                     String key3 = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key3);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
                             Log.e("success", "license_pic");
                             progressDialog.setMessage("正在上传资料");
                             Toast.makeText(context, "营业执照上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context,handler).CreateShop(name,phone,id_card,address,positive_pic+".jpg",opposite_pic+".jpg",licences_pic+".jpg",KEY4);
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            new MainRequest(context, handler).CreateShop(city,show_type, name, phone, id_card, address, positive_pic + ".jpg", opposite_pic + ".jpg", licences_pic + ".jpg", KEY4);
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -140,13 +141,13 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                         if (state.equals("success")) {
                             progressDialog.dismiss();
                             Log.e("success", "createshop");
-                            Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent();
                             intent.setClass(AuthenticationShopActivity.this, AuditShopActivity.class);
                             startActivity(intent);
                             finish();
-                        }else{
-                            Toast.makeText(context, jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -155,42 +156,72 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.business_authentication_shop);
         context = this;
-        user= new UserInfo(context);
+        user = new UserInfo(context);
         user.readData(context);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initview();
     }
 
     private void initview() {
-        et_name=(EditText)findViewById(R.id.et_name);
-        et_address=(EditText)findViewById(R.id.et_address);
-        et_id_card=(EditText)findViewById(R.id.et_id_card);
-        et_phone=(EditText)findViewById(R.id.et_phone);
-        img_ren=(ImageView)findViewById(R.id.img_ren);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_address = (EditText) findViewById(R.id.et_address);
+        et_id_card = (EditText) findViewById(R.id.et_id_card);
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_city = (EditText) findViewById(R.id.et_city);
+        img_ren = (ImageView) findViewById(R.id.img_ren);
         img_ren.setOnClickListener(this);
-        img_shenfenzheng=(ImageView)findViewById(R.id.img_shenfenzheng);
+        img_shenfenzheng = (ImageView) findViewById(R.id.img_shenfenzheng);
         img_shenfenzheng.setOnClickListener(this);
-        img_zhizhao=(ImageView)findViewById(R.id.img_zhizhao);
+        img_zhizhao = (ImageView) findViewById(R.id.img_zhizhao);
         img_zhizhao.setOnClickListener(this);
-        tx_next=(TextView)findViewById(R.id.tx_next);
+        tx_next = (TextView) findViewById(R.id.tx_next);
         tx_next.setOnClickListener(this);
-        rl_back = (RelativeLayout)findViewById(R.id.rl_back);
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
-        spinner_shop_type = (Spinner)findViewById(R.id.spinner_shop_type);
-        adapter01 = new ArrayAdapter<String>(context,R.layout.support_simple_spinner_dropdown_item,type);
+        spinner_shop_type = (Spinner) findViewById(R.id.spinner_shop_type);
+        adapter01 = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, type);
         spinner_shop_type.setAdapter(adapter01);
         spinner_shop_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                show = spinner_shop_type.getSelectedItem().toString();
-                Log.e("show=",show);
+                show_type = spinner_shop_type.getSelectedItem().toString();
+                Log.e("show=", show_type);
+                if (show_type.equals("美食")) {
+                    show_type = "1";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("电影")) {
+                    show_type = "2";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("酒店")) {
+                    show_type = "3";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("外卖")) {
+                    show_type = "4";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("生活娱乐")) {
+                    show_type = "5";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("周边游")) {
+                    show_type = "6";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("生活服务")) {
+                    show_type = "7";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("KTV")) {
+                    show_type = "8";
+                    Log.e("show=", show_type);
+                } else if (show_type.equals("手机充值")) {
+                    show_type = "9";
+                    Log.e("show=", show_type);
+                }
             }
 
             @Override
@@ -202,17 +233,17 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_ren:
-                judge=1;
+                judge = 1;
                 ShowPickDialog();
                 break;
             case R.id.img_shenfenzheng:
-                judge=2;
+                judge = 2;
                 ShowPickDialog();
                 break;
             case R.id.img_zhizhao:
-                judge=3;
+                judge = 3;
                 ShowPickDialog();
                 break;
             case R.id.tx_next:
@@ -229,40 +260,45 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         id_card = et_id_card.getText().toString();
         phone = et_phone.getText().toString();
         address = et_address.getText().toString();
-        if(!name.equals("")){
-            if(phone.length()==11){
-                if(id_card.length()==18){
-                    if(!address.equals("")){
-                        if(state1==1&&state2==1&&state3==1){
-                            if (!TextUtils.isEmpty(show)){
-                                if(NetUtil.isConnnected(context)){
-                                    progressDialog.setMessage("正在上传资料");
-                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                    progressDialog.show();
-                                    new MainRequest(context,handler).uploadavatar(positive_path,KEY1);
-                                }else {
-                                    Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        city = et_city.getText().toString();
+        if (!name.equals("")) {
+            if (phone.length() == 11) {
+                if (id_card.length() == 18) {
+                    if (!address.equals("")) {
+                        if (!TextUtils.isEmpty(city)) {
+                            if (state1 == 1 && state2 == 1 && state3 == 1) {
+                                if (!TextUtils.isEmpty(show_type)) {
+                                    if (NetUtil.isConnnected(context)) {
+                                        progressDialog.setMessage("正在上传资料");
+                                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                        progressDialog.show();
+                                        new MainRequest(context, handler).uploadavatar(positive_path, KEY1);
+                                    } else {
+                                        Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(context, "请选择一种店铺类型", Toast.LENGTH_SHORT).show();
                                 }
-                            }else {
-                             Toast.makeText(context,"请选择一种店铺类型",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "请完善图片信息", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
-                            Toast.makeText(context,"请完善图片信息",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "请输入城市", Toast.LENGTH_SHORT).show();
                         }
-                    }else {
-                        Toast.makeText(context,"请输入地址",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
                         et_address.requestFocus();
                     }
-                }else {
-                    Toast.makeText(context,"请输入正确身份证",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "请输入正确身份证", Toast.LENGTH_SHORT).show();
                     et_id_card.requestFocus();
                 }
-            }else {
-                Toast.makeText(context,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
                 et_phone.requestFocus();
             }
-        }else {
-            Toast.makeText(context,"请输入姓名",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
             et_name.requestFocus();
         }
     }
@@ -352,20 +388,20 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(this.getResources(), photo);
-            if(judge==1){
+            if (judge == 1) {
                 img_ren.setImageDrawable(drawable);
-                state1=1;
-                positive_pic = "positive_pic"+user.getUserId()+String.valueOf(new Date().getTime());
+                state1 = 1;
+                positive_pic = "positive_pic" + user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, positive_pic, filepath);
-            }else if(judge==2){
+            } else if (judge == 2) {
                 img_shenfenzheng.setImageDrawable(drawable);
-                state2=1;
-                opposite_pic = "positive_pic"+user.getUserId()+String.valueOf(new Date().getTime());
+                state2 = 1;
+                opposite_pic = "positive_pic" + user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, opposite_pic, filepath);
-            }else if(judge==3){
+            } else if (judge == 3) {
                 img_zhizhao.setImageDrawable(drawable);
-                state3=1;
-                licences_pic = "positive_pic"+user.getUserId()+String.valueOf(new Date().getTime());
+                state3 = 1;
+                licences_pic = "positive_pic" + user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, licences_pic, filepath);
             }
         }
@@ -384,11 +420,11 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
             imagefile.createNewFile();
             FileOutputStream fos = new FileOutputStream(imagefile);
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            if(judge==1){
+            if (judge == 1) {
                 positive_path = imagefile.getPath();
-            }else if(judge==2){
+            } else if (judge == 2) {
                 opposite_path = imagefile.getPath();
-            }else if(judge==3){
+            } else if (judge == 3) {
                 licences_path = imagefile.getPath();
             }
             fos.flush();

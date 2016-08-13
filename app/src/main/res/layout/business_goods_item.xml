@@ -29,11 +29,23 @@
         android:layout_below="@+id/tx_biaoti"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="22dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:textColor="@color/main_color_red"
         android:text="￥199"/>
+
+        <TextView
+            android:id="@+id/tx_oprice"
+            android:layout_toRightOf="@+id/img_pic"
+            android:layout_below="@+id/tx_biaoti"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="22dp"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text=""/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_marginTop="10dp"

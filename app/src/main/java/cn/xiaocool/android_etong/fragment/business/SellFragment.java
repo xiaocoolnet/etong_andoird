@@ -72,6 +72,7 @@ public class SellFragment extends Fragment {
                                 databean.setPicture(pic);
                                 databean.setPrice(json.getString("price"));
                                 databean.setShopid(json.getString("shopid"));
+                                databean.setOprice(json.getString("oprice"));
                                 databean.setId(json.getString("id"));
                                 selllist.add(databean);
                             }
@@ -103,11 +104,9 @@ public class SellFragment extends Fragment {
                         String data = jsonObject.getString("data");
                         if (state.equals("success")) {
                             Toast.makeText(context, "下架成功", Toast.LENGTH_SHORT).show();
-
                         }else {
                             Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

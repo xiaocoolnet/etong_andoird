@@ -1,11 +1,11 @@
 package cn.xiaocool.android_etong.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +29,6 @@ import cn.xiaocool.android_etong.bean.business.sell;
 import cn.xiaocool.android_etong.fragment.business.SellFragment;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
-import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
@@ -44,7 +43,6 @@ public class SellListAdapter extends BaseAdapter {
     private Handler handler  = new Handler() {
     };
     private ImageLoader imageLoader = ImageLoader.getInstance();
-
 
     public SellListAdapter(Context context,ArrayList<sell.DataBean> selllist,Handler handler,SellFragment.MyListener myListener) {
         this.layoutInflater = LayoutInflater.from(context);
@@ -88,6 +86,8 @@ public class SellListAdapter extends BaseAdapter {
         imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_pic,displayImageOptions);
         holder.tx_biaoti.setText(dataBean.getGoodsname());
         holder.tx_price.setText("¥" + dataBean.getPrice());
+        holder.tx_oprice.setText("￥"+dataBean.getOprice());
+        holder.tx_oprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.btn_xiajia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,13 +166,14 @@ public class SellListAdapter extends BaseAdapter {
     }
     class ViewHolder{
         ImageView img_pic;
-        TextView tx_biaoti,tx_price;
+        TextView tx_biaoti,tx_price,tx_oprice;
         Button btn_xiajia,btn_shanchu;
         Button btnEditGood;
         public ViewHolder(View convertView) {
             img_pic = (ImageView)convertView.findViewById(R.id.img_pic);
             tx_biaoti = (TextView)convertView.findViewById(R.id.tx_biaoti);
             tx_price = (TextView)convertView.findViewById(R.id.tx_price);
+            tx_oprice = (TextView)convertView.findViewById(R.id.tx_oprice);
             btn_xiajia = (Button)convertView.findViewById(R.id.btn_xiajia);
             btn_shanchu = (Button)convertView.findViewById(R.id.btn_shanchu);
             btnEditGood = (Button) convertView.findViewById(R.id.btn_edit_good_intro);

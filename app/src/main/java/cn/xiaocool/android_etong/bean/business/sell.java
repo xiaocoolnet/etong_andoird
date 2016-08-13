@@ -52,6 +52,7 @@ public class sell {
         private String id;
         private String shopid;
         private String goodsname;
+        private String oprice;
         private String price;
         private String unit;
         private String description;
@@ -76,6 +77,8 @@ public class sell {
         public void setShopid(String shopid) {
             this.shopid = shopid;
         }
+
+        public void setOprice(String oprice){this.oprice = oprice;}
 
         public String getGoodsname() {
             return goodsname;
@@ -144,6 +147,8 @@ public class sell {
         public String getLatitude() {
             return latitude;
         }
+
+        public String getOprice(){return oprice;}
 
         public void setLatitude(String latitude) {
             this.latitude = latitude;

@@ -3,7 +3,7 @@
     android:background="@color/gray2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-   <ScrollView
+   <cn.xiaocool.android_etong.util.ReboundScrollView
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
        <LinearLayout
@@ -33,6 +33,6 @@
            <include layout="@layout/prefecturemy_item"/>
            <include layout="@layout/prefecturemy_item"/>
        </LinearLayout>
-   </ScrollView>
+   </cn.xiaocool.android_etong.util.ReboundScrollView>
 
 </RelativeLayout>

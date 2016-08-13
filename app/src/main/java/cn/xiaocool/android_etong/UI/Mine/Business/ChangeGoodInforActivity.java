@@ -36,6 +36,7 @@ public class ChangeGoodInforActivity extends Activity implements View.OnClickLis
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
                             Toast.makeText(ChangeGoodInforActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Toast.makeText(ChangeGoodInforActivity.this, "修改失败，请重试！", Toast.LENGTH_SHORT).show();
                         }

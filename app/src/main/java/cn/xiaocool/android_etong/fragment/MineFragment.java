@@ -1,7 +1,9 @@
 package cn.xiaocool.android_etong.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +33,6 @@ import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopFailActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
@@ -69,6 +70,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
     private Button btn_kaidian, btn_daifukuan, btn_daishiyong, btn_daifahuo, btn_daiqueren, btn_daipinglun;
     private TextView tx_mine_name;
+    private ProgressDialog progressDialog;
     private Context context;
     private UserInfo userInfo;
     private Handler handler = new Handler() {
@@ -106,9 +108,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             if (status.equals("success")) {
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
-//                                Log.e("shopod get",shopid);
-//                                userInfo.setUserShopId(shopid);
-//                                userInfo.writeData(context);//写入shopId
+                                progressDialog.dismiss();
                                 Intent intent = new Intent();
                                 intent.putExtra("shopid", shopid);
                                 intent.setClass(context, BusinessActivity.class);
@@ -118,21 +118,27 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             else if (data.equals("-10")) {
                                 //申请店铺
                                 startActivity(new Intent(context, ApplyShopActivity.class));
+                                progressDialog.dismiss();
                             } else if (data.equals("0")) {
                                 //正在审核
                                 startActivity(new Intent(context, AuditShopActivity.class));
+                                progressDialog.dismiss();
 
                             } else if (data.equals("-1")) {
-                                startActivity(new Intent(context, ApplyShopFailActivity.class));
+                                Toast.makeText(context, "您的认证失败", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             } else if (data.equals("-2")) {
-                                Toast.makeText(context, "您的店铺已被禁用,请联系客服", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "您的店铺已被禁用", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
+                    btn_kaidian.setEnabled(true);
                     break;
             }
         }
@@ -168,7 +174,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         img_mine_head.setOnClickListener(this);
         btn_kaidian = (Button) getView().findViewById(R.id.btn_kaidian);
         btn_kaidian.setOnClickListener(this);
-
         img_setup = (ImageView) getView().findViewById(R.id.img_setup);
         img_setup.setOnClickListener(this);
         rl_mine_shoucang = (RelativeLayout) getView().findViewById(R.id.mine_btn_my_like);
@@ -181,6 +186,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBtnNoEvaluate.setOnClickListener(this);
         btnComment = (Button) getView().findViewById(R.id.btn_comment);
         btnComment.setOnClickListener(this);
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
     }
 
     @Override
@@ -202,19 +208,20 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(new Intent(context, MineEditActivity.class), 1);
                 break;
             case R.id.btn_kaidian:
+                progressDialog.setMessage("正在加载");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
                 new MainRequest(context, handler).getmyshop();
                 break;
             case R.id.img_setup:
                 showPopupMenu(img_setup);
                 break;
-
             case R.id.mine_btn_my_like:
                 IntentUtils.getIntent((Activity) context, MyLikeActivity.class);
                 break;
             case R.id.btn_comment:
                 IntentUtils.getIntent((Activity) context, MyCommentActivity.class);//跳转我的评价
                 break;
-
             case R.id.mine_btn_allOrder:
                 Intent intent = new Intent();
                 intent.putExtra("indent", 0);

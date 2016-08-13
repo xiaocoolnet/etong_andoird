@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +85,8 @@ public class RemoveListAdapter extends BaseAdapter {
         imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_pic,displayImageOptions);
         holder.tx_biaoti.setText(dataBean.getGoodsname());
         holder.tx_price.setText(dataBean.getPrice() + " ￥");
+        holder.tx_oprice.setText("￥"+dataBean.getOprice());
+        holder.tx_oprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.btn_shangjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,12 +152,13 @@ public class RemoveListAdapter extends BaseAdapter {
     }
     class ViewHolder{
         ImageView img_pic;
-        TextView tx_biaoti,tx_price;
+        TextView tx_biaoti,tx_price,tx_oprice;
         Button btn_shangjia,btn_shanchu;
         public ViewHolder(View convertView){
             img_pic = (ImageView)convertView.findViewById(R.id.img_pic);
             tx_biaoti = (TextView)convertView.findViewById(R.id.tx_biaoti);
             tx_price = (TextView)convertView.findViewById(R.id.tx_price);
+            tx_oprice = (TextView)convertView.findViewById(R.id.tx_oprice);
             btn_shangjia = (Button)convertView.findViewById(R.id.btn_shangjia);
             btn_shanchu = (Button)convertView.findViewById(R.id.btn_shanchu);
         }

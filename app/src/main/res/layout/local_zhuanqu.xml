@@ -13,6 +13,7 @@
         android:layout_weight="1"
         >
         <LinearLayout
+            android:id="@+id/ll_eqianggou"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -52,6 +53,7 @@
         android:layout_weight="1"
         >
         <LinearLayout
+            android:id="@+id/ll_jinritejia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -91,6 +93,7 @@
         android:layout_weight="1"
         >
         <LinearLayout
+            android:id="@+id/ll_xinkezhuanxiang"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"

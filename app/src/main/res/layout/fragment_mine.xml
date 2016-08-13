@@ -42,7 +42,7 @@
             android:background="@mipmap/ic_xiaoxi"
             />
     </RelativeLayout>
-    <ScrollView
+    <cn.xiaocool.android_etong.util.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -88,6 +88,6 @@
                 />
 
         </LinearLayout>
-    </ScrollView>
+    </cn.xiaocool.android_etong.util.ReboundScrollView>
 
 </LinearLayout>
