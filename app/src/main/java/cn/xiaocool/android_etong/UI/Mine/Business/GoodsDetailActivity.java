@@ -108,7 +108,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         Intent intent = getIntent();
         shopid=intent.getStringExtra("shopid");
         Log.e("shopid=",shopid);
-        id=intent.getStringExtra("id");
+        id=intent.getStringExtra("id");//这是goodsId
         pic = intent.getStringExtra("pic");
         price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");

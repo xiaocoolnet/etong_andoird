@@ -13,13 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
+            <cn.xiaocool.android_etong.util.NoScrollListView
                 android:id="@+id/list_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp">
 
-            </ListView>
+            </cn.xiaocool.android_etong.util.NoScrollListView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
 </LinearLayout>

@@ -9,13 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.SellerSearchOrderActivity;
 import cn.xiaocool.android_etong.fragment.business.OrderAllFragment;
 import cn.xiaocool.android_etong.fragment.business.OrderFinishFragment;
 import cn.xiaocool.android_etong.fragment.business.OrderSendGoodsFragment;
 import cn.xiaocool.android_etong.fragment.business.OrderSignFragment;
+import cn.xiaocool.android_etong.util.IntentUtils;
 
 /**
  * Created by 潘 on 2016/7/17.
@@ -31,6 +34,8 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
     private Fragment[] fragments;
     private FragmentManager fragmentManager;
     private int index, currentIndex;
+    private String shopId;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_order_manage);
         context = this;
+        shopId = getIntent().getStringExtra("shopid");
         initfragment();
         initdata();
     }
@@ -54,6 +60,12 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
         orderFinishFragment = new OrderFinishFragment();
 
         fragments = new Fragment[]{orderAllFragment,orderSendGoodsFragment,orderSignFragment,orderFinishFragment};
+        Bundle bundle = new Bundle();
+        bundle.putString("shopId",shopId);
+        fragments[0].setArguments(bundle);//传值
+        fragments[1].setArguments(bundle);//传值
+        fragments[2].setArguments(bundle);//传值
+        fragments[3].setArguments(bundle);//传值
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container,orderAllFragment);
@@ -72,11 +84,16 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
         mTabs[3] = (Button) findViewById(R.id.btn_yiwancheng);
         mTabs[3].setOnClickListener(this);
         mTabs[0].setSelected(true);
+        imageView = (ImageView) findViewById(R.id.seller_order_search_icon);
+        imageView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.seller_order_search_icon:
+                IntentUtils.getIntent(this, SellerSearchOrderActivity.class);
+                break;
             case R.id.btn_quanbu:
                 index=0;
                 break;

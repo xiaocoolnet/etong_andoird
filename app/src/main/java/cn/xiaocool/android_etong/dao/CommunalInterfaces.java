@@ -16,6 +16,7 @@ public interface CommunalInterfaces {
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品
     int GET_NEW_ARRIVAL = 0x0102;//获取首页新品上市
     int GET_HOMEPAGE_EVERY_GOODSHOP = 0x0103;//获取每日好店
+    int GET_GUESS_LIKE = 0x0104;//获取猜你喜欢
 
     //修改资料
     int UPLOADAVATAR = 0x0006;//上传头像
@@ -52,6 +53,12 @@ public interface CommunalInterfaces {
     int GOOD_ATTACHED_PROPERTY = 0x0051;//获取商品附加属性
     int UPLOAD_GOOD_ATTRIBUTE = 0x0052;//上传商品附加属性
     int OBTAIN_GOOD_ATTRIBUTE = 0x0052;//获取商品附加属性传入goodid
+    int GET_SELLER_ORDER_LIST = 0x0053;//获取卖家中心订单
+    int SELLER_DELIVER_GOOD = 0x0054;//产品发货
+    int CONFIRM_GOOD = 0x0055;//确认收货
+    int PAY_ORDER_LIST = 0x0055;//支付订单
+    int MY_COMMENT = 0x0056;//我的评价
+    int BUY_WRITE_COMMENT = 0x005;//买家评论订单
     int UPDATE_SHOP_PHOTO = 0x0034;//修改店铺头像
     int GET_SHOP_LIST = 0x0035;//获取店铺列表
     int UPDATA_SHOP_ADDRESS = 0x0036;//修改店铺地址

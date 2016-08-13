@@ -33,6 +33,7 @@ public class EveryDayGoodShopBean {
         private String id;
         private String uid;
         private String shopname;
+        private String level;
         private String photo;
         private String type;
         private String city;
@@ -45,11 +46,6 @@ public class EveryDayGoodShopBean {
         private String license_pic;
         private String state;
         private String create_time;
-        private int level;
-        private String favorite;
-        private int turnover;
-        private int ordercount;
-        private int visits;
 
         public String getId() {
             return id;
@@ -73,6 +69,14 @@ public class EveryDayGoodShopBean {
 
         public void setShopname(String shopname) {
             this.shopname = shopname;
+        }
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
         }
 
         public String getPhoto() {
@@ -169,46 +173,6 @@ public class EveryDayGoodShopBean {
 
         public void setCreate_time(String create_time) {
             this.create_time = create_time;
-        }
-
-        public int getLevel() {
-            return level;
-        }
-
-        public void setLevel(int level) {
-            this.level = level;
-        }
-
-        public String getFavorite() {
-            return favorite;
-        }
-
-        public void setFavorite(String favorite) {
-            this.favorite = favorite;
-        }
-
-        public int getTurnover() {
-            return turnover;
-        }
-
-        public void setTurnover(int turnover) {
-            this.turnover = turnover;
-        }
-
-        public int getOrdercount() {
-            return ordercount;
-        }
-
-        public void setOrdercount(int ordercount) {
-            this.ordercount = ordercount;
-        }
-
-        public int getVisits() {
-            return visits;
-        }
-
-        public void setVisits(int visits) {
-            this.visits = visits;
         }
     }
 }

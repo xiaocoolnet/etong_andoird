@@ -105,6 +105,7 @@
         <activity android:name=".UI.Mine.PendingCommentActivity"></activity>
         <activity android:name=".UI.Mine.MyEvaluateActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.OrderDetailsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
@@ -118,6 +119,10 @@
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderManageActivity"></activity>
         <activity android:name=".UI.Mine.Business.CommonProblemActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.SellerSearchOrderActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
+        <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
+        <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
             android:windowSoftInputMode="adjustPan"></activity>

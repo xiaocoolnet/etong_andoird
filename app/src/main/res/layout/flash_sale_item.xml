@@ -63,6 +63,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3">
         <Button
+            android:id="@+id/flash_sale_btn"
             android:layout_width="@dimen/activity_size_65"
             android:layout_height="@dimen/activity_size_25"
             android:background="@drawable/button_shape"

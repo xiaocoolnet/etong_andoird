@@ -226,7 +226,51 @@ public interface WebAddress extends NetBaseConstant {
      *获取首页每日好店列表
      */
 
-    String GET_HOMEPAGE_EVERY_GOODSHOP = NET_BASE_PREFIX + "a=GetShopList";
+    String GET_HOMEPAGE_EVERY_GOODSHOP = NET_BASE_PREFIX + "a=GetDayShop";
+    /**
+     *获取首页猜你喜欢
+     */
+
+    String GET_GUESS_LIKE = NET_BASE_PREFIX + "a=IsLike";
+    /**
+     *获取卖家订单列表
+     */
+
+    String GET_SELLER_ORDER_LIST = NET_BASE_PREFIX + "a=Shopgetorderlist";
+
+    /**
+     *产品发货
+     */
+
+    String SELLER_DELIVER_GOOD = NET_BASE_PREFIX + "a=DeliverOrder";
+    /**
+     *产品发货
+     */
+
+    String PAY_ORDER_LIST = NET_BASE_PREFIX + "a=PayOrder";
+
+    /**
+     *确认收货
+     */
+
+    String CONFIRM_GOOD = NET_BASE_PREFIX + "a=CountersignOrder";
+ /**
+     *买家评价订单
+     */
+
+    String BUY_WRITE_COMMENT = NET_BASE_PREFIX + "a=BuyerSetEvaluate";
+/**
+     *我的评论
+     */
+
+    String MY_COMMENT = NET_BASE_PREFIX + "a=GetMyEvaluatelists";
+    /**
+     *首页每日好店
+     */
+
+    String EVERYDAY_GOODSHOP = NET_BASE_PREFIX + "a=GetDayShop";
+
+
 
 }
 

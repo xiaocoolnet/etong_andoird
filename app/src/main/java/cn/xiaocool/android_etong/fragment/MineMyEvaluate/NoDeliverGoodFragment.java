@@ -60,6 +60,7 @@ public class NoDeliverGoodFragment extends Fragment {
                                     dataBean.setGoodsname(jsonObject1.getString("goodsname"));
                                     dataBean.setPicture(jsonObject1.getString("picture"));
                                     dataBean.setId(jsonObject1.getString("id"));
+                                    dataBean.setState(jsonObject1.getString("state"));
 //                                    dataBean.setType(jsonObject1.getString("type"));
 //                                    dataBean.setPeoplename(jsonObject1.getString("peoplename"));
                                     dataBean.setMobile(jsonObject1.getString("mobile"));
@@ -107,9 +108,9 @@ public class NoDeliverGoodFragment extends Fragment {
 
     private void initView() {
         dataBeans = new ArrayList<>();
-        list_goods = (ListView) getView().findViewById(R.id.list_goods);
+        list_goods = (ListView) getView().findViewById(R.id.list_goods_deliver);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist();
+            new MainRequest(context, handler).getshoppingorderlist("&state=2");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

@@ -33,10 +33,12 @@ import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopFailActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -68,6 +70,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private Button btn_kaidian, btn_daifukuan, btn_daishiyong, btn_daifahuo, btn_daiqueren, btn_daipinglun;
     private TextView tx_mine_name;
     private Context context;
+    private UserInfo userInfo;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -103,6 +106,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             if (status.equals("success")) {
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
+//                                Log.e("shopod get",shopid);
+//                                userInfo.setUserShopId(shopid);
+//                                userInfo.writeData(context);//写入shopId
                                 Intent intent = new Intent();
                                 intent.putExtra("shopid", shopid);
                                 intent.setClass(context, BusinessActivity.class);
@@ -110,22 +116,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             }
                             //未开店
                             else if (data.equals("-10")) {
-                            else if (data.equals("-10")){
                                 //申请店铺
                                 startActivity(new Intent(context, ApplyShopActivity.class));
                             } else if (data.equals("0")) {
-                            } else if(data.equals("0")){
                                 //正在审核
                                 startActivity(new Intent(context, AuditShopActivity.class));
+
                             } else if (data.equals("-1")) {
-                                Toast.makeText(context, "您的认证失败", Toast.LENGTH_SHORT).show();
-                            } else if (data.equals("-2")) {
-                                Toast.makeText(context, "您的店铺已被禁用", Toast.LENGTH_SHORT).show();
-                            }else if(data.equals("-1")){
                                 startActivity(new Intent(context, ApplyShopFailActivity.class));
-                            }
-                            else if(data.equals("-2")){
-                                Toast.makeText(context,"您的店铺已被禁用,请联系客服",Toast.LENGTH_SHORT).show();
+                            } else if (data.equals("-2")) {
+                                Toast.makeText(context, "您的店铺已被禁用,请联系客服", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,6 +137,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+    private Button btnComment;
 
     @Nullable
     @Override
@@ -156,6 +157,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         linearParams.height = getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
         initview();
+        userInfo = new UserInfo();
+        userInfo.readData(context);
     }
 
     private void initview() {
@@ -176,6 +179,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBtnNoDeliver.setOnClickListener(this);
         mineBtnNoConfirm.setOnClickListener(this);
         mineBtnNoEvaluate.setOnClickListener(this);
+        btnComment = (Button) getView().findViewById(R.id.btn_comment);
+        btnComment.setOnClickListener(this);
     }
 
     @Override
@@ -205,6 +210,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
             case R.id.mine_btn_my_like:
                 IntentUtils.getIntent((Activity) context, MyLikeActivity.class);
+                break;
+            case R.id.btn_comment:
+                IntentUtils.getIntent((Activity) context, MyCommentActivity.class);//跳转我的评价
                 break;
 
             case R.id.mine_btn_allOrder:
@@ -276,7 +284,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         popupMenu.show();
 
     }
-
 
 
 }

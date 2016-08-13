@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
@@ -50,11 +51,35 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener 
                                 dataObject = (JSONObject) jsonArray.get(i);
                                 NewArrivalBean.NewArrivalDataBean newArrivalDataBean = new NewArrivalBean.NewArrivalDataBean();
                                 newArrivalDataBean.setId(dataObject.getString("id"));
-                                newArrivalDataBean.setDescription(dataObject.getString("description"));
-                                newArrivalDataBean.setPrice(dataObject.getString("price"));
+                                newArrivalDataBean.setArtno(dataObject.getString("artno"));
+                                newArrivalDataBean.setShopid(dataObject.getString("shopid"));
+                                newArrivalDataBean.setBrand(dataObject.getString("brand"));
+                                newArrivalDataBean.setGoodsname(dataObject.getString("goodsname"));
+                                newArrivalDataBean.setAdtitle(dataObject.getString("adtitle"));
                                 newArrivalDataBean.setOprice(dataObject.getString("oprice"));
-                                newArrivalDataBean.setId(dataObject.getString("id"));
+                                newArrivalDataBean.setPrice(dataObject.getString("price"));
+                                newArrivalDataBean.setUnit(dataObject.getString("unit"));
+                                newArrivalDataBean.setDescription(dataObject.getString("description"));
                                 newArrivalDataBean.setPicture(dataObject.getString("picture"));
+                                newArrivalDataBean.setShowid(dataObject.getString("showid"));
+                                newArrivalDataBean.setAddress(dataObject.getString("address"));
+                                newArrivalDataBean.setFreight(dataObject.getString("freight"));
+                                newArrivalDataBean.setPays(dataObject.getString("pays"));
+                                newArrivalDataBean.setRacking(dataObject.getString("racking"));
+                                newArrivalDataBean.setRecommend(dataObject.getString("recommend"));
+
+
+                                JSONObject jsonObject1 = dataObject.getJSONObject("shop_name");
+                                String shopName = jsonObject1.getString("shopname");
+                                if (!shopName.equals(null)) {
+                                    newArrivalDataBean.setShopname(shopName);
+                                } else {
+                                    newArrivalDataBean.setShopname("null");
+
+                                }
+                                newArrivalDataBean.setSales(dataObject.getString("sales"));
+                                newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
+
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             flashSaleAdapter = new FlashSaleAdapter(context, newArrivalDataBeanList);
@@ -88,7 +113,7 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_back:
                 finish();
                 break;

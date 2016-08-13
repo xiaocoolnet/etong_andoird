@@ -89,7 +89,7 @@ public class MyShoppingOrderListActivity extends Activity implements View.OnClic
         context = this;
         initview();
         if(NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).getshoppingorderlist();
+            new MainRequest(context,handler).getshoppingorderlist("");
         }else {
             Toast.makeText(context, "网络不稳定", Toast.LENGTH_SHORT).show();
         }

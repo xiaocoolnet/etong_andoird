@@ -37,6 +37,7 @@
             android:layout_centerVertical="true"
             />
         <ImageView
+            android:id="@+id/seller_order_search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/img_etc"

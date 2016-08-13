@@ -47,6 +47,13 @@ public class NewArrivalBean {
         private String time;
         private String sales;
         private String paynum;
+        private String shopname;
+        private String artno;
+        private String brand;
+        private String adtitle;
+        private String freight;
+        private String pays;
+//        private String sall;
 
         public String getId() {
             return id;
@@ -190,6 +197,51 @@ public class NewArrivalBean {
 
         public void setTime(String time) {
             this.time = time;
+        }
+
+        public String getShopname() {
+            return shopname;
+        }
+
+        public void setShopname(String shopname) {
+            this.shopname = shopname;
+        }
+
+        public String getArtno() {
+            return artno;
+        }
+
+        public void setArtno(String artno) {
+            this.artno = artno;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public void setBrand(String brand) {
+            this.brand = brand;
+        }
+        public String getAdtitle() {
+            return adtitle;
+        }
+
+        public void setAdtitle(String adtitle) {
+            this.adtitle = adtitle;
+        }
+        public String getFreight() {
+            return freight;
+        }
+
+        public void setFreight(String freight) {
+            this.freight = freight;
+        }
+        public String getPays() {
+            return pays;
+        }
+
+        public void setPays(String pays) {
+            this.pays = pays;
         }
     }
 }

@@ -1,8 +1,12 @@
 package cn.xiaocool.android_etong.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +22,20 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.BuyWriteCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.OrderDetailsActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.PayNowActivity;
 import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by 潘 on 2016/8/1.
@@ -34,12 +46,28 @@ public class PendingPaymentAdapter extends BaseAdapter {
     private DisplayImageOptions displayImageOptions;
     private Context context;
     private ImageLoader imageLoader = ImageLoader.getInstance();
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CommunalInterfaces.CONFIRM_GOOD:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        if (jsonObject.getString("status").equals("success")) {
+                            ToastUtils.makeShortToast(context, "确认收货成功！");
+                            Intent intent = new Intent();
+//                            intent.setClass(context,);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+    };
 
     public PendingPaymentAdapter(Context context, List<PendingPayment.DataBean> dataBeans) {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.dataBeans = dataBeans;
-        Log.e("222", "222");
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -63,7 +91,7 @@ public class PendingPaymentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         final PendingPayment.DataBean product = dataBeans.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.pendingpayment_item, null);
@@ -74,7 +102,7 @@ public class PendingPaymentAdapter extends BaseAdapter {
             holder.tx_goods_count = (TextView) convertView.findViewById(R.id.tx_goods_count);
             holder.tx_shopping_cloth_color = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_color);
             holder.tx_shopping_cloth_size = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_size);
-            holder.tvBtn = (TextView) convertView.findViewById(R.id.good_status_btn);
+            holder.tvBtn = (TextView) convertView.findViewById(R.id.adapter_order_good_status_btn);
             holder.tvBtnRight2 = (TextView) convertView.findViewById(R.id.good_status_btn_2);
             holder.tvBtnRight3 = (TextView) convertView.findViewById(R.id.good_status_btn_3);
             holder.tvStatus = (TextView) convertView.findViewById(R.id.good_status_tv);
@@ -84,8 +112,8 @@ public class PendingPaymentAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         String pic = product.getPicture();
-        String[] arraypic = pic.split("[,]");
-        String state = dataBeans.get(position).getState();
+        final String[] arraypic = pic.split("[,]");
+        final String state = dataBeans.get(position).getState();
         holder.rlGoodInfor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,11 +124,49 @@ public class PendingPaymentAdapter extends BaseAdapter {
                 }
             }
         });
+        holder.tvBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.adapter_order_good_status_btn) {
+                    if (state.equals("1")) {
+                        Intent intent = new Intent();
+                        intent.putExtra("orderId", product.getId());
+                        intent.putExtra("price", product.getPrice());
+                        intent.setClass(context, PayNowActivity.class);
+
+                        context.startActivity(intent);
+                    } else if (state.equals("3")) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                        dialog.setMessage("确认收货？");
+                        dialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        dialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new ShopRequest(context, handler).confirmGood(product.getId());
+                            }
+                        });
+                        dialog.show();
+                    } else if (state.equals("4")) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, BuyWriteCommentActivity.class);
+                        intent.putExtra("orderId", product.getId());
+                        intent.putExtra("name", product.getGoodsname());
+                        intent.putExtra("picture", arraypic[0]);//传下去图片地址
+                        context.startActivity(intent);
+                    }
+                }
+            }
+        });
         if (state.equals("1")) {
             holder.tvStatus.setText("待付款");
             holder.tvBtn.setText("马上付款");
             holder.tvBtnRight2.setText("取消订单");
-            holder.tvBtnRight2.setVisibility(View.GONE);
             holder.tvBtnRight3.setVisibility(View.GONE);
         } else if (state.equals("2")) {
             holder.tvStatus.setText("待发货");
@@ -110,6 +176,8 @@ public class PendingPaymentAdapter extends BaseAdapter {
         } else if (state.equals("3")) {
             holder.tvStatus.setText("待收货");
             holder.tvBtn.setText("确认收货");
+            holder.tvBtnRight2.setVisibility(View.GONE);
+            holder.tvBtnRight3.setVisibility(View.GONE);
         } else if (state.equals("4")) {
             holder.tvStatus.setText("待评论");
             holder.tvBtn.setText("去评价");

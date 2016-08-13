@@ -91,9 +91,9 @@ public class ObligationFragment extends Fragment {
 
     private void initView() {
         dataBeans = new ArrayList<>();
-        list_goods = (ListView) getView().findViewById(R.id.list_goods);
+        list_goods = (ListView) getView().findViewById(R.id.list_goods_payment);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist();
+            new MainRequest(context, handler).getshoppingorderlist("&state=1");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -113,5 +113,13 @@ public class ObligationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_pending_payment, container, false);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).getshoppingorderlist("&state=1");
+        }
     }
 }

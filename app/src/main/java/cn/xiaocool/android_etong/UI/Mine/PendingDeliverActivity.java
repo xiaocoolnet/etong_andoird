@@ -102,7 +102,7 @@ public class PendingDeliverActivity extends Activity implements View.OnClickList
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist();
+            new MainRequest(context, handler).getshoppingorderlist("");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

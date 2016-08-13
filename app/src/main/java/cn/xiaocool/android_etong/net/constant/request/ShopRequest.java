@@ -152,4 +152,88 @@ public class ShopRequest {
             }
         }.start();
     }
+    //产品发货
+    public void sellerDeliverGood(final String orderId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&id=" + orderId;
+                Log.e("deliver good success",orderId);
+                String result_data = NetUtil.getResponse(WebAddress.SELLER_DELIVER_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SELLER_DELIVER_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+    //产品发货
+    public void confirmGood(final String orderId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&id=" + orderId;
+                Log.e("deliver good success",orderId);
+                String result_data = NetUtil.getResponse(WebAddress.CONFIRM_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CONFIRM_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //订单付款
+    public void payOrder(final String orderId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&id=" + orderId;
+                String result_data = NetUtil.getResponse(WebAddress.PAY_ORDER_LIST, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.PAY_ORDER_LIST;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+    //买家订单评论
+    public void buyWriteComment(final String orderId,final String comment) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&userid=" + user.getUserId() + "&orderid=" + orderId +
+                        "&type=1" + "&content=" + comment + "&attitudescore=5&finishscore=5&effectscore=5";//星级评分写死
+                String result_data = NetUtil.getResponse(WebAddress.BUY_WRITE_COMMENT, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.BUY_WRITE_COMMENT;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

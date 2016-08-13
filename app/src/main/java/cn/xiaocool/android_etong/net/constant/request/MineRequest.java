@@ -49,26 +49,27 @@ public class MineRequest {
             }
         }.start();
     }
- //修改单条宝贝信息
- public void changeGoodIntroItem(final String suffix, final String infor) {
-     new Thread() {
-         Message msg = Message.obtain();
 
-         public void run() {
-             String data = suffix + infor;
-             String result_data = NetUtil.getResponse(WebAddress.CHANGE_GOOD_INTRO_ITEM, data);
-             try {
-                 JSONObject obj = new JSONObject(result_data);
-                 msg.what = CommunalInterfaces.CHANGE_GOOD_INTRO_ITEM;
-                 msg.obj = obj;
-             } catch (JSONException e) {
-                 e.printStackTrace();
-             } finally {
-                 handler.sendMessage(msg);
-             }
-         }
-     }.start();
- }
+    //修改单条宝贝信息
+    public void changeGoodIntroItem(final String suffix, final String infor) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = suffix + infor;
+                String result_data = NetUtil.getResponse(WebAddress.CHANGE_GOOD_INTRO_ITEM, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CHANGE_GOOD_INTRO_ITEM;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 
     //我的收藏的宝贝
     public void myLikeGood() {
@@ -90,6 +91,7 @@ public class MineRequest {
             }
         }.start();
     }
+
     //我的收藏店铺
     public void myLikeShop() {
         new Thread() {
@@ -101,6 +103,28 @@ public class MineRequest {
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.MY_LIKE_SHOP;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //我的收藏店铺
+    public void myComment(final String type) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&type=" + type;//1是我的评价，2是卖家的评价
+                String result_data = NetUtil.getResponse(WebAddress.MY_COMMENT, data);
+                Log.e("get json success",result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.MY_COMMENT;
                     msg.obj = obj;
                 } catch (JSONException e) {
                     e.printStackTrace();

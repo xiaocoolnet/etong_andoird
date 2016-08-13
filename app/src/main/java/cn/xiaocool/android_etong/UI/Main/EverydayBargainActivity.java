@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
@@ -50,16 +51,37 @@ public class EverydayBargainActivity extends Activity implements View.OnClickLis
                                 dataObject = (JSONObject) jsonArray.get(i);
                                 NewArrivalBean.NewArrivalDataBean newArrivalDataBean = new NewArrivalBean.NewArrivalDataBean();
                                 newArrivalDataBean.setId(dataObject.getString("id"));
-                                newArrivalDataBean.setDescription(dataObject.getString("description"));
+                                newArrivalDataBean.setArtno(dataObject.getString("artno"));
+                                newArrivalDataBean.setShopid(dataObject.getString("shopid"));
+                                newArrivalDataBean.setBrand(dataObject.getString("brand"));
+                                newArrivalDataBean.setGoodsname(dataObject.getString("goodsname"));
+                                newArrivalDataBean.setAdtitle(dataObject.getString("adtitle"));
+                                newArrivalDataBean.setOprice(dataObject.getString("oprice"));
                                 newArrivalDataBean.setPrice(dataObject.getString("price"));
-                                newArrivalDataBean.setId(dataObject.getString("id"));
+                                newArrivalDataBean.setUnit(dataObject.getString("unit"));
+                                newArrivalDataBean.setDescription(dataObject.getString("description"));
                                 newArrivalDataBean.setPicture(dataObject.getString("picture"));
+                                newArrivalDataBean.setShowid(dataObject.getString("showid"));
+                                newArrivalDataBean.setAddress(dataObject.getString("address"));
+                                newArrivalDataBean.setFreight(dataObject.getString("freight"));
+                                newArrivalDataBean.setPays(dataObject.getString("pays"));
+                                newArrivalDataBean.setRacking(dataObject.getString("racking"));
+                                newArrivalDataBean.setRecommend(dataObject.getString("recommend"));
+
+
+                                JSONObject jsonObject1 = dataObject.getJSONObject("shop_name");
+                                newArrivalDataBean.setShopname(jsonObject1.getString("shopname"));
+
                                 newArrivalDataBean.setSales(dataObject.getString("sales"));
                                 newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
+
+                                Log.e("anan", "nncc");
+
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             everydayBargainAdapter = new EverydayBargainAdapter(context, newArrivalDataBeanList);
                             gridView.setAdapter(everydayBargainAdapter);
+                            Log.e("aabb", "nncc");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -82,14 +104,14 @@ public class EverydayBargainActivity extends Activity implements View.OnClickLis
         gridView = (GridView) findViewById(R.id.gridView_everyday_bargain);
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
-        tvTitle.setText("新品上市");
+        tvTitle.setText("天天特价");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_back:
                 finish();
                 break;

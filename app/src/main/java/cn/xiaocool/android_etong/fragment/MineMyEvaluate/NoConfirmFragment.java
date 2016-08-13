@@ -61,6 +61,7 @@ public class NoConfirmFragment extends Fragment {
                                     dataBean.setGoodsname(jsonObject1.getString("goodsname"));
                                     dataBean.setPicture(jsonObject1.getString("picture"));
                                     dataBean.setId(jsonObject1.getString("id"));
+                                    dataBean.setState(jsonObject1.getString("state"));
 //                                    dataBean.setType(jsonObject1.getString("type"));
 //                                    dataBean.setPeoplename(jsonObject1.getString("peoplename"));
                                     dataBean.setMobile(jsonObject1.getString("mobile"));
@@ -93,9 +94,9 @@ public class NoConfirmFragment extends Fragment {
 
     private void initView() {
         dataBeans = new ArrayList<>();
-        list_goods = (ListView) getView().findViewById(R.id.list_goods);
+        list_goods = (ListView) getView().findViewById(R.id.list_goods_confirm);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist();
+            new MainRequest(context, handler).getshoppingorderlist("&state=3");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -114,4 +115,13 @@ public class NoConfirmFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_pending_comfirm, container, false);
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).getshoppingorderlist("&state=3");
+        }
+    }
+//    activity_pending_comfirm
 }

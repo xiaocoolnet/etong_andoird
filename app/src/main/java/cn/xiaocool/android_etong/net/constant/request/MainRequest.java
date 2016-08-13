@@ -633,14 +633,14 @@ public class MainRequest {
     }
 
     //获取我的商城订单列表
-    public void getshoppingorderlist() {
+    public void getshoppingorderlist(final String state) {
 
         new Thread() {
             Message msg = new Message();
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId();
+                String data = "&userid=" + user.getUserId() + state;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.GETSHOPPINGORDERLIST, data);
                 Log.e("result_data=", result_data);
@@ -762,21 +762,47 @@ public class MainRequest {
 
             @Override
             public void run() {
-                String data = "&userid="+user.getUserId()+"&goodsid="+goodsid;
-                Log.e("data=",data);
-                String result_data = NetUtil.getResponse(WebAddress.Delete_Shopping_Cart,data);
-                Log.e("result_data=",result_data);
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(WebAddress.Delete_Shopping_Cart, data);
+                Log.e("result_data=", result_data);
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.DELETE_SHOPPING_CART;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     handler.sendMessage(msg);
                 }
             }
         }.start();
     }
 
+
+    //获取卖家中心的订单列表
+    public void getSellerOrderList(final String shopId ,final String state) {
+
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&shopid=" + shopId + state;
+                String result_data = NetUtil.getResponse(WebAddress.GET_SELLER_ORDER_LIST, data);
+                Log.e("result_data=", result_data);
+                Log.e(".shopis is", shopId);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_SELLER_ORDER_LIST;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+
+            }
+        }.start();
+    }
 }

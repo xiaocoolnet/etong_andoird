@@ -51,7 +51,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private RelativeLayout rl_meirijingxuan;
     private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
     private LinearLayout llQualityLife, llFlashSale;
-    private NoScrollGridView gridView0,gridView1;
+    private NoScrollGridView gridView0, gridView1;
     private List<EveryDayGoodShopBean.DataBean> dataBeenList;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private EverydayGoodShopAdapter everydayGoodShopAdapter;
@@ -72,8 +72,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 EveryDayGoodShopBean.DataBean dataBean = new EveryDayGoodShopBean.DataBean();
                                 dataBean.setId(dataObject.getString("id"));
                                 dataBean.setShopname(dataObject.getString("shopname"));
-                                dataBean.setFavorite(dataObject.getString("favorite"));
                                 dataBean.setPhoto(dataObject.getString("photo"));
+                                dataBean.setAddress(dataObject.getString("address"));
                                 dataBeenList.add(dataBean);
                             }
                             everydayGoodShopAdapter = new EverydayGoodShopAdapter(context, dataBeenList);
@@ -83,7 +83,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                         e.printStackTrace();
                     }
                     break;
-                case CommunalInterfaces.GET_NEW_ARRIVAL:
+                case CommunalInterfaces.GET_GUESS_LIKE:
                     JSONObject jsonObject1 = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject1.getString("status");
@@ -95,10 +95,31 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 dataObject = (JSONObject) jsonArray.get(i);
                                 NewArrivalBean.NewArrivalDataBean newArrivalDataBean = new NewArrivalBean.NewArrivalDataBean();
                                 newArrivalDataBean.setId(dataObject.getString("id"));
-                                newArrivalDataBean.setDescription(dataObject.getString("description"));
+                                newArrivalDataBean.setArtno(dataObject.getString("artno"));
+                                newArrivalDataBean.setShopid(dataObject.getString("shopid"));
+                                newArrivalDataBean.setBrand(dataObject.getString("brand"));
+                                newArrivalDataBean.setGoodsname(dataObject.getString("goodsname"));
+                                newArrivalDataBean.setAdtitle(dataObject.getString("adtitle"));
+                                newArrivalDataBean.setOprice(dataObject.getString("oprice"));
                                 newArrivalDataBean.setPrice(dataObject.getString("price"));
+                                newArrivalDataBean.setUnit(dataObject.getString("unit"));
+                                newArrivalDataBean.setDescription(dataObject.getString("description"));
                                 newArrivalDataBean.setPicture(dataObject.getString("picture"));
+                                newArrivalDataBean.setShowid(dataObject.getString("showid"));
+                                newArrivalDataBean.setAddress(dataObject.getString("address"));
+                                newArrivalDataBean.setFreight(dataObject.getString("freight"));
+                                newArrivalDataBean.setPays(dataObject.getString("pays"));
+                                newArrivalDataBean.setRacking(dataObject.getString("racking"));
+                                newArrivalDataBean.setRecommend(dataObject.getString("recommend"));
+
+
+                                JSONObject jsonObject2 = dataObject.getJSONObject("shop_name");
+                                newArrivalDataBean.setShopname(jsonObject2.getString("shopname"));
+
+                                newArrivalDataBean.setSales(dataObject.getString("sales"));
                                 newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
+
+
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             homepageGuessLikeAdapter = new HomepageGuessLikeAdapter(context, newArrivalDataBeanList);
@@ -107,6 +128,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
             }
         }
     };
@@ -123,8 +145,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         super.onActivityCreated(savedInstanceState);
         initview();
         initdata();
-        new HomeRequest(context, handler).getGuessLike("烟台市");//获取每日好店
-        new HomeRequest(context, handler).getNewArrival("&recommend=6");//获取猜你喜欢
+        new HomeRequest(context, handler).getEveryDayShop();//获取每日好店
+        new HomeRequest(context, handler).getGuessLike();//获取猜你喜欢
     }
 
     private void initview() {
@@ -152,10 +174,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 
         HashMap<String, String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
-        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
-        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
-        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
+        url_maps.put("新品上市", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
+        url_maps.put("推荐购买", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
+        url_maps.put("猜你喜欢", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
+        url_maps.put("每日特价", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
 
         for (String name : url_maps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(context);
