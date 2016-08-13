@@ -261,13 +261,13 @@ public class MainRequest {
     }
 
     //创建店铺
-    public void CreateShop(final String type,final String legalperson, final String phone, final String idcard, final String address,
+    public void CreateShop(final String city,final String type,final String legalperson, final String phone, final String idcard, final String address,
                            final String positive_pic, final String opposite_pic, final String license_pic, final int KEY) {
         new Thread() {
             Message msg = new Message();
 
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&city=yantai" + "&legalperson=" + legalperson +
+                String data = "&userid=" + user.getUserId() + "&city="+city + "&legalperson=" + legalperson +
                         "&phone=" + phone + "&type=" + type+"&businesslicense=123" + "&address=" + address + "&idcard=" + idcard
                         + "&positive_pic=" + positive_pic + "&opposite_pic=" + opposite_pic + "&license_pic=" + license_pic;
                 Log.e("data is ", data);
@@ -659,13 +659,13 @@ public class MainRequest {
     }
 
     //获取店铺列表
-    public void GetShopList(final String city) {
+    public void GetShopList(final String city,final String type) {
         new Thread() {
             Message msg = new Message();
 
             @Override
             public void run() {
-                String data = "&city=" + city;
+                String data = "&city=" + city + "&type=" + type;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.GET_SHOP_LIST, data);
                 Log.e("result_data=", result_data);
@@ -779,4 +779,75 @@ public class MainRequest {
         }.start();
     }
 
+    //搜索店铺
+    public void SearchShops(final String shop) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&shop="+shop;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SearchShops,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SEARCH_SHOPS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //搜索商品
+    public void SearchGoods(final String goods) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&goods="+goods;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SearchGoods,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SEARCH_GOODS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //e抢购
+    public void IsE() {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.IsE,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.IsE;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

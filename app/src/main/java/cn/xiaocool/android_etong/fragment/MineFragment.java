@@ -207,11 +207,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.img_setup:
                 showPopupMenu(img_setup);
                 break;
-
             case R.id.mine_btn_my_like:
                 IntentUtils.getIntent((Activity) context, MyLikeActivity.class);
                 break;
-
             case R.id.mine_btn_allOrder:
                 Intent intent = new Intent();
                 intent.putExtra("indent", 0);

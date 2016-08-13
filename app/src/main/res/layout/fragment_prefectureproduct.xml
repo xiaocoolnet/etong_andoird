@@ -3,8 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="prefectureproduct"
+        android:text="该功能正在建设，敬请期待"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/black"
         />
 </LinearLayout>

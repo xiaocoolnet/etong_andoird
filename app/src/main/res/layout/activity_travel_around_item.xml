@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:id="@+id/rl_travel_around"
         android:layout_width="match_parent"
         android:background="@color/whilte"
         android:layout_height="105dp">
@@ -33,7 +34,6 @@
             android:layout_alignLeft="@+id/tx_restaurant_name"
             android:layout_below="@+id/tx_restaurant_name"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/ic_yellowstar_3"
             />
         <TextView
             android:id="@+id/tv_goods_pingfen"

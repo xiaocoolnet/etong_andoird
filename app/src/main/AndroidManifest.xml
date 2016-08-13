@@ -77,6 +77,10 @@
         </activity>
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
+        <!--HomePage-->
+        <activity android:name=".UI.HomePage.SearchActivity"></activity>
+        <activity android:name=".UI.HomePage.SearchResultShopActivity"></activity>
+        <activity android:name=".UI.HomePage.SearchResultGoodsActivity"></activity>
         <!--Main-->
         <activity android:name=".UI.Main.NewArrivalActivity"></activity>
         <activity android:name=".UI.Main.EverydayBargainActivity"></activity>

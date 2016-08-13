@@ -151,6 +151,32 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:text="城市"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    />
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="100dp"
+                    android:background="@null"
+                    android:paddingLeft="10dp"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:hint="城市"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="店铺类型"
                     android:textColor="@color/black"
                     android:textSize="16sp"
