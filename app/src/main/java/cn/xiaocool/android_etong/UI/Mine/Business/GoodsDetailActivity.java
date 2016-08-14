@@ -39,7 +39,9 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by 潘 on 2016/7/20.
@@ -50,10 +52,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout rl_back;
     private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name,tx_goods_price,tv_goods_address,tv_goods_description;
+    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description;
     private ImageView img_goods_pic;
-    private Button btn_lijigoumai,btn_shopping_cart;
-    private String id , pic , goodsname , price,shopname,address,description,shopid;
+    private Button btn_lijigoumai, btn_shopping_cart;
+    private ImageView btnLike;
+    private String id, pic, goodsname, price, shopname, address, description, shopid;
     private String[] arraypic;
     private int count = 1;
     private ProgressDialog progressDialog;
@@ -61,20 +64,20 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case CommunalInterfaces.GET_GOODS_INFO:
                     JSONObject json = (JSONObject) msg.obj;
                     try {
                         String status = json.getString("status");
                         String data = json.getString("data");
-                        if (status.equals("success")){
+                        if (status.equals("success")) {
                             JSONObject jsonObject = json.getJSONObject("data");
                             address = jsonObject.getString("address");
                             tv_goods_address.setText(address);
                             description = jsonObject.getString("description");
                             tv_goods_description.setText(description);
-                        }else {
-                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -85,16 +88,37 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                     try {
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
-                        if (status.equals("success")){
+                        if (status.equals("success")) {
                             progressDialog.dismiss();
-                            Toast.makeText(context,"添加购物车成功",Toast.LENGTH_SHORT).show();
-                        }else {
+                            Toast.makeText(context, "添加购物车成功", Toast.LENGTH_SHORT).show();
+                        } else {
                             progressDialog.dismiss();
-                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case CommunalInterfaces.LIKE_GOOD:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        if (jsonObject1.getString("status").equals("success")) {
+                            ToastUtils.makeShortToast(context, "收藏成功！");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.CANCLE_LIKE_GOOD:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        if (jsonObject2.getString("status").equals("success")) {
+                            ToastUtils.makeShortToast(context, "取消收藏成功！");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
@@ -106,26 +130,26 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_goodsdetails);
         context = this;
         Intent intent = getIntent();
-        shopid=intent.getStringExtra("shopid");
-        Log.e("shopid=",shopid);
-        id=intent.getStringExtra("id");//这是goodsId
+        shopid = intent.getStringExtra("shopid");
+        Log.e("shopid=", shopid);
+        id = intent.getStringExtra("id");//这是goodsId
         pic = intent.getStringExtra("pic");
         price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         shopname = intent.getStringExtra("shopname");
         arraypic = pic.split("[,]");
-        for (String pic_name:arraypic){
-            Log.e("pic_name=",pic_name);
+        for (String pic_name : arraypic) {
+            Log.e("pic_name=", pic_name);
         }
         Log.e("id=", id);
 //        MyApp mAPP = (MyApp) getApplication();
 //        handler = mAPP.getHandler();
 //        handler.sendEmptyMessage(CommunalInterfaces.UPDATA_SHOPPING_CART);
         initview();
-        if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).getgoodsinfo(id);
-        }else {
-            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).getgoodsinfo(id);
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
         setview();
         initpic();
@@ -143,32 +167,34 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
         tv_goods_address = (TextView) findViewById(R.id.tv_goods_address);
         tv_goods_description = (TextView) findViewById(R.id.tv_goods_description);
-        goodsdetail_scrollview = (ScrollView)findViewById(R.id.goodsdetail_scrollview);
-        progressDialog = new ProgressDialog(context,ProgressDialog.STYLE_SPINNER);
+        goodsdetail_scrollview = (ScrollView) findViewById(R.id.goodsdetail_scrollview);
+        progressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
+        btnLike = (ImageView) findViewById(R.id.good_details_iv_like);
+        btnLike.setOnClickListener(this);
     }
 
     private void setview() {
         tx_goods_name.setText(goodsname);
-        tx_goods_price.setText("￥"+price);
+        tx_goods_price.setText("￥" + price);
     }
 
     private void initpic() {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
+        HashMap<String, String> url_maps = new HashMap<String, String>();
 //        url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
 //        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
 //        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
 //        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
-        for (int i=0;i<arraypic.length;i++){
+        for (int i = 0; i < arraypic.length; i++) {
             int count = arraypic.length;
-            url_maps.put(goodsname+"  图"+i, WebAddress.GETAVATAR+arraypic[i]);
+            url_maps.put(goodsname + "  图" + i, WebAddress.GETAVATAR + arraypic[i]);
         }
-        if (arraypic.length==1){
+        if (arraypic.length == 1) {
             img_goods_pic.setVisibility(View.VISIBLE);
             mDemoSlider.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+arraypic[0],img_goods_pic);
-        }else {
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + arraypic[0], img_goods_pic);
+        } else {
             mDemoSlider.setVisibility(View.VISIBLE);
             for (String name : url_maps.keySet()) {
                 TextSliderView textSliderView = new TextSliderView(context);
@@ -196,18 +222,26 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     //对应轮播图片部分
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
             case R.id.btn_lijigoumai:
-                goodsdetail_scrollview.scrollTo(0,0);
+                goodsdetail_scrollview.scrollTo(0, 0);
                 showPopwindow(context, arraypic[0], price, goodsname);
                 break;
             case R.id.btn_shopping_cart:
-                goodsdetail_scrollview.scrollTo(0,0);
+                goodsdetail_scrollview.scrollTo(0, 0);
                 showPopwindow_shoppingcart(context, arraypic[0], price, goodsname);
                 break;
+            case R.id.good_details_iv_like:
+                if (!btnLike.isSelected()) {
+                    new ShopRequest(this, handler).likeGood(id);
+                    btnLike.setSelected(true);
+                } else {
+                    new ShopRequest(this, handler).cancelLike(id);
+                    btnLike.setSelected(false);
+                }
         }
     }
 
@@ -218,7 +252,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         super.onStop();
     }
 
-//轮播图继承的Demo接口
+    //轮播图继承的Demo接口
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
@@ -243,7 +277,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     /**
      * 显示popupWindow
      */
-    private void showPopwindow(final Context context,String picname,String goodsprice,String goodsname) {
+    private void showPopwindow(final Context context, String picname, String goodsprice, String goodsname) {
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popwindow_buynow, null);
@@ -280,25 +314,25 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //            }
 //        });
 
-        ImageView img_pic = (ImageView)view.findViewById(R.id.img_goods_pic_small);
+        ImageView img_pic = (ImageView) view.findViewById(R.id.img_goods_pic_small);
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
-        TextView tx_goodsname = (TextView)view.findViewById(R.id.tx_goods_name);
+        TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
         tx_goodsname.setText(goodsname);
-        TextView tx_goods_price = (TextView)view.findViewById(R.id.tx_goods_price);
+        TextView tx_goods_price = (TextView) view.findViewById(R.id.tx_goods_price);
         tx_goods_price.setText(goodsprice);
-        final TextView tx_goods_count = (TextView)view.findViewById(R.id.tx_goods_count);
+        final TextView tx_goods_count = (TextView) view.findViewById(R.id.tx_goods_count);
         tx_goods_count.setText(String.valueOf(count));
-        ImageView img_jia = (ImageView)view.findViewById(R.id.img_jia);
-        ImageView img_jian = (ImageView)view.findViewById(R.id.img_jian);
-        Button btn_comfirm = (Button)view.findViewById(R.id.btn_comfirm);
+        ImageView img_jia = (ImageView) view.findViewById(R.id.img_jia);
+        ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
+        Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
 
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("count",count);
-                intent.putExtra("id",id);
-                intent.putExtra("shopname",shopname);
+                intent.putExtra("count", count);
+                intent.putExtra("id", id);
+                intent.putExtra("shopname", shopname);
                 intent.setClass(context, ComfirmOrderActivity.class);
                 startActivity(intent);
                 window.dismiss();
@@ -316,7 +350,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         img_jian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count>1){
+                if (count > 1) {
                     count--;
                     tx_goods_count.setText(String.valueOf(count));
                 }
@@ -336,7 +370,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     /**
      * 显示popupWindow
      */
-    private void showPopwindow_shoppingcart(final Context context,String picname,String goodsprice,String goodsname) {
+    private void showPopwindow_shoppingcart(final Context context, String picname, String goodsprice, String goodsname) {
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popwindow_buynow, null);
@@ -373,17 +407,17 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //            }
 //        });
 
-        ImageView img_pic = (ImageView)view.findViewById(R.id.img_goods_pic_small);
+        ImageView img_pic = (ImageView) view.findViewById(R.id.img_goods_pic_small);
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
-        TextView tx_goodsname = (TextView)view.findViewById(R.id.tx_goods_name);
+        TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
         tx_goodsname.setText(goodsname);
-        TextView tx_goods_price = (TextView)view.findViewById(R.id.tx_goods_price);
+        TextView tx_goods_price = (TextView) view.findViewById(R.id.tx_goods_price);
         tx_goods_price.setText(goodsprice);
-        final TextView tx_goods_count = (TextView)view.findViewById(R.id.tx_goods_count);
+        final TextView tx_goods_count = (TextView) view.findViewById(R.id.tx_goods_count);
         tx_goods_count.setText(String.valueOf(count));
-        ImageView img_jia = (ImageView)view.findViewById(R.id.img_jia);
-        ImageView img_jian = (ImageView)view.findViewById(R.id.img_jian);
-        Button btn_comfirm = (Button)view.findViewById(R.id.btn_comfirm);
+        ImageView img_jia = (ImageView) view.findViewById(R.id.img_jia);
+        ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
+        Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
         //添加购物车
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,15 +425,15 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 progressDialog.setProgressStyle(AlertDialog.THEME_HOLO_LIGHT);
                 progressDialog.setMessage("正在加载");
                 progressDialog.show();
-                if (NetUtil.isConnnected(context)){
+                if (NetUtil.isConnnected(context)) {
                     Log.e("shopid=", shopid);
                     window.dismiss();
                     Intent intent = new Intent(action);
                     intent.putExtra("data", "yes i am data");
                     sendBroadcast(intent);
-                    new MainRequest(context,handler).addShoppingCart(id, String.valueOf(count), shopid);
-                }else {
-                    Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                    new MainRequest(context, handler).addShoppingCart(id, String.valueOf(count), shopid);
+                } else {
+                    Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }
@@ -416,7 +450,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         img_jian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count>1){
+                if (count > 1) {
                     count--;
                     tx_goods_count.setText(String.valueOf(count));
                 }
