@@ -64,7 +64,7 @@ public class PanicBuyingAdapter extends BaseAdapter {
         ViewHolder holder = null;
         final Local local = locals.get(position);
         if (convertView == null) {
-            inflater.inflate(R.layout.activity_panic_buying_item, null);
+            convertView = inflater.inflate(R.layout.activity_panic_buying_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -103,13 +103,14 @@ public class PanicBuyingAdapter extends BaseAdapter {
         private TextView everydayChoicenessOprice;
         private TextView everydayChoicenessDesc;
         private Button everydayChoicenessBtnBuy;
-        ViewHolder(View view) {
-            everydayChoicenessPic = (ImageView)view.findViewById(R.id.everyday_choiceness_pic);
-            everydayChoicenessName = (TextView)view.findViewById(R.id.everyday_choiceness_name);
-            everydayChoicenessPrice = (TextView)view.findViewById(R.id.everyday_choiceness_price);
-            everydayChoicenessOprice = (TextView)view.findViewById(R.id.everyday_choiceness_oprice);
-            everydayChoicenessDesc = (TextView)view.findViewById(R.id.everyday_choiceness_desc);
-            everydayChoicenessBtnBuy = (Button) view.findViewById(R.id.everyday_choiceness_btn_buy);
+
+        public ViewHolder(View view) {
+            everydayChoicenessPic = (ImageView) view.findViewById(R.id.everyday_choiceness_pic0);
+            everydayChoicenessName = (TextView) view.findViewById(R.id.everyday_choiceness_name0);
+            everydayChoicenessPrice = (TextView) view.findViewById(R.id.everyday_choiceness_price0);
+            everydayChoicenessOprice = (TextView) view.findViewById(R.id.everyday_choiceness_oprice0);
+            everydayChoicenessDesc = (TextView) view.findViewById(R.id.everyday_choiceness_desc0);
+            everydayChoicenessBtnBuy = (Button) view.findViewById(R.id.everyday_choiceness_btn_buy0);
         }
     }
 }

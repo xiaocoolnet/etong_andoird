@@ -288,6 +288,25 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String IsE = NET_BASE_PREFIX + "a=IsE";
+
+    /*
+    *今日特价
+    */
+
+    String IsPrice = NET_BASE_PREFIX + "a=IsPrice";
+
+    /*
+    *新客专享
+    */
+
+    String IsNew = NET_BASE_PREFIX +"a=IsNew";
+
+    /*
+    *猜你喜欢
+    */
+
+    String IsLike = NET_BASE_PREFIX + "a=IsLike";
+
 }
 
 

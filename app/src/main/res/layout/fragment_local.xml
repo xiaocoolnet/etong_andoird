@@ -88,8 +88,13 @@
 
         </RelativeLayout>
             <!--餐厅信息-->
-        <include layout="@layout/local_restaurant_list"/>
-        <include layout="@layout/local_restaurant_list"/>
+        <cn.xiaocool.android_etong.util.NoScrollListView
+            android:layout_marginTop="10dp"
+            android:id="@+id/list_local"
+            android:dividerHeight="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </cn.xiaocool.android_etong.util.NoScrollListView>
 
 
         </LinearLayout>
