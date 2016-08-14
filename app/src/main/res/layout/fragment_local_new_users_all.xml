@@ -3,9 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="All"
-        android:layout_height="wrap_content" />
+    <cn.xiaocool.android_etong.util.NoScrollListView
+        android:id="@+id/list_New_Users"
+        android:dividerHeight="2dp"
+        android:layout_width="match_parent"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_height="wrap_content">
+
+    </cn.xiaocool.android_etong.util.NoScrollListView>
 
 </LinearLayout>

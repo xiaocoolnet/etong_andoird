@@ -875,4 +875,76 @@ public class MainRequest {
             }
         }.start();
     }
+
+    //e抢购
+    public void IsPrice() {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.IsPrice,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.IsPrice;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //新客专享
+    public void IsNew() {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.IsNew,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.IsNew;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //猜你喜欢
+    public void IsLike() {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "";
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.IsLike,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.IsLike;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

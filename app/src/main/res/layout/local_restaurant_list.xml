@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/rl_item"
     android:layout_marginTop="1dp"
     android:background="@color/whilte"
     android:layout_height="105dp">
@@ -10,7 +11,7 @@
         android:layout_height="61dp"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
-        android:background="@mipmap/ic_shaitu"
+        android:scaleType="fitXY"
         />
     <TextView
         android:id="@+id/tx_restaurant_name"

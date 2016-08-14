@@ -1,93 +1,113 @@
 package cn.xiaocool.android_etong.fragment.Local;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.adapter.PanicBuyingAdapter;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
  * Created by 潘 on 2016/8/10.
  */
 public class PanicBuying_All_Fragment extends Fragment {
-//    private Context context;
-//    private ListView list_panic_buying;
-//    private PanicBuyingAdapter panicBuyingAdapter;
-//    private List<Local> locals;
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            switch (msg.what){
-//                case CommunalInterfaces.IsE:
-//                    try {
-//                        JSONObject jsonObject = (JSONObject)msg.obj;
-//                        String state=jsonObject.getString("status");
-//                        if (state.equals("success")) {
-//                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-//                            locals.clear();
-//                            Log.e("success", "加载数据");
-//                            for (int i = 0;i<jsonArray.length();i++){
-//                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-//                                    Local local = new Local();
-//                                    local.setShopid(jsonObject1.getString("shopid"));
-//                                    local.setId(jsonObject1.getString("id"));
-//                                    local.setGoodsname(jsonObject1.getString("goodsname"));
-//                                    local.setPicture(jsonObject1.getString("picture"));
-//                                    local.setDescription(jsonObject1.getString("description"));
-//                                    local.setPrice(jsonObject1.getString("price"));
-//                                    local.setOprice(jsonObject1.getString("oprice"));
-//                                    local.setFreight(jsonObject1.getString("freight"));
-//                                    locals.add(local);
-//                                    Log.e("succees", "商品数据加载");
-//                            }if (panicBuyingAdapter!=null){
-//                                Log.e("success","设置适配器");
-//                                panicBuyingAdapter.notifyDataSetChanged();
-//                            }else {
-//                                Log.e("success","设置适配器");
-//                                panicBuyingAdapter = new PanicBuyingAdapter(context,locals);
-//                                list_panic_buying.setAdapter(panicBuyingAdapter);
-//                                setListViewHeightBasedOnChildren(list_panic_buying);
-//                            }
-//                        }else{
-//                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    break;
-//            }
-//        }
-//    };
+    private Context context;
+    private ListView list_panic_buying;
+    private PanicBuyingAdapter panicBuyingAdapter;
+    private List<Local> locals;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case CommunalInterfaces.IsE:
+                    try {
+                        JSONObject jsonObject = (JSONObject)msg.obj;
+                        String state=jsonObject.getString("status");
+                        if (state.equals("success")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            locals.clear();
+                            Log.e("success", "加载数据");
+                            for (int i = 0;i<jsonArray.length();i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                    Local local = new Local();
+                                    local.setShopid(jsonObject1.getString("shopid"));
+                                    local.setId(jsonObject1.getString("id"));
+                                    local.setGoodsname(jsonObject1.getString("goodsname"));
+                                    local.setPicture(jsonObject1.getString("picture"));
+                                    local.setDescription(jsonObject1.getString("description"));
+                                    local.setPrice(jsonObject1.getString("price"));
+                                    local.setOprice(jsonObject1.getString("oprice"));
+                                    local.setFreight(jsonObject1.getString("freight"));
+                                JSONArray jsonArray1 = jsonObject1.getJSONArray("shop_list");
+                                JSONObject jsonObject2 = jsonArray1.getJSONObject(0);
+                                    local.setShopname(jsonObject2.getString("shopname"));
+                                    locals.add(local);
+                                    Log.e("succees", "商品数据加载");
+                            }if (panicBuyingAdapter!=null){
+                                Log.e("success", "设置适配器");
+                                panicBuyingAdapter.notifyDataSetChanged();
+                            }else {
+                                Log.e("success","设置适配器");
+                                panicBuyingAdapter = new PanicBuyingAdapter(context,locals);
+                                list_panic_buying.setAdapter(panicBuyingAdapter);
+                                setListViewHeightBasedOnChildren(list_panic_buying);
+                            }
+                        }else{
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local_panic_buying_all,container,false);
-//        context = getActivity();
+        context = getActivity();
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        initView();
-//        if (NetUtil.isConnnected(context)){
-//            new MainRequest(context,handler).IsE();
-//        }else {
-//            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
-//        }
+        initView();
+        if (NetUtil.isConnnected(context)){
+            new MainRequest(context,handler).IsE();
+        }else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+        }
     }
 
-//    private void initView() {
-//        list_panic_buying = (ListView)getView().findViewById(R.id.list_panci_buying);
-//        locals = new ArrayList<>();
-//
-//    }
+    private void initView() {
+        list_panic_buying = (ListView)getView().findViewById(R.id.list_panci_buying);
+        locals = new ArrayList<>();
+
+    }
 
     /*
   解决scrollview下listview显示不全

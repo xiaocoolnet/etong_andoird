@@ -57,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/activity_size_5"
-                android:background="@mipmap/ic_yellowstar_3_5"
                 />
 
 

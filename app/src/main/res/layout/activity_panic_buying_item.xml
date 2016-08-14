@@ -15,7 +15,7 @@
             android:layout_weight="3">
 
             <ImageView
-                android:id="@+id/everyday_choiceness_pic"
+                android:id="@+id/everyday_choiceness_pic0"
                 android:layout_width="@dimen/activity_size_100"
                 android:layout_height="match_parent" />
 
@@ -30,7 +30,7 @@
 
 
             <TextView
-                android:id="@+id/everyday_choiceness_name"
+                android:id="@+id/everyday_choiceness_name0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -40,7 +40,7 @@
                 android:textSize="@dimen/activity_size_14" />
 
             <TextView
-                android:id="@+id/everyday_choiceness_desc"
+                android:id="@+id/everyday_choiceness_desc0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -66,7 +66,7 @@
                     android:layout_weight="2">
 
                     <TextView
-                        android:id="@+id/everyday_choiceness_oprice"
+                        android:id="@+id/everyday_choiceness_oprice0"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/activity_size_15"
                         android:layout_centerVertical="true"
@@ -75,7 +75,7 @@
                         android:textColor="@color/black3"
                         android:textSize="@dimen/activity_size_12" />
                     <TextView
-                        android:id="@+id/everyday_choiceness_price"
+                        android:id="@+id/everyday_choiceness_price0"
                         android:layout_width="wrap_content"
                         android:layout_marginTop="@dimen/activity_size_5"
                         android:layout_height="@dimen/activity_size_25"
@@ -91,7 +91,7 @@
                     android:layout_weight="1">
 
                     <Button
-                        android:id="@+id/everyday_choiceness_btn_buy"
+                        android:id="@+id/everyday_choiceness_btn_buy0"
                         android:layout_width="@dimen/activity_size_90"
                         android:layout_height="@dimen/activity_size_30"
                         android:layout_alignParentRight="true"

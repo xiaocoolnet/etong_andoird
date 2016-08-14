@@ -4,13 +4,19 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -18,8 +24,15 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.ShopListActivity;
 import cn.xiaocool.android_etong.UI.Local.DailySpecialActivity;
@@ -34,6 +47,10 @@ import cn.xiaocool.android_etong.UI.Local.RechargeActivity;
 import cn.xiaocool.android_etong.UI.Local.ServiceActivity;
 import cn.xiaocool.android_etong.UI.Local.TakeOutFoodAcitvity;
 import cn.xiaocool.android_etong.UI.Local.TravelAroundActivity;
+import cn.xiaocool.android_etong.adapter.LocalAdapter;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
@@ -47,6 +64,57 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     private LinearLayout ll_eqianggou,ll_xinkezhuanxiang,ll_jinritejia;
     private Button btn_quanbu,btn_meishi,btn_dianying,btn_jiudian,btn_waimai,btn_shenghuoyule,
             btn_zhoubianyou,btn_shenghuofuwu,btn_ktv,btn_shoujichongzhi;
+    private LocalAdapter localAdapter;
+    private ListView list_local;
+    private List<Local> locals;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case CommunalInterfaces.IsLike:
+                    try {
+                        JSONObject jsonObject = (JSONObject)msg.obj;
+                        String state=jsonObject.getString("status");
+                        if (state.equals("success")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            locals.clear();
+                            Log.e("success", "加载数据");
+                            int length = 2;
+                            if (jsonArray.length()<3){
+                                length = jsonArray.length();
+                            }
+                            for (int i = 0;i<length;i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                Local local = new Local();
+                                local.setShopid(jsonObject1.getString("shopid"));
+                                local.setId(jsonObject1.getString("id"));
+                                local.setGoodsname(jsonObject1.getString("goodsname"));
+                                local.setPicture(jsonObject1.getString("picture"));
+                                local.setDescription(jsonObject1.getString("description"));
+                                local.setPrice(jsonObject1.getString("price"));
+                                local.setOprice(jsonObject1.getString("oprice"));
+                                local.setFreight(jsonObject1.getString("freight"));
+                                locals.add(local);
+                                Log.e("succees", "商品数据加载");
+                            }if (localAdapter!=null){
+                                Log.e("success", "设置适配器");
+                                localAdapter.notifyDataSetChanged();
+                            }else {
+                                Log.e("success","设置适配器");
+                                localAdapter = new LocalAdapter(context,locals);
+                                list_local.setAdapter(localAdapter);
+                                setListViewHeightBasedOnChildren(list_local);
+                            }
+                        }else{
+                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -64,9 +132,16 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         linearParams.height=getStatusBarHeight(context);
         ry_line.setLayoutParams(linearParams);
         initview();
+        if (NetUtil.isConnnected(context)){
+            new MainRequest(context,handler).IsLike();
+        }else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initview() {
+        list_local = (ListView)getView().findViewById(R.id.list_local);
+        locals = new ArrayList<>();
         btn_quanbu = (Button)getView().findViewById(R.id.btn_quanbu);
         btn_quanbu.setOnClickListener(this);
         btn_meishi = (Button)getView().findViewById(R.id.btn_meishi);
@@ -220,6 +295,33 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    /*
+解决scrollview下listview显示不全
+*/
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 
 }

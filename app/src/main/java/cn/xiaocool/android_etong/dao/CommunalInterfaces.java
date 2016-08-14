@@ -70,5 +70,8 @@ public interface CommunalInterfaces {
     int SEARCH_SHOPS = 0x0042;//搜索店铺
     int SEARCH_GOODS = 0x0043;//搜索商品
     int IsE = 0x0044;//e抢购
+    int IsPrice = 0x0045;//今日特价
+    int IsNew = 0x0046;//新客专享
+    int IsLike = 0x0047;//猜你喜欢
 
 }
