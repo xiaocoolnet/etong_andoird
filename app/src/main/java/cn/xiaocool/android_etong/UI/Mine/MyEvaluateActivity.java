@@ -137,5 +137,4 @@ public class MyEvaluateActivity extends Activity implements View.OnClickListener
         currentIndex = index;
     }
 
-
 }

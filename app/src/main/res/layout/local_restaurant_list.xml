@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/rl_item"
     android:layout_marginTop="1dp"
     android:background="@color/whilte"
     android:layout_height="105dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="105dp">
+
+
     <ImageView
         android:id="@+id/img_restaurant"
         android:layout_width="81dp"
-        android:layout_height="61dp"
+        android:layout_height="81dp"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
@@ -28,6 +34,7 @@
         android:id="@+id/tx_restaurant_introduce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/tx_restaurant_name"
         android:layout_below="@+id/tx_restaurant_name"
         android:textColor="@color/gray_text"
@@ -77,5 +84,5 @@
         android:layout_marginRight="14dp"
         android:textSize="12sp"
         />
-
+    </RelativeLayout>
 </RelativeLayout>

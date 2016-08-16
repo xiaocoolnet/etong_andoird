@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -60,6 +61,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
 public class LocalFragment extends Fragment implements View.OnClickListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
     private SliderLayout mDemoSlider;
+    private TextView et_search;
     private RelativeLayout ry_line;
     private LinearLayout ll_eqianggou,ll_xinkezhuanxiang,ll_jinritejia;
     private Button btn_quanbu,btn_meishi,btn_dianying,btn_jiudian,btn_waimai,btn_shenghuoyule,
@@ -168,6 +170,9 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         ll_xinkezhuanxiang.setOnClickListener(this);
         ll_jinritejia = (LinearLayout)getView().findViewById(R.id.ll_jinritejia);
         ll_jinritejia.setOnClickListener(this);
+        et_search = (TextView) getView().findViewById(R.id.et_search);
+        et_search.clearFocus();
+        et_search.setOnClickListener(this);
 
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 

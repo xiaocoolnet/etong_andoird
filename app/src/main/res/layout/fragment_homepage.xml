@@ -368,6 +368,17 @@
         </LinearLayout>
 
     </cn.xiaocool.android_etong.util.ReboundScrollView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </RelativeLayout>
+
+
     <RelativeLayout
         android:id="@+id/rl_topbar"
         android:layout_marginTop="15dp"
@@ -407,5 +418,5 @@
             android:layout_marginRight="15dp"
             />
     </RelativeLayout>
-
+    </LinearLayout>
 </RelativeLayout>
