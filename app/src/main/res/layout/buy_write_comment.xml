@@ -68,17 +68,57 @@
                 android:text="店铺评分"
                 android:textColor="@color/black2"
                 android:layout_centerVertical="true"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_yellowstar_4_5"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/buy_write_comment_name"
-                android:layout_marginLeft="@dimen/activity_size_10"
 
-                />
+           <LinearLayout
+               android:id="@+id/ll_star"
+               android:layout_centerVertical="true"
+               android:layout_toRightOf="@+id/buy_write_comment_name"
+               android:layout_marginLeft="@dimen/activity_size_10"
+               android:gravity="center_vertical"
+               android:background="@mipmap/ic_yellowstar_5"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <RelativeLayout
+                   android:id="@+id/rl_1"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   >
 
+               </RelativeLayout>
+               <RelativeLayout
+                   android:id="@+id/rl_2"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   >
 
+               </RelativeLayout>
+               <RelativeLayout
+                   android:id="@+id/rl_3"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   >
+
+               </RelativeLayout>
+               <RelativeLayout
+                   android:id="@+id/rl_4"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   >
+
+               </RelativeLayout>
+               <RelativeLayout
+                   android:id="@+id/rl_5"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   >
+
+               </RelativeLayout>
+           </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 

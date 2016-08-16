@@ -90,7 +90,7 @@ public class PendingPaymentAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         final PendingPayment.DataBean product = dataBeans.get(position);
         if (convertView == null) {
@@ -142,13 +142,14 @@ public class PendingPaymentAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-
                             }
                         });
                         dialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new ShopRequest(context, handler).confirmGood(product.getId());
+                                dataBeans.remove(position);
+                                notifyDataSetChanged();
                             }
                         });
                         dialog.show();

@@ -34,6 +34,9 @@
                 android:layout_marginRight="24dp"
                 />
         </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:layout_width="match_parent"
@@ -86,6 +89,7 @@
 
             </LinearLayout>
 
+
         </RelativeLayout>
             <!--餐厅信息-->
         <cn.xiaocool.android_etong.util.NoScrollListView
@@ -96,7 +100,36 @@
             android:layout_height="match_parent">
         </cn.xiaocool.android_etong.util.NoScrollListView>
 
-
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_fenlei"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                />
+            <TextView
+                android:id="@+id/et_search"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="搜索商家、分类"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:background="@mipmap/ic_sousuokuang"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_search_gray"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80dp"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

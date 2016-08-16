@@ -44,6 +44,8 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NoScrollGridView;
 
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+
 /**
  * Created by 潘 on 2016/6/12.
  */
@@ -54,6 +56,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private RelativeLayout rl_meirijingxuan;
     private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
     private LinearLayout llQualityLife, llFlashSale;
+    private RelativeLayout rl_search;
     private NoScrollGridView gridView0, gridView1;
     private List<EveryDayGoodShopBean.DataBean> dataBeenList;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
@@ -170,6 +173,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         gridView1 = (NoScrollGridView) getView().findViewById(R.id.homepage_guess_like_gridview);
         dataBeenList = new ArrayList<>();
         newArrivalDataBeanList = new ArrayList<>();
+        rl_search = (RelativeLayout)getView().findViewById(R.id.rl_search);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) rl_search.getLayoutParams();
+        linearParams.height=getStatusBarHeight(context);
+        rl_search.setLayoutParams(linearParams);
     }
 
     private void initdata() {
