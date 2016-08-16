@@ -33,7 +33,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/activity_size_30">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -46,6 +46,7 @@
             android:layout_marginLeft="@dimen/activity_size_10"
             android:layout_marginTop="@dimen/activity_size_5"
             android:text="¥222"
+            android:singleLine="true"
             android:textColor="@color/red1"
             android:textSize="18sp" />
         <TextView
@@ -55,6 +56,7 @@
             android:layout_marginLeft="@dimen/activity_size_12"
             android:layout_marginTop="@dimen/activity_size_5"
             android:text="¥333"
+            android:singleLine="true"
             android:textColor="@color/black3"
             android:textSize="12sp" />
         </LinearLayout>

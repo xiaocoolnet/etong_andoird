@@ -92,4 +92,46 @@ public class HomeRequest {
             }
         }.start();
     }
+
+    //获取分类一级菜单
+    public void getMenu(final String suffix,final String name) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = suffix + name;
+                String result_data = NetUtil.getResponse(WebAddress.GET_MENU, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_MENU;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取分类三级菜单
+    public void getMenu3(final String name) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&leveltwo_name=" + name;
+                String result_data = NetUtil.getResponse(WebAddress.GET_MENU, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_MENU3;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

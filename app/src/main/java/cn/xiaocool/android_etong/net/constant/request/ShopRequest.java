@@ -182,6 +182,7 @@ public class ShopRequest {
                 String data ="&id=" + orderId;
                 Log.e("deliver good success",orderId);
                 String result_data = NetUtil.getResponse(WebAddress.CONFIRM_GOOD, data);
+
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.CONFIRM_GOOD;

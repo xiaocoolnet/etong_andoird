@@ -17,6 +17,8 @@ public interface CommunalInterfaces {
     int GET_NEW_ARRIVAL = 0x0102;//获取首页新品上市
     int GET_HOMEPAGE_EVERY_GOODSHOP = 0x0103;//获取每日好店
     int GET_GUESS_LIKE = 0x0104;//获取猜你喜欢
+    int GET_MENU = 0x0105;//获取菜单列表
+    int GET_MENU3 = 0x0106;//获取三级列表
 
     //修改资料
     int UPLOADAVATAR = 0x0006;//上传头像

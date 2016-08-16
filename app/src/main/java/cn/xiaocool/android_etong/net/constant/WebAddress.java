@@ -307,6 +307,12 @@ public interface WebAddress extends NetBaseConstant {
 
     String IsLike = NET_BASE_PREFIX + "a=IsLike";
 
+    /**
+    *获取首页菜单列表
+    */
+
+    String GET_MENU = NET_BASE_PREFIX + "a=GetMenu";
+
 }
 
 

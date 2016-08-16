@@ -11,6 +11,7 @@
     <dimen name="activity_size_330">330dp</dimen>
     <dimen name="activity_size_320">320dp</dimen>
     <dimen name="activity_size_300">300dp</dimen>
+    <dimen name="activity_size_290">290dp</dimen>
     <dimen name="activity_size_280">280dp</dimen>
     <dimen name="activity_size_260">260dp</dimen>
     <dimen name="activity_size_250">250dp</dimen>
@@ -38,6 +39,7 @@
     <dimen name="activity_size_82">82dp</dimen>
     <dimen name="activity_size_80">80dp</dimen>
     <dimen name="activity_size_74">74dp</dimen>
+    <dimen name="activity_size_73">73dp</dimen>
     <dimen name="activity_size_72">72dp</dimen>
     <dimen name="activity_size_70">70dp</dimen>
     <dimen name="activity_size_66">66dp</dimen>

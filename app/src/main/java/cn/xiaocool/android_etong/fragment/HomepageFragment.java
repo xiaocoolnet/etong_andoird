@@ -4,14 +4,22 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -27,9 +35,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
+import cn.xiaocool.android_etong.UI.HomePage.TypeListActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
 import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
@@ -54,12 +64,24 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private RelativeLayout rl_meirijingxuan;
     private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
     private LinearLayout llQualityLife, llFlashSale;
+    private ImageView typeBtn;
     private NoScrollGridView gridView0, gridView1;
     private List<EveryDayGoodShopBean.DataBean> dataBeenList;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private EverydayGoodShopAdapter everydayGoodShopAdapter;
     private HomepageGuessLikeAdapter homepageGuessLikeAdapter;
+
+
+    private RelativeLayout rlTopBar;
+    private ImageView ivLeft;
+    private PopupWindow popLeft;
+    private View layoutLeft;
+    private ListView menulistLeft;
+    private List<Map<String, String>> listLeft;
+
+
     private Handler handler = new Handler() {
+
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CommunalInterfaces.GET_HOMEPAGE_EVERY_GOODSHOP:
@@ -132,9 +154,34 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.GET_MENU:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        Log.e("a11", jsonObject2.getString("status"));
+                        if (jsonObject2.getString("status").equals("success")) {
+                            JSONArray jsonArray = jsonObject2.getJSONArray("data");
+                            length = jsonArray.length();
+                            Log.e("herelength", String.valueOf(length));
+                            typeName = new String[length];
+                            JSONObject jsonObject3;
+                            for (int i = 0; i < length; i++) {
+                                jsonObject3 = (JSONObject) jsonArray.get(i);
+                                typeName[i] = jsonObject3.getString("levelone_name");
+                                HashMap<String, String> mapTemp = new HashMap<String, String>();
+                                mapTemp.put("item", typeName[i]);
+                                listLeft.add(mapTemp);
+                                Log.e("typename", typeName[i]);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
+    private String[] typeName;
+    private int length;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -150,7 +197,109 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         initdata();
         new HomeRequest(context, handler).getEveryDayShop();//获取每日好店
         new HomeRequest(context, handler).getGuessLike();//获取猜你喜欢
+        new HomeRequest(context, handler).getMenu("","");//获取一级菜单列表
     }
+
+    private void initParam() {
+        rlTopBar = (RelativeLayout) this.getView().findViewById(R.id.rl_topbar);
+
+        ivLeft = (ImageView) this.getView().findViewById(R.id.homepage_type_img);
+        ivLeft.setOnClickListener(myListener);
+        // 初始化数据项
+        listLeft = new ArrayList<Map<String, String>>();
+//        for (int i = 0; i < 9; i++) {
+//            Log.e("length=", String.valueOf(length));
+//            HashMap<String, String> mapTemp = new HashMap<String, String>();
+//            mapTemp.put("item", "a" + i);
+//            listLeft.add(mapTemp);
+//        }
+    }
+
+
+    private View.OnClickListener myListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.homepage_type_img:
+                    if (popLeft != null && popLeft.isShowing()) {
+                        popLeft.dismiss();
+                    } else {
+                        layoutLeft = getActivity().getLayoutInflater().inflate(
+                                R.layout.pop_menulist, null);
+                        menulistLeft = (ListView) layoutLeft
+                                .findViewById(R.id.menulist);
+                        SimpleAdapter listAdapter = new SimpleAdapter(
+                                context, listLeft, R.layout.pop_menuitem,
+                                new String[]{"item"},
+                                new int[]{R.id.menuitem});
+                        menulistLeft.setAdapter(listAdapter);
+
+                        // 点击listview中item的处理
+                        menulistLeft.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                            @Override
+                            public void onItemClick(AdapterView<?> arg0,
+                                                    View arg1, int arg2, long arg3) {
+                                // 改变顶部对应TextView值
+                                String strItem = listLeft.get(arg2).get(
+                                        "item");
+//                                        tvLeft.setText(strItem);
+                                //跳转二级列表
+                                Intent intent = new Intent();
+                                intent.putExtra("strItem",strItem);
+                                intent.setClass(context,TypeListActivity.class);
+                                startActivity(intent);
+                                // 隐藏弹出窗口
+                                if (popLeft != null && popLeft.isShowing()) {
+                                    popLeft.dismiss();
+                                }
+                            }
+                        });
+
+                        // 创建弹出窗口
+                        // 窗口内容为layoutLeft，里面包含一个ListView
+                        // 窗口宽度跟tvLeft一样
+                        popLeft = new PopupWindow(layoutLeft, 250,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        ColorDrawable cd = new ColorDrawable(0x0000);
+                        popLeft.setBackgroundDrawable(cd);
+//                        popLeft.setAnimationStyle(R.style.popupAnimation);
+                        popLeft.update();
+                        popLeft.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+                        popLeft.setTouchable(true); // 设置popupwindow可点击
+                        popLeft.setOutsideTouchable(true); // 设置popupwindow外部可点击
+                        popLeft.setFocusable(true); // 获取焦点
+
+                        // 设置popupwindow的位置（相对tvLeft的位置）
+                        int topBarHeight = rlTopBar.getBottom();
+                        popLeft.showAsDropDown(ivLeft, 0,
+                                (topBarHeight - ivLeft.getHeight()) / 4);
+
+                        popLeft.setTouchInterceptor(new View.OnTouchListener() {
+
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                // 如果点击了popupwindow的外部，popupwindow也会消失
+                                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                                    popLeft.dismiss();
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
+                    }
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+    };
+
 
     private void initview() {
         et_search = (TextView) getView().findViewById(R.id.et_search);
@@ -158,6 +307,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         et_search.setOnClickListener(this);
         rlNewArrival = (RelativeLayout) getView().findViewById(R.id.homepage_rl_new_arrival);
         rlNewArrival.setOnClickListener(this);
+        typeBtn = (ImageView) getView().findViewById(R.id.homepage_type_img);
+        typeBtn.setOnClickListener(this);
         llQualityLife = (LinearLayout) getView().findViewById(R.id.homepage_ll_quality_life);
         llQualityLife.setOnClickListener(this);
         llFlashSale = (LinearLayout) getView().findViewById(R.id.homepage_ll_flash_sale);
@@ -170,6 +321,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         gridView1 = (NoScrollGridView) getView().findViewById(R.id.homepage_guess_like_gridview);
         dataBeenList = new ArrayList<>();
         newArrivalDataBeanList = new ArrayList<>();
+        initParam();
     }
 
     private void initdata() {
@@ -233,6 +385,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 Intent intent = new Intent();
                 intent.setClass(context, SearchActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.homepage_type_img:
+                IntentUtils.getIntent((Activity) context, TypeListActivity.class);
                 break;
         }
 

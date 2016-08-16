@@ -77,7 +77,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
                                 setListViewHeightBasedOnChildren(list_shop);
                             }
                         }else{
-                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -94,6 +94,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search_result_shop);
         Intent intent = getIntent();
+//        String searchName = getIntent().getStringExtra("searchName");
         search_content = intent.getStringExtra("search_content");
         Log.e("content=", search_content);
         context = this;
@@ -111,6 +112,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         rl_back.setOnClickListener(this);
         list_shop = (ListView) findViewById(R.id.list_shop);
         tv_search = (TextView) findViewById(R.id.tv_search);
+        tv_search.setText(search_content);
         tv_search.setOnClickListener(this);
     }
 

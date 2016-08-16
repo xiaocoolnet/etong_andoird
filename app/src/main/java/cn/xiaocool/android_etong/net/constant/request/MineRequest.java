@@ -113,7 +113,7 @@ public class MineRequest {
         }.start();
     }
 
-    //我的收藏店铺
+    //我的评论
     public void myComment(final String type) {
         new Thread() {
             Message msg = Message.obtain();
