@@ -1,10 +1,12 @@
 package cn.xiaocool.android_etong.fragment;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -53,6 +56,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NoScrollGridView;
+import cn.xiaocool.android_etong.util.ReboundScrollView;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
@@ -73,7 +77,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private EverydayGoodShopAdapter everydayGoodShopAdapter;
     private HomepageGuessLikeAdapter homepageGuessLikeAdapter;
-
+    private ReboundScrollView reboundScrollView;
+    private LinearLayout llTop;
 
     private RelativeLayout rlTopBar;
     private ImageView ivLeft;
@@ -81,6 +86,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private View layoutLeft;
     private ListView menulistLeft;
     private List<Map<String, String>> listLeft;
+
+    private SliderLayout sliderLayout;
 
 
     private Handler handler = new Handler() {
@@ -196,16 +203,18 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initview();
         initdata();
+        initview();
         new HomeRequest(context, handler).getEveryDayShop();//获取每日好店
         new HomeRequest(context, handler).getGuessLike();//获取猜你喜欢
-        new HomeRequest(context, handler).getMenu("","");//获取一级菜单列表
+        new HomeRequest(context, handler).getMenu("", "");//获取一级菜单列表
     }
+
 
     private void initParam() {
         rlTopBar = (RelativeLayout) this.getView().findViewById(R.id.rl_topbar);
 
+        llTop = (LinearLayout) getView().findViewById(R.id.ll_top);
         ivLeft = (ImageView) this.getView().findViewById(R.id.homepage_type_img);
         ivLeft.setOnClickListener(myListener);
         // 初始化数据项
@@ -216,6 +225,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            mapTemp.put("item", "a" + i);
 //            listLeft.add(mapTemp);
 //        }
+        llTop.getBackground().setAlpha(0);
     }
 
 
@@ -250,8 +260,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //                                        tvLeft.setText(strItem);
                                 //跳转二级列表
                                 Intent intent = new Intent();
-                                intent.putExtra("strItem",strItem);
-                                intent.setClass(context,TypeListActivity.class);
+                                intent.putExtra("strItem", strItem);
+                                intent.setClass(context, TypeListActivity.class);
                                 startActivity(intent);
                                 // 隐藏弹出窗口
                                 if (popLeft != null && popLeft.isShowing()) {
@@ -325,10 +335,26 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         dataBeenList = new ArrayList<>();
         newArrivalDataBeanList = new ArrayList<>();
         initParam();
-        rl_search = (RelativeLayout)getView().findViewById(R.id.rl_search);
+        rl_search = (RelativeLayout) getView().findViewById(R.id.rl_search);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) rl_search.getLayoutParams();
-        linearParams.height=getStatusBarHeight(context);
+        linearParams.height = getStatusBarHeight(context);
         rl_search.setLayoutParams(linearParams);
+        reboundScrollView = (ReboundScrollView) getView().findViewById(R.id.a);
+
+        reboundScrollView.setOnScrollChangedListener(new ReboundScrollView.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
+                if (mDemoSlider != null && mDemoSlider.getHeight() > 0) {
+                    int lHeight = mDemoSlider.getHeight();
+                    if (t < lHeight) {
+                        int progress = (int) (new Float(t) / new Float(lHeight) * 200);
+                        llTop.getBackground().setAlpha(progress);
+                    } else {
+                        llTop.getBackground().setAlpha(255);
+                    }
+                }
+            }
+        });
     }
 
     private void initdata() {
@@ -369,6 +395,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         super.onStop();
     }
 
+    @Override
+    public void onPause() {
+        if (mDemoSlider != null) {
+            mDemoSlider.stopAutoCycle();
+        }
+        super.onPause();
+    }
 
     @Override
     public void onClick(View v) {

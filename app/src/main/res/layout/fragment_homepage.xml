@@ -5,6 +5,7 @@
     android:background="@color/gray2">
 
     <cn.xiaocool.android_etong.util.ReboundScrollView
+        android:id="@+id/a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -369,9 +370,11 @@
 
     </cn.xiaocool.android_etong.util.ReboundScrollView>
     <LinearLayout
+        android:id="@+id/ll_top"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red">
         <RelativeLayout
             android:id="@+id/rl_search"
             android:layout_width="match_parent"
@@ -381,9 +384,9 @@
 
     <RelativeLayout
         android:id="@+id/rl_topbar"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        >
         <ImageView
             android:id="@+id/homepage_type_img"
             android:layout_width="wrap_content"
