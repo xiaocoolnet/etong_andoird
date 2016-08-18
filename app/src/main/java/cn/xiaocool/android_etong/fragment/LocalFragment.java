@@ -19,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.Poi;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -35,6 +38,7 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 import cn.xiaocool.android_etong.UI.HomePage.ShopListActivity;
 import cn.xiaocool.android_etong.UI.Local.DailySpecialActivity;
 import cn.xiaocool.android_etong.UI.Local.EntertainmentActivity;
@@ -49,7 +53,9 @@ import cn.xiaocool.android_etong.UI.Local.ServiceActivity;
 import cn.xiaocool.android_etong.UI.Local.TakeOutFoodAcitvity;
 import cn.xiaocool.android_etong.UI.Local.TravelAroundActivity;
 import cn.xiaocool.android_etong.adapter.LocalAdapter;
+import cn.xiaocool.android_etong.bean.business.LocationService;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.fragment.Local.LocalAddressActivity;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
@@ -61,7 +67,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
 public class LocalFragment extends Fragment implements View.OnClickListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
     private SliderLayout mDemoSlider;
-    private TextView et_search;
+    private TextView et_search,tv_local;
     private RelativeLayout ry_line;
     private LinearLayout ll_eqianggou,ll_xinkezhuanxiang,ll_jinritejia;
     private Button btn_quanbu,btn_meishi,btn_dianying,btn_jiudian,btn_waimai,btn_shenghuoyule,
@@ -69,6 +75,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     private LocalAdapter localAdapter;
     private ListView list_local;
     private List<Local> locals;
+    private LocationService locationService;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -139,6 +146,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         }else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
+        onrefrsh();
     }
 
     private void initview() {
@@ -173,6 +181,8 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         et_search = (TextView) getView().findViewById(R.id.et_search);
         et_search.clearFocus();
         et_search.setOnClickListener(this);
+        tv_local = (TextView) getView().findViewById(R.id.tv_local);
+        tv_local.setOnClickListener(this);
 
         mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 
@@ -279,6 +289,26 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 intent12.setClass(context, DailySpecialActivity.class);
                 startActivity(intent12);
                 break;
+            case R.id.et_search:
+                Intent intent13 = new Intent();
+                intent13.setClass(context, SearchActivity.class);
+                intent13.putExtra("city", tv_local.getText().toString());
+                startActivity(intent13);
+                break;
+            case R.id.tv_local:
+                Intent intent14 = new Intent();
+                intent14.setClass(context, LocalAddressActivity.class);
+                intent14.putExtra("city",tv_local.getText().toString());
+                startActivityForResult(intent14,1);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1){
+            tv_local.setText(data.getStringExtra("city"));
+            Log.e("city=",data.getStringExtra("city"));
         }
     }
 
@@ -328,5 +358,116 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         // params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);
     }
+
+    public void onrefrsh(){
+        // -----------location config ------------
+        locationService = ((cn.xiaocool.android_etong.view.etongApplaction)getActivity().getApplication()).locationService;
+        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+        locationService.registerListener(mListener);
+        //注册监听
+        int type = getActivity().getIntent().getIntExtra("from", 0);
+        if (type == 0) {
+            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+        } else if (type == 1) {
+            locationService.setLocationOption(locationService.getOption());
+        }
+        locationService.start();// 定位SDK
+        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+    }
+
+    @Override
+    public void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+    }
+
+
+
+    /*****
+     * @see copy funtion to you project
+     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     *
+     */
+    private BDLocationListener mListener = new BDLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // TODO Auto-generated method stub
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                StringBuffer sb = new StringBuffer(256);
+                sb.append("time : ");
+                /**
+                 * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
+                 * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
+                 */
+                sb.append(location.getTime());
+                sb.append("\nerror code : ");
+                sb.append(location.getLocType());
+                sb.append("\nlatitude : ");
+                sb.append(location.getLatitude());
+                sb.append("\nlontitude : ");
+                sb.append(location.getLongitude());
+                sb.append("\nradius : ");
+                sb.append(location.getRadius());
+                sb.append("\nCountryCode : ");
+                sb.append(location.getCountryCode());
+                sb.append("\nCountry : ");
+                sb.append(location.getCountry());
+                sb.append("\ncitycode : ");
+                sb.append(location.getCityCode());
+                sb.append("\ncity : ");
+                sb.append(location.getCity());
+                sb.append("\nDistrict : ");
+                sb.append(location.getDistrict());
+                sb.append("\nStreet : ");
+                sb.append(location.getStreet());
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                sb.append("\nDescribe: ");
+                sb.append(location.getLocationDescribe());
+                sb.append("\nDirection(not all devices have value): ");
+                sb.append(location.getDirection());
+                sb.append("\nPoi: ");
+                if (location.getPoiList() != null && !location.getPoiList().isEmpty()) {
+                    for (int i = 0; i < location.getPoiList().size(); i++) {
+                        Poi poi = (Poi) location.getPoiList().get(i);
+                        sb.append(poi.getName() + ";");
+                    }
+                }
+                if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                    sb.append("\nspeed : ");
+                    sb.append(location.getSpeed());// 单位：km/h
+                    sb.append("\nsatellite : ");
+                    sb.append(location.getSatelliteNumber());
+                    sb.append("\nheight : ");
+                    sb.append(location.getAltitude());// 单位：米
+                    sb.append("\ndescribe : ");
+                    sb.append("gps定位成功");
+                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                    // 运营商信息
+                    sb.append("\noperationers : ");
+                    sb.append(location.getOperators());
+                    sb.append("\ndescribe : ");
+                    sb.append("网络定位成功");
+                } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                    sb.append("\ndescribe : ");
+                    sb.append("离线定位成功，离线定位结果也是有效的");
+                } else if (location.getLocType() == BDLocation.TypeServerError) {
+                    sb.append("\ndescribe : ");
+                    sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+                } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("网络不同导致定位失败，请检查网络是否通畅");
+                } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+                }
+                Log.e("sb=", sb.toString());
+                tv_local.setText(location.getCity());
+                locationService.stop();
+            }
+        }
+    };
+
 
 }

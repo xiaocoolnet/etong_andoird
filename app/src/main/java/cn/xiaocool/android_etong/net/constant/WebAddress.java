@@ -313,6 +313,11 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_MENU = NET_BASE_PREFIX + "a=GetMenu";
 
+    /*
+    *获取商品评价信息
+    */
+
+    String GetGoodsComments  = NET_BASE_PREFIX + "a=GetGoodsComments";
 }
 
 

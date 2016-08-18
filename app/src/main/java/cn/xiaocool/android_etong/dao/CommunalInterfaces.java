@@ -75,5 +75,6 @@ public interface CommunalInterfaces {
     int IsPrice = 0x0045;//今日特价
     int IsNew = 0x0046;//新客专享
     int IsLike = 0x0047;//猜你喜欢
+    int GetGoodsComments = 0x0048;//获取商品评价信息
 
 }

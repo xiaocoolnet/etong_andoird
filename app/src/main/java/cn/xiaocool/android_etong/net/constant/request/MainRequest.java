@@ -828,6 +828,30 @@ public class MainRequest {
         }.start();
     }
 
+    //搜索店铺_本地
+    public void SearchShops(final String shop,final String address) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&shop="+shop+"&address="+address;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SearchShops,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SEARCH_SHOPS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
     //搜索商品
     public void SearchGoods(final String goods) {
         new Thread() {
@@ -852,6 +876,29 @@ public class MainRequest {
         }.start();
     }
 
+    //搜索商品_本地
+    public void SearchGoods(final String goods,final String address) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&goods="+goods+"&address="+address;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SearchGoods,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SEARCH_GOODS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
     //e抢购
     public void IsE() {
         new Thread() {
@@ -938,6 +985,29 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.IsLike;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取商品简介
+    public void GetGoodsComments(final String goodsid){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&goodsid="+goodsid;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GetGoodsComments,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetGoodsComments;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

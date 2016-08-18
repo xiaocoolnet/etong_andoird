@@ -26,6 +26,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     private Context context;
     private TextView tv_back;
     private EditText et_search;
+    private String city;
     ArrayAdapter<String> adapter01;
     private String show = "宝贝";
     private String[] type = new String[]{"宝贝","店铺"};
@@ -35,6 +36,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search);
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         context = this;
         initView();
     }
@@ -66,12 +69,14 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                         if (show.equals("宝贝")){
                             Intent intent1 = new Intent();
                             intent1.putExtra("search_content",et_search.getText().toString());
+                            intent1.putExtra("city",city);
                             intent1.setClass(context, SearchResultGoodsActivity.class);
                             startActivity(intent1);
                             finish();
                         }else {
                             Intent intent = new Intent();
                             intent.putExtra("search_content",et_search.getText().toString());
+                            intent.putExtra("city",city);
                             intent.setClass(context, SearchResultShopActivity.class);
                             startActivity(intent);
                             finish();

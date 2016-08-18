@@ -13,10 +13,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -30,12 +33,17 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.adapter.DetailAdapter;
+import cn.xiaocool.android_etong.bean.Shop.Detail;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -52,13 +60,16 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout rl_back;
     private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description;
+    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_lijigoumai, btn_shopping_cart;
     private ImageView btnLike;
     private String id, pic, goodsname, price, shopname, address, description, shopid;
     private String[] arraypic;
     private int count = 1;
+    private List<Detail.DataBean> dataBeans;
+    private ListView list_detail;
+    private DetailAdapter detailAdapter;
     private ProgressDialog progressDialog;
     public static final String action = "jason.broadcast.action";
     private Handler handler = new Handler() {
@@ -119,6 +130,42 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.GetGoodsComments:
+                    JSONObject json1 = (JSONObject) msg.obj;
+                    try {
+                        String status = json1.getString("status");
+                        String data = json1.getString("data");
+                        if (status.equals("success")) {
+                            JSONArray jsonArray = json1.getJSONArray("data");
+                            dataBeans.clear();
+                            for (int i = 0;i<jsonArray.length();i++){
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                Detail.DataBean dataBean = new Detail.DataBean();
+                                dataBean.setId(object.getString("id"));
+                                dataBean.setContent(object.getString("content"));
+                                dataBean.setAdd_time(object.getString("add_time"));
+                                JSONArray jsonArray1 = object.getJSONArray("user_info");
+                                JSONObject jsonObject3 = jsonArray1.getJSONObject(0);
+                                dataBean.setName(jsonObject3.getString("name"));
+                                dataBean.setPhoto(jsonObject3.getString("photo"));
+                                dataBeans.add(dataBean);
+                            }if (detailAdapter!=null){
+                                Log.e("success","设置适配器");
+                                detailAdapter.notifyDataSetChanged();
+                            }else {
+                                Log.e("success","设置适配器");
+                                detailAdapter = new DetailAdapter(context,dataBeans);
+                                list_detail.setAdapter(detailAdapter);
+                                setListViewHeightBasedOnChildren(list_detail);
+                            }
+                        } else {
+                            list_detail.setVisibility(View.GONE);
+                           tv_no_content.setVisibility(View.VISIBLE);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
@@ -148,6 +195,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         initview();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
+            new MainRequest(context,handler).GetGoodsComments(id);
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -156,6 +204,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     }
 
     private void initview() {
+        dataBeans = new ArrayList<>();
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
@@ -171,6 +220,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         progressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
         btnLike = (ImageView) findViewById(R.id.good_details_iv_like);
         btnLike.setOnClickListener(this);
+        list_detail = (ListView) findViewById(R.id.list_detail);
+        tv_no_content = (TextView) findViewById(R.id.tv_no_content);
     }
 
     private void setview() {
@@ -465,5 +516,32 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 System.out.println("popWindow消失");
             }
         });
+    }
+
+    /*
+  解决scrollview下listview显示不全
+*/
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 }

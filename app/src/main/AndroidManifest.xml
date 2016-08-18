@@ -153,6 +153,7 @@
         <activity android:name=".UI.Local.PanicBuyingActivity"></activity>
         <activity android:name=".UI.Local.NewUsersActivity"></activity>
         <activity android:name=".UI.Local.DailySpecialActivity"></activity>
+        <activity android:name=".fragment.Local.LocalAddressActivity"></activity>
     </application>
 
 </manifest>

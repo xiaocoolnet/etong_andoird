@@ -39,7 +39,7 @@ public class SearchResultShopActivity extends Activity implements View.OnClickLi
     private TextView tv_search;
     private ListView list_shop;
     private SearchResultShopAdapter searchResultShopAdapter;
-    private String search_content;
+    private String search_content,city;
     private List<Local> locals;
     private Handler handler = new Handler() {
         @Override
@@ -97,14 +97,25 @@ public class SearchResultShopActivity extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_search_result_shop);
         Intent intent = getIntent();
         search_content = intent.getStringExtra("search_content");
+        city = intent.getStringExtra("city");
         Log.e("content=", search_content);
+        Log.e("city=",city);
         context = this;
         initView();
-        if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).SearchShops(search_content);
+        if (city.equals("homepage")){
+            if (NetUtil.isConnnected(context)){
+                new MainRequest(context,handler).SearchShops(search_content);
+            }else {
+                Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+            }
         }else {
-            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+            if (NetUtil.isConnnected(context)){
+                new MainRequest(context,handler).SearchShops(search_content,city);
+            }else {
+                Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
     private void initView() {

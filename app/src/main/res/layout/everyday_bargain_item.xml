@@ -53,7 +53,7 @@
             android:id="@+id/new_arrival_good_oprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_size_12"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="@dimen/activity_size_5"
             android:text="¥333"
             android:textColor="@color/black3"
@@ -69,6 +69,7 @@
             android:layout_height="@dimen/activity_size_25"
             android:text="12"
             android:gravity="bottom"
+            android:layout_marginLeft="2dp"
             android:textColor="@color/black"
             android:textSize="@dimen/activity_size_12"/>
             <TextView

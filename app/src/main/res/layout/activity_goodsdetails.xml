@@ -3,7 +3,7 @@
     android:background="@color/gray_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
+    <cn.xiaocool.android_etong.util.ReboundScrollView
         android:id="@+id/goodsdetail_scrollview"
         android:layout_above="@+id/bottom"
         android:layout_width="match_parent"
@@ -158,95 +158,6 @@
                 android:layout_marginTop="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="95dp">
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-                    <!--<LinearLayout-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_height="match_parent">-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="品牌：e小姐"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="风格：波西米亚"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="颜色：图片色"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="上市时间：2016年"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-
-                    <!--</LinearLayout>-->
-                    <!--<LinearLayout-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:layout_height="match_parent">-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="产地：江苏"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="尺码：S M L"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="款号：8887#"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:text="面料材质：其他"-->
-                            <!--android:textColor="@color/black"-->
-                            <!--android:textSize="12sp"-->
-                            <!--/>-->
-                    <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
                 <TextView
                     android:id="@+id/tv_goods_description"
                     android:paddingLeft="10dp"
@@ -258,10 +169,26 @@
                     android:textColor="@color/black"
                     />
             </RelativeLayout>
-            <include layout="@layout/business_goods_evaluate"/>
-            <include layout="@layout/business_goods_evaluate"/>
+            <!--<include layout="@layout/business_goods_evaluate"/>-->
+            <TextView
+                android:id="@+id/tv_no_content"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:text="该产品暂无评论"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <cn.xiaocool.android_etong.util.NoScrollListView
+                android:id="@+id/list_detail"
+                android:dividerHeight="2dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </cn.xiaocool.android_etong.util.NoScrollListView>
+
         </LinearLayout>
-    </ScrollView>
+    </cn.xiaocool.android_etong.util.ReboundScrollView>
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
