@@ -30,7 +30,7 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
     private Context context;
     private String deliveryAddress,phone,name;
     private EditText et_change_infor,et_customer_phone,et_customer_name;
-    private RelativeLayout rl_back;
+    private RelativeLayout rl_back,rl_sure;
     private String judge = "0";
     private LocationService locationService;
 
@@ -64,6 +64,8 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         et_customer_name = (EditText) findViewById(R.id.et_customer_name);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        rl_sure = (RelativeLayout) findViewById(R.id.rl_sure);
+        rl_sure.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +82,19 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
                 intent1.putExtra("name",name);
                 Log.e("deliveryaddress=",deliveryAddress);
                 setResult(RESULT_OK,intent1);
+                finish();
+                break;
+            case R.id.rl_sure:
+                deliveryAddress = et_change_infor.getText().toString();
+                phone = et_customer_phone.getText().toString();
+                name = et_customer_name.getText().toString();
+                Intent intent = new Intent();
+                intent.putExtra("deliveryaddress1",deliveryAddress);
+                intent.putExtra("judge1",judge);
+                intent.putExtra("phone",phone);
+                intent.putExtra("name",name);
+                Log.e("deliveryaddress=",deliveryAddress);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
         }
