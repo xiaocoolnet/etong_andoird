@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class StoreAdapter extends BaseAdapter {
     private List<ShoppingCart_StoreName.DataBean> list;
     List<ProductAdapter> pAdapterList = new ArrayList<ProductAdapter>();
     private ShoppingFragment context;
+    private RelativeLayout rl_store;
+    private CheckBox cb_store;
 
     public StoreAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean> list) {
         this.inflater = LayoutInflater.from(context.getActivity());
@@ -64,13 +67,14 @@ public class StoreAdapter extends BaseAdapter {
             holder.tv_shop_name = (TextView) convertView.findViewById(R.id.tv_shop_name);
             holder.tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
             holder.list_goods = (ListView) convertView.findViewById(R.id.list_goods);
-            holder.cb_store = (CheckBox) convertView.findViewById(R.id.cb_store);
+            holder.cb_store=(CheckBox)convertView.findViewById(R.id.cb_store);
+            holder.rl_store = (RelativeLayout) convertView.findViewById(R.id.rl_store);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.cb_store.setChecked(selected.get(position));
         holder.list_goods.setAdapter(pAdapterList.get(position));
         fixListViewHeight(holder.list_goods);
         holder.tv_shop_name.setText(store.getShopname());
@@ -90,8 +94,7 @@ public class StoreAdapter extends BaseAdapter {
             }
         });
 
-        holder.cb_store.setChecked(selected.get(position));
-        holder.cb_store.setOnClickListener(new View.OnClickListener() {
+        holder.rl_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("selected set position:" + position);
@@ -115,6 +118,7 @@ public class StoreAdapter extends BaseAdapter {
     class ViewHolder {
         TextView tv_shop_name, tv_edit;
         ListView list_goods;
+        RelativeLayout rl_store;
         CheckBox cb_store;
     }
 

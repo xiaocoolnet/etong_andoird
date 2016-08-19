@@ -32,6 +32,7 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
 public class ProductAdapter extends BaseAdapter {
     private final List<Boolean> selected = new ArrayList<Boolean>();
 
+    private RelativeLayout rl_select_;
     private LayoutInflater inflater;
     private DisplayImageOptions displayImageOptions;
     private List<ShoppingCart_StoreName.DataBean.GoodslistBean> list;
@@ -86,6 +87,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.btn_up = (Button) convertView.findViewById(R.id.btn_up);
             holder.tv_number = (TextView) convertView.findViewById(R.id.tv_number);
             holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
+            holder.rl_select_=(RelativeLayout)convertView.findViewById(R.id.rl_select_);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -116,7 +118,7 @@ public class ProductAdapter extends BaseAdapter {
         holder.tx_goods_count.setText(product.getNumber());
         holder.tv_number.setText(product.getNumber());
         holder.cb_select.setChecked(selected.get(position));
-        holder.cb_select.setOnClickListener(new View.OnClickListener() {
+        holder.rl_select_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("selected set position:" + position);
@@ -201,7 +203,8 @@ public class ProductAdapter extends BaseAdapter {
         ImageView img_shopping_chanpin;
         TextView tx_shopping_cloth_name, tv_delete, tx_shopping_cloth_price, tx_shopping_cloth_oldprice, tx_goods_count;
         CheckBox cb_select;
-        RelativeLayout rl_select;
+        RelativeLayout rl_select,rl_select_;
+
         Button btn_down, btn_up;
         TextView tv_number, tx_shopping_cloth_color, tx_shopping_cloth_size;
     }
