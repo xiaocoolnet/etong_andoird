@@ -94,6 +94,8 @@
         <activity android:name=".UI.Mine.Business.EditStandardItemActivity"></activity>
         <activity android:name=".UI.Mine.Business.AddGoodAttributeActivity"></activity>
         <activity android:name=".UI.Mine.Business.UploadInventoryActivity"></activity>
+        <activity android:name=".UI.Main.ZeroActivity"></activity>
+
         <!--Mine-->
         <activity android:name=".UI.Mine.MineEditActivity"></activity>
         <activity android:name=".UI.Mine.BusinessActivity"></activity>

@@ -87,7 +87,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.btn_up = (Button) convertView.findViewById(R.id.btn_up);
             holder.tv_number = (TextView) convertView.findViewById(R.id.tv_number);
             holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
-            holder.rl_select_=(RelativeLayout)convertView.findViewById(R.id.rl_select_);
+            holder.rl_select_ = (RelativeLayout) convertView.findViewById(R.id.rl_select_);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -149,7 +149,7 @@ public class ProductAdapter extends BaseAdapter {
                 number++;
                 tv_number.setText(String.valueOf(number));
                 context.setGoodsNumber(storePosition, position, String.valueOf(number));
-                if (cb_select.isChecked()){
+                if (cb_select.isChecked()) {
                     context.updateAmount();
                 }
             }
@@ -163,7 +163,7 @@ public class ProductAdapter extends BaseAdapter {
                 if (number > 0) {
                     tv_number.setText(String.valueOf(number));
                     context.setGoodsNumber(storePosition, position, String.valueOf(number));
-                    if (cb_select.isChecked()){
+                    if (cb_select.isChecked()) {
                         context.updateAmount();
                     }
                 }
@@ -180,9 +180,9 @@ public class ProductAdapter extends BaseAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         context.DeleteDate(list.get(position).getGid());
                         list.remove(position);
-                        if (list.size()==0){
+                        if (list.size() == 0) {
                             context.removePosition(storePosition);
-                        }else {
+                        } else {
                             adapter.notifyDataSetChanged();
                         }
                     }
@@ -203,7 +203,7 @@ public class ProductAdapter extends BaseAdapter {
         ImageView img_shopping_chanpin;
         TextView tx_shopping_cloth_name, tv_delete, tx_shopping_cloth_price, tx_shopping_cloth_oldprice, tx_goods_count;
         CheckBox cb_select;
-        RelativeLayout rl_select,rl_select_;
+        RelativeLayout rl_select, rl_select_;
 
         Button btn_down, btn_up;
         TextView tv_number, tx_shopping_cloth_color, tx_shopping_cloth_size;

@@ -217,6 +217,7 @@
                     </RelativeLayout>
                     <!--0元购-->
                     <RelativeLayout
+                        android:id="@+id/homepage_rl_zero"
                         android:layout_width="match_parent"
                         android:layout_height="74dp"
                         android:layout_marginTop="1dp"

@@ -41,6 +41,7 @@ import java.util.Map;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 import cn.xiaocool.android_etong.UI.HomePage.TypeListActivity;
+import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
 import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
@@ -66,7 +67,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private SliderLayout mDemoSlider;
     private TextView et_search;
     private RelativeLayout rl_meirijingxuan;
-    private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness;
+    private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness, rlzero;
     private LinearLayout llQualityLife, llFlashSale;
     private ImageView typeBtn;
     private RelativeLayout rl_search;
@@ -353,6 +354,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 }
             }
         });
+        rlzero = (RelativeLayout) getView().findViewById(R.id.homepage_rl_zero);
+        rlzero.setOnClickListener(this);
     }
 
     private void initdata() {
@@ -426,6 +429,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.homepage_type_img:
                 IntentUtils.getIntent((Activity) context, TypeListActivity.class);
+                break;
+            case R.id.homepage_rl_zero:
+                IntentUtils.getIntent((Activity) context, ZeroActivity.class);
                 break;
         }
 
