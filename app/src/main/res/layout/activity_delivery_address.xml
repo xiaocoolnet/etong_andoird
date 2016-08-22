@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -21,6 +22,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@mipmap/ic_fanhui_left_red" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,10 +31,80 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
+        <RelativeLayout
+            android:id="@+id/rl_sure"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="确定"
+                android:textColor="@color/main_color_red"
+                android:textSize="18sp"
+                />
+        </RelativeLayout>
     </RelativeLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/whilte"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="手机号"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_customer_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/whilte"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="姓名"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="123dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入姓名"
+            android:inputType="text"
+            android:maxLength="11"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,71 +115,13 @@
         <EditText
             android:id="@+id/et_change_infor"
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/activity_size_10"
-            android:textSize="@dimen/activity_size_16"
-            android:layout_gravity="center_vertical"
             android:layout_height="@dimen/activity_size_30"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/activity_size_10"
+            android:background="@null"
             android:hint="收货地址"
-            android:background="@null"/>
+            android:textSize="@dimen/activity_size_16" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:background="@color/whilte"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:text="手机号"
-            />
-
-        <EditText
-            android:id="@+id/et_customer_phone"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="110dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:inputType="number"
-            android:maxLength="11"
-            android:background="@null"
-            android:hint="请输入手机号"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:background="@color/whilte"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:text="姓名"
-            />
-
-        <EditText
-            android:id="@+id/et_customer_name"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="123dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:inputType="text"
-            android:maxLength="11"
-            android:background="@null"
-            android:hint="请输入姓名"
-            android:textSize="14sp"
-            />
     </LinearLayout>
 
 </LinearLayout>

@@ -38,34 +38,34 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private LinearLayout ll_delivery_address;
     private EditText et_customer_remark;
     private TextView tx_comfirm_order;
-    private String id,shopname;
-    private String deliveryAddress = "",phone="",name="";
+    private String id, shopname;
+    private String deliveryAddress = "", phone = "", name = "";
     private String money;
     private String judge = "0";
     private int count = 0;
     private ImageView img_goods_pic;
-    private TextView tx_goods_name,tx_goods_count,tx_goods_price,
-            tx_goods_price_subtotal,tx_goods_price_total,tx_shopname;
+    private TextView tx_goods_name, tx_goods_count, tx_goods_price,
+            tx_goods_price_subtotal, tx_goods_price_total, tx_shopname;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case CommunalInterfaces.GET_GOODS_INFO:
                     JSONObject json = (JSONObject) msg.obj;
                     try {
                         String status = json.getString("status");
                         String data = json.getString("data");
-                        if (status.equals("success")){
+                        if (status.equals("success")) {
                             JSONObject jsonObject = json.getJSONObject("data");
                             tx_goods_name.setText(jsonObject.getString("goodsname"));
-                            tx_goods_price.setText("￥"+jsonObject.getString("price"));
-                            money = String.valueOf(count*Integer.parseInt(jsonObject.getString("price")));
-                            tx_goods_price_total.setText("￥"+money);
+                            tx_goods_price.setText("￥" + jsonObject.getString("price"));
+                            money = String.valueOf(count * Integer.parseInt(jsonObject.getString("price")));
+                            tx_goods_price_total.setText("￥" + money);
                             tx_goods_price_subtotal.setText("￥" + jsonObject.getString("price"));
                             String pic = jsonObject.getString("picture");
                             String[] array_pic = pic.split("[,]");
-                            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+array_pic[0],img_goods_pic);
-                        }else {
+                            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + array_pic[0], img_goods_pic);
+                        } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -77,10 +77,10 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                     try {
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
-                        if (status.equals("success")){
-                            Toast.makeText(context,"购买成功",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(context,data,Toast.LENGTH_SHORT).show();
+                        if (status.equals("success")) {
+                            Toast.makeText(context, "购买成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -88,7 +88,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             }
         }
     };
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,9 +101,9 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         id = intent.getStringExtra("id");
         shopname = intent.getStringExtra("shopname");
         initview();
-        if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).getgoodsinfo(id);
-        }else {
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).getgoodsinfo(id);
+        } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
@@ -113,7 +113,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         rl_back.setOnClickListener(this);
         tx_goods_name = (TextView) findViewById(R.id.tx_goods_name);
         tx_goods_count = (TextView) findViewById(R.id.tx_goods_count);
-        tx_goods_count.setText("数量："+String.valueOf(count));
+        tx_goods_count.setText("数量：" + String.valueOf(count));
         tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
         tx_goods_price_subtotal = (TextView) findViewById(R.id.tx_goods_price_subtotal);
         tx_goods_price_total = (TextView) findViewById(R.id.tx_goods_price_total);
@@ -123,13 +123,13 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tx_comfirm_order = (TextView) findViewById(R.id.tx_comfirm_order);
         tx_comfirm_order.setOnClickListener(this);
         et_customer_remark = (EditText) findViewById(R.id.et_customer_remark);
-        tx_shopname = (TextView)findViewById(R.id.tx_shop_name);
+        tx_shopname = (TextView) findViewById(R.id.tx_shop_name);
         tx_shopname.setText(shopname);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_back:
                 judge = "0";
                 finish();
@@ -137,31 +137,31 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             case R.id.ll_delivery_address:
                 Intent intent = new Intent();
                 intent.setClass(context, DeliveryAddressActivity.class);
-                intent.putExtra("judge",judge);
-                intent.putExtra("deliveryaddress",deliveryAddress);
-                intent.putExtra("phone",phone);
-                intent.putExtra("name",name);
+                intent.putExtra("judge", judge);
+                intent.putExtra("deliveryaddress", deliveryAddress);
+                intent.putExtra("phone", phone);
+                intent.putExtra("name", name);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.tx_comfirm_order:
 
                 String customer_remark = et_customer_remark.getText().toString();
-                if (customer_remark==null||customer_remark.equals("")){
-                    customer_remark= "";
+                if (customer_remark == null || customer_remark.equals("")) {
+                    customer_remark = "";
                 }
 
-                if (!TextUtils.isEmpty(deliveryAddress)){
-                    if (phone.length()==11){
-                        if (!TextUtils.isEmpty(name)){
-                            new MainRequest(context,handler).bookingshopping(id,name,deliveryAddress,String.valueOf(count),phone,customer_remark,money);
-                        }else {
-                            Toast.makeText(context,"请输入姓名",Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(deliveryAddress)) {
+                    if (phone.length() == 11) {
+                        if (!TextUtils.isEmpty(name)) {
+                            new MainRequest(context, handler).bookingshopping(id, name, deliveryAddress, String.valueOf(count), phone, customer_remark, money);
+                        } else {
+                            Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
                         }
-                    }else {
-                        Toast.makeText(context,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(context,"请输入地址",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
                 }
         }
     }
@@ -169,20 +169,20 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1){
-            Log.e("success","deliveryaddress");
+        if (requestCode == 1) {
+            Log.e("success", "deliveryaddress");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
             judge = data.getStringExtra("judge");
             phone = data.getStringExtra("phone");
             name = data.getStringExtra("name");
-            Log.e("deliveryaddress=",deliveryAddress);
+            Log.e("deliveryaddress=", deliveryAddress);
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
-            judge="0";
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            judge = "0";
             finish();
         }
         return super.onKeyDown(keyCode, event);
