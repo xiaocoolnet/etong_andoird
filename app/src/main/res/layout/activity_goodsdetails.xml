@@ -169,11 +169,17 @@
                     android:textColor="@color/black"
                     />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/view_color"
+                ></RelativeLayout>
             <!--<include layout="@layout/business_goods_evaluate"/>-->
             <TextView
                 android:id="@+id/tv_no_content"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="该产品暂无评论"
                 android:gravity="center"
                 android:layout_width="match_parent"

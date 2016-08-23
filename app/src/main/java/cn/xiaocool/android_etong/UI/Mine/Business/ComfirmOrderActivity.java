@@ -40,12 +40,12 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private TextView tx_comfirm_order;
     private String id, shopname;
     private String deliveryAddress = "", phone = "", name = "";
-    private String money;
+    private String money,lebal;
     private String judge = "0";
     private int count = 0;
     private ImageView img_goods_pic;
     private TextView tx_goods_name, tx_goods_count, tx_goods_price,
-            tx_goods_price_subtotal, tx_goods_price_total, tx_shopname;
+            tx_goods_price_subtotal, tx_goods_price_total, tx_shopname,tv_lebal;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -100,6 +100,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         Log.e("count=", String.valueOf(count));
         id = intent.getStringExtra("id");
         shopname = intent.getStringExtra("shopname");
+        lebal = intent.getStringExtra("label");
         initview();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
@@ -125,6 +126,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         et_customer_remark = (EditText) findViewById(R.id.et_customer_remark);
         tx_shopname = (TextView) findViewById(R.id.tx_shop_name);
         tx_shopname.setText(shopname);
+        tv_lebal = (TextView) findViewById(R.id.tv_lebal);
+        tv_lebal.setText(lebal);
     }
 
     @Override

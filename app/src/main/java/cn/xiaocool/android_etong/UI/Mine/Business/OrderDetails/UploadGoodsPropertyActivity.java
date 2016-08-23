@@ -86,7 +86,6 @@ public class UploadGoodsPropertyActivity extends Activity implements View.OnClic
                             }else {
                                 Toast.makeText(context,jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

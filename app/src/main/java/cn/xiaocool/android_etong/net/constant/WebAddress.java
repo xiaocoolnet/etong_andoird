@@ -330,6 +330,13 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String AddGoodsProperty = NET_BASE_PREFIX + "a=AddGoodsProperty";
+
+    /*
+    * 获取产品的附加属性
+    */
+
+    String GetGoodsPropertyList = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
+
 }
 
 

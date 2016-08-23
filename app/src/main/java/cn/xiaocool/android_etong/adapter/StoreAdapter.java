@@ -159,7 +159,7 @@ public class StoreAdapter extends BaseAdapter {
 
             listViewItem.measure(0, 0);
 
-            // 计算所有子项的高度和
+            // 计算所有子项的高度和q
 
             totalHeight += listViewItem.getMeasuredHeight();
 

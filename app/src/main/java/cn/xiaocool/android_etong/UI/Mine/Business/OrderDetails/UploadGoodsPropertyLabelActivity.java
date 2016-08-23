@@ -115,8 +115,9 @@ public class UploadGoodsPropertyLabelActivity extends Activity implements View.O
             }
         }
         Log.e("list",list.toString());
+        Log.e("type=",dataBean.getId());
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).AddGoodsProperty(goodsid,type,list.toString());
+            new MainRequest(context,handler).AddGoodsProperty(goodsid,dataBean.getId(),list.toString());
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }

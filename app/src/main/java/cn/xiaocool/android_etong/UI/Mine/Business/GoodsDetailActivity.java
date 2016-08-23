@@ -43,7 +43,9 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.DetailAdapter;
+import cn.xiaocool.android_etong.adapter.SelectPropertyAdapter;
 import cn.xiaocool.android_etong.bean.Shop.Detail;
+import cn.xiaocool.android_etong.bean.Shop.Property;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -68,8 +70,14 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
+    private List<Property.DataBean> dataBeanList;
+    private SelectPropertyAdapter selectPropertyAdapter;
     private ListView list_detail;
+    private ListView list_property;
+    private List<List<Boolean>> booleans;
+    private List<List<Boolean>> booleans2;
     private DetailAdapter detailAdapter;
+    private String lebal = "";
     private ProgressDialog progressDialog;
     public static final String action = "jason.broadcast.action";
     private Handler handler = new Handler() {
@@ -166,6 +174,51 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.GetGoodsPropertyList:
+                    Log.e("getmyshop", "getmyshop");
+                    JSONObject jsonObject3 = (JSONObject) msg.obj;
+                    if(NetUtil.isConnnected(context)){
+                        try {
+                            String status = jsonObject3.getString("status");
+                            String data = jsonObject3.getString("data");
+                            if (status.equals("success")){
+                                dataBeanList.clear();
+                                booleans.clear();
+                                booleans2.clear();
+                                JSONArray jsonArray = jsonObject3.getJSONArray("data");
+                                for (int i = 0; i<jsonArray.length();i++){
+                                    JSONObject jsonObject4 = jsonArray.getJSONObject(i);
+                                    Property.DataBean dataBean = new Property.DataBean();
+                                    List<Boolean> booleans_item = new ArrayList<>();
+                                    dataBean.setId(jsonObject4.getString("id"));
+                                    dataBean.setTermid(jsonObject4.getString("typeid"));
+                                    dataBean.setName(jsonObject4.getString("name"));
+                                    JSONArray jsonArray1 = jsonObject4.getJSONArray("propertylist");
+                                    List<Property.DataBean.PlistBean> plistBeans = new ArrayList<>();
+                                    for (int j = 0 ;j<jsonArray1.length();j++){
+                                        Property.DataBean.PlistBean plistBean = new Property.DataBean.PlistBean();
+                                        JSONObject object = jsonArray1.getJSONObject(j);
+                                        plistBean.setId(object.getString("id"));
+                                        plistBean.setName(object.getString("name"));
+                                        plistBeans.add(plistBean);
+                                        booleans_item.add(false);
+                                    }
+                                    dataBean.setPlist(plistBeans);
+                                    dataBeanList.add(dataBean);
+                                    booleans.add(booleans_item);
+                                    booleans2.add(booleans_item);
+                                }
+                                Log.e("success","good");
+                            }else {
+                                Toast.makeText(context,jsonObject3.getString("data"),Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
         }
     };
@@ -196,6 +249,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
             new MainRequest(context,handler).GetGoodsComments(id);
+            new MainRequest(context,handler).GetGoodsPropertyList(id);
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -205,6 +259,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
     private void initview() {
         dataBeans = new ArrayList<>();
+        dataBeanList = new ArrayList<>();
+        booleans = new ArrayList<>();
+        booleans2 = new ArrayList<>();
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
@@ -227,6 +284,44 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private void setview() {
         tx_goods_name.setText(goodsname);
         tx_goods_price.setText("￥" + price);
+    }
+
+    public void  setSelect(int firstPosition , int secondPosition , Boolean judge){
+        for (int i=0;i<booleans.get(firstPosition).size();i++){
+            booleans.get(firstPosition).set(i,false);
+            if (i==secondPosition){
+                booleans.get(firstPosition).set(secondPosition, judge);
+            }
+        }
+    }
+
+    public Boolean judge(){
+        int judge=0;
+        for (int i = 0 ;i<booleans.size();i++){
+            judge = 0;
+            for (int j = 0 ; j<booleans.get(i).size();j++){
+                if (booleans.get(i).get(j)){
+                  judge++;
+                }
+            }
+            if (judge==0){
+                Toast.makeText(context, "请选择" + dataBeanList.get(i).getName() + "标签", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getLebal(){
+        for (int i = 0 ;i<booleans.size();i++){
+            for (int j = 0 ; j<booleans.get(i).size();j++){
+                if (booleans.get(i).get(j)){
+                    lebal = lebal+dataBeanList.get(i).getName()+":"+dataBeanList.get(i).getPlist().get(j).getName()+";";
+                }
+            }
+        }
+        Log.e("lebal=",lebal);
+        return lebal;
     }
 
     private void initpic() {
@@ -283,7 +378,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_shopping_cart:
                 goodsdetail_scrollview.scrollTo(0, 0);
-                showPopwindow_shoppingcart(context, arraypic[0], price, goodsname);
+                showPopwindow_shoppingcart(GoodsDetailActivity.this, arraypic[0], price, goodsname);
                 break;
             case R.id.good_details_iv_like:
                 if (!btnLike.isSelected()) {
@@ -330,7 +425,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
      */
     private void showPopwindow(final Context context, String picname, String goodsprice, String goodsname) {
         // 利用layoutInflater获得View
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popwindow_buynow, null);
 
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
@@ -341,7 +436,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
         window.setFocusable(true);
-
 
         // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
@@ -364,7 +458,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //                System.out.println("第一个按钮被点击了");
 //            }
 //        });
-
+        list_property = (ListView) view.findViewById(R.id.list_property);
         ImageView img_pic = (ImageView) view.findViewById(R.id.img_goods_pic_small);
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
         TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
@@ -377,16 +471,25 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
         Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
 
+        selectPropertyAdapter = new SelectPropertyAdapter(GoodsDetailActivity.this,dataBeanList,booleans);
+        list_property.setAdapter(selectPropertyAdapter);
+        setListViewHeightBasedOnChildren(list_property);
+
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("count", count);
-                intent.putExtra("id", id);
-                intent.putExtra("shopname", shopname);
-                intent.setClass(context, ComfirmOrderActivity.class);
-                startActivity(intent);
-                window.dismiss();
+                if (judge()){
+                    Intent intent = new Intent();
+                    intent.putExtra("count", count);
+                    intent.putExtra("id", id);
+                    intent.putExtra("shopname", shopname);
+                    intent.putExtra("label",getLebal());
+                    intent.setClass(context, ComfirmOrderActivity.class);
+                    startActivity(intent);
+                    window.dismiss();
+                }else {
+
+                }
             }
         });
 
@@ -476,6 +579,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 progressDialog.setProgressStyle(AlertDialog.THEME_HOLO_LIGHT);
                 progressDialog.setMessage("正在加载");
                 progressDialog.show();
+
                 if (NetUtil.isConnnected(context)) {
                     Log.e("shopid=", shopid);
                     window.dismiss();

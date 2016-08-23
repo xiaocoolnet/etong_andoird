@@ -1024,7 +1024,7 @@ public class MainRequest {
             Message msg = Message.obtain();
             @Override
             public void run() {
-                String data = "goodstype="+type;
+                String data = "&goodstype="+type;
                 Log.e("data=",data);
                 String result_data = NetUtil.getResponse(WebAddress.GetGoodPropertyList,data);
                 Log.e("result_data=",result_data);
@@ -1055,6 +1055,29 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.AddGoodsProperty;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取商品简介
+    public void GetGoodsPropertyList(final String goodsid){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&goodsid="+goodsid;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GetGoodsPropertyList,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetGoodsPropertyList;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

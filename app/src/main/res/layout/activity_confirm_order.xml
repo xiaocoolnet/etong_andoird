@@ -113,12 +113,15 @@
                     android:textColor="@color/black"
                     />
                 <TextView
+                    android:id="@+id/tv_lebal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="121dp"
                     android:layout_marginTop="54dp"
                     android:text="颜色分类：图片色；尺码：5"
                     android:textSize="12sp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
                     />
                 <TextView
                     android:id="@+id/tx_goods_count"
