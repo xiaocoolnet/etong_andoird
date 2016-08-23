@@ -92,7 +92,7 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
         viewHolder.llClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.everyday_choiceness_btn_buy) {
+                if (v.getId() == R.id.homepage_guess_like_ll) {
                     Intent intent = new Intent();
                     intent.setClass(context, GoodsDetailActivity.class);
                     intent.putExtra("id", bean.getId());//传出goodId
