@@ -50,6 +50,7 @@ import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
 import cn.xiaocool.android_etong.adapter.EverydayGoodShopAdapter;
 import cn.xiaocool.android_etong.adapter.HomepageGuessLikeAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.EveryDayGoodShopBean;
+import cn.xiaocool.android_etong.bean.HomePage.GuessLikeBean;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
@@ -73,7 +74,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private RelativeLayout rl_search;
     private NoScrollGridView gridView0, gridView1;
     private List<EveryDayGoodShopBean.DataBean> dataBeenList;
-    private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
+    private List<GuessLikeBean.GuessLikeDataBean> guessLikeDataBeanList;
     private EverydayGoodShopAdapter everydayGoodShopAdapter;
     private HomepageGuessLikeAdapter homepageGuessLikeAdapter;
     private ReboundScrollView reboundScrollView;
@@ -127,36 +128,36 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                             JSONObject dataObject;
                             for (int i = 0; i < length; i++) {
                                 dataObject = (JSONObject) jsonArray.get(i);
-                                NewArrivalBean.NewArrivalDataBean newArrivalDataBean = new NewArrivalBean.NewArrivalDataBean();
-                                newArrivalDataBean.setId(dataObject.getString("id"));
-                                newArrivalDataBean.setArtno(dataObject.getString("artno"));
-                                newArrivalDataBean.setShopid(dataObject.getString("shopid"));
-                                newArrivalDataBean.setBrand(dataObject.getString("brand"));
-                                newArrivalDataBean.setGoodsname(dataObject.getString("goodsname"));
-                                newArrivalDataBean.setAdtitle(dataObject.getString("adtitle"));
-                                newArrivalDataBean.setOprice(dataObject.getString("oprice"));
-                                newArrivalDataBean.setPrice(dataObject.getString("price"));
-                                newArrivalDataBean.setUnit(dataObject.getString("unit"));
-                                newArrivalDataBean.setDescription(dataObject.getString("description"));
-                                newArrivalDataBean.setPicture(dataObject.getString("picture"));
-                                newArrivalDataBean.setShowid(dataObject.getString("showid"));
-                                newArrivalDataBean.setAddress(dataObject.getString("address"));
-                                newArrivalDataBean.setFreight(dataObject.getString("freight"));
-                                newArrivalDataBean.setPays(dataObject.getString("pays"));
-                                newArrivalDataBean.setRacking(dataObject.getString("racking"));
-                                newArrivalDataBean.setRecommend(dataObject.getString("recommend"));
+                                GuessLikeBean.GuessLikeDataBean guessLikeDataBean = new GuessLikeBean.GuessLikeDataBean();
+                                guessLikeDataBean.setId(dataObject.getString("id"));
+                                guessLikeDataBean.setArtno(dataObject.getString("artno"));
+                                guessLikeDataBean.setShopid(dataObject.getString("shopid"));
+                                guessLikeDataBean.setBrand(dataObject.getString("brand"));
+                                guessLikeDataBean.setGoodsname(dataObject.getString("goodsname"));
+                                guessLikeDataBean.setAdtitle(dataObject.getString("adtitle"));
+                                guessLikeDataBean.setOprice(dataObject.getString("oprice"));
+                                guessLikeDataBean.setPrice(dataObject.getString("price"));
+                                guessLikeDataBean.setUnit(dataObject.getString("unit"));
+                                guessLikeDataBean.setDescription(dataObject.getString("description"));
+                                guessLikeDataBean.setPicture(dataObject.getString("picture"));
+                                guessLikeDataBean.setShowid(dataObject.getString("showid"));
+                                guessLikeDataBean.setAddress(dataObject.getString("address"));
+                                guessLikeDataBean.setFreight(dataObject.getString("freight"));
+                                guessLikeDataBean.setPays(dataObject.getString("pays"));
+                                guessLikeDataBean.setRacking(dataObject.getString("racking"));
+                                guessLikeDataBean.setRecommend(dataObject.getString("recommend"));
 
 
                                 JSONObject jsonObject2 = dataObject.getJSONObject("shop_name");
-                                newArrivalDataBean.setShopname(jsonObject2.getString("shopname"));
+                                guessLikeDataBean.setShopname(jsonObject2.getString("shopname"));
 
-                                newArrivalDataBean.setSales(dataObject.getString("sales"));
-                                newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
+                                guessLikeDataBean.setSales(dataObject.getString("sales"));
+                                guessLikeDataBean.setPaynum(dataObject.getString("paynum"));
 
 
-                                newArrivalDataBeanList.add(newArrivalDataBean);
+                                guessLikeDataBeanList.add(guessLikeDataBean);
                             }
-                            homepageGuessLikeAdapter = new HomepageGuessLikeAdapter(context, newArrivalDataBeanList);
+                            homepageGuessLikeAdapter = new HomepageGuessLikeAdapter(context, guessLikeDataBeanList);
                             gridView1.setAdapter(homepageGuessLikeAdapter);
                         }
                     } catch (JSONException e) {
@@ -205,7 +206,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         initdata();
         initview();
         new HomeRequest(context, handler).getEveryDayShop();//获取每日好店
-        new HomeRequest(context, handler).getGuessLike();//获取猜你喜欢
+        new HomeRequest(context, handler).getGuessLike("&recommend=8");//获取猜你喜欢
         new HomeRequest(context, handler).getMenu("", "");//获取一级菜单列表
     }
 
@@ -332,7 +333,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         gridView0 = (NoScrollGridView) getView().findViewById(R.id.homepage_everyday_goodshop_gridview);
         gridView1 = (NoScrollGridView) getView().findViewById(R.id.homepage_guess_like_gridview);
         dataBeenList = new ArrayList<>();
-        newArrivalDataBeanList = new ArrayList<>();
+        guessLikeDataBeanList = new ArrayList<>();
         initParam();
         rl_search = (RelativeLayout) getView().findViewById(R.id.rl_search);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) rl_search.getLayoutParams();

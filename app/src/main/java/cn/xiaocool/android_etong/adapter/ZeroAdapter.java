@@ -22,6 +22,7 @@ import java.util.List;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
+import cn.xiaocool.android_etong.bean.HomePage.ZeroBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 
 /**
@@ -30,13 +31,13 @@ import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 public class ZeroAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private DisplayImageOptions displayImageOptions;
-    private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
+    private List<ZeroBean.ZeroDataBean> zeroDataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
 
-    public ZeroAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList) {
+    public ZeroAdapter(Context context, List<ZeroBean.ZeroDataBean> zeroDataBeanList) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.newArrivalDataBeanList = newArrivalDataBeanList;
+        this.zeroDataBeanList = zeroDataBeanList;
         this.context = context;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
@@ -46,12 +47,12 @@ public class ZeroAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return newArrivalDataBeanList.size();
+        return zeroDataBeanList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return newArrivalDataBeanList.get(position);
+        return zeroDataBeanList.get(position);
     }
 
     @Override
@@ -62,8 +63,8 @@ public class ZeroAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        final NewArrivalBean.NewArrivalDataBean bean = newArrivalDataBeanList.get(position);
-        String picName = newArrivalDataBeanList.get(position).getPicture();
+        final ZeroBean.ZeroDataBean bean = zeroDataBeanList.get(position);
+        String picName = zeroDataBeanList.get(position).getPicture();
         String[] arrayPic = picName.split("[,]");
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.everyday_choiceness_item, null);
@@ -71,18 +72,18 @@ public class ZeroAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
             imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
                     viewHolder.ivGoodPic, displayImageOptions);
-            viewHolder.tvGoodName.setText(newArrivalDataBeanList.get(position).getGoodsname());
-            viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
+            viewHolder.tvGoodName.setText(zeroDataBeanList.get(position).getGoodsname());
+            viewHolder.tvGoodDesc.setText(zeroDataBeanList.get(position).getDescription());
+            viewHolder.tvGoodPrice.setText("¥" + zeroDataBeanList.get(position).getPrice());
+            viewHolder.tvGoodOprice.setText("¥" + zeroDataBeanList.get(position).getOprice());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
             imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
                     viewHolder.ivGoodPic, displayImageOptions);
-            viewHolder.tvGoodName.setText(newArrivalDataBeanList.get(position).getGoodsname());
-            viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
+            viewHolder.tvGoodName.setText(zeroDataBeanList.get(position).getGoodsname());
+            viewHolder.tvGoodDesc.setText(zeroDataBeanList.get(position).getDescription());
+            viewHolder.tvGoodPrice.setText("¥" + zeroDataBeanList.get(position).getPrice());
+            viewHolder.tvGoodOprice.setText("¥" + zeroDataBeanList.get(position).getOprice());
         }
 
         viewHolder.btn.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +111,7 @@ public class ZeroAdapter extends BaseAdapter {
                     intent.putExtra("recommend", bean.getRecommend());
                     intent.putExtra("shopname", bean.getShopname());//店铺名字
                     intent.putExtra("sales", bean.getSales());
-                    intent.putExtra("paynum", bean.getPayNum());
+                    intent.putExtra("paynum", bean.getPaynum());
                     context.startActivity(intent);
                 }
             }

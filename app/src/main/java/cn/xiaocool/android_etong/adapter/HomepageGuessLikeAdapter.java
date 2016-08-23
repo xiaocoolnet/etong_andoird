@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
+import cn.xiaocool.android_etong.bean.HomePage.GuessLikeBean;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 
@@ -32,13 +33,13 @@ import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 public class HomepageGuessLikeAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private DisplayImageOptions displayImageOptions;
-    private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
+    private List<GuessLikeBean.GuessLikeDataBean> guessLikeDataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
 
-    public HomepageGuessLikeAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList) {
+    public HomepageGuessLikeAdapter(Context context, List<GuessLikeBean.GuessLikeDataBean> guessLikeDataBeanList) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.newArrivalDataBeanList = newArrivalDataBeanList;
+        this.guessLikeDataBeanList = guessLikeDataBeanList;
         this.context = context;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
@@ -48,12 +49,12 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return newArrivalDataBeanList.size();
+        return guessLikeDataBeanList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return newArrivalDataBeanList.get(position);
+        return guessLikeDataBeanList.get(position);
     }
 
     @Override
@@ -64,8 +65,8 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        final NewArrivalBean.NewArrivalDataBean bean = newArrivalDataBeanList.get(position);
-        String picName = newArrivalDataBeanList.get(position).getPicture();
+        final GuessLikeBean.GuessLikeDataBean bean = guessLikeDataBeanList.get(position);
+        String picName = guessLikeDataBeanList.get(position).getPicture();
         String[] arrayPic = picName.split("[,]");
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.homepage_guess_ulike_item, null);
@@ -73,16 +74,16 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
             imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
                     viewHolder.homepageGuessLikeImage, displayImageOptions);
-            viewHolder.newArrivalGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.homepageGuessLikePrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.homepageGuessLikePayNum.setText("¥" + newArrivalDataBeanList.get(position).getPayNum());
+            viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
+            viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
+            viewHolder.homepageGuessLikePayNum.setText("¥" + guessLikeDataBeanList.get(position).getPaynum());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
             imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
                     viewHolder.homepageGuessLikeImage, displayImageOptions);
-            viewHolder.newArrivalGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.homepageGuessLikePrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.homepageGuessLikePayNum.setText("¥" + newArrivalDataBeanList.get(position).getPayNum());
+            viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
+            viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
+            viewHolder.homepageGuessLikePayNum.setText("¥" + guessLikeDataBeanList.get(position).getPaynum());
         }
 
 
@@ -113,7 +114,7 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
                     intent.putExtra("recommend", bean.getRecommend());
                     intent.putExtra("shopname", bean.getShopname());//店铺名字
                     intent.putExtra("sales", bean.getSales());
-                    intent.putExtra("paynum", bean.getPayNum());
+                    intent.putExtra("paynum", bean.getPaynum());
                     context.startActivity(intent);
                 }
             }
