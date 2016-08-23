@@ -9,6 +9,6 @@
         android:id="@+id/obtain_attribute_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </cn.xiaocool.android_etong.util.NoScrollListView>
+
 </LinearLayout>

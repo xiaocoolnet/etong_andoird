@@ -76,5 +76,7 @@ public interface CommunalInterfaces {
     int IsNew = 0x0046;//新客专享
     int IsLike = 0x0047;//猜你喜欢
     int GetGoodsComments = 0x0048;//获取商品评价信息
+    int GetGoodPropertyList = 0x0049;//获取商品附加属性
+    int AddGoodsProperty = 0x0050;//添加产品的附加属性
 
 }

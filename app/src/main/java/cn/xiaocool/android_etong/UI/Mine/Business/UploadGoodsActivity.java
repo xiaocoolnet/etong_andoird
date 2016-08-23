@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.UploadGoodsPropertyActivity;
 import cn.xiaocool.android_etong.app.text.City;
 import cn.xiaocool.android_etong.app.text.District;
 import cn.xiaocool.android_etong.app.text.Provence;
@@ -44,7 +45,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private TextView tx_goods_upload;
     private ProgressDialog progressDialog;
     private String show;
-    private String shopid;
+    private String shopid,shopType;
     private List<Provence> provences;
     private Provence provence;
     private City city;
@@ -126,7 +127,12 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                         if (status.equals("success")){
                             progressDialog.dismiss();
                             Toast.makeText(mContext,"上传成功",Toast.LENGTH_SHORT).show();
-                            Log.e("success","publish");
+                            Log.e("success", "publish");
+                            Intent intent = new Intent();
+                            intent.putExtra("type",shopType);
+                            intent.putExtra("goodsid",data);
+                            intent.setClass(mContext, UploadGoodsPropertyActivity.class);
+                            startActivity(intent);
                             finish();
                         }else {
                             progressDialog.dismiss();
@@ -150,6 +156,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         mContext = this;
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
+        shopType = intent.getStringExtra("type");
         Log.e("shopid=", shopid);
         progressDialog = new ProgressDialog(mContext, AlertDialog.THEME_HOLO_LIGHT);
         initview();

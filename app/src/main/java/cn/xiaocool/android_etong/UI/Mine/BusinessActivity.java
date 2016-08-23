@@ -43,7 +43,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti;
-    private String shopid;
+    private String shopid,shopType;
     private TextView tx_store_name;
     private Context context;
     private ImageView img_store_head;
@@ -66,7 +66,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
-                                String shopType = jsonObject1.getString("type");
+                                shopType = jsonObject1.getString("type");
                                 userInfo.setUserShopId(shopid);
                                 userInfo.setUserShopName(shopname);
                                 userInfo.setUserShopType(shopType);
@@ -149,6 +149,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             case R.id.btn_uploadgoods:
                 Intent intent = new Intent();
                 intent.putExtra("shopid", shopid);
+                intent.putExtra("type",shopType);
                 intent.setClass(BusinessActivity.this, UploadGoodsActivity.class);
                 startActivity(intent);
                 break;

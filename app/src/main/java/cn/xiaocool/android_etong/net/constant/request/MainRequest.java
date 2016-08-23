@@ -1017,4 +1017,52 @@ public class MainRequest {
             }
         }.start();
     }
+
+    //获取商品简介
+    public void GetGoodPropertyList(final String type){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "goodstype="+type;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GetGoodPropertyList,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetGoodPropertyList;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+
+    //添加产品附加属性
+    public void AddGoodsProperty(final String goodsid,final String type , final String propertylist){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&goodsid="+goodsid+"&type="+type+"&propertylist="+propertylist;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.AddGoodsProperty,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.AddGoodsProperty;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
 }

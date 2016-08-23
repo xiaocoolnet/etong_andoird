@@ -141,7 +141,10 @@
         <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
         <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
         <activity android:name=".UI.HomePage.ShopListActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyActivity">
 
+        </activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyLabelActivity"></activity>
         <!--本地-->
         <activity android:name=".UI.Local.FoodActivity"></activity>
         <activity android:name=".UI.Local.MoiveActivity"></activity>

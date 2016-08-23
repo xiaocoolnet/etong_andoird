@@ -10,11 +10,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.xiaocool.android_etong.R;
-import cn.xiaocool.android_etong.bean.UploadGoodSanndard.UploadStandardBean;
 
 /**
  * Created by wzh on 2016/7/28.
@@ -26,6 +22,7 @@ public class UploadGoodStandardActivity extends Activity implements View.OnClick
     private Button[] colorButtons, sizeButtons;
     private Button btnUpload;
     private String goodId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

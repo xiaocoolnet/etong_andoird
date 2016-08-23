@@ -318,6 +318,18 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetGoodsComments  = NET_BASE_PREFIX + "a=GetGoodsComments";
+
+    /*
+    * 获取商店type的附加属性
+    */
+
+    String GetGoodPropertyList = NET_BASE_PREFIX + "a=GetGoodPropertyList";
+
+    /*
+    * 添加商品的附加属性
+    */
+
+    String AddGoodsProperty = NET_BASE_PREFIX + "a=AddGoodsProperty";
 }
 
 
