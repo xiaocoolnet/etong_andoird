@@ -316,7 +316,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         for (int i = 0 ;i<booleans.size();i++){
             for (int j = 0 ; j<booleans.get(i).size();j++){
                 if (booleans.get(i).get(j)){
-                    lebal = lebal+dataBeanList.get(i).getName()+":"+dataBeanList.get(i).getPlist().get(j).getName()+";";
+                    lebal = lebal+dataBeanList.get(i).getName()+":"+dataBeanList.get(i).getPlist().get(j).getName()+"; ";
                 }
             }
         }
