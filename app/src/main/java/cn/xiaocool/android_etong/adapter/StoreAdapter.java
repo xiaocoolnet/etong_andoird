@@ -23,7 +23,7 @@ import cn.xiaocool.android_etong.fragment.ShoppingFragment;
  */
 public class StoreAdapter extends BaseAdapter {
 
-    private final LinkedList<Boolean> selected = new LinkedList<Boolean>();
+    private LinkedList<Boolean> selected = new LinkedList<Boolean>();
     private Boolean judge = false;
     private LayoutInflater inflater;
     private List<ShoppingCart_StoreName.DataBean> list;
@@ -97,11 +97,11 @@ public class StoreAdapter extends BaseAdapter {
         holder.rl_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("selected set position:" + position);
+//                System.out.println("selected set position:" + position);
                 selected.set(position, !selected.get(position));
                 for (int i = 0; i < pAdapterList.get(position).getSelect().size(); i++) {
                     pAdapterList.get(position).getSelect().set(i, selected.get(position));
-                    System.out.println("selected " + i + ":" + pAdapterList.get(position).getSelect().get(i));
+//                    System.out.println("selected " + i + ":" + pAdapterList.get(position).getSelect().get(i));
                 }
                 if (selected.contains(false)) {
                     context.checkAll(false);
