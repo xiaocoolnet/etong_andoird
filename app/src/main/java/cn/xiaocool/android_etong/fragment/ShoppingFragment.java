@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -25,12 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
+import cn.xiaocool.android_etong.UI.ShoppingCart.StatementActivity;
 import cn.xiaocool.android_etong.adapter.StoreAdapter;
 import cn.xiaocool.android_etong.bean.Shop.ShoppingCart_StoreName;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -44,7 +47,10 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private Context context;
+    private Button btn_statement;
     private TextView tx_shopping_price;
+    private  double amount = 0;
+    private int size = 0;
     private RelativeLayout ry_line;
     private CheckBox cb_all_select;
     private ListView list_Shopping_Cart;
@@ -163,6 +169,8 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         tx_shopping_price = (TextView) getView().findViewById(R.id.tx_shopping_price);
         cb_all_select = (CheckBox) getView().findViewById(R.id.cb_all_select);
         cb_all_select.setOnClickListener(this);
+        btn_statement = (Button) getView().findViewById(R.id.btn_statement);
+        btn_statement.setOnClickListener(this);
         initShoppingCart();
     }
 
@@ -199,7 +207,42 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                 updateAmount();
                 storeAdapter.notifyDataSetChanged();
                 break;
+            case R.id.btn_statement:
+                getStatementObject();
+                if (size!=0){
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("databeans", (Serializable)getStatementObject());
+                    intent.putExtras(bundle);
+                    intent.putExtra("amount",amount);
+                    intent.setClass(context, StatementActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(context,"请选择结算商品",Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
+    }
+
+    public List<ShoppingCart_StoreName.DataBean> getStatementObject(){
+        size = 0;
+        List<ShoppingCart_StoreName.DataBean> statementObject = new ArrayList<>();
+        for (int i = 0; i < storeAdapter.getSelect().size(); i++) {
+            ShoppingCart_StoreName.DataBean shoppingCart_storeName = new ShoppingCart_StoreName.DataBean();
+            List<ShoppingCart_StoreName.DataBean.GoodslistBean> goodses = new ArrayList<>();
+            for (int j = 0; j < storeAdapter.getPAdapter(i).getSelect().size(); j++) {
+                if (storeAdapter.getPAdapterList().get(i).getSelect().get(j)){
+                    goodses.add(dataBeans.get(i).getGoodslist().get(j));
+                    size++;
+                }
+            }
+            if (goodses.size()!=0){
+                shoppingCart_storeName.setGoodslist(goodses);
+                shoppingCart_storeName.setShopname(dataBeans.get(i).getShopname());
+                statementObject.add(shoppingCart_storeName);
+            }
+        }
+        return statementObject;
     }
 
     public void checkAll(boolean checked) {
@@ -207,7 +250,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     }
 
     public void updateAmount() {
-        double amount = 0;
+        amount = 0;
         tx_shopping_price.setText("￥");
         for (int i = 0; i < dataBeans.size(); i++) {
             for (int j = 0; j < dataBeans.get(i).getGoodslist().size(); j++) {

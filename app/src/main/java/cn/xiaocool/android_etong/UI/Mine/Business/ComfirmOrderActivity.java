@@ -40,7 +40,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private TextView tx_comfirm_order;
     private String id, shopname;
     private String deliveryAddress = "", phone = "", name = "";
-    private String money,lebal;
+    private String money,lebal,proid;
     private String judge = "0";
     private int count = 0;
     private ImageView img_goods_pic;
@@ -50,6 +50,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+
                 case CommunalInterfaces.GET_GOODS_INFO:
                     JSONObject json = (JSONObject) msg.obj;
                     try {
@@ -72,19 +73,22 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     break;
+
                 case CommunalInterfaces.BOOKING_SHOPPING:
                     JSONObject jsonObject = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
-                            Toast.makeText(context, "购买成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "购买成功,请去个人页面支付", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+
             }
         }
     };
@@ -101,6 +105,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         id = intent.getStringExtra("id");
         shopname = intent.getStringExtra("shopname");
         lebal = intent.getStringExtra("label");
+        proid = intent.getStringExtra("proid");
         initview();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
@@ -108,7 +113,6 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void initview() {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
@@ -156,7 +160,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 if (!TextUtils.isEmpty(deliveryAddress)) {
                     if (phone.length() == 11) {
                         if (!TextUtils.isEmpty(name)) {
-                            new MainRequest(context, handler).bookingshopping(id, name, deliveryAddress, String.valueOf(count), phone, customer_remark, money);
+                            new MainRequest(context, handler).bookingshopping(id, name, deliveryAddress, String.valueOf(count), phone, customer_remark, money,proid);
                         } else {
                             Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
                         }

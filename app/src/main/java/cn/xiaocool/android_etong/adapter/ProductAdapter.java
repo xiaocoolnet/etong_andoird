@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,7 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
  * Created by 潘 on 2016/7/31.
  */
 public class ProductAdapter extends BaseAdapter {
-    private final List<Boolean> selected = new ArrayList<Boolean>();
-
+    private List<Boolean> selected = new ArrayList<Boolean>();
     private RelativeLayout rl_select_;
     private LayoutInflater inflater;
     private DisplayImageOptions displayImageOptions;
@@ -118,12 +118,15 @@ public class ProductAdapter extends BaseAdapter {
         holder.tx_goods_count.setText(product.getNumber());
         holder.tv_number.setText(product.getNumber());
         holder.cb_select.setChecked(selected.get(position));
+        Log.e("new bool",selected.get(position).toString());
         holder.rl_select_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("selected set position:" + position);
+//                System.out.println("selected set position:" + position);
+                Log.e("selected set position", String.valueOf(position));
                 selected.set(position, !selected.get(position));
-
+                Boolean bool = !selected.get(position);
+                Log.e("bool", bool.toString());
                 if (selected.contains(false)) {
                     adapter.getSelect().set(storePosition, false);
                 } else {

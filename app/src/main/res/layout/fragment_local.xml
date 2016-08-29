@@ -112,8 +112,10 @@
             android:id="@+id/list_local"
             android:dividerHeight="2dp"
             android:transcriptMode="alwaysScroll"
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         </cn.xiaocool.android_etong.util.NoScrollListView>
 
         </LinearLayout>

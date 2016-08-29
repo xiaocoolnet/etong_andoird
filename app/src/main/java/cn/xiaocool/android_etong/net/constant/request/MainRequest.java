@@ -609,13 +609,15 @@ public class MainRequest {
     }
 
     //商品产品购买
-    public void bookingshopping(final String goodsid, final String peoplename, final String address, final String goodnum, final String mobile, final String remark, final String money) {
+    public void bookingshopping(final String goodsid, final String peoplename, final String address, final String goodnum, final String mobile, final String remark, final String money , final String proid) {
         new Thread() {
             Message msg = new Message();
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&address=" + address + "&goodnum=" + goodnum + "&mobile=" + mobile + "&remark=" + remark + "&money=" + money;
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&address=" + address +
+                        "&goodnum=" + goodnum + "&mobile=" + mobile + "&remark=" + remark +
+                        "&money=" + money + "&proid=" + proid;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.BOOKING_SHOPPING, data);
                 Log.e("result_data=", result_data);
@@ -684,13 +686,13 @@ public class MainRequest {
 
 
     //    添加购物车
-    public void addShoppingCart(final String goodsid, final String goodsnum, final String shopid) {
+    public void addShoppingCart(final String goodsid, final String goodsnum, final String shopid , final String proid) {
         new Thread() {
             Message msg = new Message();
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&goodsnum=" + goodsnum + "&shopid=" + shopid;
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&goodsnum=" + goodsnum + "&shopid=" + shopid + "&proid=" + proid;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.ADD_SHOPPING_CART, data);
                 Log.e("result_data=", result_data);

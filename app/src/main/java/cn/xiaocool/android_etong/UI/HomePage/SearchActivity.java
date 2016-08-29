@@ -96,7 +96,25 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_back:
-                finish();
+                if (!TextUtils.isEmpty(et_search.getText().toString())){
+                    if (show.equals("宝贝")){
+                        Intent intent1 = new Intent();
+                        intent1.putExtra("search_content",et_search.getText().toString());
+                        intent1.putExtra("city",city);
+                        intent1.setClass(context, SearchResultGoodsActivity.class);
+                        startActivity(intent1);
+                        finish();
+                    }else {
+                        Intent intent = new Intent();
+                        intent.putExtra("search_content",et_search.getText().toString());
+                        intent.putExtra("city",city);
+                        intent.setClass(context, SearchResultShopActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else {
+                    Log.e("无内容","无内容");
+                }
                 break;
         }
     }

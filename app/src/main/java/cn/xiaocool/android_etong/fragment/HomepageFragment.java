@@ -41,17 +41,16 @@ import java.util.Map;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 import cn.xiaocool.android_etong.UI.HomePage.TypeListActivity;
-import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
 import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
 import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
 import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
 import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
+import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
 import cn.xiaocool.android_etong.adapter.EverydayGoodShopAdapter;
 import cn.xiaocool.android_etong.adapter.HomepageGuessLikeAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.EveryDayGoodShopBean;
 import cn.xiaocool.android_etong.bean.HomePage.GuessLikeBean;
-import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
@@ -225,7 +224,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 //            mapTemp.put("item", "a" + i);
 //            listLeft.add(mapTemp);
 //        }
-        llTop.getBackground().setAlpha(0);
+        llTop.getBackground().mutate().setAlpha(0);
     }
 
 
@@ -426,6 +425,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             case R.id.et_search:
                 Intent intent = new Intent();
                 intent.setClass(context, SearchActivity.class);
+                intent.putExtra("city","homepage");
                 startActivity(intent);
                 break;
             case R.id.homepage_type_img:

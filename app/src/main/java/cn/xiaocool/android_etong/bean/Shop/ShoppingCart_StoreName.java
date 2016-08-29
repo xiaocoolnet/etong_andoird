@@ -1,11 +1,12 @@
 package cn.xiaocool.android_etong.bean.Shop;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by 潘 on 2016/7/28.
  */
-public class ShoppingCart_StoreName {
+public class ShoppingCart_StoreName implements Serializable {
 
     /**
      * status : success
@@ -37,7 +38,7 @@ public class ShoppingCart_StoreName {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         private String shopid;
         private String shopname;
         private boolean isChoosed;		//商品是否在购物车中被选中
@@ -87,7 +88,7 @@ public class ShoppingCart_StoreName {
             this.goodslist = goodslist;
         }
 
-        public static class GoodslistBean {
+        public static class GoodslistBean implements Serializable{
             private String id;
             private String gid;
             private String goodsname;

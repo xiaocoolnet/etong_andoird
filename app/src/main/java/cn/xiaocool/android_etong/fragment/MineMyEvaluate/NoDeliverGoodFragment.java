@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -53,7 +52,7 @@ public class NoDeliverGoodFragment extends Fragment {
                                 Log.e("length=", String.valueOf(jsonArray.length()));
                                 jsonObject1 = jsonArray.getJSONObject(i);
                                 if (jsonObject1.getString("state").equals("2")) {
-                                    PendingPayment.DataBean dataBean = new PendingPayment.DataBean();
+                                   PendingPayment.DataBean dataBean = new PendingPayment.DataBean();
                                     dataBean.setOrder_num(jsonObject1.getString("order_num"));
                                     Log.e("order_num=", jsonObject1.getString("order_num"));
                                     dataBean.setGid(jsonObject1.getString("gid"));

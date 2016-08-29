@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -72,12 +73,15 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private List<Detail.DataBean> dataBeans;
     private List<Property.DataBean> dataBeanList;
     private SelectPropertyAdapter selectPropertyAdapter;
+    private SelectPropertyAdapter selectPropertyAdapter1;
     private ListView list_detail;
     private ListView list_property;
+    private ListView list_property1;
     private List<List<Boolean>> booleans;
     private List<List<Boolean>> booleans2;
     private DetailAdapter detailAdapter;
     private String lebal = "";
+    private String proids = "";
     private ProgressDialog progressDialog;
     public static final String action = "jason.broadcast.action";
     private Handler handler = new Handler() {
@@ -200,6 +204,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                                         JSONObject object = jsonArray1.getJSONObject(j);
                                         plistBean.setId(object.getString("id"));
                                         plistBean.setName(object.getString("name"));
+                                        plistBean.setProid(object.getString("proid"));
                                         plistBeans.add(plistBean);
                                         booleans_item.add(false);
                                     }
@@ -317,10 +322,16 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             for (int j = 0 ; j<booleans.get(i).size();j++){
                 if (booleans.get(i).get(j)){
                     lebal = lebal+dataBeanList.get(i).getName()+":"+dataBeanList.get(i).getPlist().get(j).getName()+"; ";
+                    proids = proids + dataBeanList.get(i).getPlist().get(j).getProid()+",";
                 }
             }
         }
         Log.e("lebal=",lebal);
+        if (TextUtils.isEmpty(proids)){
+        }else {
+            proids = proids.substring(0,proids.length()-1);
+            Log.e("proids",proids);
+        }
         return lebal;
     }
 
@@ -483,7 +494,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                     intent.putExtra("count", count);
                     intent.putExtra("id", id);
                     intent.putExtra("shopname", shopname);
-                    intent.putExtra("label",getLebal());
+                    intent.putExtra("label", getLebal());
+                    intent.putExtra("proid",proids);
                     intent.setClass(context, ComfirmOrderActivity.class);
                     startActivity(intent);
                     window.dismiss();
@@ -560,7 +572,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //                System.out.println("第一个按钮被点击了");
 //            }
 //        });
-
+        list_property1 = (ListView) view.findViewById(R.id.list_property);
         ImageView img_pic = (ImageView) view.findViewById(R.id.img_goods_pic_small);
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
         TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
@@ -572,6 +584,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_jia = (ImageView) view.findViewById(R.id.img_jia);
         ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
         Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
+
+        selectPropertyAdapter1 = new SelectPropertyAdapter(GoodsDetailActivity.this,dataBeanList,booleans);
+        list_property1.setAdapter(selectPropertyAdapter1);
+        setListViewHeightBasedOnChildren(list_property1);
+
         //添加购物车
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -581,14 +598,18 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 progressDialog.show();
 
                 if (NetUtil.isConnnected(context)) {
-                    Log.e("shopid=", shopid);
-                    window.dismiss();
-                    Intent intent = new Intent(action);
-                    intent.putExtra("data", "yes i am data");
-                    sendBroadcast(intent);
-                    new MainRequest(context, handler).addShoppingCart(id, String.valueOf(count), shopid);
+                    if (judge()) {
+                        Log.e("shopid=", shopid);
+                        window.dismiss();
+                        Intent intent = new Intent(action);
+                        intent.putExtra("data", "yes i am data");
+                        sendBroadcast(intent);
+                        getLebal();
+                        new MainRequest(context, handler).addShoppingCart(id, String.valueOf(count), shopid,proids);
+                    }else {
+                    }
                 } else {
-                    Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "请检查网络",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }

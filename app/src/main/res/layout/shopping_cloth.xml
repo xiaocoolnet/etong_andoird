@@ -13,7 +13,6 @@
         android:background="@color/whilte">
 
         <RelativeLayout
-            android:id="@+id/rl_store"
             android:layout_width="35dp"
             android:layout_height="35dp">
 
@@ -25,6 +24,12 @@
                 android:layout_marginLeft="10dp"
                 android:background="@null"
                 android:button="@drawable/checkbox_good" />
+            <RelativeLayout
+                android:id="@+id/rl_store"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </RelativeLayout>
         </RelativeLayout>
 
         <TextView

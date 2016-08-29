@@ -99,6 +99,15 @@ public class Property implements Serializable{
             private String typeid;
             private String name;
             private String listorder;
+            private String proid;
+
+            public void setProid(String proid){
+                this.proid = proid;
+            }
+
+            public String getProid(){
+                return proid;
+            }
 
             public String getId() {
                 return id;
