@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class StatementActivity extends Activity implements View.OnClickListener 
     private Context context;
     private RelativeLayout rl_back;
     private double amount;
-    private TextView tv_goods_price_total;
+    private TextView tv_goods_price_total,tx_comfirm_order;
     private ListView list_statement;
     private List<ShoppingCart_StoreName.DataBean> dataBeans;
     private StatementAdapter statementAdapter;
@@ -50,6 +51,8 @@ public class StatementActivity extends Activity implements View.OnClickListener 
         rl_back.setOnClickListener(this);
         tv_goods_price_total = (TextView) findViewById(R.id.tv_goods_price_total);
         tv_goods_price_total.setText(String.valueOf(amount));
+        tx_comfirm_order = (TextView) findViewById(R.id.tx_comfirm_order);
+        tx_comfirm_order.setOnClickListener(this);
         list_statement = (ListView) findViewById(R.id.list_statement);
     }
 
@@ -58,6 +61,14 @@ public class StatementActivity extends Activity implements View.OnClickListener 
         switch (v.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.tx_comfirm_order:
+                dataBeans.clear();
+                statementAdapter = new StatementAdapter(context,dataBeans);
+                list_statement.setAdapter(statementAdapter);
+                fixListViewHeight(list_statement);
+                tv_goods_price_total.setText("0");
+                Toast.makeText(context,"结算成功",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
