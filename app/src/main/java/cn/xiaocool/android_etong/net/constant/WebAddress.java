@@ -337,6 +337,12 @@ public interface WebAddress extends NetBaseConstant {
 
     String GetGoodsPropertyList = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
 
+    /**
+    * 取消订单
+    */
+
+    String CANCEL_ORDER = NET_BASE_PREFIX + "a=DeleteOrder";
+
 }
 
 

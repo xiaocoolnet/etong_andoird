@@ -53,7 +53,6 @@ public class ObligationFragment extends Fragment {
                                 if (jsonObject1.getString("state").equals("1")) {
                                     PendingPayment.DataBean dataBean = new PendingPayment.DataBean();
                                     dataBean.setOrder_num(jsonObject1.getString("order_num"));
-                                    Log.e("order_num=", jsonObject1.getString("order_num"));
                                     dataBean.setGid(jsonObject1.getString("gid"));
                                     dataBean.setGoodsname(jsonObject1.getString("goodsname"));
                                     dataBean.setPicture(jsonObject1.getString("picture"));
@@ -66,8 +65,8 @@ public class ObligationFragment extends Fragment {
                                     dataBean.setAddress(jsonObject1.getString("address"));
                                     dataBean.setNumber(jsonObject1.getString("number"));
                                     dataBean.setMoney(jsonObject1.getString("money"));
-                                    Log.e("money=", jsonObject1.getString("username"));
                                     dataBean.setUsername(jsonObject1.getString("username"));
+                                    dataBean.setTime(jsonObject1.getString("time"));
                                     dataBeans.add(dataBean);
                                 }
                             }

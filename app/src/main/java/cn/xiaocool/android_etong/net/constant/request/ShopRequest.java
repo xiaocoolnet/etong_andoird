@@ -237,4 +237,24 @@ public class ShopRequest {
             }
         }.start();
     }
+    //买家取消订单
+    public void cancelOrder(final String orderId,final String reason) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&id=" + orderId + "&reason=" + reason;
+                String result_data = NetUtil.getResponse(WebAddress.CANCEL_ORDER, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CANCEL_ORDER;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

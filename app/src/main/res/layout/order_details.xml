@@ -22,6 +22,7 @@
                 android:background="@color/red1">
 
                 <TextView
+                    android:id="@+id/orderDetails_orderStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -92,7 +93,7 @@
                         android:layout_below="@+id/order_reserve_man"
                         android:layout_marginBottom="@dimen/activity_size_10"
                         android:layout_marginTop="@dimen/activity_size_10"
-                        android:text="收货人:"
+                        android:text="收货地址:"
                         android:textColor="@color/black5"
                         android:textSize="@dimen/activity_size_15" />
 
@@ -176,167 +177,183 @@
                         android:background="@color/gray2" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/whilte">
+                    android:background="@color/whilte"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/img_shopping_chanpin"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="@dimen/activity_size_10"
-                        android:layout_marginTop="@dimen/activity_size_10"
-                        android:background="@mipmap/ic_chanpin" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/activity_size_120"
+                        android:layout_weight="2.2">
 
-                    <TextView
-                        android:id="@+id/order_details_good_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/img_shopping_chanpin"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_toRightOf="@+id/img_shopping_chanpin"
-                        android:maxLines="2"
-                        android:text="2016春装新款欧美时尚长裙宽松休闲仙女气质超长款拖地连衣裙"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/activity_size_13" />
-
-                    <TextView
-                        android:id="@+id/tx_shopping_cloth_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/order_details_good_name_tv"
-                        android:layout_marginLeft="@dimen/activity_size_13"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/img_shopping_chanpin"
-                        android:maxLines="2"
-                        android:text="颜色分类:"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/order_details_good_color_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/order_details_good_name_tv"
-                        android:layout_marginLeft="@dimen/activity_size_3"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/tx_shopping_cloth_color"
-                        android:maxLines="2"
-                        android:text="天蓝色"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tx_shopping_cloth_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_shopping_cloth_color"
-                        android:layout_marginLeft="@dimen/activity_size_13"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/img_shopping_chanpin"
-                        android:maxLines="2"
-                        android:text="尺码: "
-                        android:textColor="@color/gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/order_details_good_size_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_shopping_cloth_color"
-                        android:layout_marginLeft="@dimen/activity_size_3"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/tx_shopping_cloth_size"
-                        android:maxLines="2"
-                        android:text="S"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tx_shopping_cloth_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/tx_shopping_cloth_size"
-                        android:layout_marginRight="@dimen/activity_size_10"
-                        android:layout_marginTop="@dimen/activity_size_15"
-                        android:text="¥439"
-                        android:textColor="@color/main_color_red"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tx_goods_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/tx_shopping_cloth_color"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="@dimen/activity_size_5"
-                        android:text="x1"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                    <!--灰色线-->
-                    <ImageView
-                        android:id="@+id/gray_line2"
-                        android:layout_width="@dimen/activity_size_355"
-                        android:layout_height="@dimen/activity_size_1"
-                        android:layout_below="@+id/img_shopping_chanpin"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/activity_size_10"
-                        android:background="@color/gray2" />
+                        <ImageView
+                            android:id="@+id/img_shopping_chanpin"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_centerInParent="true"
+                            android:background="@mipmap/ic_chanpin" />
+                    </RelativeLayout>
 
 
-                    <TextView
-                        android:id="@+id/good_status_btn_3"
-                        android:layout_width="@dimen/activity_size_80"
-                        android:layout_height="@dimen/activity_size_28"
-                        android:layout_below="@+id/gray_line2"
-                        android:layout_marginBottom="@dimen/activity_size_10"
-                        android:layout_marginRight="@dimen/activity_size_15"
-                        android:layout_marginTop="@dimen/activity_size_10"
-                        android:layout_toLeftOf="@+id/good_status_btn_2"
-                        android:background="@drawable/btn_shape_gray"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/black2"
-                        android:textSize="@dimen/activity_size_13" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/order_details_good_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="@dimen/activity_size_10"
+                            android:maxLines="2"
+                            android:text="2016春装新款欧美时尚长裙宽松休闲仙女气质超长款拖地连衣裙"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/activity_size_13" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tx_shopping_cloth_color"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_13"
+                                android:layout_marginTop="5dp"
+                                android:maxLines="2"
+                                android:text="颜色分类:"
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/order_details_good_color_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_3"
+                                android:layout_marginTop="5dp"
+                                android:maxLines="2"
+                                android:text="天蓝色"
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
 
 
-                    <TextView
-                        android:id="@+id/good_status_btn_2"
-                        android:layout_width="@dimen/activity_size_80"
-                        android:layout_height="@dimen/activity_size_28"
-                        android:layout_below="@+id/gray_line2"
-                        android:layout_marginBottom="@dimen/activity_size_10"
-                        android:layout_marginRight="@dimen/activity_size_15"
-                        android:layout_marginTop="@dimen/activity_size_10"
-                        android:layout_toLeftOf="@+id/good_status_btn"
-                        android:background="@drawable/btn_shape_gray"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/black2"
-                        android:textSize="@dimen/activity_size_13" />
+                            <TextView
+                                android:id="@+id/tx_shopping_cloth_size"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_13"
+                                android:layout_marginTop="5dp"
+                                android:maxLines="2"
+                                android:text="尺码: "
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/order_details_good_size_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_3"
+                                android:layout_marginTop="5dp"
+                                android:maxLines="2"
+                                android:text="S"
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
 
-                    <TextView
-                        android:id="@+id/good_status_btn"
-                        android:layout_width="@dimen/activity_size_80"
-                        android:layout_height="@dimen/activity_size_28"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/gray_line2"
-                        android:layout_marginBottom="@dimen/activity_size_10"
-                        android:layout_marginRight="@dimen/activity_size_10"
-                        android:layout_marginTop="@dimen/activity_size_10"
-                        android:background="@drawable/btn_shape_red"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/red1"
-                        android:textSize="@dimen/activity_size_13" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_13"
+                                android:layout_marginTop="5dp"
+                                android:maxLines="2"
+                                android:text="数量:"
+                                android:textColor="@color/gray"
+                                android:textSize="12sp" />
 
-                </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tx_goods_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tx_shopping_cloth_color"
+                                android:layout_marginLeft="13dp"
+                                android:layout_marginTop="@dimen/activity_size_5"
+                                android:layout_toRightOf="@+id/img_shopping_chanpin"
+                                android:text="1"
+                                android:textColor="@color/gray"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/activity_size_28">
+                            <TextView
+                                android:id="@+id/tx_shopping_cloth_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_size_13"
+                                android:layout_marginTop="@dimen/activity_size_10"
+                                android:text="¥439"
+                                android:textColor="@color/main_color_red"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/orderDetails_btn_apply_serve"
+                                android:layout_width="@dimen/activity_size_80"
+                                android:layout_height="@dimen/activity_size_28"
+                                android:layout_alignParentRight="true"
+                                android:layout_below="@+id/gray_line2"
+                                android:layout_marginRight="@dimen/activity_size_10"
+                                android:background="@drawable/button_shape"
+                                android:gravity="center"
+                                android:text="申请售后"
+                                android:textColor="@color/whilte"
+                                android:textSize="@dimen/activity_size_13" />
+
+                        </RelativeLayout>
+
+
+
+                        <!--灰色线-->
+                        <ImageView
+                            android:id="@+id/gray_line2"
+                            android:layout_width="@dimen/activity_size_355"
+                            android:layout_height="@dimen/activity_size_1"
+                            android:layout_below="@+id/img_shopping_chanpin"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/activity_size_10"
+                            android:background="@color/gray2" />
+
+
+                        <TextView
+                            android:id="@+id/good_status_btn"
+                            android:layout_width="@dimen/activity_size_80"
+                            android:layout_height="@dimen/activity_size_28"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/gray_line2"
+                            android:layout_marginBottom="@dimen/activity_size_10"
+                            android:layout_marginRight="@dimen/activity_size_10"
+                            android:layout_marginTop="@dimen/activity_size_10"
+                            android:background="@drawable/btn_shape_red"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/red1"
+                            android:textSize="@dimen/activity_size_13" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
 
                 <!--下面订单的信息-->
@@ -362,6 +379,7 @@
                             android:textSize="@dimen/activity_size_12" />
 
                         <TextView
+                            android:id="@+id/orderDetails_order_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_size_10"
@@ -387,6 +405,7 @@
                             android:textSize="@dimen/activity_size_12" />
 
                         <TextView
+                            android:id="@+id/orderDetails_pay_way"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_size_10"
@@ -412,6 +431,7 @@
                             android:textSize="@dimen/activity_size_12" />
 
                         <TextView
+                            android:id="@+id/orderDetails_createTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_size_10"

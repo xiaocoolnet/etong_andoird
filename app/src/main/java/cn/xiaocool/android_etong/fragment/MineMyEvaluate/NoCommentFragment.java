@@ -72,6 +72,7 @@ public class NoCommentFragment extends Fragment {
                                     dataBean.setMoney(jsonObject1.getString("money"));
                                     Log.e("money=", jsonObject1.getString("username"));
                                     dataBean.setUsername(jsonObject1.getString("username"));
+                                    dataBean.setTime(jsonObject1.getString("time"));
                                     dataBeans.add(dataBean);
                                 }
                             }

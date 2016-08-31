@@ -29,6 +29,7 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.BuyWriteCommentActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.CancelOrderActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.OrderDetailsActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.PayNowActivity;
 import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
@@ -119,7 +120,28 @@ public class PendingPaymentAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (v.getId() == R.id.rl_good_infor_up) {
                     Intent intent = new Intent();
+                    intent.putExtra("name",product.getUsername());
+                    intent.putExtra("address",product.getAddress());
+                    intent.putExtra("mobile",product.getMobile());
+                    intent.putExtra("state",product.getState());
+                    intent.putExtra("goodsName",product.getGoodsname());
+                    intent.putExtra("price",product.getPrice());
+                    intent.putExtra("number",product.getNumber());
+                    intent.putExtra("orderNum",product.getOrder_num());
+                    intent.putExtra("createTime",product.getTime());
+
                     intent.setClass(context, OrderDetailsActivity.class);
+                    context.startActivity(intent);
+                }
+            }
+        });
+        holder.tvBtnRight2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.good_status_btn_2){
+                    Intent intent = new Intent();
+                    intent.putExtra("orderId",product.getId());
+                    intent.setClass(context, CancelOrderActivity.class);
                     context.startActivity(intent);
                 }
             }

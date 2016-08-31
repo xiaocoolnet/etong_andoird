@@ -18,6 +18,13 @@ public class TimeToolUtils {
         String date = new java.text.SimpleDateFormat(formats).format(new java.util.Date(timestamp));
         return date;
     }
+    //传入string类型的时间
+    public static String timeStampDateString(String timestampString, String formats) {
+        long l = Long.parseLong(timestampString);
+        Long timestamp = l * 1000;
+        String date = new java.text.SimpleDateFormat(formats).format(new java.util.Date(timestamp));
+        return date;
+    }
 
     /**
      * 获得当前时间，时间戳
