@@ -132,6 +132,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         context = getActivity();
         return view;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -300,6 +301,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 intent14.setClass(context, LocalAddressActivity.class);
                 intent14.putExtra("city",tv_local.getText().toString());
                 startActivityForResult(intent14,1);
+                break;
         }
     }
 
@@ -380,8 +382,6 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         // TODO Auto-generated method stub
         super.onStart();
     }
-
-
 
     /*****
      * @see copy funtion to you project
@@ -468,6 +468,5 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
             }
         }
     };
-
 
 }

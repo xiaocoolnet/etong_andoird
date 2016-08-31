@@ -129,9 +129,6 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
-//                case CommunalInterfaces.UPDATA_SHOPPING_CART:
-//                    new MainRequest(context,handler).GetShoppingCart();
-//                    break;
             }
         }
     };

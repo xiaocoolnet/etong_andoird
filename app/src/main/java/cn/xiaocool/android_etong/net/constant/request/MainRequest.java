@@ -834,7 +834,6 @@ public class MainRequest {
     public void SearchShops(final String shop,final String address) {
         new Thread() {
             Message msg = new Message();
-
             @Override
             public void run() {
                 String data = "&shop="+shop+"&address="+address;
