@@ -58,7 +58,7 @@ public class OrderSignFragment extends Fragment {
                                 dataBean.setPicture(jsonObject1.getString("picture"));
                                 dataBean.setId(jsonObject1.getString("id"));
                                 dataBean.setState(jsonObject1.getString("state"));
-                                dataBean.setTime(jsonObject1.getLong("time"));
+                                dataBean.setTime(jsonObject1.getString("time"));
 //                                    dataBean.setType(jsonObject1.getString("type"));
 //                                    dataBean.setPeoplename(jsonObject1.getString("peoplename"));
                                 dataBean.setMobile(jsonObject1.getString("mobile"));

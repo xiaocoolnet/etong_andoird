@@ -22,8 +22,7 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.DeliverNowActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.OrderDetailsActivity;
-import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.SellerOrderDetailsActivity;
 import cn.xiaocool.android_etong.bean.business.SellerOrderBean;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 
@@ -69,14 +68,14 @@ public class SellerOrderAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.seller_order_item, null);
             holder = new ViewHolder();
-            holder.img_shopping_chanpin = (ImageView) convertView.findViewById(R.id.img_shopping_chanpin);
-            holder.tx_shopping_cloth_name = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_name);
-            holder.tx_shopping_cloth_price = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_price);
-            holder.tx_goods_count = (TextView) convertView.findViewById(R.id.tx_goods_count);
-            holder.tx_shopping_cloth_color = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_color);
-            holder.tx_shopping_cloth_size = (TextView) convertView.findViewById(R.id.tx_shopping_cloth_size);
-            holder.tvBtn = (TextView) convertView.findViewById(R.id.adapter_good_status_btn);
-            holder.tvStatus = (TextView) convertView.findViewById(R.id.good_status_tv);
+            holder.img_shopping_chanpin = (ImageView) convertView.findViewById(R.id.seller_order_img_shopping_chanpin);
+            holder.tx_shopping_cloth_name = (TextView) convertView.findViewById(R.id.seller_order_tx_shopping_cloth_name);
+            holder.tx_shopping_cloth_price = (TextView) convertView.findViewById(R.id.seller_order_tx_shopping_cloth_price);
+            holder.tx_goods_count = (TextView) convertView.findViewById(R.id.seller_order_tx_goods_count);
+            holder.tx_shopping_cloth_color = (TextView) convertView.findViewById(R.id.seller_order_tx_shopping_cloth_color);
+            holder.tx_shopping_cloth_size = (TextView) convertView.findViewById(R.id.seller_order_tx_shopping_cloth_size);
+            holder.tvBtn = (TextView) convertView.findViewById(R.id.seller_order_adapter_good_status_btn);
+            holder.tvStatus = (TextView) convertView.findViewById(R.id.seller_order_good_status_tv);
             holder.rlGoodInfor = (RelativeLayout) convertView.findViewById(R.id.rl_good_infor_up);
             convertView.setTag(holder);
         } else {
@@ -90,7 +89,16 @@ public class SellerOrderAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (v.getId() == R.id.rl_good_infor_up) {
                     Intent intent = new Intent();
-                    intent.setClass(context, OrderDetailsActivity.class);
+                    intent.putExtra("name",product.getUsername());
+                    intent.putExtra("address",product.getAddress());
+                    intent.putExtra("mobile",product.getMobile());
+                    intent.putExtra("state",product.getState());
+                    intent.putExtra("goodsName",product.getGoodsname());
+                    intent.putExtra("price",product.getPrice());
+                    intent.putExtra("number",product.getNumber());
+                    intent.putExtra("orderNum",product.getOrder_num());
+                    intent.putExtra("createTime",product.getTime());
+                    intent.setClass(context, SellerOrderDetailsActivity.class);
                     context.startActivity(intent);
                 }
             }
@@ -98,7 +106,7 @@ public class SellerOrderAdapter extends BaseAdapter {
         holder.tvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.adapter_good_status_btn){
+                if (v.getId() == R.id.seller_order_adapter_good_status_btn){
                     if (state.equals("2")){
                         Intent intent = new Intent();
                         intent.setClass(context, DeliverNowActivity.class);

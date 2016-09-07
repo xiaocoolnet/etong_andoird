@@ -144,6 +144,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.CancelOrderActivity"></activity>
         <activity android:name=".UI.Mine.Business.SearchMyOrderActivity"></activity>
+        <activity android:name=".UI.Mine.Business.OrderDetails.SellerOrderDetailsActivity"></activity>
 
 
         <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyLabelActivity"></activity>

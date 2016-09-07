@@ -36,7 +36,7 @@ public class SellerOrderBean {
         private String goodsname;
         private String picture;
         private String id;
-        private long time;
+        private String time;
         private String state;
         private Object type;
         private String peoplename;
@@ -99,11 +99,11 @@ public class SellerOrderBean {
             this.id = id;
         }
 
-        public long getTime() {
+        public String getTime() {
             return time;
         }
 
-        public void setTime(long time) {
+        public void setTime(String time) {
             this.time = time;
         }
 
