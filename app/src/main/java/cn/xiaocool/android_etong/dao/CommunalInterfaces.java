@@ -80,5 +80,6 @@ public interface CommunalInterfaces {
     int AddGoodsProperty = 0x0050;//添加产品的附加属性
     int GetGoodsPropertyList = 0x0051;//获取商品附加属性
     int CANCEL_ORDER = 0x0070;//取消订单
+    int SEARCH_ORDER = 0x0071;//搜索订单
 
 }

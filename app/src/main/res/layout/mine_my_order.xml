@@ -40,6 +40,7 @@
             android:background="@mipmap/ic_etc" />
 
         <ImageView
+            android:id="@+id/myOrder_img_search_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

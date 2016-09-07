@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.SearchMyOrderActivity;
 import cn.xiaocool.android_etong.fragment.MineMyEvaluate.AllOrderFragment;
 import cn.xiaocool.android_etong.fragment.MineMyEvaluate.NoCommentFragment;
 import cn.xiaocool.android_etong.fragment.MineMyEvaluate.NoConfirmFragment;
@@ -38,7 +40,7 @@ public class MyEvaluateActivity extends Activity implements View.OnClickListener
     private FragmentManager fragmentManager;
     private int index, currentIndex;
     private int indent;
-
+    private ImageView imgSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,8 @@ public class MyEvaluateActivity extends Activity implements View.OnClickListener
                 }
             }
         });
+        imgSearch = (ImageView) findViewById(R.id.myOrder_img_search_order);
+        imgSearch.setOnClickListener(this);
     }
 
     private void initFragment() {
@@ -118,6 +122,11 @@ public class MyEvaluateActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.mine_order_noEvaluate:
                 index = 5;
+                break;
+            case R.id.myOrder_img_search_order:
+                Intent intent = new Intent();
+                intent.setClass(context,SearchMyOrderActivity.class);
+                startActivity(intent);
                 break;
 
         }

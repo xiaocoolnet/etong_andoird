@@ -342,6 +342,11 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String CANCEL_ORDER = NET_BASE_PREFIX + "a=DeleteOrder";
+    /**
+     * 搜索订单
+     */
+
+    String SEARCH_ORDER = NET_BASE_PREFIX + "a=SearchOrderList";
 
 }
 

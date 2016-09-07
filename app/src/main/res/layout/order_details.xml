@@ -312,7 +312,6 @@
                                 android:layout_width="@dimen/activity_size_80"
                                 android:layout_height="@dimen/activity_size_28"
                                 android:layout_alignParentRight="true"
-                                android:layout_below="@+id/gray_line2"
                                 android:layout_marginRight="@dimen/activity_size_10"
                                 android:background="@drawable/button_shape"
                                 android:gravity="center"
@@ -384,7 +383,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_size_10"
                             android:layout_marginTop="@dimen/activity_size_10"
-                            android:text="EA960753473"
+                            android:text=""
                             android:textColor="@color/black5"
                             android:textSize="@dimen/activity_size_12" />
 
@@ -435,7 +434,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_size_10"
-                            android:text="2016.8.20  18:27"
+                            android:text=""
                             android:textColor="@color/black5"
                             android:textSize="@dimen/activity_size_12" />
 

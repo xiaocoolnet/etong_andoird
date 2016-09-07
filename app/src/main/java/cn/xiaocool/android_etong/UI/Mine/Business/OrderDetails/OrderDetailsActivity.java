@@ -101,13 +101,13 @@ public class OrderDetailsActivity extends Activity {
         txShoppingClothPrice.setText("¥" + price);
         tvOrderNumber.setText(orderNum);
         tvCreateTime.setText(time);
-        if (state.equals("1")){
+        if (state.equals("1")) {
             orderStatus.setText("订单待付款");
-        }else if (state.equals("2")){
+        } else if (state.equals("2")) {
             orderStatus.setText("买家已付款");
-        }else if (state.equals("3")){
+        } else if (state.equals("3")) {
             orderStatus.setText("卖家已发货");
-        }else if (state.equals("4")){
+        } else if (state.equals("4")) {
             orderStatus.setText("交易成功");
         }
     }

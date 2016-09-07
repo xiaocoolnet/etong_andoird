@@ -257,4 +257,24 @@ public class ShopRequest {
             }
         }.start();
     }
+    //买家搜索订单
+    public void searchOrder(final String orderName) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&userid=" + user.getUserId() + "&goodsname=" + orderName;
+                String result_data = NetUtil.getResponse(WebAddress.SEARCH_ORDER, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SEARCH_ORDER;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }
