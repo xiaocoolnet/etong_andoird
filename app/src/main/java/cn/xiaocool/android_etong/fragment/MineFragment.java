@@ -140,6 +140,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     }
                     btn_kaidian.setEnabled(true);
                     break;
+                case CommunalInterfaces.GET_MY_SHOP_TEXT:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject1.getString("status");
+                        if (status.equals("success")){
+                            btn_kaidian.setText("我的店铺");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     };
@@ -165,6 +175,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         initview();
         userInfo = new UserInfo();
         userInfo.readData(context);
+        new MainRequest(context, handler).getMyShopText();
     }
 
     private void initview() {

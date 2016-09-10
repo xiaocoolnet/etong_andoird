@@ -308,6 +308,28 @@ public class MainRequest {
             }
         }.start();
     }
+    //获取店铺状态以设置我要开店文字
+    public void getMyShopText() {
+        new Thread() {
+            Message msg = new Message();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId();
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(WebAddress.GETMYSHOP, data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_MY_SHOP_TEXT;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 
     //发布商品
     public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3, final String goodsname, final String type,

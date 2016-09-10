@@ -81,5 +81,5 @@ public interface CommunalInterfaces {
     int GetGoodsPropertyList = 0x0051;//获取商品附加属性
     int CANCEL_ORDER = 0x0070;//取消订单
     int SEARCH_ORDER = 0x0071;//搜索订单
-
+    int GET_MY_SHOP_TEXT = 0x0072;//获取我的店铺状态以设置文字
 }
