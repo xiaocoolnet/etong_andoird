@@ -609,7 +609,6 @@ public class MainRequest {
     public void getshopinfo(final String shopid) {
         new Thread() {
             Message msg = new Message();
-
             @Override
             public void run() {
                 String data = "&shopid=" + shopid;
@@ -634,7 +633,6 @@ public class MainRequest {
     public void bookingshopping(final String goodsid, final String peoplename, final String address, final String goodnum, final String mobile, final String remark, final String money , final String proid) {
         new Thread() {
             Message msg = new Message();
-
             @Override
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&address=" + address +

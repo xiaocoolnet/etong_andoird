@@ -2,22 +2,34 @@ package cn.xiaocool.android_etong.UI.ShoppingCart;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.DeliveryAddressActivity;
 import cn.xiaocool.android_etong.adapter.StatementAdapter;
 import cn.xiaocool.android_etong.bean.Shop.ShoppingCart_StoreName;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 
 /**
  * Created by 潘 on 2016/8/25.
@@ -28,11 +40,52 @@ public class StatementActivity extends Activity implements View.OnClickListener 
     private double amount;
     private TextView tv_goods_price_total,tx_comfirm_order;
     private ListView list_statement;
+    private String judge = "0";
+    private String deliveryAddress = "", phone = "", name = "";
+    private LinearLayout ll_delivery_address;
     private List<ShoppingCart_StoreName.DataBean> dataBeans;
     private StatementAdapter statementAdapter;
+    public static final String action = "jason.broadcast1.action";
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CommunalInterfaces.BOOKING_SHOPPING:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        String data = jsonObject.getString("data");
+                        if (status.equals("success")) {
+                            Log.e("结算成功","");
+                        } else {
+                            Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.DELETE_SHOPPING_CART:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject1.getString("status");
+                        String data = jsonObject1.getString("data");
+                        if (status.equals("success")) {
+                            Log.e("删除成功","");
+                        } else {
+                            Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_statement);
@@ -44,6 +97,7 @@ public class StatementActivity extends Activity implements View.OnClickListener 
         statementAdapter = new StatementAdapter(context,dataBeans);
         list_statement.setAdapter(statementAdapter);
         fixListViewHeight(list_statement);
+
     }
 
     private void initView() {
@@ -54,6 +108,8 @@ public class StatementActivity extends Activity implements View.OnClickListener 
         tx_comfirm_order = (TextView) findViewById(R.id.tx_comfirm_order);
         tx_comfirm_order.setOnClickListener(this);
         list_statement = (ListView) findViewById(R.id.list_statement);
+        ll_delivery_address = (LinearLayout) findViewById(R.id.ll_delivery_address);
+        ll_delivery_address.setOnClickListener(this);
     }
 
     @Override
@@ -63,14 +119,80 @@ public class StatementActivity extends Activity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.tx_comfirm_order:
-                dataBeans.clear();
-                statementAdapter = new StatementAdapter(context,dataBeans);
-                list_statement.setAdapter(statementAdapter);
-                fixListViewHeight(list_statement);
-                tv_goods_price_total.setText("0");
-                Toast.makeText(context,"结算成功",Toast.LENGTH_SHORT).show();
+                statement();
+                Intent intent1 = new Intent(action);
+                intent1.putExtra("data", "yes i am data");
+                sendBroadcast(intent1);
+                finish();
+                break;
+            case R.id.ll_delivery_address:
+                Intent intent = new Intent();
+                intent.setClass(context, DeliveryAddressActivity.class);
+                intent.putExtra("judge", judge);
+                intent.putExtra("deliveryaddress", deliveryAddress);
+                intent.putExtra("phone", phone);
+                intent.putExtra("name", name);
+                startActivityForResult(intent, 1);
                 break;
         }
+    }
+
+    public void statement(){
+                if (!TextUtils.isEmpty(deliveryAddress)) {
+                    if (phone.length() == 11) {
+                        if (!TextUtils.isEmpty(name)) {
+                            for (int i = 0 ; i<dataBeans.size() ; i++) {
+                                for (int j = 0; j < dataBeans.get(i).getGoodslist().size(); j++) {
+                                    String id = dataBeans.get(i).getGoodslist().get(j).getGid();
+                                    id = id.trim();
+                                    Log.e("goodsid=",id);
+                                    new MainRequest(context, handler).bookingshopping(id, name,
+                                            deliveryAddress, dataBeans.get(i).getGoodslist().get(j).getNumber(), phone, "",
+                                            String.valueOf(Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
+                                                    * Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getNumber()))
+                                            , dataBeans.get(i).getGoodslist().get(j).getProid());
+                                    new MainRequest(context,handler).DeleteShoppingCart(id);
+                                }
+                            }
+                            dataBeans.clear();
+                            statementAdapter = new StatementAdapter(context,dataBeans);
+                            list_statement.setAdapter(statementAdapter);
+                            fixListViewHeight(list_statement);
+                            tv_goods_price_total.setText("0");
+                            Toast.makeText(context,"结算成功",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
+                }
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            Log.e("success", "deliveryaddress");
+            deliveryAddress = data.getStringExtra("deliveryaddress1");
+            judge = data.getStringExtra("judge");
+            phone = data.getStringExtra("phone");
+            name = data.getStringExtra("name");
+            Log.e("deliveryaddress=", deliveryAddress);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            judge = "0";
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void fixListViewHeight(ListView listView) {

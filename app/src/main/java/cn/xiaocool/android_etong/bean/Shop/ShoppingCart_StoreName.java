@@ -98,7 +98,25 @@ public class ShoppingCart_StoreName implements Serializable {
             private String price;
             private String number;
             private String time;
+            private String proid;
+            private String proname;
             private boolean isChoosed;		//商品是否在购物车中被选中
+
+            public void setProid(String proid){
+                this.proid = proid;
+            }
+
+            public String getProid(){
+                return proid;
+            }
+
+            public void setProname(String proname){
+                this.proname = proname;
+            }
+
+            public String getProname(){
+                return proname;
+            }
 
             public String getId() {
                 return id;

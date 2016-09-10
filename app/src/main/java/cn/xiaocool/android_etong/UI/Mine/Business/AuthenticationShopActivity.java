@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -31,12 +32,22 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.app.text.City;
+import cn.xiaocool.android_etong.app.text.District;
+import cn.xiaocool.android_etong.app.text.Provence;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
@@ -47,7 +58,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class AuthenticationShopActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
-    private EditText et_name, et_phone, et_id_card, et_address, et_city;
+    private EditText et_name, et_phone, et_id_card, et_address;
     private ImageView img_ren, img_shenfenzheng, img_zhizhao;
     private TextView tx_next;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
@@ -55,6 +66,11 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     ArrayAdapter<String> adapter01;
     private String city;
     private Spinner spinner_shop_type;
+    private List<Provence> provences;
+    private Provence provence;
+    ArrayAdapter<Provence> adapter1;
+    ArrayAdapter<City>adapter2;
+    private Spinner spinner01, spinner02;
     private String[] type = new String[]{"美食", "电影", "酒店", "外卖", "生活娱乐", "周边游", "生活服务", "KTV", "手机充值"};
     private UserInfo user;
     // 保存的文件的路径
@@ -167,6 +183,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         user.readData(context);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initview();
+        initdata();
     }
 
     private void initview() {
@@ -174,7 +191,6 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         et_address = (EditText) findViewById(R.id.et_address);
         et_id_card = (EditText) findViewById(R.id.et_id_card);
         et_phone = (EditText) findViewById(R.id.et_phone);
-        et_city = (EditText) findViewById(R.id.et_city);
         img_ren = (ImageView) findViewById(R.id.img_ren);
         img_ren.setOnClickListener(this);
         img_shenfenzheng = (ImageView) findViewById(R.id.img_shenfenzheng);
@@ -231,6 +247,69 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         });
     }
 
+    private void initdata() {
+        provences = new ArrayList<>();
+        spinner01 = (Spinner) findViewById(R.id.spinner01);
+        spinner02 = (Spinner) findViewById(R.id.spinner02);
+
+        try {
+            provences = getProvinces();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        adapter1 = new ArrayAdapter<Provence>(context, android.R.layout.simple_list_item_1, provences);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner01.setAdapter(adapter1);
+
+        spinner01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                provence = provences.get(position);
+                adapter2 = new ArrayAdapter<City>(AuthenticationShopActivity.this,
+                        android.R.layout.simple_list_item_1, provences.get(
+                        position).getCitys());
+                spinner02.setAdapter(adapter2);
+                spinner02.setSelection(0, true);
+//				visable = 1;
+//				//设置自动触发
+//				spinner02.performClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        spinner02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                    city = spinner02.getSelectedItem().toString()+"市";
+                    Log.e("city",city);
+//				if(visable==1){
+//
+//				}else {
+//					spinner03.performClick();
+//				}
+//				visable=0;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -260,7 +339,6 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         id_card = et_id_card.getText().toString();
         phone = et_phone.getText().toString();
         address = et_address.getText().toString();
-        city = et_city.getText().toString();
         if (!name.equals("")) {
             if (phone.length() == 11) {
                 if (id_card.length() == 18) {
@@ -432,5 +510,91 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //此处为XML文件加载数据函数  调用函数可直接加载
+
+    public List<Provence> getProvinces() throws XmlPullParserException,
+            IOException {
+        List<Provence> provinces = null;
+        Provence province = null;
+        List<City> citys = null;
+        City city = null;
+        List<District> districts = null;
+        District district = null;
+        Resources resources = getResources();
+
+        InputStream in = resources.openRawResource(R.raw.citys_weather);
+
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+
+        parser.setInput(in, "utf-8");
+        int event = parser.getEventType();
+        while (event != XmlPullParser.END_DOCUMENT) {
+            switch (event) {
+                case XmlPullParser.START_DOCUMENT:
+                    provinces = new ArrayList<Provence>();
+                    break;
+                case XmlPullParser.START_TAG:
+                    String tagName = parser.getName();
+                    if ("p".equals(tagName)) {
+                        province = new Provence();
+                        citys = new ArrayList<City>();
+                        int count = parser.getAttributeCount();
+                        for (int i = 0; i < count; i++) {
+                            String attrName = parser.getAttributeName(i);
+                            String attrValue = parser.getAttributeValue(i);
+                            if ("p_id".equals(attrName))
+                                province.setId(attrValue);
+                        }
+                    }
+                    if ("pn".equals(tagName)) {
+                        province.setName(parser.nextText());
+                    }
+                    if ("c".equals(tagName)) {
+                        city = new City();
+                        districts = new ArrayList<District>();
+                        int count = parser.getAttributeCount();
+                        for (int i = 0; i < count; i++) {
+                            String attrName = parser.getAttributeName(i);
+                            String attrValue = parser.getAttributeValue(i);
+                            if ("c_id".equals(attrName))
+                                city.setId(attrValue);
+                        }
+                    }
+                    if ("cn".equals(tagName)) {
+                        city.setName(parser.nextText());
+                    }
+                    if ("d".equals(tagName)) {
+                        district = new District();
+                        int count = parser.getAttributeCount();
+                        for (int i = 0; i < count; i++) {
+                            String attrName = parser.getAttributeName(i);
+                            String attrValue = parser.getAttributeValue(i);
+                            if ("d_id".equals(attrName))
+                                district.setId(attrValue);
+                        }
+                        district.setName(parser.nextText());
+                        districts.add(district);
+                    }
+                    break;
+                case XmlPullParser.END_TAG:
+                    if ("c".equals(parser.getName())) {
+                        city.setDistricts(districts);
+                        citys.add(city);
+                    }
+                    if ("p".equals(parser.getName())) {
+                        province.setCitys(citys);
+                        provinces.add(province);
+                    }
+
+                    break;
+
+            }
+            event = parser.next();
+
+        }
+        return provinces;
     }
 }

@@ -135,7 +135,7 @@ public class LocalAddressActivity extends Activity implements View.OnClickListen
         switch (v.getId()){
             case R.id.tv_back:
                 Intent intent = new Intent();
-                intent.putExtra("city",city);
+                intent.putExtra("city",city+"市");
                 setResult(RESULT_OK,intent);
                 finish();
                 break;
@@ -146,7 +146,7 @@ public class LocalAddressActivity extends Activity implements View.OnClickListen
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK){
             Intent intent = new Intent();
-            intent.putExtra("city",city);
+            intent.putExtra("city",city+"市");
             setResult(RESULT_OK,intent);
         }
         return super.onKeyDown(keyCode, event);

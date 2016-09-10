@@ -117,6 +117,7 @@ public class ProductAdapter extends BaseAdapter {
         holder.tx_shopping_cloth_name.setText(product.getGoodsname());
         holder.tx_goods_count.setText(product.getNumber());
         holder.tv_number.setText(product.getNumber());
+        holder.tx_shopping_cloth_color.setText(product.getProname());
         holder.cb_select.setChecked(selected.get(position));
         Log.e("new bool",selected.get(position).toString());
         holder.rl_select_.setOnClickListener(new View.OnClickListener() {
