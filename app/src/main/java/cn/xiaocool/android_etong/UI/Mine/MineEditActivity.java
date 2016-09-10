@@ -50,8 +50,8 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class MineEditActivity extends Activity implements View.OnClickListener {
 
-    private LinearLayout ln_name, ln_phone, ln_address;
-    private TextView my_edit_sex, tx_upname, tx_name, tx_edit_phone;
+    private LinearLayout ln_name, ln_phone, ln_address,ll_city;
+    private TextView my_edit_sex, tx_upname, tx_name, tx_edit_phone,tv_city;
     private String head = null, name;
     private CircleImageView set_head_img;
     private Context mContext;
@@ -186,6 +186,9 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         ln_address = (LinearLayout) findViewById(R.id.ln_address);
         ln_address.setOnClickListener(this);
         tx_edit_phone = (TextView) findViewById(R.id.tx_edit_phone);
+        ll_city = (LinearLayout) findViewById(R.id.ll_city);
+        ll_city.setOnClickListener(this);
+        tv_city = (TextView) findViewById(R.id.tv_city);
     }
 
     @Override
@@ -214,6 +217,11 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 Intent intent2 = new Intent();
                 intent2.setClass(MineEditActivity.this, AddressActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.ll_city:
+                Intent intent3 = new Intent();
+                intent3.setClass(MineEditActivity.this,EditCityActivity.class);
+                startActivityForResult(intent3,6);
                 break;
         }
     }
@@ -302,6 +310,9 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                     break;
                 case 5:
                     tx_edit_phone.setText(data.getStringExtra("phone"));
+                    break;
+                case 6:
+                    tv_city.setText(data.getStringExtra("city"));
                     break;
             }
         }

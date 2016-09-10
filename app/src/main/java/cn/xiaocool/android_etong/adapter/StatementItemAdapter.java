@@ -73,6 +73,7 @@ public class StatementItemAdapter extends BaseAdapter {
         holder.txGoodsName.setText(product.getGoodsname());
         holder.txGoodsCount.setText("数量："+product.getNumber());
         holder.txGoodsPrice.setText(product.getPrice());
+        holder.tvLebal.setText(product.getProname());
         return convertView;
     }
 

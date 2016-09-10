@@ -17,14 +17,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.EverydayBargainAdapter;
-import cn.xiaocool.android_etong.adapter.NewArrivalAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
+import cn.xiaocool.android_etong.view.TimeTextView;
 
 /**
  * Created by wzh on 2016/7/24.
@@ -35,6 +37,10 @@ public class EverydayBargainActivity extends Activity implements View.OnClickLis
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
+    private TextView tv_daojishi;
+    private TimeTextView mTimeText;
+    private int reclen = 11;
+    Timer timer = new Timer();
     private EverydayBargainAdapter everydayBargainAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -107,7 +113,41 @@ public class EverydayBargainActivity extends Activity implements View.OnClickLis
         tvTitle.setText("天天特价");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
+        tv_daojishi = (TextView) findViewById(R.id.tv_daojishi);
+//        timer.schedule(task,1000,1000);                      //timetask
+        mTimeText = (TimeTextView) findViewById(R.id.temai_timeTextView);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int date = c.get(Calendar.DATE);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        int second = c.get(Calendar.SECOND);
+//		int[] time = { date, hour, minute, second };
+        int[] time = { 2, 23, 59, 59};
+
+        mTimeText.setTimes(time);
+        if (!mTimeText.isRun()) {
+            mTimeText.run();
+        }
     }
+
+//    TimerTask task = new TimerTask() {
+//        @Override
+//        public void run() {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    reclen--;
+//                    tv_daojishi.setText("活动倒计时:"+reclen);
+//                    if (reclen<0){
+//                        timer.cancel();
+//                        tv_daojishi.setText("活动开始");
+//                    }
+//                }
+//            });
+//        }
+//    };
 
     @Override
     public void onClick(View v) {

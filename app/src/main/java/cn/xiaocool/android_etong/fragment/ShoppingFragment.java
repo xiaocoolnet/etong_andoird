@@ -51,6 +51,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private TextView tx_shopping_price;
     private  double amount = 0;
     private int size = 0;
+    private String pro_id = "",pro_name = "";
     private RelativeLayout ry_line;
     private CheckBox cb_all_select;
     private ListView list_Shopping_Cart;
@@ -77,6 +78,8 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                 JSONArray jsonArray = json.getJSONArray("goodslist");
                                 List<ShoppingCart_StoreName.DataBean.GoodslistBean> goodses = new ArrayList<>();
                                 for (int j = 0; j < jsonArray.length(); j++) {
+                                    pro_id = "";
+                                    pro_name = "";
                                     JSONObject jsonObject2 = (JSONObject) jsonArray.get(j);
                                     ShoppingCart_StoreName.DataBean.GoodslistBean good = new ShoppingCart_StoreName.DataBean.GoodslistBean();
                                     good.setId(jsonObject2.getString("id"));
@@ -88,6 +91,24 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                     good.setPrice(jsonObject2.getString("price"));
                                     good.setNumber(jsonObject2.getString("number"));
                                     good.setTime(jsonObject2.getString("time"));
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("property");
+                                    for (int a = 0 ; a<jsonArray1.length();a++){
+                                        JSONObject jsonObject1 = jsonArray1.getJSONObject(a);
+                                        pro_id = pro_id + jsonObject1.getString("proid") + ",";
+                                        if (jsonObject1.getString("proid").equals("0")){
+
+                                        }else {
+                                            JSONArray jsonArray2 = jsonObject1.getJSONArray("propert_list");
+                                            JSONObject jsonObject3 = jsonArray2.getJSONObject(0);
+                                            pro_name = pro_name + jsonObject3.getString("typename")+":"+jsonObject3.getString("propertyname")+";";
+                                        }
+
+                                    }
+                                    pro_id = pro_id.substring(0,pro_id.length()-1);
+                                    Log.e("pro_id=",pro_id);
+                                    Log.e("pro_name=",pro_name);
+                                    good.setProname(pro_name);
+                                    good.setProid(pro_id);
                                     goodses.add(good);
                                 }
                                 store.setGoodslist(goodses);
@@ -169,6 +190,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         btn_statement = (Button) getView().findViewById(R.id.btn_statement);
         btn_statement.setOnClickListener(this);
         initShoppingCart();
+        initShoppingCart1();
     }
 
     private void initShoppingCart() {
@@ -189,6 +211,11 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+
+    private void initShoppingCart1() {
+        IntentFilter filter = new IntentFilter(StatementActivity.action);
+        context.registerReceiver(broadcastReceiver, filter);
+    }
 
     @Override
     public void onClick(View v) {

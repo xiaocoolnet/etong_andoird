@@ -17,6 +17,24 @@
             android:orientation="vertical"
             >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp">
+                </com.daimajia.slider.library.SliderLayout>
+            </RelativeLayout>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="下场预告:"
+                android:layout_marginBottom="5dp"
+                />
+
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="@dimen/activity_size_50"

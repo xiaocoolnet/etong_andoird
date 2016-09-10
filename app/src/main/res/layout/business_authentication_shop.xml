@@ -155,17 +155,25 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     />
-                <EditText
-                    android:id="@+id/et_city"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="100dp"
-                    android:background="@null"
-                    android:paddingLeft="10dp"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:hint="城市"
-                    />
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinner01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_marginTop="1dp"

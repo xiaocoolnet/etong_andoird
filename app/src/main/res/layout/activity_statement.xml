@@ -47,11 +47,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+                <cn.xiaocool.android_etong.util.NoScrollListView
+                    android:id="@+id/list_statement"
+                    android:descendantFocusability="blocksDescendants"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </cn.xiaocool.android_etong.util.NoScrollListView>
                 <LinearLayout
                     android:id="@+id/ll_delivery_address"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/whilte"
                     android:gravity="center_vertical">
 
@@ -76,14 +84,6 @@
                         android:background="@mipmap/ic_next" />
 
                 </LinearLayout>
-
-                <cn.xiaocool.android_etong.util.NoScrollListView
-                    android:id="@+id/list_statement"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </cn.xiaocool.android_etong.util.NoScrollListView>
 
             </LinearLayout>
         </cn.xiaocool.android_etong.util.ReboundScrollView>
