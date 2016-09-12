@@ -46,8 +46,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     private TextView tx_upload;
     private UserInfo user;
     private RelativeLayout rl_back;
-    private LinearLayout lin_lunbo2,lin_lunbo3;
-    private ImageView img_lunbo_pic1 , img_lunbo_pic2,img_lunbo_pic3;
+    private LinearLayout lin_lunbo2, lin_lunbo3, lin_lunbo4, lin_lunbo5;
+    private ImageView img_lunbo_pic1, img_lunbo_pic2, img_lunbo_pic3, img_lunbo_pic4, img_lunbo_pic5;
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/goodspic";
@@ -57,32 +57,34 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     private static final int KEY1 = 0x666;
     private static final int KEY2 = 0x667;
     private static final int KEY3 = 0x668;
-    private String picname1,picname2,picname3;
-    private String pic_path1,pic_path2,pic_path3;
+    private static final int KEY4 = 0x669;
+    private static final int KEY5 = 0x660;
+    private String picname1, picname2, picname3, picname4, picname5;
+    private String pic_path1, pic_path2, pic_path3, pic_path4, pic_path5;
     private int judge;
     private int state = 0;
     private ProgressDialog progressDialog;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case KEY1:
                     Log.e("upload goodspic", "success");
                     String key = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
                             state = 1;
-                           if(!(pic_path2==null||pic_path2.equals(""))){
-                               progressDialog.setMessage("正在上传第二张照片");
-                               new MainRequest(context,handler).uploadavatar(pic_path2,KEY2);
-                           }else{
-                               Log.e("path2","not set");
-                               progressDialog.dismiss();
-                           }
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            if (!(pic_path2 == null || pic_path2.equals(""))) {
+                                progressDialog.setMessage("正在上传第二张照片");
+                                new MainRequest(context, handler).uploadavatar(pic_path2, KEY2);
+                            } else {
+                                Log.e("path2", "not set");
+                                progressDialog.dismiss();
+                            }
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -94,17 +96,18 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                     String key2 = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key2);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
-                            if(!(pic_path3==null||pic_path3.equals(""))){
+                            state = 1;
+                            if (!(pic_path3 == null || pic_path3.equals(""))) {
                                 progressDialog.setMessage("正在上传第三张照片");
-                                new MainRequest(context,handler).uploadavatar(pic_path3,KEY3);
-                            }else {
-                                Log.e("path3","not set");
+                                new MainRequest(context, handler).uploadavatar(pic_path3, KEY3);
+                            } else {
+                                Log.e("path3", "not set");
                                 progressDialog.dismiss();
                             }
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
@@ -116,22 +119,71 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                     String key3 = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key3);
-                        String state1=json.getString("status");
+                        String state1 = json.getString("status");
                         if (state1.equals("success")) {
-                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
-                                Log.e("path3","not set");
+                            state = 1;
+                            if (!(pic_path4 == null || pic_path4.equals(""))) {
+                                progressDialog.setMessage("正在上传第四张照片");
+                                new MainRequest(context, handler).uploadavatar(pic_path4, KEY4);
+                            } else {
+                                Log.e("path4", "not set");
                                 progressDialog.dismiss();
-                        }else{
-                            Toast.makeText(context, json.getString("data"),Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     break;
+
+                case KEY4:
+                    Log.e("upload goodspic", "success");
+                    String key4 = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key4);
+                        String state1 = json.getString("status");
+                        if (state1.equals("success")) {
+                            state = 1;
+                            if (!(pic_path5 == null || pic_path5.equals(""))) {
+                                progressDialog.setMessage("正在上传第五张照片");
+                                new MainRequest(context, handler).uploadavatar(pic_path5, KEY5);
+                            } else {
+                                Log.e("path4", "not set");
+                                progressDialog.dismiss();
+                            }
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case KEY5:
+                    Log.e("upload goodspic", "success");
+                    String key5 = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key5);
+                        String state1 = json.getString("status");
+                        if (state1.equals("success")) {
+                            Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
+                            Log.e("path3", "not set");
+                            progressDialog.dismiss();
+                        } else {
+                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,53 +192,87 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
         context = this;
         user = new UserInfo(context);
         user.readData(context);
-        progressDialog = new ProgressDialog(context,AlertDialog.THEME_HOLO_LIGHT);
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         intiview();
     }
 
     private void intiview() {
-        rl_back = (RelativeLayout)findViewById(R.id.rl_back);
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         lin_lunbo2 = (LinearLayout) findViewById(R.id.lin_lunbo2);
         lin_lunbo2.setVisibility(View.GONE);
         lin_lunbo3 = (LinearLayout) findViewById(R.id.lin_lunbo3);
         lin_lunbo3.setVisibility(View.GONE);
+        lin_lunbo4 = (LinearLayout) findViewById(R.id.lin_lunbo4);
+        lin_lunbo4.setVisibility(View.GONE);
+        lin_lunbo5 = (LinearLayout) findViewById(R.id.lin_lunbo5);
+        lin_lunbo5.setVisibility(View.GONE);
+
+
         img_lunbo_pic1 = (ImageView) findViewById(R.id.img_lunbo_pic1);
         img_lunbo_pic1.setOnClickListener(this);
         img_lunbo_pic2 = (ImageView) findViewById(R.id.img_lunbo_pic2);
         img_lunbo_pic2.setOnClickListener(this);
         img_lunbo_pic3 = (ImageView) findViewById(R.id.img_lunbo_pic3);
         img_lunbo_pic3.setOnClickListener(this);
+        img_lunbo_pic4 = (ImageView) findViewById(R.id.img_lunbo_pic4);
+        img_lunbo_pic4.setOnClickListener(this);
+        img_lunbo_pic5 = (ImageView) findViewById(R.id.img_lunbo_pic5);
+        img_lunbo_pic5.setOnClickListener(this);
+
         tx_upload = (TextView) findViewById(R.id.tx_upload);
         tx_upload.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_back:
                 Intent intent_data = new Intent();
-                intent_data.putExtra("1111","111");
-                if(pic_path1==null||pic_path1.equals("")){
-                    pic_path1="";
-                }if(pic_path2==null||pic_path2.equals("")){
-                    pic_path2="";
-                }if(pic_path3==null||pic_path3.equals("")){
-                    pic_path3="";
-                }if(picname1==null||picname1.equals("")){
-                    picname1="";
-                }if(picname2==null||picname2.equals("")){
-                    picname2="";
-                }if(picname3==null||picname3.equals("")){
-                    picname3="";
+                intent_data.putExtra("1111", "111");
+                if (pic_path1 == null || pic_path1.equals("")) {
+                    pic_path1 = "";
                 }
-                intent_data.putExtra("state",state);
-                intent_data.putExtra("pic_path1",pic_path1);
-                intent_data.putExtra("pic_path2",pic_path2);
-                intent_data.putExtra("pic_path3",pic_path2);
-                intent_data.putExtra("picname1",picname1);
-                intent_data.putExtra("picname2",picname2);
+                if (pic_path2 == null || pic_path2.equals("")) {
+                    pic_path2 = "";
+                }
+                if (pic_path3 == null || pic_path3.equals("")) {
+                    pic_path3 = "";
+                }
+                if (pic_path4 == null || pic_path4.equals("")) {
+                    pic_path4 = "";
+                }
+                if (pic_path5 == null || pic_path5.equals("")) {
+                    pic_path5 = "";
+                }
+                if (picname1 == null || picname1.equals("")) {
+                    picname1 = "";
+                }
+                if (picname2 == null || picname2.equals("")) {
+                    picname2 = "";
+                }
+                if (picname3 == null || picname3.equals("")) {
+                    picname3 = "";
+                }
+                if (picname4 == null || picname4.equals("")) {
+                    picname4 = "";
+                }
+                if (picname5 == null || picname5.equals("")) {
+                    picname5 = "";
+                }
+                intent_data.putExtra("state", state);
+                intent_data.putExtra("pic_path1", pic_path1);
+                intent_data.putExtra("pic_path2", pic_path2);
+                intent_data.putExtra("pic_path3", pic_path3);
+                intent_data.putExtra("pic_path4", pic_path4);
+                intent_data.putExtra("pic_path5", pic_path5);
+
+                intent_data.putExtra("picname1", picname1);
+                intent_data.putExtra("picname2", picname2);
                 intent_data.putExtra("picname3", picname3);
+                intent_data.putExtra("picname4", picname4);
+                intent_data.putExtra("picname5", picname5);
+
                 setResult(RESULT_OK, intent_data);
                 finish();
                 break;
@@ -202,6 +288,14 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                 judge = 3;
                 ShowPickDialog();
                 break;
+            case R.id.img_lunbo_pic4:
+                judge = 4;
+                ShowPickDialog();
+                break;
+            case R.id.img_lunbo_pic5:
+                judge = 5;
+                ShowPickDialog();
+                break;
             case R.id.tx_upload:
                 upload();
                 break;
@@ -209,15 +303,15 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     }
 
     private void upload() {
-        if(pic_path1==null||pic_path1.equals("")){
-            Toast.makeText(context,"请至少设置一张照片",Toast.LENGTH_SHORT).show();
-        }else if(NetUtil.isConnnected(context)){
-                progressDialog.setMessage("正在上传第一张轮播图片");
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.show();
-                new MainRequest(context,handler).uploadavatar(pic_path1,KEY1);
-        }else {
-            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        if (pic_path1 == null || pic_path1.equals("")) {
+            Toast.makeText(context, "请至少设置一张照片", Toast.LENGTH_SHORT).show();
+        } else if (NetUtil.isConnnected(context)) {
+            progressDialog.setMessage("正在上传第一张轮播图片");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            new MainRequest(context, handler).uploadavatar(pic_path1, KEY1);
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -304,20 +398,30 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(this.getResources(), photo);
-            if(judge==1){
+            if (judge == 1) {
                 img_lunbo_pic1.setImageDrawable(drawable);
                 lin_lunbo2.setVisibility(View.VISIBLE);
-                picname1 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
-                storeImageToSDCARD(photo,picname1,filepath);
-            }else if(judge==2){
+                picname1 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, picname1, filepath);
+            } else if (judge == 2) {
                 img_lunbo_pic2.setImageDrawable(drawable);
                 lin_lunbo3.setVisibility(View.VISIBLE);
-                picname2 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
-                storeImageToSDCARD(photo,picname2,filepath);
-            }else if(judge==3){
+                picname2 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, picname2, filepath);
+            } else if (judge == 3) {
                 img_lunbo_pic3.setImageDrawable(drawable);
-                picname3 = "goods"+user.getUserId()+String.valueOf(new Date().getTime());
-                storeImageToSDCARD(photo,picname3,filepath);
+                lin_lunbo4.setVisibility(View.VISIBLE);
+                picname3 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, picname3, filepath);
+            } else if (judge == 4) {
+                img_lunbo_pic4.setImageDrawable(drawable);
+                lin_lunbo5.setVisibility(View.VISIBLE);
+                picname4 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, picname4, filepath);
+            } else if (judge == 5) {
+                img_lunbo_pic5.setImageDrawable(drawable);
+                picname5 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, picname5, filepath);
             }
         }
     }
@@ -335,15 +439,21 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
             imagefile.createNewFile();
             FileOutputStream fos = new FileOutputStream(imagefile);
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            if(judge==1){
+            if (judge == 1) {
                 pic_path1 = imagefile.getPath();
                 Log.e("path=", pic_path1);
-            }else if(judge==2){
+            } else if (judge == 2) {
                 pic_path2 = imagefile.getPath();
                 Log.e("path=", pic_path2);
-            }else if(judge==3){
+            } else if (judge == 3) {
                 pic_path3 = imagefile.getPath();
                 Log.e("path=", pic_path3);
+            } else if (judge == 4) {
+                pic_path4 = imagefile.getPath();
+                Log.e("path=", pic_path4);
+            } else if (judge == 5) {
+                pic_path5 = imagefile.getPath();
+                Log.e("path=", pic_path5);
             }
             fos.flush();
             fos.close();
@@ -355,28 +465,50 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent_data = new Intent();
-            intent_data.putExtra("1111","111");
-            if(pic_path1==null||pic_path1.equals("")){
-                pic_path1="";
-            }if(pic_path2==null||pic_path2.equals("")){
-                pic_path2="";
-            }if(pic_path3==null||pic_path3.equals("")){
-                pic_path3="";
-            }if(picname1==null||picname1.equals("")){
-                picname1="";
-            }if(picname2==null||picname2.equals("")){
-                picname2="";
-            }if(picname3==null||picname3.equals("")){
-                picname3="";
+            intent_data.putExtra("1111", "111");
+            if (pic_path1 == null || pic_path1.equals("")) {
+                pic_path1 = "";
             }
-            intent_data.putExtra("pic_path1",pic_path1);
-            intent_data.putExtra("pic_path2",pic_path2);
-            intent_data.putExtra("pic_path3",pic_path2);
-            intent_data.putExtra("picname1",picname1);
-            intent_data.putExtra("picname2",picname2);
+            if (pic_path2 == null || pic_path2.equals("")) {
+                pic_path2 = "";
+            }
+            if (pic_path3 == null || pic_path3.equals("")) {
+                pic_path3 = "";
+            }
+            if (pic_path4 == null || pic_path4.equals("")) {
+                pic_path4 = "";
+            }
+            if (pic_path5 == null || pic_path5.equals("")) {
+                pic_path5 = "";
+            }
+            if (picname1 == null || picname1.equals("")) {
+                picname1 = "";
+            }
+            if (picname2 == null || picname2.equals("")) {
+                picname2 = "";
+            }
+            if (picname3 == null || picname3.equals("")) {
+                picname3 = "";
+            }
+            if (picname4 == null || picname4.equals("")) {
+                picname4 = "";
+            }
+            if (picname5 == null || picname5.equals("")) {
+                picname5 = "";
+            }
+            intent_data.putExtra("pic_path1", pic_path1);
+            intent_data.putExtra("pic_path2", pic_path2);
+            intent_data.putExtra("pic_path3", pic_path3);
+            intent_data.putExtra("pic_path4", pic_path4);
+            intent_data.putExtra("pic_path5", pic_path5);
+            intent_data.putExtra("picname1", picname1);
+            intent_data.putExtra("picname2", picname2);
             intent_data.putExtra("picname3", picname3);
+            intent_data.putExtra("picname4", picname4);
+            intent_data.putExtra("picname5", picname5);
+
             setResult(RESULT_OK, intent_data);
             return true;
         }

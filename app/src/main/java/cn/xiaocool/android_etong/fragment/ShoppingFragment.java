@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,11 +105,13 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                         }
 
                                     }
-                                    pro_id = pro_id.substring(0,pro_id.length()-1);
-                                    Log.e("pro_id=",pro_id);
+                                    if(!TextUtils.isEmpty(pro_id)){
+                                        pro_id = pro_id.substring(0,pro_id.length()-1);
+                                        Log.e("pro_id=",pro_id);
+                                        good.setProid(pro_id);
+                                    }
                                     Log.e("pro_name=",pro_name);
                                     good.setProname(pro_name);
-                                    good.setProid(pro_id);
                                     goodses.add(good);
                                 }
                                 store.setGoodslist(goodses);
