@@ -55,6 +55,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             Log.e("data", data);
                             JSONObject item = new JSONObject(data);
                             user.setUserId(item.getString("id"));
+                            user.setUserImg(item.getString("photo"));
                             user.writeData(context);
                             progressDialog.dismiss();
                             if (JPushInterface.isPushStopped(context)){

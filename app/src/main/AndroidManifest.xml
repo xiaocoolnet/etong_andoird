@@ -76,7 +76,7 @@
     <application
         android:name=".view.etongApplaction"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@drawable/logo_920"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
@@ -177,7 +177,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.CancelOrderActivity"></activity>
         <activity android:name=".UI.Mine.Business.SearchMyOrderActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.SellerOrderDetailsActivity"></activity>
-
+        <activity android:name=".UI.Mine.Business.ChatActivity"></activity>
 
         <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyLabelActivity"></activity>
         <!--本地-->

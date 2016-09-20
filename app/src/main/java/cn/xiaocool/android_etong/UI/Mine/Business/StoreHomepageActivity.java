@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -38,11 +39,11 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class StoreHomepageActivity extends Activity implements View.OnClickListener {
     private Context context;
-    private String shopid,shopname;
+    private String shopid,shopname,shop_uid,shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
     private ImageView img_store_head;
-    private ListView list_store_goods;
+    private GridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
     private StoreHomePageAdapter  storeHomePageAdapter;
     private Handler handler = new Handler() {
@@ -76,9 +77,9 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                             if (storeHomePageAdapter!=null){
                                 storeHomePageAdapter.notifyDataSetChanged();
                             }else {
-                                storeHomePageAdapter = new StoreHomePageAdapter(context,goods_list,shopid);
+                                storeHomePageAdapter = new StoreHomePageAdapter(context,goods_list,shopid,shop_uid,shop_photo);
                                 list_store_goods.setAdapter(storeHomePageAdapter);
-                                setListViewHeightBasedOnChildren(list_store_goods);
+//                                setListViewHeightBasedOnChildren(list_store_goods);
                             }
                         }else{
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
@@ -98,6 +99,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 JSONObject jsonObject1 = jsonObject0.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
+                                shop_uid = jsonObject1.getString("uid");
+                                shop_photo = head;
                                 shopname = jsonObject1.getString("shopname");
                                 Log.e("head=",head);
                                 ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
@@ -141,7 +144,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
     private void initview() {
         goods_list = new ArrayList<StoreHomepage.DataBean>();
-        list_store_goods = (ListView) findViewById(R.id.list_store_goods);
+        list_store_goods = (GridView) findViewById(R.id.list_store_goods);
         tx_store_name = (TextView) findViewById(R.id.tx_store_name);
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);

@@ -63,11 +63,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout rl_back;
     private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content,tx_pic_txt;
+    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_lijigoumai, btn_shopping_cart,btn_chat;
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid;
+    private String id, pic, goodsname, price, shopname, address, description, shopid,shop_uid,shop_photo;
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
@@ -242,6 +242,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         shopname = intent.getStringExtra("shopname");
+        shop_uid = intent.getStringExtra("shop_uid");
+        shop_photo = intent.getStringExtra("shop_photo");
         arraypic = pic.split("[,]");
         for (String pic_name : arraypic) {
             Log.e("pic_name=", pic_name);
@@ -286,8 +288,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         btn_chat.setOnClickListener(this);
         list_detail = (ListView) findViewById(R.id.list_detail);
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
-        tx_pic_txt =(TextView) findViewById(R.id.tx_pic_txt);
-        tx_pic_txt.setOnClickListener(this);
     }
 
     private void setview() {
@@ -404,7 +404,14 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 }
                 break;
             case R.id.btn_chat:
+                Intent intent1 = new Intent();
+                intent1.putExtra("shop_uid",shop_uid);
+                intent1.putExtra("shop_photo",shop_photo);
+                intent1.putExtra("shopname",shopname);
+                intent1.setClass(context,ChatActivity.class);
+                startActivity(intent1);
                 break;
+
             case R.id.tx_pic_txt:
                 Intent intent = new Intent();
                 intent.putExtra("shopid",shopid);

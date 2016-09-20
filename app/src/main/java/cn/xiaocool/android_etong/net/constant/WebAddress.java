@@ -348,6 +348,17 @@ public interface WebAddress extends NetBaseConstant {
 
     String SEARCH_ORDER = NET_BASE_PREFIX + "a=SearchOrderList";
 
+    /*
+    *发送聊天信息
+    */
+
+    String SendChatData = NET_BASE_PREFIX + "a=SendChatData";
+
+    /*
+    * 获取聊天信息（两个人之间的）
+    */
+
+    String xcGetChatData = NET_BASE_PREFIX +"a=xcGetChatData";
 }
 
 

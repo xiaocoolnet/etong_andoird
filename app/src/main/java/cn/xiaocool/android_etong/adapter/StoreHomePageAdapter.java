@@ -28,15 +28,17 @@ public class StoreHomePageAdapter extends BaseAdapter {
     private ArrayList<StoreHomepage.DataBean> goods_list;
     private LayoutInflater layoutInflater;
     private DisplayImageOptions displayImageOptions;
-    private String shopid;
+    private String shopid,shop_uid,shop_photo;
     private Context context;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    public StoreHomePageAdapter(Context context , ArrayList<StoreHomepage.DataBean> goods_list,String shopid){
+    public StoreHomePageAdapter(Context context , ArrayList<StoreHomepage.DataBean> goods_list,String shopid,String shop_uid,String shop_photo){
         layoutInflater = LayoutInflater.from(context);
         this.goods_list = goods_list;
         this.context = context;
         this.shopid = shopid;
+        this.shop_uid = shop_uid;
+        this.shop_photo = shop_photo;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -86,6 +88,8 @@ public class StoreHomePageAdapter extends BaseAdapter {
                     intent.putExtra("price",dataBean.getPrice());
                     intent.putExtra("goodsname",dataBean.getGoodsname());
                     intent.putExtra("shopname",dataBean.getShowid());
+                    intent.putExtra("shop_uid",shop_uid);
+                    intent.putExtra("shop_photo",shop_photo);
                     intent.setClass(context, GoodsDetailActivity.class);
                     context.startActivity(intent);
                 }

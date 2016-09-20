@@ -82,4 +82,6 @@ public interface CommunalInterfaces {
     int CANCEL_ORDER = 0x0070;//取消订单
     int SEARCH_ORDER = 0x0071;//搜索订单
     int GET_MY_SHOP_TEXT = 0x0072;//获取我的店铺状态以设置文字
+    int SendChatData = 0x0073;//发送聊天信息
+    int xcGetChatData = 0x0074;//获取聊天信息（两个人之间的）
 }

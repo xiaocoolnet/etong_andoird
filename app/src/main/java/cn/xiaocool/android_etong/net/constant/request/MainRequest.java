@@ -1109,4 +1109,49 @@ public class MainRequest {
         }.start();
     }
 
+    //发送聊天记录
+    public void SendChatData(final String receive_uid,final String content){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&send_uid="+user.getUserId()+"&receive_uid="+receive_uid+"&content="+content;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SendChatData,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SendChatData;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 获取聊天信息（两个人之间的）
+    public void xcGetChatData(final String receive_uid){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&send_uid="+user.getUserId()+"&receive_uid="+receive_uid;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.xcGetChatData,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.xcGetChatData;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }
