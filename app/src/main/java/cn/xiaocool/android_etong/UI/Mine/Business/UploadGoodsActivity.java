@@ -40,7 +40,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class UploadGoodsActivity extends Activity implements View.OnClickListener {
     private Context mContext;
-    private RelativeLayout rl_back, rl_carousel_pic;
+    private RelativeLayout rl_back, rl_carousel_pic,rl_goods_details;
     private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi, et_xiangqing;
     private TextView tx_goods_upload;
     private ProgressDialog progressDialog;
@@ -174,7 +174,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         rl_back.setOnClickListener(this);
         rl_carousel_pic = (RelativeLayout) findViewById(R.id.rl_carousel_pic);
         rl_carousel_pic.setOnClickListener(this);
-        //输入信息
+         //输入信息
         et_biaoti = (EditText) findViewById(R.id.et_biaoti);
         et_pinpai = (EditText) findViewById(R.id.et_pinpai);
         et_huohao = (EditText) findViewById(R.id.et_huohao);
@@ -315,7 +315,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                                         progressDialog.setMessage("正在上传");
                                                         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                                         progressDialog.show();
-                                                        Log.e("pic=",picname4+"  "+picname5);
+                                                        Log.e("pic=", picname4 + "  " + picname5);
                                                         new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3,picname4,picname5,
                                                                 biaoti, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
                                                     } else {

@@ -170,6 +170,7 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             state = 1;
                             if (!(pic_path5 == null || pic_path5.equals(""))) {
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             } else {
                                 progressDialog.dismiss();
                             }
@@ -421,26 +422,26 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
             if (judge == 1) {
                 img_lunbo_pic1.setImageDrawable(drawable);
                 lin_lunbo2.setVisibility(View.VISIBLE);
-                picname1 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                picname1 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname1, filepath);
             } else if (judge == 2) {
                 img_lunbo_pic2.setImageDrawable(drawable);
                 lin_lunbo3.setVisibility(View.VISIBLE);
-                picname2 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                picname2 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname2, filepath);
             } else if (judge == 3) {
                 img_lunbo_pic3.setImageDrawable(drawable);
                 lin_lunbo4.setVisibility(View.VISIBLE);
-                picname3 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                picname3 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname3, filepath);
             } else if (judge == 4) {
                 img_lunbo_pic4.setImageDrawable(drawable);
                 lin_lunbo5.setVisibility(View.VISIBLE);
-                picname4 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                picname4 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname4, filepath);
             } else if (judge == 5) {
                 img_lunbo_pic5.setImageDrawable(drawable);
-                picname5 = "goods" + user.getUserId() + String.valueOf(new Date().getTime());
+                picname5 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname5, filepath);
             }
         }
