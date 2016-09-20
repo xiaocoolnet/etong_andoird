@@ -83,7 +83,7 @@ public class PayNowActivity extends Activity {
     // 商户PID
     public static final String PARTNER = "2088711783586662";
     // 商户收款账号
-    public static final String SELLER = "aqian2001@163.com";
+    public static final String SELLER = "m15935244346@163.com";
     // 商户私钥，pkcs8格式
     public static final String RSA_PRIVATE = "MIICXAIBAAKBgQCsA1mtL+T+bVZqEkCqxZOXEwm/5uvQHYsKbrEcaJDfIIIzuB44Z0A5ttzunO4gxmQR2+cpViEpFIamFCZ7wSXKNWupIt627UIMWeeO8VvvhOKbTOuBdrDHYifn5d3DttM0UjISRHyYGrnc5Ixno+aNF5SIvFhjDcHlBdIGxF1+WQIDAQABAoGBAIDFiU7TuhSWeciynWK6woCoqfXVw9drJnnK4CAqT7oaNh7NySHkefo64S5ooQQ8QRH1lBon9m8whJS0JRMkR0rct2LnZQODXV2DIjuK0D51VmZG6PFXL9rVgrdlWiOzitcwE2mPcYlpt/PORZPUxf2hjM3Ckf1b8kh1gMAECrfZAkEA4RyLvnnFPHGOqASwz8gffhxT2IDvEyG6jd+dby6r+QFaJ5R343FaQQqsFYyRhkrRzdZY6BT/8eqGlTYS6dszUwJBAMOdoAiXWsbnAb8evqFqsGMrHJE7yXUzDwN8WahhrLa9z8yIs7vJpfYlYNfiKBDjVvtWL//YJkS9rzFqDRqfXiMCQHVkzpeRp0MjMTL75z0kbw/0M+GHM6Y1g7Uy9UYi/7oGc36KlY798QRUTXObb9SptgnzC0BUmzkMhgzQO0LLdlMCQDraAFy1VI1E0MS0NjwQAhND1CtpplmJS/oLflnnUPQFtS/e7NwRdcnRQwqQMuepzfB95KD/YbwKqVufgWPCEKsCQGI4JKJTdWPvsoW8YrLN5VN1LeF96emkx4nD5JMtFX5T1r/oTUJ9S3jT2e87dkI4kGdutG38qFdZ9UhQvA0L7Lk=";
     // 支付宝公钥
@@ -334,6 +334,7 @@ public class PayNowActivity extends Activity {
         key = key.substring(0, 15);
         return key;
     }
+
     /**
      * get the sdk version. 获取SDK版本号
      */
@@ -342,4 +343,5 @@ public class PayNowActivity extends Activity {
         String version = payTask.getVersion();
         Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
+
 }
