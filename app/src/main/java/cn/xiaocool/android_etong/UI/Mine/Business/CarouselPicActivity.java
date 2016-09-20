@@ -162,15 +162,17 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                     }
                     break;
                 case KEY5:
-                    Log.e("upload goodspic", "success");
                     String key5 = (String) msg.obj;
                     try {
                         JSONObject json = new JSONObject(key5);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
-                            Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
-                            Log.e("path3", "not set");
-                            progressDialog.dismiss();
+                            state = 1;
+                            if (!(pic_path5 == null || pic_path5.equals(""))) {
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                            } else {
+                                progressDialog.dismiss();
+                            }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -179,6 +181,24 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     break;
+//                    Log.e("upload goodspic", "success");
+//                    String key5 = (String) msg.obj;
+//                    try {
+//                        JSONObject json = new JSONObject(key5);
+//                        String state1 = json.getString("status");
+//                        if (state1.equals("success")) {
+//                            Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
+//                            progressDialog.dismiss();
+//                        } else {
+//                            Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
+//                            progressDialog.dismiss();
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    break;
 
             }
         }

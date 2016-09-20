@@ -447,11 +447,11 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         // 设置裁剪
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", 86);
+        intent.putExtra("aspectY", 54);
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 340);
-        intent.putExtra("outputY", 340);
+        intent.putExtra("outputX", 430);
+        intent.putExtra("outputY", 270);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }

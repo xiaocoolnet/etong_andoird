@@ -28,7 +28,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
     private String picName;
     private RelativeLayout rlBack;
     private TextView tvTitle;
-    private ImageView ivPic0,ivPic1,ivPic2;
+    private ImageView ivPic0,ivPic1,ivPic2,ivPic3,ivPic4;
     private DisplayImageOptions displayImageOptions;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Handler handler = new Handler() {
@@ -47,7 +47,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
         Intent intent = getIntent();
         picName = intent.getStringExtra("picName");
         String picArray[] = picName.split("[,]");
-        ImageView[] ivPicArr = {ivPic0,ivPic1,ivPic2};
+        ImageView[] ivPicArr = {ivPic0,ivPic1,ivPic2,ivPic3,ivPic4};
         for (int i = 0; i < picArray.length; i++) {
             imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + picArray[i], ivPicArr[i], displayImageOptions);
         }
@@ -64,9 +64,13 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
         ivPic0 = (ImageView) findViewById(R.id.editGood_iv_pic0);
         ivPic1 = (ImageView) findViewById(R.id.editGood_iv_pic1);
         ivPic2 = (ImageView) findViewById(R.id.editGood_iv_pic2);
+        ivPic3 = (ImageView) findViewById(R.id.editGood_iv_pic3);
+        ivPic4 = (ImageView) findViewById(R.id.editGood_iv_pic4);
         ivPic0.setOnClickListener(this);
         ivPic1.setOnClickListener(this);
         ivPic2.setOnClickListener(this);
+        ivPic3.setOnClickListener(this);
+        ivPic4.setOnClickListener(this);
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("修改轮播图");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);

@@ -35,6 +35,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.demo.PayResult;
 import cn.xiaocool.android_etong.demo.SignUtils;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
@@ -177,11 +178,12 @@ public class PayNowActivity extends Activity {
                 ivPayWay2Item.setSelected(true);
                 break;
             case R.id.rl_confirm_pay:
-//                //网络请求
-//                if (NetUtil.isConnnected(this)) {
-//                    new ShopRequest(this, handler).payOrder(orderId);
-//                }
-                pay();
+                //网络请求
+                if (NetUtil.isConnnected(this)) {
+                    new ShopRequest(this, handler).payOrder(orderId);
+
+                }
+               // pay();
                 break;
         }
     }
