@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/libs/alipaySdk-20151103.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/arm64-v8a/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/armeabi-v7a/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/armeabi/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/jpush-android-2.1.9.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/mips/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/mips64/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/x86/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/x86_64/libjpush219.so" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/cn/xiaocool/android_etong/demo/Base64.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/cn/xiaocool/android_etong/demo/PayResult.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/cn/xiaocool/android_etong/demo/SignUtils.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/cn/xiaocool/android_etong/view/TimeTextView.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/number_update.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

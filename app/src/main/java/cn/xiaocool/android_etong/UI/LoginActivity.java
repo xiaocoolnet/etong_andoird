@@ -21,6 +21,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -38,6 +42,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView tx_forget_password, tx_zhuce;
     private Button btn_login;
     private ProgressDialog progressDialog;
+    private static final int MSG_SET_ALIAS = 1001;
     private Handler handle = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -52,6 +57,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             user.setUserId(item.getString("id"));
                             user.writeData(context);
                             progressDialog.dismiss();
+                            if (JPushInterface.isPushStopped(context)){
+                                JPushInterface.resumePush(context);
+                            }
+                            // 调用 Handler 来异步设置别名
+                            handle.sendMessage(handle.obtainMessage(MSG_SET_ALIAS, item.getString("id")));
                             Toast.makeText(LoginActivity.this, "登陆成功",
                                     Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -66,6 +76,39 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
+                case MSG_SET_ALIAS:
+                    Log.d("set alias", "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+                default:
+                    Log.i("handle msg", "Unhandled msg - " + msg.what);
+
+            }
+        }
+    };
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.i("Set tag", logs);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i("Set alias", logs);
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    handle.sendMessageDelayed(handle.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e("Failed", logs);
             }
         }
     };
@@ -143,5 +186,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
             et_login_phone.requestFocus();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(context);
     }
 }

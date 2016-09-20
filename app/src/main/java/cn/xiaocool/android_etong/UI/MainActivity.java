@@ -6,11 +6,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.fragment.HomepageFragment;
 import cn.xiaocool.android_etong.fragment.LocalFragment;
@@ -101,5 +103,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
         mTabs[currentIndex].setSelected(false);
         mTabs[index].setSelected(true);
         currentIndex = index;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            JPushInterface.stopPush(context);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

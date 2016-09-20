@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
@@ -285,6 +286,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     case R.id.quit:
                         startActivity(new Intent(context, LoginActivity.class));
                         getActivity().finish();
+                        JPushInterface.stopPush(context);
                         Toast.makeText(context, "退出登录成功", Toast.LENGTH_SHORT).show();
                         break;
 

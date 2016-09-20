@@ -332,7 +332,7 @@ public class MainRequest {
     }
 
     //发布商品
-    public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3, final String goodsname, final String type,
+    public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3,final String pic4,final String pic5, final String goodsname, final String type,
                              final String brand, final String artNo, final String standard, final String price, final String oprice, final String freight,
                              final String inventory, final String description, final String address) {
         new Thread() {
@@ -340,7 +340,7 @@ public class MainRequest {
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +
+                String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +","+pic4+","+pic5+
                         "&goodsname=" + goodsname + "&type=" + type + "&brand=" + brand + "&artno=" + artNo + "&unit=" + standard +
                         "&price=" + price + "&oprice=" + oprice + "&freight=" + freight + "&inventory=" + inventory + "&description="
                         + description + "&address=" + address;
