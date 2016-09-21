@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -83,7 +85,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private ImageView ivLeft;
     private PopupWindow popLeft;
     private View layoutLeft;
-    private ListView menulistLeft;
+    private GridView menulistLeft;
     private List<Map<String, String>> listLeft;
 
     private SliderLayout sliderLayout;
@@ -209,6 +211,17 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         new HomeRequest(context, handler).getMenu("", "");//获取一级菜单列表
     }
 
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+
+        lp.alpha = bgAlpha; //0.0-1.0
+        getActivity().getWindow().setAttributes(lp);
+    }
 
     private void initParam() {
         rlTopBar = (RelativeLayout) this.getView().findViewById(R.id.rl_topbar);
@@ -239,7 +252,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                     } else {
                         layoutLeft = getActivity().getLayoutInflater().inflate(
                                 R.layout.pop_menulist, null);
-                        menulistLeft = (ListView) layoutLeft
+                        menulistLeft = (GridView) layoutLeft
                                 .findViewById(R.id.menulist);
                         SimpleAdapter listAdapter = new SimpleAdapter(
                                 context, listLeft, R.layout.pop_menuitem,
@@ -272,9 +285,13 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                         // 创建弹出窗口
                         // 窗口内容为layoutLeft，里面包含一个ListView
                         // 窗口宽度跟tvLeft一样
-                        popLeft = new PopupWindow(layoutLeft, 250,
+                        popLeft = new PopupWindow(layoutLeft, LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-
+                        //设置背景半透明
+                        WindowManager.LayoutParams lp=getActivity().getWindow().getAttributes();
+                        lp.alpha=0.3f;
+                        getActivity().getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
                         ColorDrawable cd = new ColorDrawable(0x0000);
                         popLeft.setBackgroundDrawable(cd);
 //                        popLeft.setAnimationStyle(R.style.popupAnimation);
@@ -299,6 +316,12 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                     return true;
                                 }
                                 return false;
+                            }
+                        });
+                        popLeft.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                backgroundAlpha(1f);
                             }
                         });
                     }
@@ -425,7 +448,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             case R.id.et_search:
                 Intent intent = new Intent();
                 intent.setClass(context, SearchActivity.class);
-                intent.putExtra("city","homepage");
+                intent.putExtra("city", "homepage");
                 startActivity(intent);
                 break;
             case R.id.homepage_type_img:

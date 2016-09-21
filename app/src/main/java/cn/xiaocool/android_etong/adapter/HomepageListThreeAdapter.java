@@ -84,6 +84,7 @@ public class HomepageListThreeAdapter extends BaseAdapter {
                 if (v.getId() == R.id.homepage_click_list3){
                     Intent intent = new Intent();
                     intent.putExtra("search_content",dataBeenList.get(position).getLevelthree_name());
+                    intent.putExtra("city","null");//此处 city传入空
                     Log.e("searchname is",dataBeenList.get(position).getLevelthree_name());
                     intent.setClass(context, SearchResultGoodsActivity.class);
                     context.startActivity(intent);
