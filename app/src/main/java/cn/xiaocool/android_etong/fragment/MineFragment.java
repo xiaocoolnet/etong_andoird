@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -74,6 +75,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private ProgressDialog progressDialog;
     private Context context;
     private UserInfo userInfo;
+    private SharedPreferences sp;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -176,6 +178,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         initview();
         userInfo = new UserInfo();
         userInfo.readData(context);
+        sp = context.getSharedPreferences("list", context.MODE_PRIVATE);
         new MainRequest(context, handler).getMyShopText();
     }
 
@@ -284,6 +287,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.quit:
+                        userInfo.clearDataExceptPhone(context);
+                        SharedPreferences.Editor e=sp.edit();
+                        e.clear();
+                        e.commit();
+                        userInfo.setUserId(null);
                         startActivity(new Intent(context, LoginActivity.class));
                         getActivity().finish();
                         JPushInterface.stopPush(context);
