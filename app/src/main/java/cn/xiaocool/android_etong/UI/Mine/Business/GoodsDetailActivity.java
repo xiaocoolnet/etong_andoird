@@ -37,6 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout rl_back;
     private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
+    private TextView tx_goods_name, tx_pic_txt,tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_lijigoumai, btn_shopping_cart,btn_chat;
     private ImageView btnLike;
@@ -288,6 +289,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         btn_chat.setOnClickListener(this);
         list_detail = (ListView) findViewById(R.id.list_detail);
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
+        tx_pic_txt = (TextView) findViewById(R.id.tx_pic_txt);
+        tx_pic_txt.setOnClickListener(this);
     }
 
     private void setview() {
