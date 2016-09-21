@@ -65,9 +65,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private SliderLayout mDemoSlider;
     private TextView tx_goods_name, tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
     private ImageView img_goods_pic;
-    private Button btn_lijigoumai, btn_shopping_cart;
+    private Button btn_lijigoumai, btn_shopping_cart,btn_chat;
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid;
+    private String id, pic, goodsname, price, shopname, address, description, shopid,shop_uid,shop_photo;
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
@@ -242,6 +242,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         price = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         shopname = intent.getStringExtra("shopname");
+        shop_uid = intent.getStringExtra("shop_uid");
+        shop_photo = intent.getStringExtra("shop_photo");
         arraypic = pic.split("[,]");
         for (String pic_name : arraypic) {
             Log.e("pic_name=", pic_name);
@@ -282,6 +284,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         progressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
         btnLike = (ImageView) findViewById(R.id.good_details_iv_like);
         btnLike.setOnClickListener(this);
+        btn_chat = (Button) findViewById(R.id.btn_chat);
+        btn_chat.setOnClickListener(this);
         list_detail = (ListView) findViewById(R.id.list_detail);
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
     }
@@ -344,7 +348,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
 //        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
         for (int i = 0; i < arraypic.length; i++) {
-            int count = arraypic.length;
             url_maps.put(goodsname + "  图" + i, WebAddress.GETAVATAR + arraypic[i]);
         }
         if (arraypic.length == 1) {
@@ -399,6 +402,24 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                     new ShopRequest(this, handler).cancelLike(id);
                     btnLike.setSelected(false);
                 }
+                break;
+            case R.id.btn_chat:
+                Intent intent1 = new Intent();
+                intent1.putExtra("shop_uid",shop_uid);
+                intent1.putExtra("shop_photo",shop_photo);
+                intent1.putExtra("shopname",shopname);
+                intent1.setClass(context,ChatActivity.class);
+                startActivity(intent1);
+                break;
+
+            case R.id.tx_pic_txt:
+                Intent intent = new Intent();
+                intent.putExtra("shopid",shopid);
+                intent.putExtra("id",id);
+                intent.putExtra("pic",pic);
+                intent.setClass(context,PicTxtDetailsActivity.class);
+                startActivityForResult(intent,1);
+                break;
         }
     }
 

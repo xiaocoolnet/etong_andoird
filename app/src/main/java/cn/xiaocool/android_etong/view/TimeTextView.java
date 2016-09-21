@@ -9,24 +9,19 @@ import android.widget.TextView;
 import cn.xiaocool.android_etong.R;
 
 
-/**
- * ×Ô¶¨Òåµ¹¼ÆÊ±ÎÄ±¾¿Ø¼þ
- *
- * @author Administrator
- *
- */
+
 public class TimeTextView extends TextView implements Runnable {
-	Paint mPaint; // »­±Ê,°üº¬ÁË»­¼¸ºÎÍ¼ÐÎ¡¢ÎÄ±¾µÈµÄÑùÊ½ºÍÑÕÉ«ÐÅÏ¢
+	Paint mPaint; // ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Î¡ï¿½ï¿½Ä±ï¿½ï¿½Èµï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Ï¢
 	private int[] times;
-	private long mday, mhour, mmin, msecond;// Ìì£¬Ð¡Ê±£¬·ÖÖÓ£¬Ãë
-	private boolean run = false; // ÊÇ·ñÆô¶¯ÁË
+	private long mday, mhour, mmin, msecond;// ï¿½ì£¬Ð¡Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½
+	private boolean run = false; // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public TimeTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mPaint = new Paint();
 		TypedArray array = context.obtainStyledAttributes(attrs,
 				R.styleable.TimeTextView);
-		array.recycle(); // Ò»¶¨Òªµ÷ÓÃ£¬·ñÔòÕâ´ÎµÄÉè¶¨»á¶ÔÏÂ´ÎµÄÊ¹ÓÃÔì³ÉÓ°Ïì
+		array.recycle(); // Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Â´Îµï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½
 	}
 
 	public TimeTextView(Context context, AttributeSet attrs, int defStyle) {
@@ -34,7 +29,7 @@ public class TimeTextView extends TextView implements Runnable {
 		mPaint = new Paint();
 		TypedArray array = context.obtainStyledAttributes(attrs,
 				R.styleable.TimeTextView);
-		array.recycle(); // Ò»¶¨Òªµ÷ÓÃ£¬·ñÔòÕâ´ÎµÄÉè¶¨»á¶ÔÏÂ´ÎµÄÊ¹ÓÃÔì³ÉÓ°Ïì
+		array.recycle(); // Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Â´Îµï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½
 	}
 
 	public TimeTextView(Context context) {
@@ -54,7 +49,7 @@ public class TimeTextView extends TextView implements Runnable {
 	}
 
 	/**
-	 * µ¹¼ÆÊ±¼ÆËã
+	 * ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void ComputeTime() {
 		msecond--;
@@ -65,7 +60,7 @@ public class TimeTextView extends TextView implements Runnable {
 				mmin = 59;
 				mhour--;
 				if (mhour < 0) {
-					// µ¹¼ÆÊ±½áÊø
+					// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 					mhour = 59;
 					mday--;
 				}
@@ -83,7 +78,7 @@ public class TimeTextView extends TextView implements Runnable {
 
 	@Override
 	public void run() {
-		// ±êÊ¾ÒÑ¾­Æô¶¯
+		// ï¿½ï¿½Ê¾ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 		run = true;
 
 		ComputeTime();

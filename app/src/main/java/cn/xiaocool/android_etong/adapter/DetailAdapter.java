@@ -71,12 +71,14 @@ public class DetailAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         imageLoader.displayImage(WebAddress.GETAVATAR + dataBean.getPhoto(), holder.imgPrefectureHead, displayImageOptions);
         holder.txPrefectureName.setText(dataBean.getName());
         holder.tvContent.setText(dataBean.getContent());
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Long time = Long.valueOf(dataBean.getAdd_time());
-        String d = format.format(time);
+        String d = format.format((new Date(time * 1000)));
+        holder.tvTime.setText(d);
         try {
             Date data = format.parse(d);
             Log.e("time", String.valueOf(data));
@@ -96,6 +98,7 @@ public class DetailAdapter extends BaseAdapter {
         TextView tvContent;
         @BindView(R.id.tv_time)
         TextView tvTime;
+
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

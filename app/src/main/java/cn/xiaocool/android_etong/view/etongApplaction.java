@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.bean.business.LocationService;
 
 /**
@@ -34,6 +35,9 @@ public class etongApplaction extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //极光推送初始化
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         mInstance = this;
         initImageLoader(getApplicationContext());
         SharedPreferences sp=getSharedPreferences("UserUID", Context.MODE_PRIVATE);

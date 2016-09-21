@@ -332,7 +332,7 @@ public class MainRequest {
     }
 
     //发布商品
-    public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3, final String goodsname, final String type,
+    public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3,final String pic4,final String pic5, final String goodsname, final String type,
                              final String brand, final String artNo, final String standard, final String price, final String oprice, final String freight,
                              final String inventory, final String description, final String address) {
         new Thread() {
@@ -340,7 +340,7 @@ public class MainRequest {
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +
+                String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +","+pic4+","+pic5+
                         "&goodsname=" + goodsname + "&type=" + type + "&brand=" + brand + "&artno=" + artNo + "&unit=" + standard +
                         "&price=" + price + "&oprice=" + oprice + "&freight=" + freight + "&inventory=" + inventory + "&description="
                         + description + "&address=" + address;
@@ -1109,4 +1109,49 @@ public class MainRequest {
         }.start();
     }
 
+    //发送聊天记录
+    public void SendChatData(final String receive_uid,final String content){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&send_uid="+user.getUserId()+"&receive_uid="+receive_uid+"&content="+content;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.SendChatData,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.SendChatData;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 获取聊天信息（两个人之间的）
+    public void xcGetChatData(final String receive_uid){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&send_uid="+user.getUserId()+"&receive_uid="+receive_uid;
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.xcGetChatData,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.xcGetChatData;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -83,7 +82,7 @@ public class NoCommentFragment extends Fragment {
                                 list_goods.setAdapter(pendingPaymentAdapter);
                             }
                         } else {
-//                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

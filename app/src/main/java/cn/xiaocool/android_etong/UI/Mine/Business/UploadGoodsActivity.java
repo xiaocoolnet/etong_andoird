@@ -40,7 +40,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class UploadGoodsActivity extends Activity implements View.OnClickListener {
     private Context mContext;
-    private RelativeLayout rl_back, rl_carousel_pic;
+    private RelativeLayout rl_back, rl_carousel_pic,rl_goods_details;
     private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi, et_xiangqing;
     private TextView tx_goods_upload;
     private ProgressDialog progressDialog;
@@ -56,8 +56,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     ArrayAdapter<District> adapter03;
     private Spinner spinner01, spinner02, spinner03;
     private String result_data;
-    private String picname1, picname2, picname3;
-    private String pic_path1, pic_path2, pic_path3;
+    private String picname1, picname2, picname3,picname4,picname5;
+    private String pic_path1, pic_path2, pic_path3,pic_path4,pic_path5;
     private String biaoti, pinpai, huohao, guige, yunfei, fahuodi, xiangqing;
     private String price, oprice, inventory;
     private int state = 0;
@@ -174,7 +174,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         rl_back.setOnClickListener(this);
         rl_carousel_pic = (RelativeLayout) findViewById(R.id.rl_carousel_pic);
         rl_carousel_pic.setOnClickListener(this);
-        //输入信息
+         //输入信息
         et_biaoti = (EditText) findViewById(R.id.et_biaoti);
         et_pinpai = (EditText) findViewById(R.id.et_pinpai);
         et_huohao = (EditText) findViewById(R.id.et_huohao);
@@ -315,7 +315,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                                         progressDialog.setMessage("正在上传");
                                                         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                                         progressDialog.show();
-                                                        new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3,
+                                                        Log.e("pic=", picname4 + "  " + picname5);
+                                                        new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3,picname4,picname5,
                                                                 biaoti, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
                                                     } else {
                                                         Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
@@ -373,12 +374,20 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             Log.e("pic_path2=", pic_path2);
             pic_path3 = data.getStringExtra("pic_path3");
             Log.e("pic_path3=", pic_path3);
+            pic_path4 = data.getStringExtra("pic_path4");
+            Log.e("pic_path4=",pic_path4);
+            pic_path5 = data.getStringExtra("pic_path5");
+            Log.e("pic_path5=",pic_path5);
             picname1 = data.getStringExtra("picname1");
             Log.e("picname1", picname1);
             picname2 = data.getStringExtra("picname2");
             Log.e("picname2", picname2);
             picname3 = data.getStringExtra("picname3");
             Log.e("picname3", picname3);
+            picname4 = data.getStringExtra("picname4");
+            Log.e("picname4", picname4);
+            picname5 = data.getStringExtra("picname5");
+            Log.e("picname5", picname5);
             if (pic_path1 == null || pic_path1.equals("")) {
                 pic_path1 = "";
             }
@@ -387,6 +396,12 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             }
             if (pic_path3 == null || pic_path3.equals("")) {
                 pic_path3 = "";
+            }
+            if (pic_path4 == null || pic_path4.equals("")) {
+                pic_path4 = "";
+            }
+            if (pic_path5 == null || pic_path5.equals("")) {
+                pic_path5 = "";
             }
             if (picname1 == null || picname1.equals("")) {
                 picname1 = "";
@@ -402,6 +417,16 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 picname3 = "";
             } else {
                 picname3 = picname3 + ".jpg";
+            }
+            if (picname4 == null || picname4.equals("")) {
+                picname4 = "";
+            } else {
+                picname4 = picname4 + ".jpg";
+            }
+            if (picname5 == null || picname5.equals("")) {
+                picname5 = "";
+            } else {
+                picname5 = picname5 + ".jpg";
             }
         }
     }

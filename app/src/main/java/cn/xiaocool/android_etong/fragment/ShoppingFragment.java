@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,9 +50,9 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private Context context;
     private Button btn_statement;
     private TextView tx_shopping_price;
-    private  double amount = 0;
+    private double amount = 0;
     private int size = 0;
-    private String pro_id = "",pro_name = "";
+    private String pro_id = "", pro_name = "";
     private RelativeLayout ry_line;
     private CheckBox cb_all_select;
     private ListView list_Shopping_Cart;
@@ -92,23 +93,25 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                                     good.setNumber(jsonObject2.getString("number"));
                                     good.setTime(jsonObject2.getString("time"));
                                     JSONArray jsonArray1 = jsonObject2.getJSONArray("property");
-                                    for (int a = 0 ; a<jsonArray1.length();a++){
+                                    for (int a = 0; a < jsonArray1.length(); a++) {
                                         JSONObject jsonObject1 = jsonArray1.getJSONObject(a);
                                         pro_id = pro_id + jsonObject1.getString("proid") + ",";
-                                        if (jsonObject1.getString("proid").equals("0")){
+                                        if (jsonObject1.getString("proid").equals("0")) {
 
-                                        }else {
+                                        } else {
                                             JSONArray jsonArray2 = jsonObject1.getJSONArray("propert_list");
                                             JSONObject jsonObject3 = jsonArray2.getJSONObject(0);
-                                            pro_name = pro_name + jsonObject3.getString("typename")+":"+jsonObject3.getString("propertyname")+";";
+                                            pro_name = pro_name + jsonObject3.getString("typename") + ":" + jsonObject3.getString("propertyname") + ";";
                                         }
 
                                     }
-                                    pro_id = pro_id.substring(0,pro_id.length()-1);
-                                    Log.e("pro_id=",pro_id);
-                                    Log.e("pro_name=",pro_name);
+                                    if (!TextUtils.isEmpty(pro_id)) {
+                                        pro_id = pro_id.substring(0, pro_id.length() - 1);
+                                        Log.e("pro_id=", pro_id);
+                                        good.setProid(pro_id);
+                                    }
+                                    Log.e("pro_name=", pro_name);
                                     good.setProname(pro_name);
-                                    good.setProid(pro_id);
                                     goodses.add(good);
                                 }
                                 store.setGoodslist(goodses);
@@ -233,34 +236,34 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_statement:
                 getStatementObject();
-                if (size!=0){
+                if (size != 0) {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("databeans", (Serializable)getStatementObject());
+                    bundle.putSerializable("databeans", (Serializable) getStatementObject());
                     intent.putExtras(bundle);
-                    intent.putExtra("amount",amount);
+                    intent.putExtra("amount", amount);
                     intent.setClass(context, StatementActivity.class);
                     startActivity(intent);
-                }else {
-                    Toast.makeText(context,"请选择结算商品",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "请选择结算商品", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
 
-    public List<ShoppingCart_StoreName.DataBean> getStatementObject(){
+    public List<ShoppingCart_StoreName.DataBean> getStatementObject() {
         size = 0;
         List<ShoppingCart_StoreName.DataBean> statementObject = new ArrayList<>();
         for (int i = 0; i < storeAdapter.getSelect().size(); i++) {
             ShoppingCart_StoreName.DataBean shoppingCart_storeName = new ShoppingCart_StoreName.DataBean();
             List<ShoppingCart_StoreName.DataBean.GoodslistBean> goodses = new ArrayList<>();
             for (int j = 0; j < storeAdapter.getPAdapter(i).getSelect().size(); j++) {
-                if (storeAdapter.getPAdapterList().get(i).getSelect().get(j)){
+                if (storeAdapter.getPAdapterList().get(i).getSelect().get(j)) {
                     goodses.add(dataBeans.get(i).getGoodslist().get(j));
                     size++;
                 }
             }
-            if (goodses.size()!=0){
+            if (goodses.size() != 0) {
                 shoppingCart_storeName.setGoodslist(goodses);
                 shoppingCart_storeName.setShopname(dataBeans.get(i).getShopname());
                 statementObject.add(shoppingCart_storeName);
