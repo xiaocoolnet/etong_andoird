@@ -65,6 +65,8 @@ public class SellerOrderAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         final SellerOrderBean.DataBean product = dataBeans.get(position);
+        final String state = dataBeans.get(position).getState();
+
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.seller_order_item, null);
             holder = new ViewHolder();
@@ -78,12 +80,15 @@ public class SellerOrderAdapter extends BaseAdapter {
             holder.tvStatus = (TextView) convertView.findViewById(R.id.seller_order_good_status_tv);
             holder.rlGoodInfor = (RelativeLayout) convertView.findViewById(R.id.rl_good_infor_up);
             convertView.setTag(holder);
+
+
         } else {
             holder = (ViewHolder) convertView.getTag();
+
         }
+
         String pic = product.getPicture();
         final String[] arraypic = pic.split("[,]");
-        final String state = dataBeans.get(position).getState();
         holder.rlGoodInfor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

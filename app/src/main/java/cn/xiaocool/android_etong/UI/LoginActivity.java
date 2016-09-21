@@ -25,6 +25,7 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
 
 /**
@@ -77,6 +78,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         context = this;
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        user = new UserInfo();
+        user.readData(this);
+        if (user.isLogined()) {// 已登录
+            IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
+            this.finish();
+        }
         initview();
     }
 
@@ -89,9 +96,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tx_forget_password.setOnClickListener(this);
         tx_zhuce = (TextView) findViewById(R.id.tx_zhuce);
         tx_zhuce.setOnClickListener(this);
-        user = new UserInfo();
-        user.readData(this);
+
         if (!user.getUserPhone().equals("")) {
+            user.readData(this);
             et_login_phone.setText(user.getUserPhone());
         }
         // 切换后将EditText光标置于末尾

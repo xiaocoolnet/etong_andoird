@@ -2,7 +2,6 @@ package cn.xiaocool.android_etong.fragment.business;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,9 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
-import cn.xiaocool.android_etong.adapter.PendingPaymentAdapter;
 import cn.xiaocool.android_etong.adapter.SellerOrderAdapter;
-import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
 import cn.xiaocool.android_etong.bean.business.SellerOrderBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
