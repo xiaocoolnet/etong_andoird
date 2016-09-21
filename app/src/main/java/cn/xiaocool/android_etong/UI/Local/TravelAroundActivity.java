@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.UI.Local;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ public class TravelAroundActivity extends Activity implements View.OnClickListen
     private RelativeLayout rl_back;
     private ListView list_travel_around;
     private Context context;
+    private String city;
     private TravelAroundAdapter travelAroundAdapter;
     private List<Local> locals;
     private Handler handler = new Handler() {
@@ -104,9 +106,11 @@ public class TravelAroundActivity extends Activity implements View.OnClickListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_travel_around);
         context = this;
+        Intent intent = new Intent();
+        city = intent.getStringExtra("city");
         initView();
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台市","6");
+            new MainRequest(context,handler).GetShopList(city,"6");
         }else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

@@ -359,6 +359,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String xcGetChatData = NET_BASE_PREFIX +"a=xcGetChatData";
+
+    /*
+    *获取聊天列表
+    */
+
+    String  xcGetChatListData = NET_BASE_PREFIX + "a=xcGetChatListData";
 }
 
 

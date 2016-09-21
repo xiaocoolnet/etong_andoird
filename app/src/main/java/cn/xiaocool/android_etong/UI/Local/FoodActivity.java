@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Selection;
 import android.text.Spannable;
@@ -36,6 +37,7 @@ public class FoodActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Context context;
     private TextView tv_address;
+    private String city;
     private ImageView img_operation;
     private Button[] mTabs;
     private Food_All_Fragment food_all_fragment;
@@ -50,6 +52,8 @@ public class FoodActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
         context = this;
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         initView();
         initFragment();
     }
@@ -67,6 +71,9 @@ public class FoodActivity extends Activity implements View.OnClickListener {
 
     private void initFragment() {
         food_all_fragment = new Food_All_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city", city);
+        food_all_fragment.setArguments(bundle);
         food_nearly_fragment = new Food_Nearly_Fragment();
         fragments = new Fragment[]{food_all_fragment,food_nearly_fragment};
         getFragmentManager().beginTransaction().add(R.id.fragment_container,food_all_fragment).show(food_all_fragment).commit();

@@ -178,6 +178,7 @@
         <activity android:name=".UI.Mine.Business.SearchMyOrderActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.SellerOrderDetailsActivity"></activity>
         <activity android:name=".UI.Mine.Business.ChatActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ChatListActivity"></activity>
 
         <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyLabelActivity"></activity>
         <!--本地-->

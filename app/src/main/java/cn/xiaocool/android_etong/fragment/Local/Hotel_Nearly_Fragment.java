@@ -34,6 +34,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class Hotel_Nearly_Fragment extends Fragment {
     private Context context;
     private ListView list_hotel;
+    private String city;
     private HotelAdapter hotelAdapter;
     private List<Local> locals;
     private Handler handler = new Handler() {
@@ -96,9 +97,10 @@ public class Hotel_Nearly_Fragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        city = getArguments().getString("city");
         initView();
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台市","3");
+            new MainRequest(context,handler).GetShopList(city,"3");
         }else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
