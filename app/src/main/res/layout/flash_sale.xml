@@ -51,7 +51,7 @@
 
 
 
-            <cn.xiaocool.android_etong.util.NoScrollGridView
+            <cn.xiaocool.android_etong.util.NoScrollListView
                 android:id="@+id/gridView_flash_sale"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -63,7 +63,7 @@
                 android:horizontalSpacing="@dimen/activity_size_5"
                 android:verticalSpacing="@dimen/activity_size_5">
 
-            </cn.xiaocool.android_etong.util.NoScrollGridView>
+            </cn.xiaocool.android_etong.util.NoScrollListView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
 </LinearLayout>

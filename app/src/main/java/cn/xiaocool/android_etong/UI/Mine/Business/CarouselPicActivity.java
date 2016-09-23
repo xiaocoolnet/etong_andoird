@@ -82,6 +82,7 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             } else {
                                 Log.e("path2", "not set");
                                 progressDialog.dismiss();
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -105,6 +106,7 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             } else {
                                 Log.e("path3", "not set");
                                 progressDialog.dismiss();
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -128,6 +130,7 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             } else {
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -152,6 +155,7 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             } else {
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
+                                Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();

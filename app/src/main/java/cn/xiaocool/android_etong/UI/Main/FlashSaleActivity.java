@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
  * Created by wzh on 2016/7/24.
  */
 public class FlashSaleActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
-    private GridView gridView;
+    private ListView listView;
     private TextView tvTitle;
     private RelativeLayout rlBack;
     private SliderLayout mDemoSlider;
@@ -89,7 +90,7 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             flashSaleAdapter = new FlashSaleAdapter(context, newArrivalDataBeanList);
-                            gridView.setAdapter(flashSaleAdapter);
+                            listView.setAdapter(flashSaleAdapter);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -110,7 +111,7 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
     }
 
     private void initView() {
-        gridView = (GridView) findViewById(R.id.gridView_flash_sale);
+        listView = (ListView) findViewById(R.id.gridView_flash_sale);
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("限时抢购");
