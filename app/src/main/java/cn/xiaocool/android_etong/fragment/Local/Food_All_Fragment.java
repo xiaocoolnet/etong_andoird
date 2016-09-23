@@ -35,6 +35,7 @@ public class Food_All_Fragment extends Fragment {
     private Context context;
     private ListView list_food;
     private FoodAdapter foodAdapter;
+    private String city;
     private List<Local> locals;
     private Handler handler = new Handler() {
         @Override
@@ -108,9 +109,10 @@ public class Food_All_Fragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        city = getArguments().getString("city");
         initView();
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台市","1");
+            new MainRequest(context,handler).GetShopList(city,"1");
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }

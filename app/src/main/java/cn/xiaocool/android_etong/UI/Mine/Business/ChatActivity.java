@@ -124,16 +124,16 @@ public class ChatActivity extends Activity implements View.OnClickListener {
                                     personChats.add(personChat);
                                 }
                             }
-                            /**
-                             * 虚拟4条发送方的消息
-                             */
-                            for (int i = 0; i <1; i++) {
-                                PersonChat personChat = new PersonChat();
-                                personChat.setMeSend(false);
-                                personChat.setChatMessage("欢迎光临本店铺。");
-                                personChat.setPhoto(shop_photo);
-                                personChats.add(personChat);
-                            }
+//                            /**
+//                             * 虚拟1条发送方的消息
+//                             */
+//                            for (int i = 0; i <1; i++) {
+//                                PersonChat personChat = new PersonChat();
+//                                personChat.setMeSend(false);
+//                                personChat.setChatMessage("欢迎光临本店铺。");
+//                                personChat.setPhoto(shop_photo);
+//                                personChats.add(personChat);
+//                            }
                             /**
                              *setAdapter
                              */

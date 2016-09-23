@@ -34,6 +34,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class TakeOutFood_All_Fragment extends Fragment {
     private Context context;
     private ListView list_take_out_food;
+    private String city;
     private TakeOutFoodAdapter takeOutFoodAdapter;
     private List<Local> locals;
     private Handler handler = new Handler() {
@@ -109,9 +110,10 @@ public class TakeOutFood_All_Fragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        city = getArguments().getString("city");
         initView();
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台市","4");
+            new MainRequest(context,handler).GetShopList(city,"4");
         }else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

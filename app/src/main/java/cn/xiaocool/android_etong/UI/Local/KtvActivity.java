@@ -3,6 +3,7 @@ package cn.xiaocool.android_etong.UI.Local;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import cn.xiaocool.android_etong.fragment.Local.Ktv_Distence_Fragment;
  */
 public class KtvActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
+    private String city;
     private Ktv_All_Fragment ktv_all_fragment;
     private Ktv_Distence_Fragment ktv_distence_fragment;
     private Button[] mTabs;
@@ -29,6 +31,8 @@ public class KtvActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_ktv);
+        Intent intent = new Intent();
+        city = intent.getStringExtra("city");
         initView();
         initFragment();
     }
@@ -40,6 +44,9 @@ public class KtvActivity extends Activity implements View.OnClickListener {
 
     private void initFragment() {
         ktv_all_fragment = new Ktv_All_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city",city);
+        ktv_all_fragment.setArguments(bundle);
         ktv_distence_fragment = new Ktv_Distence_Fragment();
         fragments = new Fragment[]{ktv_all_fragment,ktv_distence_fragment};
         getFragmentManager().beginTransaction().add(R.id.fragment_container,ktv_all_fragment).show(ktv_all_fragment).commit();

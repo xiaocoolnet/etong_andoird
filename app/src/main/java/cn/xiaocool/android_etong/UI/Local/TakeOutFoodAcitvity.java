@@ -3,6 +3,7 @@ package cn.xiaocool.android_etong.UI.Local;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import cn.xiaocool.android_etong.fragment.Local.TakeOutFood_Distence_Fragment;
  */
 public class TakeOutFoodAcitvity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
+    private String city;
     private TakeOutFood_All_Fragment takeOutFood_all_fragment;
     private TakeOutFood_Distence_Fragment takeOutFood_distence_fragment;
     private Button[] mTabs;
@@ -29,6 +31,8 @@ public class TakeOutFoodAcitvity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_take_out_food);
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         initView();
         initFragment();
     }
@@ -40,6 +44,9 @@ public class TakeOutFoodAcitvity extends Activity implements View.OnClickListene
 
     private void initFragment() {
         takeOutFood_all_fragment = new TakeOutFood_All_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city",city);
+        takeOutFood_all_fragment.setArguments(bundle);
         takeOutFood_distence_fragment = new TakeOutFood_Distence_Fragment();
         fragments = new Fragment[]{takeOutFood_all_fragment,takeOutFood_distence_fragment};
         getFragmentManager().beginTransaction().add(R.id.fragment_container,takeOutFood_all_fragment).show(takeOutFood_all_fragment).commit();

@@ -21,7 +21,7 @@
             android:paddingBottom="2dip"
             android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="我的分享"
+            android:text="我的消息"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>

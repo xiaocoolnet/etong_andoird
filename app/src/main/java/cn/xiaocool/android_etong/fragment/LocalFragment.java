@@ -227,11 +227,13 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         switch (v.getId()){
             case R.id.btn_quanbu:
                 Intent intent = new Intent();
+                intent.putExtra("city",tv_local.getText().toString());
                 intent.setClass(context, ShopListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_meishi:
                 Intent intent1 = new Intent();
+                intent1.putExtra("city",tv_local.getText().toString());
                 intent1.setClass(context, FoodActivity.class);
                 startActivity(intent1);
                 break;
@@ -242,11 +244,13 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 break;
             case R.id.btn_jiudian:
                 Intent intent3 = new Intent();
+                intent3.putExtra("city",tv_local.getText().toString());
                 intent3.setClass(context, HotelActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.btn_waimai:
                 Intent intent4 = new Intent();
+                intent4.putExtra("city", tv_local.getText().toString());
                 intent4.setClass(context, TakeOutFoodAcitvity.class);
                 startActivity(intent4);
                 break;
@@ -257,16 +261,19 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 break;
             case R.id.btn_zhoubianyou:
                 Intent intent6 = new Intent();
+                intent6.putExtra("city", tv_local.getText().toString());
                 intent6.setClass(context, TravelAroundActivity.class);
                 startActivity(intent6);
                 break;
             case R.id.btn_shenghuofuwu:
                 Intent intent7 = new Intent();
+                intent7.putExtra("city", tv_local.getText().toString());
                 intent7.setClass(context, ServiceActivity.class);
                 startActivity(intent7);
                 break;
             case R.id.btn_ktv:
                 Intent intent8 = new Intent();
+                intent8.putExtra("city", tv_local.getText().toString());
                 intent8.setClass(context, KtvActivity.class);
                 startActivity(intent8);
                 break;

@@ -19,6 +19,8 @@ public class PersonChat {
 	 */
 	private String chatTime;
 	private String photo;
+	private String chatuid;
+	private String anotherPhoto;
     private boolean isMeSend;
 	public int getId() {
 		return id;
@@ -49,6 +51,18 @@ public class PersonChat {
 	}
 	public String getPhoto(){
 		return photo;
+	}
+	public void setchatuid(String chatuid){
+		this.chatuid = chatuid;
+	}
+	public String getchatuid(){
+		return chatuid;
+	}
+	public void setAnotherPhoto(String anotherPhoto){
+		this.anotherPhoto = anotherPhoto;
+	}
+	public String getAnotherPhoto(){
+		return anotherPhoto;
 	}
 	public boolean isMeSend() {
 		return isMeSend;

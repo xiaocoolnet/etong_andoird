@@ -1154,4 +1154,27 @@ public class MainRequest {
             }
         }.start();
     }
+
+    // 获取聊天列表
+    public void xcGetChatListData(){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&uid="+user.getUserId();
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.xcGetChatListData,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.xcGetChatListData;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
@@ -66,6 +68,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button mineBtnNoConfirm;
     @BindView(R.id.mine_btn_noEvaluate)
     Button mineBtnNoEvaluate;
+    @BindView(R.id.btn_fenxiang)
+    Button btn_fenxiang;
     private ImageView img_setup;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
@@ -74,6 +78,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private ProgressDialog progressDialog;
     private Context context;
     private UserInfo userInfo;
+    private SharedPreferences sp;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -176,6 +181,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         initview();
         userInfo = new UserInfo();
         userInfo.readData(context);
+        sp = context.getSharedPreferences("list", context.MODE_PRIVATE);
         new MainRequest(context, handler).getMyShopText();
     }
 
@@ -198,6 +204,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBtnNoEvaluate.setOnClickListener(this);
         btnComment = (Button) getView().findViewById(R.id.btn_comment);
         btnComment.setOnClickListener(this);
+        btn_fenxiang = (Button) getView().findViewById(R.id.btn_fenxiang);
+        btn_fenxiang.setOnClickListener(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
     }
 
@@ -270,6 +278,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 intent5.setClass(context, MyEvaluateActivity.class);
                 startActivity(intent5);
                 break;
+            case R.id.btn_fenxiang:
+                Intent intent6 = new Intent();
+                intent6.setClass(context, ChatListActivity.class);
+                startActivity(intent6);
+                break;
         }
     }
 
@@ -284,6 +297,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.quit:
+                        userInfo.clearDataExceptPhone(context);
+                        SharedPreferences.Editor e=sp.edit();
+                        e.clear();
+                        e.commit();
+                        userInfo.setUserId(null);
                         startActivity(new Intent(context, LoginActivity.class));
                         getActivity().finish();
                         JPushInterface.stopPush(context);

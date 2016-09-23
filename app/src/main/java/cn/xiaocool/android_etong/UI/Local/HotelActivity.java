@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import cn.xiaocool.android_etong.fragment.Local.Hotel_Nearly_Fragment;
 public class HotelActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Context context;
+    private String city;
     private Button[] mTabs;
     private Hotel_Nearly_Fragment hotel_nearly_fragment;
     private Hotel_Distence_Fragment hotel_distence_fragment;
@@ -32,6 +34,8 @@ public class HotelActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.hotel_activity);
         context = this;
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         initView();
         initFragment();
     }
@@ -44,6 +48,9 @@ public class HotelActivity extends Activity implements View.OnClickListener {
     private void initFragment() {
         hotel_distence_fragment = new Hotel_Distence_Fragment();
         hotel_nearly_fragment = new Hotel_Nearly_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city",city);
+        hotel_nearly_fragment.setArguments(bundle);
         fragments = new Fragment[]{hotel_nearly_fragment,hotel_distence_fragment};
         getFragmentManager().beginTransaction().add(R.id.fragment_container,hotel_nearly_fragment).show(hotel_nearly_fragment).commit();
         initBtn();

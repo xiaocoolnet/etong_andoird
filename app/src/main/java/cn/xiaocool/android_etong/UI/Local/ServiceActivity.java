@@ -3,6 +3,7 @@ package cn.xiaocool.android_etong.UI.Local;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import cn.xiaocool.android_etong.fragment.Local.Service_Distence_Fragment;
  */
 public class ServiceActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
+    private String city;
     private Service_All_Fragment service_all_fragment;
     private Service_Distence_Fragment service_distence_fragment;
     private Button[] mTabs;
@@ -29,12 +31,17 @@ public class ServiceActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_service);
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         initView();
         initFragment();
     }
 
     private void initFragment() {
         service_all_fragment = new Service_All_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city",city);
+        service_all_fragment.setArguments(bundle);
         service_distence_fragment = new Service_Distence_Fragment();
         fragments = new Fragment[]{service_all_fragment,service_distence_fragment};
         getFragmentManager().beginTransaction().add(R.id.fragment_container,service_all_fragment).show(service_all_fragment).commit();

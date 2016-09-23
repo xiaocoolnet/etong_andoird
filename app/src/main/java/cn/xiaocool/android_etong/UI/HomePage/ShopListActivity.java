@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.UI.HomePage;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,6 +33,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class ShopListActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
+    private String city;
     private ListView list_shop;
     private ArrayList<ShopList.DataBean> arrayList_Shop;
     private ShopListAdapter shopListAdapter;
@@ -86,6 +88,8 @@ public class ShopListActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_shoplist);
         context = this;
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
         initview();
         initdate();
     }
@@ -99,7 +103,7 @@ public class ShopListActivity extends Activity implements View.OnClickListener {
 
     private void initdate(){
         if (NetUtil.isConnnected(context)){
-            new MainRequest(context,handler).GetShopList("烟台市","0");
+            new MainRequest(context,handler).GetShopList(city,"0");
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }
