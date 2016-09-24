@@ -64,7 +64,7 @@ public class StatementAdapter extends BaseAdapter {
         holder.listGoods.setAdapter(statementItemAdapter);
         int amount = 0;
         for (int j = 0; j < dataBean.getGoodslist().size(); j++) {
-            amount += Integer.valueOf(dataBean.getGoodslist().get(j).getPrice())
+            amount += Double.valueOf(dataBean.getGoodslist().get(j).getPrice())
                     * Integer.valueOf(dataBean.getGoodslist().get(j).getNumber());
         }
         holder.txGoodsPriceSubtotal.setText(String.valueOf(amount));

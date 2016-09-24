@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -241,7 +242,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("databeans", (Serializable) getStatementObject());
                     intent.putExtras(bundle);
-                    intent.putExtra("amount", amount);
+                    intent.putExtra("amount",amount);
                     intent.setClass(context, StatementActivity.class);
                     startActivity(intent);
                 } else {
@@ -282,13 +283,20 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         for (int i = 0; i < dataBeans.size(); i++) {
             for (int j = 0; j < dataBeans.get(i).getGoodslist().size(); j++) {
                 if (storeAdapter.getPAdapter(i).getSelect().get(j)) {
-                    amount += Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
+                    amount +=Double.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
                             * Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getNumber());
                 }
             }
         }
+        double amountt;
+
+
         if (amount != 0) {
-            tx_shopping_price.setText("￥" + amount);
+            amountt = amount;
+            DecimalFormat df =new DecimalFormat("#.##");
+            String result = df.format(amountt);
+            amount = Double.valueOf(result);
+            tx_shopping_price.setText("￥" +amount);
         }
     }
 

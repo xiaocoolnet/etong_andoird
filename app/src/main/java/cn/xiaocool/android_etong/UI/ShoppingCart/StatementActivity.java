@@ -148,7 +148,7 @@ public class StatementActivity extends Activity implements View.OnClickListener 
                                     Log.e("goodsid=",id);
                                     new MainRequest(context, handler).bookingshopping(id, name,
                                             deliveryAddress, dataBeans.get(i).getGoodslist().get(j).getNumber(), phone, "",
-                                            String.valueOf(Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
+                                            String.valueOf(Double.valueOf(dataBeans.get(i).getGoodslist().get(j).getPrice())
                                                     * Integer.valueOf(dataBeans.get(i).getGoodslist().get(j).getNumber()))
                                             , dataBeans.get(i).getGoodslist().get(j).getProid());
                                     new MainRequest(context,handler).DeleteShoppingCart(id);
