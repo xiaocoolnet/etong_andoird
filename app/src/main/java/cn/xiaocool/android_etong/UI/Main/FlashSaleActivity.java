@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,11 +39,12 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
  */
 public class FlashSaleActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private ListView listView;
-    private TextView tvTitle;
+    private TextView tvTitle,tv_progress_shengyu;
     private RelativeLayout rlBack;
     private SliderLayout mDemoSlider;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
+    private ProgressBar progressBar;
     private FlashSaleAdapter flashSaleAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -117,6 +120,8 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
         tvTitle.setText("限时抢购");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tv_progress_shengyu = (TextView) findViewById(R.id.tv_progress_shengyu);
     }
 
     @Override
