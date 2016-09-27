@@ -144,6 +144,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.OrderDetailsActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditGoodsDetailsActivity"></activity>
 
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>

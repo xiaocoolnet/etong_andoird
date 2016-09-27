@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,9 +59,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private String result_data;
     private String picname1, picname2, picname3,picname4,picname5;
     private String pic_path1, pic_path2, pic_path3,pic_path4,pic_path5;
-    private String biaoti, pinpai, huohao, guige, yunfei, fahuodi, xiangqing;
+    private String biaoti, pinpai, huohao, guige, yunfei, fahuodi, xiangqing,xiangqing1;
     private String price, oprice, inventory;
     private int state = 0;
+    private RelativeLayout iv_goods_detail;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -181,12 +183,14 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         et_guige = (EditText) findViewById(R.id.et_guige);
         et_yunfei = (EditText) findViewById(R.id.et_yunfei);
         et_fahuodi = (EditText) findViewById(R.id.et_fahuodi);
-        et_xiangqing = (EditText) findViewById(R.id.et_xiangqing);
+
         tx_goods_upload = (TextView) findViewById(R.id.tx_goods_upload);
         tx_goods_upload.setOnClickListener(this);
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);
         etOprice = (EditText) findViewById(R.id.uploadGood_et_oprice);
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
+        iv_goods_detail = (RelativeLayout) findViewById(R.id.iv_goods_detail);
+        iv_goods_detail.setOnClickListener(this);
     }
 
     private void initDatas() {
@@ -286,6 +290,11 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.tx_goods_upload:
                 uploads();
+                break;
+            case R.id.iv_goods_detail:
+                Intent intent1 = new Intent();
+                intent1.setClass(mContext,EditGoodsDetailsActivity.class);
+                startActivityForResult(intent1, 1);
                 break;
         }
     }
@@ -388,6 +397,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             Log.e("picname4", picname4);
             picname5 = data.getStringExtra("picname5");
             Log.e("picname5", picname5);
+            xiangqing1 = data.getStringExtra("txt");
             if (pic_path1 == null || pic_path1.equals("")) {
                 pic_path1 = "";
             }
@@ -427,6 +437,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 picname5 = "";
             } else {
                 picname5 = picname5 + ".jpg";
+            }if(xiangqing1 == null || xiangqing1.equals("")){
+                xiangqing1 = "";
+            }else{
+                xiangqing1 = "";
             }
         }
     }
