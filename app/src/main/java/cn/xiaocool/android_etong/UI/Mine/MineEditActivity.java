@@ -32,11 +32,15 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.bean.AddressInfo;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.db.sp.AddressDB;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetBaseUtils;
@@ -58,6 +62,11 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
     private UserInfo user;
     private RelativeLayout ry_line;
     private RelativeLayout btnBack;
+    private TextView tx_edit_address;
+
+    private List<AddressInfo> address = new ArrayList<AddressInfo>();
+    private AddressDB addressDB;
+
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/myheader";
@@ -189,6 +198,19 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         ll_city = (LinearLayout) findViewById(R.id.ll_city);
         ll_city.setOnClickListener(this);
         tv_city = (TextView) findViewById(R.id.tv_city);
+        tx_edit_address = (TextView) findViewById(R.id.tx_edit_address);
+
+        addressDB = AddressDB.getInstance(getBaseContext());
+        address = addressDB.queryAddress();
+        if (address==null){
+        }else {
+            for (int i = 0 ; i < address.size() ; i++){
+                if (address.get(i).isStatus()){
+                    tx_edit_address.setText(address.get(i).getProvinces()+" "+address.get(i).getStreet());
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -215,7 +237,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ln_address:
                 Intent intent2 = new Intent();
-                intent2.setClass(MineEditActivity.this, AddressActivity.class);
+                intent2.setClass(MineEditActivity.this, PersonAddress.class);
                 startActivity(intent2);
                 break;
             case R.id.ll_city:

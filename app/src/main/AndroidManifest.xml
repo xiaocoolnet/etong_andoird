@@ -145,6 +145,11 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
 
+        <!--收货地址相关活动-->
+        <activity android:name=".UI.Mine.PersonAddress"></activity>
+        <activity android:name=".UI.Mine.AddressChoose"></activity>
+        <activity android:name=".UI.Mine.BuyAddress"></activity>
+
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.ApplyShopFailActivity"></activity>
@@ -162,6 +167,7 @@
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.PicTxtDetailsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditGoodsDetailsActivity"></activity>
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
             android:windowSoftInputMode="adjustPan"></activity>
@@ -200,6 +206,8 @@
         </activity>
 
 
+        <!--收货地址service 写入数据 能够快速加载省市区-->
+        <service android:name=".service.landDivideServeice"></service>
 
         <!-- Required SDK核心功能-->
         <activity

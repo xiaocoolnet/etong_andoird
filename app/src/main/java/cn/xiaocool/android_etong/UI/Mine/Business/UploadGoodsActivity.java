@@ -181,12 +181,13 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         et_guige = (EditText) findViewById(R.id.et_guige);
         et_yunfei = (EditText) findViewById(R.id.et_yunfei);
         et_fahuodi = (EditText) findViewById(R.id.et_fahuodi);
-        et_xiangqing = (EditText) findViewById(R.id.et_xiangqing);
         tx_goods_upload = (TextView) findViewById(R.id.tx_goods_upload);
         tx_goods_upload.setOnClickListener(this);
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);
         etOprice = (EditText) findViewById(R.id.uploadGood_et_oprice);
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
+        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
+        rl_goods_details.setOnClickListener(this);
     }
 
     private void initDatas() {
@@ -287,6 +288,12 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             case R.id.tx_goods_upload:
                 uploads();
                 break;
+            case R.id.iv_goods_detail:
+                Intent intent1 = new Intent();
+                intent1.setClass(mContext,EditGoodsDetailsActivity.class);
+                startActivityForResult(intent1, 1);
+                break;
+
         }
     }
 
