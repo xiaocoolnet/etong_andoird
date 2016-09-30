@@ -50,6 +50,50 @@ public class ShopRequest {
             }
         }.start();
     }
+
+    //收藏宝贝
+    public void likeShop(final String goodId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodId + "&type=2";
+                Log.e("user id is ",user.getUserId());
+                String result_data = NetUtil.getResponse(WebAddress.LIKE_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.LIKE_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //取消收藏宝贝
+    public void cancelLikeShop(final String goodId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodId + "&type=" + "2";
+                String result_data = NetUtil.getResponse(WebAddress.CANCLE_LIKE_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CANCLE_LIKE_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
     //取消收藏宝贝
     public void cancelLike(final String goodId) {
         new Thread() {
@@ -70,6 +114,7 @@ public class ShopRequest {
             }
         }.start();
     }
+
     public void uploadStandard(final String goodId, final String standardName, final String standardType) {
         new Thread() {
             Message msg = Message.obtain();

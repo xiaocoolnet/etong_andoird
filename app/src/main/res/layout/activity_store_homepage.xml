@@ -159,6 +159,7 @@
                                 />
                         </LinearLayout>
                     <Button
+                        android:id="@+id/btn_shoucang"
                         android:layout_width="66dp"
                         android:layout_height="26dp"
                         android:layout_alignTop="@+id/img_store_head"
@@ -166,7 +167,7 @@
                         android:layout_alignParentRight="true"
                         android:text="收藏"
                         android:textColor="@color/whilte"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:paddingLeft="20dp"
                         android:background="@drawable/shop_shoucang"
                         />

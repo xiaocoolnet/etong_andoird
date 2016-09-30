@@ -1177,4 +1177,27 @@ public class MainRequest {
             }
         }.start();
     }
+
+    // 获取成交信息
+    public void GetMyWallet(){
+        new Thread(){
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&userid="+user.getUserId();
+                Log.e("data=",data);
+                String result_data = NetUtil.getResponse(WebAddress.GetMyWallet,data);
+                Log.e("result_data=",result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetMyWallet;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

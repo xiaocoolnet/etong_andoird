@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -32,13 +33,16 @@ import cn.xiaocool.android_etong.bean.business.StoreHomepage;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by 潘 on 2016/7/19.
  */
 public class StoreHomepageActivity extends Activity implements View.OnClickListener {
     private Context context;
+    private Button btn_shoucang;
     private String shopid,shopname,shop_uid,shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
@@ -121,6 +125,27 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                         Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case CommunalInterfaces.LIKE_GOOD:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        if (jsonObject1.getString("status").equals("success")) {
+                            ToastUtils.makeShortToast(context, "收藏成功！");
+                            btn_shoucang.setText("已收藏");
+                        }                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.CANCLE_LIKE_GOOD:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        if (jsonObject2.getString("status").equals("success")) {
+                            ToastUtils.makeShortToast(context, "取消收藏成功！");
+                            btn_shoucang.setText("收藏");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
@@ -149,6 +174,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        btn_shoucang = (Button) findViewById(R.id.btn_shoucang);
+        btn_shoucang.setOnClickListener(this);
     }
 
     private void initdata() {
@@ -164,6 +191,15 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         switch (v.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.btn_shoucang:
+                if (!btn_shoucang.isSelected()) {
+                    new ShopRequest(this, handler).likeShop(shopid);
+                    btn_shoucang.setSelected(true);
+                } else {
+                    new ShopRequest(this, handler).cancelLikeShop(shopid);
+                    btn_shoucang.setSelected(false);
+                }
                 break;
         }
     }

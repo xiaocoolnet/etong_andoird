@@ -44,7 +44,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti;
     private String shopid,shopType;
-    private TextView tx_store_name;
+    private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3;
     private Context context;
     private ImageView img_store_head;
     private ProgressDialog progressDialog;
@@ -90,6 +90,21 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                         Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case CommunalInterfaces.GetMyWallet:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject1.getString("status");
+                        if (status.equals("success")){
+                            Log.e("success","GetMyWallet");
+                            JSONObject object = jsonObject1.getJSONObject("data");
+                            tx_business_price1.setText("￥"+object.getString("allorder"));
+                            tx_business_price2.setText(object.getString("dayorders"));
+                            tx_business_price3.setText(object.getString("dayvisitor"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
@@ -113,6 +128,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
             new MainRequest(context,handler).getmyshop();
+            new MainRequest(context,handler).GetMyWallet();
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }
@@ -137,6 +153,9 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         img_store_head = (ImageView) findViewById(R.id.img_store);
         img_store_head.setOnClickListener(this);
         tx_store_name = (TextView) findViewById(R.id.tx_business_touxiang);
+        tx_business_price1 = (TextView) findViewById(R.id.tx_business_price1);
+        tx_business_price2 = (TextView) findViewById(R.id.tx_business_price2);
+        tx_business_price3 = (TextView) findViewById(R.id.tx_business_price3);
     }
 
 

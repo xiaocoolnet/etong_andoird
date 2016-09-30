@@ -25,7 +25,48 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--会员中心-->
+    <!--&lt;!&ndash;会员中心&ndash;&gt;-->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--&gt;-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_huiyuanzhongxin"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:drawableTop="@mipmap/ic_huiyuan"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingBottom="2dip"-->
+            <!--android:paddingTop="17dip"-->
+            <!--android:scaleType="matrix"-->
+            <!--android:text="会员中心"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="12sp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--&lt;!&ndash;足迹&ndash;&gt;-->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--&gt;-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_zuji"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:drawableTop="@mipmap/ic_zuji"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingBottom="2dip"-->
+            <!--android:paddingTop="17dip"-->
+            <!--android:scaleType="matrix"-->
+            <!--android:text="我的足迹"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="12sp" />-->
+    <!--</RelativeLayout>-->
+    <!--分享-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -33,20 +74,20 @@
         >
 
         <Button
-            android:id="@+id/btn_huiyuanzhongxin"
+            android:id="@+id/btn_fenxiang"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_huiyuan"
+            android:drawableTop="@mipmap/ic_share"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="会员中心"
+            android:text="我的消息"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <!--足迹-->
+    <!--我的评价-->
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -54,19 +95,18 @@
         >
 
         <Button
-            android:id="@+id/btn_zuji"
+            android:id="@+id/btn_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_zuji"
+            android:drawableTop="@mipmap/ic_pingjia"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="17dip"
             android:scaleType="matrix"
-            android:text="我的足迹"
+            android:text="我的评价"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>
-
     <!--我要开店-->
     <RelativeLayout
         android:layout_width="0dp"

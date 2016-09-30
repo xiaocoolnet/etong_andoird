@@ -42,6 +42,7 @@ import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
+import cn.xiaocool.android_etong.UI.Mine.WalletActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
@@ -70,6 +71,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button mineBtnNoEvaluate;
     @BindView(R.id.btn_fenxiang)
     Button btn_fenxiang;
+    @BindView(R.id.btn_qianbao)
+    Button btn_qianbao;
     private ImageView img_setup;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
@@ -77,6 +80,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private TextView tx_mine_name;
     private ProgressDialog progressDialog;
     private Context context;
+    private String name , touxiang;
     private UserInfo userInfo;
     private SharedPreferences sp;
     private Handler handler = new Handler() {
@@ -95,6 +99,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 tx_mine_name.setText(object.getString("name"));
                             }
+                            name = object.getString("name");
+                            touxiang = object.getString("photo");
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), img_mine_head);
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
@@ -156,6 +162,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+
+
             }
         }
     };
@@ -206,6 +215,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btnComment.setOnClickListener(this);
         btn_fenxiang = (Button) getView().findViewById(R.id.btn_fenxiang);
         btn_fenxiang.setOnClickListener(this);
+        btn_qianbao.setOnClickListener(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
     }
 
@@ -283,6 +293,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 intent6.setClass(context, ChatListActivity.class);
                 startActivity(intent6);
                 break;
+            case R.id.btn_qianbao:
+                Intent intent7 = new Intent();
+                intent7.setClass(context, WalletActivity.class);
+                intent7.putExtra("name",name);
+                intent7.putExtra("touxiang",touxiang);
+                startActivity(intent7);
+                break;
+
         }
     }
 

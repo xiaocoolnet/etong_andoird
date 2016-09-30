@@ -42,7 +42,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private Context mContext;
     private RelativeLayout rl_back, rl_carousel_pic,rl_goods_details;
     private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi, et_xiangqing;
-    private TextView tx_goods_upload;
+    private TextView tx_goods_upload,tv_judge;
     private ProgressDialog progressDialog;
     private String show;
     private String shopid,shopType;
@@ -186,8 +186,9 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);
         etOprice = (EditText) findViewById(R.id.uploadGood_et_oprice);
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
-        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
-        rl_goods_details.setOnClickListener(this);
+//        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
+//        rl_goods_details.setOnClickListener(this);
+        tv_judge = (TextView) findViewById(R.id.tv_judge);
     }
 
     private void initDatas() {
@@ -288,11 +289,11 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             case R.id.tx_goods_upload:
                 uploads();
                 break;
-            case R.id.iv_goods_detail:
-                Intent intent1 = new Intent();
-                intent1.setClass(mContext,EditGoodsDetailsActivity.class);
-                startActivityForResult(intent1, 1);
-                break;
+//            case R.id.iv_goods_detail:
+//                Intent intent1 = new Intent();
+//                intent1.setClass(mContext,EditGoodsDetailsActivity.class);
+//                startActivityForResult(intent1, 1);
+//                break;
 
         }
     }
@@ -397,6 +398,9 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             Log.e("picname5", picname5);
             if (pic_path1 == null || pic_path1.equals("")) {
                 pic_path1 = "";
+                tv_judge.setVisibility(View.GONE);
+            }else {
+                tv_judge.setVisibility(View.VISIBLE);
             }
             if (pic_path2 == null || pic_path2.equals("")) {
                 pic_path2 = "";
