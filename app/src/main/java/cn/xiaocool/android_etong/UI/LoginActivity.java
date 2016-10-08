@@ -29,6 +29,7 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.service.landDivideServeice;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
 
@@ -122,6 +123,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         context = this;
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        //启动服务 加载写入收货地址时的 省市区
+        Intent i = new Intent(this, landDivideServeice.class);
+        startService(i);
         user = new UserInfo();
         user.readData(this);
         if (user.isLogined()) {// 已登录

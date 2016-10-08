@@ -92,6 +92,7 @@
                 android:background="@mipmap/ic_etc"
                 />
         </RelativeLayout>
+
         <ScrollView
             android:scrollbars="none"
             android:layout_width="match_parent"
@@ -100,6 +101,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <RelativeLayout
                     android:background="@mipmap/ic_dianpubeijing"
                     android:layout_marginTop="1dp"
@@ -110,6 +112,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@mipmap/ic_touxiang_tu"
                         />
                     <TextView
@@ -118,14 +122,14 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/whilte"
                         android:layout_marginLeft="75dp"
-                        android:layout_marginTop="45dp"
+                        android:layout_marginTop="35dp"
                         android:text="E小姐原创衣柜"
                         android:textSize="13sp"
                         />
                         <LinearLayout
                             android:layout_below="@+id/tx_store_name"
                             android:layout_marginLeft="75dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
@@ -160,7 +164,11 @@
                         android:layout_alignTop="@+id/img_store_head"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_shoucang"
+                        android:text="收藏"
+                        android:textColor="@color/whilte"
+                        android:textSize="12sp"
+                        android:paddingLeft="20dp"
+                        android:background="@drawable/shop_shoucang"
                         />
                     <TextView
                         android:layout_width="wrap_content"

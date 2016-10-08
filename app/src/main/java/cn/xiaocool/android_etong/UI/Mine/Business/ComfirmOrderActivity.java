@@ -142,6 +142,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 finish();
                 break;
             case R.id.ll_delivery_address:
+                //添加地址页面
                 Intent intent = new Intent();
                 intent.setClass(context, DeliveryAddressActivity.class);
                 intent.putExtra("judge", judge);
@@ -180,6 +181,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             Log.e("success", "deliveryaddress");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
             judge = data.getStringExtra("judge");
+            Log.e("first",judge);
             phone = data.getStringExtra("phone");
             name = data.getStringExtra("name");
             Log.e("deliveryaddress=", deliveryAddress);

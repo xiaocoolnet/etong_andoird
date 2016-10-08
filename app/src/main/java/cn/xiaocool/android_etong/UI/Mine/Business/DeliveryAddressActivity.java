@@ -18,8 +18,13 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.bean.AddressInfo;
 import cn.xiaocool.android_etong.bean.business.LocationService;
+import cn.xiaocool.android_etong.db.sp.AddressDB;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
 
 /**
@@ -34,6 +39,9 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
     private String judge = "0";
     private LocationService locationService;
 
+    private List<AddressInfo> address = new ArrayList<AddressInfo>();
+    private AddressDB addressDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +51,15 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         initview();
         Intent intent = getIntent();
         judge = intent.getStringExtra("judge");
+        Log.e("second",judge);
         deliveryAddress = intent.getStringExtra("deliveryaddress");
-        et_change_infor.setText(deliveryAddress);
         phone = intent.getStringExtra("phone");
-        et_customer_phone.setText(phone);
         name = intent.getStringExtra("name");
-        et_customer_name.setText(name);
+        if (judge.equals("1")){
+            et_change_infor.setText(deliveryAddress);
+            et_customer_phone.setText(phone);
+            et_customer_name.setText(name);
+        }
         // 切换后将EditText光标置于末尾
         CharSequence charSequence = et_change_infor.getText();
         if (charSequence instanceof Spannable) {
@@ -56,6 +67,7 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
             Selection.setSelection(spanText, charSequence.length());
         }
         KeyBoardUtils.showKeyBoardByTime(et_change_infor, 300);
+
     }
 
     private void initview() {
@@ -66,6 +78,21 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         rl_back.setOnClickListener(this);
         rl_sure = (RelativeLayout) findViewById(R.id.rl_sure);
         rl_sure.setOnClickListener(this);
+
+        addressDB = AddressDB.getInstance(getBaseContext());
+        address = addressDB.queryAddress();
+
+        if (address!=null){
+            for (int i = 0 ; i < address.size() ; i++){
+                if (address.get(i).isStatus()){
+                    et_customer_phone.setText(address.get(i).getPhone());
+                    et_customer_name.setText(address.get(i).getName());
+                    et_change_infor.setText(address.get(i).getProvinces() + " " + address.get(i).getStreet());
+                }
+            }
+        }else {
+            activityStart();
+        }
     }
 
     @Override
@@ -75,9 +102,10 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
                 deliveryAddress = et_change_infor.getText().toString();
                 phone = et_customer_phone.getText().toString();
                 name = et_customer_name.getText().toString();
+                judge = "1";
                 Intent intent1 = new Intent();
                 intent1.putExtra("deliveryaddress1",deliveryAddress);
-                intent1.putExtra("judge1",judge);
+                intent1.putExtra("judge",judge);
                 intent1.putExtra("phone",phone);
                 intent1.putExtra("name",name);
                 Log.e("deliveryaddress=",deliveryAddress);
@@ -88,9 +116,10 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
                 deliveryAddress = et_change_infor.getText().toString();
                 phone = et_customer_phone.getText().toString();
                 name = et_customer_name.getText().toString();
+                judge = "1";
                 Intent intent = new Intent();
                 intent.putExtra("deliveryaddress1",deliveryAddress);
-                intent.putExtra("judge1",judge);
+                intent.putExtra("judge",judge);
                 intent.putExtra("phone",phone);
                 intent.putExtra("name",name);
                 Log.e("deliveryaddress=",deliveryAddress);
@@ -104,9 +133,10 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK){
             deliveryAddress = et_change_infor.getText().toString();
+            judge = "1";
             Intent intent1 = new Intent();
             intent1.putExtra("deliveryaddress1",deliveryAddress);
-            intent1.putExtra("judge1",judge);
+            intent1.putExtra("judge",judge);
             intent1.putExtra("phone",phone);
             intent1.putExtra("name",name);
             setResult(RESULT_OK,intent1);
@@ -115,10 +145,7 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onStart() {
-        // TODO Auto-generated method stub
-        super.onStart();
+    protected  void  activityStart(){
         // -----------location config ------------
         locationService = ((cn.xiaocool.android_etong.view.etongApplaction) getApplication()).locationService;
         //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
@@ -131,7 +158,26 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
             locationService.setLocationOption(locationService.getOption());
         }
         locationService.start();// 定位SDK
-                    // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+    }
+
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+//        // -----------location config ------------
+//        locationService = ((cn.xiaocool.android_etong.view.etongApplaction) getApplication()).locationService;
+//        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+//        locationService.registerListener(mListener);
+//        //注册监听
+//        int type = getIntent().getIntExtra("from", 0);
+//        if (type == 0) {
+//            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+//        } else if (type == 1) {
+//            locationService.setLocationOption(locationService.getOption());
+//        }
+//        locationService.start();// 定位SDK
+//                    // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
     }
 
 
