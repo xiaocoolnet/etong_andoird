@@ -63,10 +63,17 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
     private static final int KEY4 = 0x669;
     private static final int KEY5 = 0x660;
 
+<<<<<<< HEAD
+    private String plist1, plist2, plist3, plist4, plist5;
+    private String nlist1, nlist2, nlist3, nlist4, nlist5,xiangqing;
+    private int judge;
+    private int state_xq = 0;
+=======
     private String picname1, picname2, picname3, picname4, picname5;
     private String pic_path1, pic_path2, pic_path3, pic_path4, pic_path5,xiangqing;
     private int judge;
     private int state = 0;
+>>>>>>> origin/master
     private ProgressDialog progressDialog;
     private Handler handler = new Handler() {
         @Override
@@ -79,10 +86,17 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                         JSONObject json = new JSONObject(key);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
+<<<<<<< HEAD
+                            state_xq = 1;
+                            if (!(plist2 == null || plist2.equals(""))) {
+                                progressDialog.setMessage("正在上传第二张照片");
+                                new MainRequest(context, handler).uploadavatar(plist2, KEY2);
+=======
                             state = 1;
                             if (!(pic_path2 == null || pic_path2.equals(""))) {
                                 progressDialog.setMessage("正在上传第二张照片");
                                 new MainRequest(context, handler).uploadavatar(pic_path2, KEY2);
+>>>>>>> origin/master
                             } else {
                                 Log.e("path2", "not set");
                                 progressDialog.dismiss();
@@ -103,10 +117,17 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                         JSONObject json = new JSONObject(key2);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
+<<<<<<< HEAD
+                            state_xq = 1;
+                            if (!(plist3 == null || plist3.equals(""))) {
+                                progressDialog.setMessage("正在上传第三张照片");
+                                new MainRequest(context, handler).uploadavatar(plist3, KEY3);
+=======
                             state = 1;
                             if (!(pic_path3 == null || pic_path3.equals(""))) {
                                 progressDialog.setMessage("正在上传第三张照片");
                                 new MainRequest(context, handler).uploadavatar(pic_path3, KEY3);
+>>>>>>> origin/master
                             } else {
                                 Log.e("path3", "not set");
                                 progressDialog.dismiss();
@@ -127,10 +148,17 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                         JSONObject json = new JSONObject(key3);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
+<<<<<<< HEAD
+                            state_xq = 1;
+                            if (!(plist4 == null || plist4.equals(""))) {
+                                progressDialog.setMessage("正在上传第四张照片");
+                                new MainRequest(context, handler).uploadavatar(plist4, KEY4);
+=======
                             state = 1;
                             if (!(pic_path4 == null || pic_path4.equals(""))) {
                                 progressDialog.setMessage("正在上传第四张照片");
                                 new MainRequest(context, handler).uploadavatar(pic_path4, KEY4);
+>>>>>>> origin/master
                             } else {
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
@@ -152,10 +180,17 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                         JSONObject json = new JSONObject(key4);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
+<<<<<<< HEAD
+                            state_xq = 1;
+                            if (!(plist5 == null || plist5.equals(""))) {
+                                progressDialog.setMessage("正在上传第五张照片");
+                                new MainRequest(context, handler).uploadavatar(plist5, KEY5);
+=======
                             state = 1;
                             if (!(pic_path5 == null || pic_path5.equals(""))) {
                                 progressDialog.setMessage("正在上传第五张照片");
                                 new MainRequest(context, handler).uploadavatar(pic_path5, KEY5);
+>>>>>>> origin/master
                             } else {
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
@@ -175,8 +210,13 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                         JSONObject json = new JSONObject(key5);
                         String state1 = json.getString("status");
                         if (state1.equals("success")) {
+<<<<<<< HEAD
+                            state_xq = 1;
+                            if (!(plist5 == null || plist5.equals(""))) {
+=======
                             state = 1;
                             if (!(pic_path5 == null || pic_path5.equals(""))) {
+>>>>>>> origin/master
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                             } else {
@@ -226,11 +266,19 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         intiview();
         xiangqing = editText.getText().toString();
+<<<<<<< HEAD
+        Log.e("xiangqing",xiangqing);
+=======
+>>>>>>> origin/master
     }
 
     public void intiview(){
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
         lin_lunbo2 = (LinearLayout) findViewById(R.id.lin_lunbo2);
         lin_lunbo2.setVisibility(View.GONE);
         lin_lunbo3 = (LinearLayout) findViewById(R.id.lin_lunbo3);
@@ -241,6 +289,20 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
         lin_lunbo5.setVisibility(View.GONE);
 
 
+<<<<<<< HEAD
+        img_lunbo_pic1 = (ImageView) findViewById(R.id.img_pic1);
+        img_lunbo_pic1.setOnClickListener(this);
+        img_lunbo_pic2 = (ImageView) findViewById(R.id.img_pic2);
+        img_lunbo_pic2.setOnClickListener(this);
+        img_lunbo_pic3 = (ImageView) findViewById(R.id.img_pic3);
+        img_lunbo_pic3.setOnClickListener(this);
+        img_lunbo_pic4 = (ImageView) findViewById(R.id.img_pic4);
+        img_lunbo_pic4.setOnClickListener(this);
+        img_lunbo_pic5 = (ImageView) findViewById(R.id.img_pic5);
+        img_lunbo_pic5.setOnClickListener(this);
+
+        editText = (EditText) findViewById(R.id.et_txt);
+=======
         img_lunbo_pic1 = (ImageView) findViewById(R.id.img_lunbo_pic1);
         img_lunbo_pic1.setOnClickListener(this);
         img_lunbo_pic2 = (ImageView) findViewById(R.id.img_lunbo_pic2);
@@ -254,6 +316,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
 
         editText = (EditText) findViewById(R.id.et_txt);
 
+>>>>>>> origin/master
         tx_upload = (TextView) findViewById(R.id.tx_upload);
         tx_upload.setOnClickListener(this);
     }
@@ -263,6 +326,52 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             case R.id.rl_back:
                 Intent intent_data = new Intent();
                 intent_data.putExtra("1111", "111");
+<<<<<<< HEAD
+                if (plist1 == null || plist1.equals("")) {
+                    plist1 = "";
+                }
+                if (plist2 == null || plist2.equals("")) {
+                    plist2 = "";
+                }
+                if (plist3 == null || plist3.equals("")) {
+                    plist3 = "";
+                }
+                if (plist4 == null || plist4.equals("")) {
+                    plist4 = "";
+                }
+                if (plist5 == null || plist5.equals("")) {
+                    plist5 = "";
+                }
+                if (nlist1 == null || nlist1.equals("")) {
+                    nlist1 = "";
+                }
+                if (nlist2 == null || nlist2.equals("")) {
+                    nlist2 = "";
+                }
+                if (nlist3 == null || nlist3.equals("")) {
+                    nlist3 = "";
+                }
+                if (nlist4 == null || nlist4.equals("")) {
+                    nlist4 = "";
+                }
+                if (nlist5 == null || nlist5.equals("")) {
+                    nlist5 = "";
+                }
+                intent_data.putExtra("state_xq", state_xq);
+                intent_data.putExtra("plist1", plist1);
+                intent_data.putExtra("plist2", plist2);
+                intent_data.putExtra("plist3", plist3);
+                intent_data.putExtra("plist4", plist4);
+                intent_data.putExtra("plist5", plist5);
+
+
+                intent_data.putExtra("nlist1", nlist1);
+                intent_data.putExtra("nlist2", nlist2);
+                intent_data.putExtra("nlist3", nlist3);
+                intent_data.putExtra("nlist4", nlist4);
+                intent_data.putExtra("nlist5", nlist5);
+                intent_data.putExtra("content", xiangqing);
+=======
                 if (pic_path1 == null || pic_path1.equals("")) {
                     pic_path1 = "";
                 }
@@ -307,11 +416,31 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                 intent_data.putExtra("picname4", picname4);
                 intent_data.putExtra("picname5", picname5);
                 intent_data.putExtra("txt", xiangqing);
+>>>>>>> origin/master
 
 
                 setResult(RESULT_OK, intent_data);
                 finish();
                 break;
+<<<<<<< HEAD
+            case R.id.img_pic1:
+                judge = 1;
+                ShowPickDialog();
+                break;
+            case R.id.img_pic2:
+                judge = 2;
+                ShowPickDialog();
+                break;
+            case R.id.img_pic3:
+                judge = 3;
+                ShowPickDialog();
+                break;
+            case R.id.img_pic4:
+                judge = 4;
+                ShowPickDialog();
+                break;
+            case R.id.img_pic5:
+=======
             case R.id.img_lunbo_pic1:
                 judge = 1;
                 ShowPickDialog();
@@ -329,6 +458,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                 ShowPickDialog();
                 break;
             case R.id.img_lunbo_pic5:
+>>>>>>> origin/master
                 judge = 5;
                 ShowPickDialog();
                 break;
@@ -339,6 +469,15 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
         }
     }
     private void upload() {
+<<<<<<< HEAD
+        if (plist1 == null || plist1.equals("")) {
+            Toast.makeText(context, "请至少设置一张照片", Toast.LENGTH_SHORT).show();
+        } else if (NetUtil.isConnnected(context)) {
+            progressDialog.setMessage("正在上传第一张图片");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            new MainRequest(context, handler).uploadavatar(plist1, KEY1);
+=======
         if (pic_path1 == null || pic_path1.equals("")) {
             Toast.makeText(context, "请至少设置一张照片", Toast.LENGTH_SHORT).show();
         } else if (NetUtil.isConnnected(context)) {
@@ -346,6 +485,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
             new MainRequest(context, handler).uploadavatar(pic_path1, KEY1);
+>>>>>>> origin/master
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -430,6 +570,29 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             if (judge == 1) {
                 img_lunbo_pic1.setImageDrawable(drawable);
                 lin_lunbo2.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
+               nlist1 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, nlist1, filepath);
+            } else if (judge == 2) {
+                img_lunbo_pic2.setImageDrawable(drawable);
+                lin_lunbo3.setVisibility(View.VISIBLE);
+                nlist2 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, nlist2, filepath);
+            } else if (judge == 3) {
+                img_lunbo_pic3.setImageDrawable(drawable);
+                lin_lunbo4.setVisibility(View.VISIBLE);
+                nlist3 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, nlist3, filepath);
+            } else if (judge == 4) {
+                img_lunbo_pic4.setImageDrawable(drawable);
+                lin_lunbo5.setVisibility(View.VISIBLE);
+                nlist4 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, nlist4, filepath);
+            } else if (judge == 5) {
+                img_lunbo_pic5.setImageDrawable(drawable);
+                nlist5 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(photo, nlist5, filepath);
+=======
                 picname1 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname1, filepath);
             } else if (judge == 2) {
@@ -451,6 +614,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
                 img_lunbo_pic5.setImageDrawable(drawable);
                 picname5 = user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, picname5, filepath);
+>>>>>>> origin/master
             }
         }
     }
@@ -469,6 +633,22 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             FileOutputStream fos = new FileOutputStream(imagefile);
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             if (judge == 1) {
+<<<<<<< HEAD
+                plist1 = imagefile.getPath();
+                Log.e("path=", plist1);
+            } else if (judge == 2) {
+                plist2 = imagefile.getPath();
+                Log.e("path=", plist2);
+            } else if (judge == 3) {
+                plist3 = imagefile.getPath();
+                Log.e("path=", plist3);
+            } else if (judge == 4) {
+                plist4 = imagefile.getPath();
+                Log.e("path=", plist4);
+            } else if (judge == 5) {
+                plist5 = imagefile.getPath();
+                Log.e("path=", plist5);
+=======
                 pic_path1 = imagefile.getPath();
                 Log.e("path=", pic_path1);
             } else if (judge == 2) {
@@ -483,6 +663,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             } else if (judge == 5) {
                 pic_path5 = imagefile.getPath();
                 Log.e("path=", pic_path5);
+>>>>>>> origin/master
             }
             fos.flush();
             fos.close();
@@ -497,6 +678,52 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent_data = new Intent();
             intent_data.putExtra("1111", "111");
+<<<<<<< HEAD
+            if (plist1 == null || plist1.equals("")) {
+                plist1 = "";
+            }
+            if (plist2 == null || plist2.equals("")) {
+                plist2 = "";
+            }
+            if (plist3 == null || plist3.equals("")) {
+                plist3 = "";
+            }
+            if (plist4 == null || plist4.equals("")) {
+                plist4 = "";
+            }
+            if (plist5 == null || plist5.equals("")) {
+                plist5 = "";
+            }
+            if (nlist1 == null || nlist1.equals("")) {
+                nlist1 = "";
+            }
+            if (nlist2 == null || nlist2.equals("")) {
+                nlist2 = "";
+            }
+            if (nlist3 == null || nlist3.equals("")) {
+                nlist1 = "";
+            }
+            if (nlist4 == null || nlist4.equals("")) {
+                nlist4 = "";
+            }
+            if (nlist5 == null || nlist5.equals("")) {
+                nlist5 = "";
+            }
+
+            intent_data.putExtra("plist1", plist1);
+            intent_data.putExtra("plist2", plist2);
+            intent_data.putExtra("plist3", plist3);
+            intent_data.putExtra("plist4", plist4);
+            intent_data.putExtra("plist5", plist5);
+
+            intent_data.putExtra("nlist1", nlist1);
+            intent_data.putExtra("nlist2", nlist2);
+            intent_data.putExtra("nlist3", nlist3);
+            intent_data.putExtra("nlist4", nlist4);
+            intent_data.putExtra("nlist5", nlist5);
+            intent_data.putExtra("content",xiangqing);
+
+=======
             if (pic_path1 == null || pic_path1.equals("")) {
                 pic_path1 = "";
             }
@@ -539,6 +766,7 @@ public class EditGoodsDetailsActivity extends Activity implements View.OnClickLi
             intent_data.putExtra("picname3", picname3);
             intent_data.putExtra("picname4", picname4);
             intent_data.putExtra("picname5", picname5);
+>>>>>>> origin/master
 
             setResult(RESULT_OK, intent_data);
             return true;

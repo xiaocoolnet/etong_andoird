@@ -145,6 +145,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
         <activity android:name=".UI.Mine.WalletActivity"></activity>
+        <activity android:name=".UI.Mine.Business.EditGoodsDetailsActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>
@@ -154,7 +155,6 @@
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.ApplyShopFailActivity"></activity>
-        <activity android:name=".UI.Mine.Business.UploadGoodsActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuthenticationShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuditShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.CarouselPicActivity"></activity>
