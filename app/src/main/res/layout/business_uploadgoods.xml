@@ -47,7 +47,21 @@
                     <!--android:textSize="17sp"-->
                     <!--/>-->
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_silder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <com.daimajia.slider.library.SliderLayout
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/slider"
+                android:layout_width="375dp"
+                android:layout_height="375dp"
+                android:layout_centerHorizontal="true">
 
+            </com.daimajia.slider.library.SliderLayout>
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_carousel_pic"
                 android:background="@color/whilte"
@@ -79,6 +93,7 @@
                     android:visibility="gone"
                     />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_marginTop="1dp"
                 android:background="@color/whilte"
