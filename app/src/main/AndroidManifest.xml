@@ -149,7 +149,6 @@
         <!--商家-->
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.ApplyShopFailActivity"></activity>
-        <activity android:name=".UI.Mine.Business.UploadGoodsActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuthenticationShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuditShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.CarouselPicActivity"></activity>
@@ -162,7 +161,6 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
-        <activity android:name=".UI.Mine.Business.PicTxtDetailsActivity"></activity>
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
             android:windowSoftInputMode="adjustPan"></activity>

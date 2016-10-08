@@ -101,7 +101,7 @@
                         android:layout_marginTop="1dp">
 
                         <ImageView
-                            android:id="@+id/img_lunbo_pic1"
+                            android:id="@+id/img_pic1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -121,7 +121,7 @@
                             android:layout_marginTop="1dp">
 
                             <ImageView
-                                android:id="@+id/img_lunbo_pic2"
+                                android:id="@+id/img_pic2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -142,7 +142,7 @@
                             android:layout_marginTop="1dp">
 
                             <ImageView
-                                android:id="@+id/img_lunbo_pic3"
+                                android:id="@+id/img_pic3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -163,7 +163,7 @@
                             android:layout_marginTop="1dp">
 
                             <ImageView
-                                android:id="@+id/img_lunbo_pic4"
+                                android:id="@+id/img_pic4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -184,7 +184,7 @@
                             android:layout_marginTop="1dp">
 
                             <ImageView
-                                android:id="@+id/img_lunbo_pic5"
+                                android:id="@+id/img_pic5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"

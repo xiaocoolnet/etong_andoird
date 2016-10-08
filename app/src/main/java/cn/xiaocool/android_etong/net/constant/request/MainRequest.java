@@ -334,7 +334,7 @@ public class MainRequest {
     //发布商品
     public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3,final String pic4,final String pic5, final String goodsname, final String type,
                              final String brand, final String artNo, final String standard, final String price, final String oprice, final String freight,
-                             final String inventory, final String description, final String address) {
+                             final String inventory, final String description, final String address,final String content,final String cpiclist) {
         new Thread() {
             Message msg = new Message();
 
@@ -343,7 +343,7 @@ public class MainRequest {
                 String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +","+pic4+","+pic5+
                         "&goodsname=" + goodsname + "&type=" + type + "&brand=" + brand + "&artno=" + artNo + "&unit=" + standard +
                         "&price=" + price + "&oprice=" + oprice + "&freight=" + freight + "&inventory=" + inventory + "&description="
-                        + description + "&address=" + address;
+                        + description + "&address=" + address+"&content="+content+"&cpiclist="+cpiclist;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.PUBLISHGOODS, data);
                 Log.e("successful", result_data);

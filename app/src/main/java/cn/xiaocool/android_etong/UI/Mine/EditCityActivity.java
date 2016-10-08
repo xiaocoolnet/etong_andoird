@@ -37,8 +37,9 @@ public class EditCityActivity extends Activity implements View.OnClickListener {
     private Provence provence;
     ArrayAdapter<Provence> adapter01;
     ArrayAdapter<City>adapter02;
-    private Spinner spinner01, spinner02;
-    private String city;
+    ArrayAdapter<District> adapter03;
+    private Spinner spinner01, spinner02,spinner03;
+    private String city,district;
     private RelativeLayout rl_back;
     private TextView tv_finish;
 
@@ -56,6 +57,7 @@ public class EditCityActivity extends Activity implements View.OnClickListener {
 
         spinner01 = (Spinner) findViewById(R.id.spinner01);
         spinner02 = (Spinner) findViewById(R.id.spinner02);
+        spinner03 = (Spinner) findViewById(R.id.spinner03);
 
         try {
             provences = getProvinces();
@@ -99,6 +101,12 @@ public class EditCityActivity extends Activity implements View.OnClickListener {
                                        int position, long id) {
             city = spinner02.getSelectedItem().toString()+"市";
                 Log.e("city=",city);
+                adapter03 = new ArrayAdapter<District>(EditCityActivity.this,
+                        android.R.layout.simple_list_item_1, provence.getCitys().get(position)
+                        .getDistricts());
+                spinner03.setAdapter(adapter03);
+                spinner03.setSelection(0, true);
+                district = spinner03.getSelectedItem().toString();
 
             }
 

@@ -30,7 +30,6 @@ import cn.xiaocool.android_etong.UI.Mine.Business.EditStoreActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.UploadGoodsActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
