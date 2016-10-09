@@ -38,8 +38,8 @@ import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ConfirmSecurityActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
-import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
@@ -124,7 +124,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 progressDialog.dismiss();
                                 Intent intent = new Intent();
                                 intent.putExtra("shopid", shopid);
-                                intent.setClass(context, BusinessActivity.class);
+                                intent.setClass(context, ConfirmSecurityActivity.class);
                                 startActivity(intent);
                             }
                             //未开店

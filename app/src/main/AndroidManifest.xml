@@ -145,6 +145,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
         <activity android:name=".UI.Mine.WalletActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

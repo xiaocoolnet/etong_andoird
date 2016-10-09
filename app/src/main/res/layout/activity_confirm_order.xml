@@ -4,9 +4,47 @@
     android:background="@color/gray_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/whilte"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="合计 : "
+            android:textColor="@color/black"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tx_goods_price_total"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text=" ￥0"
+            android:textColor="@color/main_color_red"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tx_comfirm_order"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="提交订单"
+            android:textColor="@color/whilte"
+            android:background="@color/main_color_red"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -49,6 +87,7 @@
                     android:background="@mipmap/ic_tianjia"
                     android:layout_marginLeft="10dp"
                     />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -246,37 +285,4 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:background="@color/whilte"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="合计 : "
-            android:textColor="@color/black"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/tx_goods_price_total"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text=" ￥0"
-            android:textColor="@color/main_color_red"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/tx_comfirm_order"
-            android:layout_width="0dp"
-            android:layout_weight="1.5"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:text="提交订单"
-            android:textColor="@color/whilte"
-            android:background="@color/main_color_red"
-            android:layout_height="match_parent" />
-    </LinearLayout>
 </RelativeLayout>
