@@ -145,7 +145,6 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
         <activity android:name=".UI.Mine.WalletActivity"></activity>
-        <activity android:name=".UI.Mine.Business.EditGoodsDetailsActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>
@@ -167,8 +166,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
-        <activity android:name=".UI.Mine.Business.PicTxtDetailsActivity"></activity>
-        <activity android:name=".UI.Mine.Business.EditGoodsDetailsActivity"></activity>
+
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
             android:windowSoftInputMode="adjustPan"></activity>
@@ -180,6 +178,7 @@
         <activity android:name=".UI.Mine.Business.DeliveryAddressActivity"></activity>
         <activity android:name=".UI.Mine.MyShoppingOrderListActivity"></activity>
         <activity android:name=".UI.HomePage.ShopListActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodsActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.UploadGoodsPropertyActivity"></activity>
         <activity android:name=".UI.Mine.Business.OrderDetails.CancelOrderActivity"></activity>
         <activity android:name=".UI.Mine.Business.SearchMyOrderActivity"></activity>

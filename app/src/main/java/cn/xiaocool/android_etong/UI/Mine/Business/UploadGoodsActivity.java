@@ -1,5 +1,6 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -63,7 +64,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     ArrayAdapter<Provence> adapter01;
     ArrayAdapter<City> adapter02;
     ArrayAdapter<District> adapter03;
-    private  HashMap<String, String> url_maps = new HashMap<String, String>();
+    private HashMap<String, String> url_maps = new HashMap<String, String>();
     private Spinner spinner01, spinner02, spinner03;
     private String result_data;
     private String picname1, picname2, picname3,picname4,picname5;
@@ -72,7 +73,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private String price, oprice, inventory;
     private int state = 0;
     private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
                     Log.e("222", "222");
@@ -198,12 +199,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
 //        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
 //        rl_goods_details.setOnClickListener(this);
-        tv_judge = (TextView) findViewById(R.id.tv_judge);
+
         //轮播图
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
-        mDemoSlider.setOnClickListener(this);
-        rl_silder = (RelativeLayout) findViewById(R.id.rl_silder);
-        rl_silder.setOnClickListener(this);
+
     }
 
     private void initDatas() {
@@ -429,9 +428,11 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             Log.e("picname5", picname5);
             if (pic_path1 == null || pic_path1.equals("")) {
                 pic_path1 = "";
-                tv_judge.setVisibility(View.GONE);
+                mDemoSlider.setVisibility(View.GONE);
+                rl_carousel_pic.setVisibility(View.VISIBLE);
+
+
             }else {
-                tv_judge.setVisibility(View.VISIBLE);
                 mDemoSlider.setVisibility(View.VISIBLE);
                 rl_carousel_pic.setVisibility(View.GONE);
             }

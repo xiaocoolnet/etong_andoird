@@ -37,7 +37,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -415,14 +414,14 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 startActivity(intent1);
                 break;
 
-            case R.id.tx_pic_txt:
-                Intent intent = new Intent();
-                intent.putExtra("shopid",shopid);
-                intent.putExtra("id",id);
-                intent.putExtra("pic",pic);
-                intent.setClass(context,PicTxtDetailsActivity.class);
-                startActivityForResult(intent,1);
-                break;
+//            case R.id.tx_pic_txt:
+//                Intent intent = new Intent();
+//                intent.putExtra("shopid",shopid);
+//                intent.putExtra("id",id);
+//                intent.putExtra("pic",pic);
+//                intent.setClass(context,PicTxtDetailsActivity.class);
+//                startActivityForResult(intent,1);
+//                break;
         }
     }
 
