@@ -12,17 +12,11 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_size_120"
-                android:background="@mipmap/everyday_choiceness" />
-
-
 
            <cn.xiaocool.android_etong.util.NoScrollListView
                android:layout_marginTop="@dimen/activity_size_1"

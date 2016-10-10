@@ -146,6 +146,7 @@
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
         <activity android:name=".UI.Mine.WalletActivity"></activity>
         <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
+        <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

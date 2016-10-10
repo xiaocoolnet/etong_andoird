@@ -46,26 +46,26 @@
             <!--android:textSize="12sp" />-->
     <!--</RelativeLayout>-->
 
-    <!--&lt;!&ndash;足迹&ndash;&gt;-->
-    <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--&gt;-->
+    <!--足迹-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
 
-        <!--<Button-->
-            <!--android:id="@+id/btn_zuji"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:drawableTop="@mipmap/ic_zuji"-->
-            <!--android:background="@color/white"-->
-            <!--android:paddingBottom="2dip"-->
-            <!--android:paddingTop="17dip"-->
-            <!--android:scaleType="matrix"-->
-            <!--android:text="我的足迹"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="12sp" />-->
-    <!--</RelativeLayout>-->
+        <Button
+            android:id="@+id/btn_zuji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_zuji"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="我的足迹"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </RelativeLayout>
     <!--分享-->
     <RelativeLayout
         android:layout_width="0dp"

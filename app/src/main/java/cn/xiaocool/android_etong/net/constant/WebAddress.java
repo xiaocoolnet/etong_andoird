@@ -371,6 +371,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetMyWallet = NET_BASE_PREFIX + "a=GetMyWallet";
+
+    /*
+    *获取我的足迹
+    */
+
+    String GetMyBrowseHistory = NET_BASE_PREFIX + "a=GetMyBrowseHistory";
 }
 
 

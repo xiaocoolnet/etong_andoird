@@ -41,6 +41,7 @@ import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ConfirmSecurityActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
+import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
 import cn.xiaocool.android_etong.UI.Mine.WalletActivity;
@@ -74,6 +75,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button btn_fenxiang;
     @BindView(R.id.btn_qianbao)
     Button btn_qianbao;
+    @BindView(R.id.btn_zuji)
+    Button btn_zuji;
     private ImageView img_setup;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
@@ -217,6 +220,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btn_fenxiang = (Button) getView().findViewById(R.id.btn_fenxiang);
         btn_fenxiang.setOnClickListener(this);
         btn_qianbao.setOnClickListener(this);
+        btn_zuji.setOnClickListener(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
     }
 
@@ -301,7 +305,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 intent7.putExtra("touxiang",touxiang);
                 startActivity(intent7);
                 break;
-
+            case R.id.btn_zuji:
+                Intent intent8 = new Intent();
+                intent8.setClass(context, MineFootprintActivity.class);
+                startActivity(intent8);
+                break;
         }
     }
 

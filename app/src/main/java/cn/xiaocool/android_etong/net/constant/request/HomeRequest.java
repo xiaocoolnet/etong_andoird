@@ -134,4 +134,25 @@ public class HomeRequest {
             }
         }.start();
     }
+
+    //获取我的足迹
+    public void GetMyBrowseHistory() {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data ="&userid=" + user.getUserId()+"&type=1";
+                String result_data = NetUtil.getResponse(WebAddress.GetMyBrowseHistory, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetMyBrowseHistory;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }
