@@ -206,6 +206,7 @@
             android:windowSoftInputMode="adjustPan|stateVisible" >
         </activity>
 
+        <activity android:name=".tool.zxingCode.activity.CaptureActivity"></activity>
 
         <!--收货地址service 写入数据 能够快速加载省市区-->
         <service android:name=".service.landDivideServeice"></service>

@@ -42,4 +42,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     compile files('libs/alipaySdk-20151103.jar')
     compile files('libs/jpush-android-2.1.9.jar')
+    compile files('libs/zxing.jar')
 }
