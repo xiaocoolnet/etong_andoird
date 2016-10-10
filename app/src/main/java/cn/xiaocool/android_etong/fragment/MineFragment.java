@@ -49,6 +49,7 @@ import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.tool.zxingCode.activity.CaptureActivity;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -77,7 +78,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button btn_qianbao;
     @BindView(R.id.btn_zuji)
     Button btn_zuji;
-    private ImageView img_setup;
+    private ImageView img_setup,iv_saoyisao;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
     private Button btn_kaidian, btn_daifukuan, btn_daishiyong, btn_daifahuo, btn_daiqueren, btn_daipinglun;
@@ -222,6 +223,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btn_qianbao.setOnClickListener(this);
         btn_zuji.setOnClickListener(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        iv_saoyisao = (ImageView)getView().findViewById(R.id.saoyisao);
+        iv_saoyisao.setOnClickListener(this);
     }
 
     @Override
@@ -309,6 +312,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Intent intent8 = new Intent();
                 intent8.setClass(context, MineFootprintActivity.class);
                 startActivity(intent8);
+                break;
+            case R.id.saoyisao:
+                startActivity(new Intent(getActivity(), CaptureActivity.class));
                 break;
         }
     }
