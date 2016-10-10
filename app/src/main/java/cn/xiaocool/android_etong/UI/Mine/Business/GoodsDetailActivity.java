@@ -65,6 +65,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private SliderLayout mDemoSlider;
     private TextView tx_goods_name, tx_pic_txt,tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
     private ImageView img_goods_pic;
+    private Button btn_store;
     private Button btn_lijigoumai, btn_shopping_cart,btn_chat;
     private ImageView btnLike;
     private String id, pic, goodsname, price, shopname, address, description, shopid,shop_uid,shop_photo;
@@ -290,6 +291,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
         tx_pic_txt = (TextView) findViewById(R.id.tx_pic_txt);
         tx_pic_txt.setOnClickListener(this);
+        btn_store = (Button) findViewById(R.id.btn_store);
+        btn_store.setOnClickListener(this);
     }
 
     private void setview() {
@@ -413,7 +416,12 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent1.setClass(context,ChatActivity.class);
                 startActivity(intent1);
                 break;
-
+            case R.id.btn_store:
+                Intent intent = new Intent();
+                intent.setClass(context, StoreHomepageActivity.class);
+                intent.putExtra("shopid",shopid);
+                context.startActivity(intent);
+                break;
 //            case R.id.tx_pic_txt:
 //                Intent intent = new Intent();
 //                intent.putExtra("shopid",shopid);

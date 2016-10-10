@@ -4,54 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_content">
 
-    <LinearLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/btn_chat"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/whilte"
-            android:drawableTop="@mipmap/ic_zixun"
-            android:paddingTop="5dp"
-            android:text="咨询"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/whilte"
-            android:drawableTop="@mipmap/ic_zixun"
-            android:paddingTop="5dp"
-            android:text="店铺"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btn_shopping_cart"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:background="#FF9800"
-            android:text="加入购物车"
-            android:textColor="@color/whilte" />
-
-        <Button
-            android:id="@+id/btn_lijigoumai"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:background="@color/main_color_red"
-            android:text="立即抢购"
-            android:textColor="@color/whilte" />
-
-    </LinearLayout>
 
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:id="@+id/goodsdetail_scrollview"
@@ -255,4 +208,53 @@
 
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_zixun"
+            android:paddingTop="5dp"
+            android:text="咨询"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_store"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_dianpu_gray"
+            android:paddingTop="5dp"
+            android:text="店铺"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_shopping_cart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:background="#FF9800"
+            android:text="加入购物车"
+            android:textColor="@color/whilte" />
+
+        <Button
+            android:id="@+id/btn_lijigoumai"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:background="@color/main_color_red"
+            android:text="立即抢购"
+            android:textColor="@color/whilte" />
+
+    </LinearLayout>
 </RelativeLayout>

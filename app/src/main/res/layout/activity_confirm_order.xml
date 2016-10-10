@@ -74,10 +74,96 @@
                     android:text="确认订单"
                     />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/view_color"
+                ></RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/ll_address"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/whilte"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="手机号"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/et_customer_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="110dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入手机号"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/whilte"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="姓名"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/et_customer_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="123dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入姓名"
+                        android:inputType="text"
+                        android:maxLength="11"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/activity_size_40"
+                    android:background="@color/whilte">
+
+                    <TextView
+                        android:id="@+id/et_change_infor"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/activity_size_30"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/activity_size_10"
+                        android:background="@null"
+                        android:hint="收货地址"
+                        android:textSize="@dimen/activity_size_16" />
+
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_delivery_address"
                 android:background="@color/whilte"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -89,6 +175,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_judge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

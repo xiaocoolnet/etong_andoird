@@ -41,7 +41,8 @@ public class ShopRequest {
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.LIKE_GOOD;
-                    msg.obj = obj;
+                   msg.obj = obj;
+                    Log.e(WebAddress.LIKE_GOOD+data,result_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -73,7 +74,7 @@ public class ShopRequest {
         }.start();
     }
 
-    //取消收藏宝贝
+    //取消收藏店铺
     public void cancelLikeShop(final String goodId) {
         new Thread() {
             Message msg = Message.obtain();
@@ -106,6 +107,7 @@ public class ShopRequest {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.CANCLE_LIKE_GOOD;
                     msg.obj = obj;
+                    Log.e(data,result_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {

@@ -587,7 +587,8 @@ public class MainRequest {
 
             @Override
             public void run() {
-                String data = "&id=" + id;
+                //如果是没有登录浏览 那么userid 用 0 表示
+                String data = "&userid="+user.getUserId()+"&id=" + id;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.GET_GOODS_INFO, data);
                 Log.e("result_data=", result_data);
