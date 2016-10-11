@@ -49,32 +49,32 @@
             android:orientation="horizontal"
             android:background="#E54C4C"
             android:layout_height="50dp">
-            e购券
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
 
-            >
-            <!--<ImageView-->
-                <!--android:id="@+id/img_egouquan"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginLeft="42dp"-->
-                <!--android:background="@mipmap/ic_egouquan"-->
-                <!--/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_toRightOf="@+id/img_egouquan"-->
-                <!--android:layout_marginLeft="7dp"-->
-                <!--android:text="e购券"-->
-                <!--android:textColor="@color/whilte"-->
-                <!--/>-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
 
-        </RelativeLayout>
+            <!--&gt;-->
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/img_egouquan"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginLeft="42dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:background="@mipmap/ic_egouquan"&ndash;&gt;-->
+                <!--&lt;!&ndash;/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_toRightOf="@+id/img_egouquan"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginLeft="7dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="e购券"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/whilte"&ndash;&gt;-->
+                <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+        <!--</RelativeLayout>-->
             <!--收藏-->
             <RelativeLayout
                 android:id="@+id/mine_btn_my_like"
@@ -104,28 +104,29 @@
             </RelativeLayout>
             <!--e购券-->
             <RelativeLayout
+                android:id="@+id/rl_coupon"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
                 >
-                <!--<ImageView-->
-                    <!--android:id="@+id/img_youhuiquan"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginLeft="42dp"-->
-                    <!--android:background="@mipmap/ic_youhuiquan"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_toRightOf="@+id/img_youhuiquan"-->
-                    <!--android:layout_marginLeft="7dp"-->
-                    <!--android:text="优惠券"-->
-                    <!--android:textColor="@color/whilte"-->
-                    <!--/>-->
+                <ImageView
+                    android:id="@+id/img_youhuiquan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:background="@mipmap/ic_youhuiquan"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_youhuiquan"
+                    android:layout_marginLeft="7dp"
+                    android:text="优惠券"
+                    android:textColor="@color/whilte"
+                    />
 
             </RelativeLayout>
 
