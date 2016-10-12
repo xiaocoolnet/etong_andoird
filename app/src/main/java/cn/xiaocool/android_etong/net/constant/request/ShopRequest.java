@@ -36,35 +36,13 @@ public class ShopRequest {
 
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodId + "&type=1";
-                Log.e("user id is ",user.getUserId());
-                String result_data = NetUtil.getResponse(WebAddress.LIKE_GOOD, data);
-                try {
-                    JSONObject obj = new JSONObject(result_data);
-                    msg.what = CommunalInterfaces.LIKE_GOOD;
-                   msg.obj = obj;
-                    Log.e(WebAddress.LIKE_GOOD+data,result_data);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } finally {
-                    handler.sendMessage(msg);
-                }
-            }
-        }.start();
-    }
-
-    //收藏宝贝
-    public void likeShop(final String goodId) {
-        new Thread() {
-            Message msg = Message.obtain();
-
-            public void run() {
-                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodId + "&type=2";
-                Log.e("user id is ",user.getUserId());
+                Log.e("user id is ", user.getUserId());
                 String result_data = NetUtil.getResponse(WebAddress.LIKE_GOOD, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.LIKE_GOOD;
                     msg.obj = obj;
+//                    Log.e(WebAddress.LIKE_GOOD+data,result_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -73,6 +51,7 @@ public class ShopRequest {
             }
         }.start();
     }
+
 
     //取消收藏店铺
     public void cancelLikeShop(final String goodId) {
@@ -107,7 +86,7 @@ public class ShopRequest {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.CANCLE_LIKE_GOOD;
                     msg.obj = obj;
-                    Log.e(data,result_data);
+                    Log.e(data, result_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
@@ -117,12 +96,35 @@ public class ShopRequest {
         }.start();
     }
 
+    //收藏店铺-------------尚未完成
+    public void likeShop(final String shopId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + shopId + "&type=1";
+                Log.e("user id is ", user.getUserId());
+                String result_data = NetUtil.getResponse(WebAddress.LIKE_GOOD, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.LIKE_GOOD;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+
     public void uploadStandard(final String goodId, final String standardName, final String standardType) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&goodsid=" + goodId + "&type=" + standardName + "&propertylist=" + standardType;
+                String data = "&goodsid=" + goodId + "&type=" + standardName + "&propertylist=" + standardType;
                 String result_data = NetUtil.getResponse(WebAddress.UPLOAD_GOOD_STANDARD, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -136,13 +138,14 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //获取商品附加属性
     public void obtainAttachedProperty(final String goodType) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&goodstype=" + goodType;//传入商店类型type
+                String data = "&goodstype=" + goodType;//传入商店类型type
                 String result_data = NetUtil.getResponse(WebAddress.GOOD_ATTACHED_PROPERTY, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -159,12 +162,12 @@ public class ShopRequest {
 
 
     //上传商品附加属性
-    public void uploadGoodAttribute(final String goodsId,final String type,final String propertyList) {
+    public void uploadGoodAttribute(final String goodsId, final String type, final String propertyList) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&goodsid=" + goodsId + "&type=" + type + "&propertylist=" + propertyList;
+                String data = "&goodsid=" + goodsId + "&type=" + type + "&propertylist=" + propertyList;
                 String result_data = NetUtil.getResponse(WebAddress.UPLOAD_GOOD_ATTRIBUTE, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -185,7 +188,7 @@ public class ShopRequest {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&goodsid=" + goodId;
+                String data = "&goodsid=" + goodId;
                 String result_data = NetUtil.getResponse(WebAddress.OBTAIN_GOOD_ATTRIBUTE, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -199,14 +202,15 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //产品发货
     public void sellerDeliverGood(final String orderId) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&id=" + orderId;
-                Log.e("deliver good success",orderId);
+                String data = "&id=" + orderId;
+                Log.e("deliver good success", orderId);
                 String result_data = NetUtil.getResponse(WebAddress.SELLER_DELIVER_GOOD, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -220,14 +224,15 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //产品发货
     public void confirmGood(final String orderId) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&id=" + orderId;
-                Log.e("deliver good success",orderId);
+                String data = "&id=" + orderId;
+                Log.e("deliver good success", orderId);
                 String result_data = NetUtil.getResponse(WebAddress.CONFIRM_GOOD, data);
 
                 try {
@@ -249,7 +254,7 @@ public class ShopRequest {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&id=" + orderId;
+                String data = "&id=" + orderId;
                 String result_data = NetUtil.getResponse(WebAddress.PAY_ORDER_LIST, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -263,13 +268,14 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //买家订单评论
-    public void buyWriteComment(final String orderId,final String comment) {
+    public void buyWriteComment(final String orderId, final String comment) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&userid=" + user.getUserId() + "&orderid=" + orderId +
+                String data = "&userid=" + user.getUserId() + "&orderid=" + orderId +
                         "&type=1" + "&content=" + comment + "&attitudescore=5&finishscore=5&effectscore=5";//星级评分写死
                 String result_data = NetUtil.getResponse(WebAddress.BUY_WRITE_COMMENT, data);
                 try {
@@ -284,13 +290,14 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //买家取消订单
-    public void cancelOrder(final String orderId,final String reason) {
+    public void cancelOrder(final String orderId, final String reason) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&id=" + orderId + "&reason=" + reason;
+                String data = "&id=" + orderId + "&reason=" + reason;
                 String result_data = NetUtil.getResponse(WebAddress.CANCEL_ORDER, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -304,13 +311,14 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //买家搜索订单
     public void searchOrder(final String orderName) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data ="&userid=" + user.getUserId() + "&goodsname=" + orderName;
+                String data = "&userid=" + user.getUserId() + "&goodsname=" + orderName;
                 String result_data = NetUtil.getResponse(WebAddress.SEARCH_ORDER, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);

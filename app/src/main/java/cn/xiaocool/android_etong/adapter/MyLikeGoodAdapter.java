@@ -1,7 +1,9 @@
 package cn.xiaocool.android_etong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.bean.MyLikeBean.MyLikeGoodBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 
@@ -34,10 +37,11 @@ public class MyLikeGoodAdapter extends BaseAdapter {
     private DisplayImageOptions displayImageOptions;
     private List<MyLikeGoodBean.MyLikeGoodDataBean> myLikeGoodDataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-
+    private Context context;
     public MyLikeGoodAdapter(Context context, List<MyLikeGoodBean.MyLikeGoodDataBean> myLikeGoodDataBeanList) {
         this.layoutInflater = LayoutInflater.from(context);
         this.myLikeGoodDataBeanList = myLikeGoodDataBeanList;
+        this.context = context;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -61,22 +65,30 @@ public class MyLikeGoodAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = layoutInflater.inflate(R.layout.my_like_good_item, null);
+        ViewHolder viewHolder;
+        final MyLikeGoodBean.MyLikeGoodDataBean bean = myLikeGoodDataBeanList.get(position);
         //初始化控件
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.my_like_good_title);
-        tvTitle.setText(myLikeGoodDataBeanList.get(position).getTitle());
-        TextView tvPrice = (TextView) convertView.findViewById(R.id.my_like_good_price);
-        tvPrice.setText("¥" + myLikeGoodDataBeanList.get(position).getPrice());
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.my_like_good_item, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        viewHolder.tvTitle.setText(myLikeGoodDataBeanList.get(position).getGoodsName());
+
+        viewHolder.tvPrice.setText("¥" + myLikeGoodDataBeanList.get(position).getPrice());
         ImageView imgPic = (ImageView) convertView.findViewById(R.id.my_like_good_pic);
         ImageView imgStar = (ImageView) convertView.findViewById(R.id.my_like_good_star_level);
         String starNum = myLikeGoodDataBeanList.get(position).getStarLevel();
-        Log.e("level",starNum);
+        Log.e("level", starNum);
         if (starNum.equals("0")) {
             imgStar.setImageResource(R.mipmap.ic_yellowstar_0);
         } else if (starNum.equals("0.5")) {
             imgPic.setImageResource(R.mipmap.ic_yellowstar_0_5);
         } else if (starNum.equals("1")) {
-            Log.e("okok","okok");
+            Log.e("okok", "okok");
             imgPic.setImageResource(R.mipmap.ic_yellowstar_1);
         } else if (starNum.equals("1.5")) {
             imgPic.setImageResource(R.mipmap.ic_yellowstar_1_5);
@@ -95,10 +107,56 @@ public class MyLikeGoodAdapter extends BaseAdapter {
         } else if (starNum.equals("5")) {
             imgPic.setImageResource(R.mipmap.ic_yellowstar_5);
         }
-        Button btnBuy = (Button) convertView.findViewById(R.id.my_like_good_btn_buy);
+
         String picName = myLikeGoodDataBeanList.get(position).getPhoto();
         String[] arrayPic = picName.split("[,]");
         imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0], imgPic, displayImageOptions);
+        viewHolder.btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.my_like_good_btn_buy) {
+                    Intent intent = new Intent();
+                    intent.setClass(context, GoodsDetailActivity.class);
+                    intent.putExtra("id", bean.getId());//传出goodId
+                    intent.putExtra("artno", "");
+                    intent.putExtra("shopid", "");//传出shopid
+                    intent.putExtra("brand", "");
+                    intent.putExtra("goodsname", bean.getGoodsName());
+                    intent.putExtra("adtitle", "");
+                    intent.putExtra("oprice","");
+                    intent.putExtra("price", bean.getPrice());//传出price
+                    intent.putExtra("unit","");
+                    intent.putExtra("description", bean.getDescription());
+                    intent.putExtra("pic","");//传出pic
+                    intent.putExtra("showid", "");
+                    intent.putExtra("address", "");
+                    intent.putExtra("freight", "");
+                    intent.putExtra("pays", "");
+                    intent.putExtra("racking", "");
+                    intent.putExtra("recommend", "");
+                    intent.putExtra("shopname", "");//店铺名字
+                    intent.putExtra("sales", "");
+                    intent.putExtra("paynum", "");
+                    context.startActivity(intent);
+                }
+            }
+        });
         return convertView;
+    }
+
+    private class ViewHolder {
+        ImageView ivGoodPic;
+        TextView tvGoodDesc, tvGoodPrice, tvGoodOprice, tvGoodName;
+        Button btn;
+        private final TextView tvTitle;
+        private final Button btnBuy;
+        private final TextView tvPrice;
+
+        public ViewHolder(View view) {
+            tvPrice = (TextView) view.findViewById(R.id.my_like_good_price);
+            tvTitle = (TextView) view.findViewById(R.id.my_like_good_title);
+            btnBuy = (Button) view.findViewById(R.id.my_like_good_btn_buy);
+        }
+
     }
 }

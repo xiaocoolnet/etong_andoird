@@ -287,8 +287,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                         popLeft = new PopupWindow(layoutLeft, LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                         //设置背景半透明
-                        WindowManager.LayoutParams lp=getActivity().getWindow().getAttributes();
-                        lp.alpha=0.3f;
+                        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                        lp.alpha = 0.3f;
                         getActivity().getWindow().setAttributes(lp);
 //                        backgroundAlpha(1f);
                         ColorDrawable cd = new ColorDrawable(0x0000);

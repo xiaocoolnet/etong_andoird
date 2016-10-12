@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -86,6 +87,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
             }
         }
     };
+    private TextView tvSort;
 
 
     @Override
@@ -125,6 +127,8 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         tv_search = (TextView) findViewById(R.id.tv_search);
         tv_search.setText(search_content);
         tv_search.setOnClickListener(this);
+        tvSort = (TextView) findViewById(R.id.search_tv_sort_btn);
+        tvSort.setOnClickListener(this);
     }
 
     @Override
@@ -138,7 +142,14 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
                 intent.setClass(context, SearchActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.search_tv_sort_btn:
+                showSortPopWindow();
+                break;
         }
+    }
+
+    private void showSortPopWindow() {
+//        View contentView = LayoutInflater.from(this,).inflate(R.layout.,null);//写到这了
     }
 
     /*

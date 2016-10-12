@@ -54,11 +54,10 @@ public class MyLikeGoodFragment extends Fragment implements View.OnClickListener
                             for (int i = 0; i < length; i++) {
                                 dataObject = (JSONObject) jsonArray.get(i);
                                 MyLikeGoodBean.MyLikeGoodDataBean myLikeGoodDataBean = new MyLikeGoodBean.MyLikeGoodDataBean();
-                                myLikeGoodDataBean.setId(dataObject.getString("id"));
+                                myLikeGoodDataBean.setId(dataObject.getString("object_id"));//此处为商品ID
                                 myLikeGoodDataBean.setTitle(dataObject.getString("title"));
-                                myLikeGoodDataBean.setDescription(dataObject.getString("description"));
+                                myLikeGoodDataBean.setGoodsName(dataObject.getString("goodsname"));//此处为商品名字
                                 myLikeGoodDataBean.setPrice(dataObject.getString("price"));
-                                myLikeGoodDataBean.setId(dataObject.getString("id"));
                                 myLikeGoodDataBean.setPhoto(dataObject.getString("photo"));
                                 myLikeGoodDataBean.setStarLevel(dataObject.getString("starlevel"));
                                 myLikeGoodDataBeanList.add(myLikeGoodDataBean);

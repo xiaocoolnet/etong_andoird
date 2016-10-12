@@ -53,6 +53,7 @@ public class MyLikeGoodBean {
         private String price;
         private String photo;
         private String starLevel;
+        private String goodsName;
 
         public String getId() {
             return id;
@@ -77,6 +78,7 @@ public class MyLikeGoodBean {
         public void setStarLevel(String starLevel) {
             this.starLevel = starLevel;
         }
+
         public String getStarLevel() {
             return starLevel;
         }
@@ -132,5 +134,15 @@ public class MyLikeGoodBean {
         public void setPhoto(String photo) {
             this.photo = photo;
         }
+
+        public String getGoodsName() {
+            return goodsName;
+        }
+
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
+        }
     }
+
+
 }
