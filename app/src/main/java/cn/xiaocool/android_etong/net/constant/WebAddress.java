@@ -377,6 +377,11 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetMyBrowseHistory = NET_BASE_PREFIX + "a=GetMyBrowseHistory";
+    /**
+    *获取相关推荐
+    */
+
+    String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
 }
 
 

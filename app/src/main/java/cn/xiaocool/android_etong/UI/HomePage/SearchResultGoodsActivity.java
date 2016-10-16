@@ -3,16 +3,21 @@ package cn.xiaocool.android_etong.UI.HomePage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,20 +45,22 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
     private TextView tv_search;
     private ListView list_shop;
     private SearchResultGoodsAdapter searchResultGoodsAdapter;
-    private String search_content,city;
+    private String search_content, city;
     private List<Local> locals;
+    private LinearLayout searchSortLl;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case CommunalInterfaces.SEARCH_GOODS:
+                    Log.e("yes","enter");
                     try {
-                        JSONObject jsonObject = (JSONObject)msg.obj;
-                        String state=jsonObject.getString("status");
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
                             Log.e("success", "加载数据");
-                            for (int i = 0;i<jsonArray.length();i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                                 Local local = new Local();
                                 local.setId(jsonObject1.getString("id"));
@@ -68,16 +75,17 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
                                 local.setShopname(jsonObject2.getString("shopname"));
                                 locals.add(local);
                                 Log.e("succees", "商品数据加载");
-                            }if (searchResultGoodsAdapter!=null){
-                                Log.e("success","设置适配器");
+                            }
+                            if (searchResultGoodsAdapter != null) {
+                                Log.e("success", "设置适配器");
                                 searchResultGoodsAdapter.notifyDataSetChanged();
-                            }else {
-                                Log.e("success","设置适配器");
-                                searchResultGoodsAdapter = new SearchResultGoodsAdapter(context,locals);
+                            } else {
+                                Log.e("success", "设置适配器");
+                                searchResultGoodsAdapter = new SearchResultGoodsAdapter(context, locals);
                                 list_shop.setAdapter(searchResultGoodsAdapter);
                                 setListViewHeightBasedOnChildren(list_shop);
                             }
-                        }else{
+                        } else {
 //                            Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -88,6 +96,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         }
     };
     private TextView tvSort;
+    private PopupWindow popupWindow;
 
 
     @Override
@@ -100,19 +109,19 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         search_content = intent.getStringExtra("search_content");
         city = intent.getStringExtra("city");
         Log.e("content=", search_content);
-        Log.e("city=",city);
+        Log.e("city=", city);
         context = this;
         initView();
-        if (city.equals("homepage")){
-            if (NetUtil.isConnnected(context)){
-                new MainRequest(context,handler).SearchGoods(search_content);
-            }else {
+        if (city.equals("homepage")) {
+            if (NetUtil.isConnnected(context)) {
+                new MainRequest(context, handler).SearchGoods(search_content);
+            } else {
                 Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
             }
-        }else {
-            if (NetUtil.isConnnected(context)){
-                new MainRequest(context,handler).SearchGoods(search_content,city);
-            }else {
+        } else {
+            if (NetUtil.isConnnected(context)) {
+                new MainRequest(context, handler).SearchGoods(search_content, city);
+            } else {
                 Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
             }
         }
@@ -121,7 +130,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
 
     private void initView() {
         locals = new ArrayList<>();
-        rl_back = (RelativeLayout)findViewById(R.id.rl_back);
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         list_shop = (ListView) findViewById(R.id.list_shop);
         tv_search = (TextView) findViewById(R.id.tv_search);
@@ -129,11 +138,12 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         tv_search.setOnClickListener(this);
         tvSort = (TextView) findViewById(R.id.search_tv_sort_btn);
         tvSort.setOnClickListener(this);
+        searchSortLl = (LinearLayout) findViewById(R.id.search_sort_ll);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
@@ -145,11 +155,68 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
             case R.id.search_tv_sort_btn:
                 showSortPopWindow();
                 break;
+            //以下为排序接口
+            case R.id.search_pop_sort0:
+                //综合排序
+                new MainRequest(this, handler).SearchGoods(search_content + "&sort=1");//综合排序
+                popupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort1:
+                //上新时间
+                new MainRequest(this, handler).SearchGoods(search_content + "&sort=2");//上新时间
+                popupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort2:
+                //价格从低到高
+                new MainRequest(this, handler).SearchGoods(search_content + "&sort=3");//价格从低到高
+                popupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort3:
+                //价格从高到低
+                new MainRequest(this, handler).SearchGoods(search_content + "&sort=4");//价格从高到低
+                popupWindow.dismiss();
+                break;
         }
     }
 
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
     private void showSortPopWindow() {
-//        View contentView = LayoutInflater.from(this,).inflate(R.layout.,null);//写到这了
+        View contentView = LayoutInflater.from(this).inflate(R.layout.search_sort_popuplayout, null);
+        popupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        popupWindow.setBackgroundDrawable(cd);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+        popupWindow.showAsDropDown(searchSortLl, 0, 0);//puw显示位置
+
+        TextView tv1 = (TextView) contentView.findViewById(R.id.search_pop_sort0);
+        TextView tv2 = (TextView) contentView.findViewById(R.id.search_pop_sort1);
+        TextView tv3 = (TextView) contentView.findViewById(R.id.search_pop_sort2);
+        TextView tv4 = (TextView) contentView.findViewById(R.id.search_pop_sort3);
+        tv1.setOnClickListener(this);
+        tv2.setOnClickListener(this);
+        tv3.setOnClickListener(this);
+        tv4.setOnClickListener(this);
     }
 
     /*

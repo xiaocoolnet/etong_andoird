@@ -5,14 +5,13 @@
     android:background="@color/gray_content">
 
 
-
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:id="@+id/goodsdetail_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -198,6 +197,41 @@
                 android:gravity="center"
                 android:text="该产品暂无评论"
                 android:visibility="gone" />
+            <!--商品相关推荐-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_size_15"
+                        android:gravity="center_vertical"
+                        android:text="商品相关推荐"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <cn.xiaocool.android_etong.util.NoScrollGridView
+                    android:id="@+id/details_gv_relevance_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/whilte"
+                    android:columnWidth="@dimen/activity_size_100"
+                    android:gravity="center"
+                    android:horizontalSpacing="@dimen/activity_size_1"
+                    android:numColumns="3"
+                    android:padding="@dimen/activity_size_5"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/activity_size_1">
+
+                </cn.xiaocool.android_etong.util.NoScrollGridView>
+            </LinearLayout>
 
             <cn.xiaocool.android_etong.util.NoScrollListView
                 android:id="@+id/list_detail"
@@ -208,6 +242,7 @@
 
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
+
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"

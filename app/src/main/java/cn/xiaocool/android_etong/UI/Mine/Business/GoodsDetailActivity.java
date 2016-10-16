@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -44,8 +45,11 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.DetailAdapter;
+import cn.xiaocool.android_etong.adapter.GoodRecommendAdapter;
 import cn.xiaocool.android_etong.adapter.SelectPropertyAdapter;
+import cn.xiaocool.android_etong.adapter.SellerOrderAdapter;
 import cn.xiaocool.android_etong.bean.Shop.Detail;
+import cn.xiaocool.android_etong.bean.Shop.GoodRecommendBean;
 import cn.xiaocool.android_etong.bean.Shop.Property;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
@@ -63,16 +67,17 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout rl_back;
     private ScrollView goodsdetail_scrollview;
     private SliderLayout mDemoSlider;
-    private TextView tx_goods_name, tx_pic_txt,tx_goods_price, tv_goods_address, tv_goods_description,tv_no_content;
+    private TextView tx_goods_name, tx_pic_txt, tx_goods_price, tv_goods_address, tv_goods_description, tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_store;
-    private Button btn_lijigoumai, btn_shopping_cart,btn_chat;
+    private Button btn_lijigoumai, btn_shopping_cart, btn_chat;
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid,shop_uid,shop_photo;
+    private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
     private List<Property.DataBean> dataBeanList;
+    private List<GoodRecommendBean.DataBean> goodRecommendBean;
     private SelectPropertyAdapter selectPropertyAdapter;
     private SelectPropertyAdapter selectPropertyAdapter1;
     private ListView list_detail;
@@ -85,6 +90,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private String proids = "";
     private ProgressDialog progressDialog;
     public static final String action = "jason.broadcast.action";
+    private GoodRecommendAdapter goodRecommendAdapter;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -151,7 +157,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         if (status.equals("success")) {
                             JSONArray jsonArray = json1.getJSONArray("data");
                             dataBeans.clear();
-                            for (int i = 0;i<jsonArray.length();i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 Detail.DataBean dataBean = new Detail.DataBean();
                                 dataBean.setId(object.getString("id"));
@@ -162,18 +168,19 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                                 dataBean.setName(jsonObject3.getString("name"));
                                 dataBean.setPhoto(jsonObject3.getString("photo"));
                                 dataBeans.add(dataBean);
-                            }if (detailAdapter!=null){
-                                Log.e("success","设置适配器");
+                            }
+                            if (detailAdapter != null) {
+                                Log.e("success", "设置适配器");
                                 detailAdapter.notifyDataSetChanged();
-                            }else {
-                                Log.e("success","设置适配器");
-                                detailAdapter = new DetailAdapter(context,dataBeans);
+                            } else {
+                                Log.e("success", "设置适配器");
+                                detailAdapter = new DetailAdapter(context, dataBeans);
                                 list_detail.setAdapter(detailAdapter);
                                 setListViewHeightBasedOnChildren(list_detail);
                             }
                         } else {
                             list_detail.setVisibility(View.GONE);
-                           tv_no_content.setVisibility(View.VISIBLE);
+                            tv_no_content.setVisibility(View.VISIBLE);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -182,16 +189,16 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 case CommunalInterfaces.GetGoodsPropertyList:
                     Log.e("getmyshop", "getmyshop");
                     JSONObject jsonObject3 = (JSONObject) msg.obj;
-                    if(NetUtil.isConnnected(context)){
+                    if (NetUtil.isConnnected(context)) {
                         try {
                             String status = jsonObject3.getString("status");
                             String data = jsonObject3.getString("data");
-                            if (status.equals("success")){
+                            if (status.equals("success")) {
                                 dataBeanList.clear();
                                 booleans.clear();
                                 booleans2.clear();
                                 JSONArray jsonArray = jsonObject3.getJSONArray("data");
-                                for (int i = 0; i<jsonArray.length();i++){
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject4 = jsonArray.getJSONObject(i);
                                     Property.DataBean dataBean = new Property.DataBean();
                                     List<Boolean> booleans_item = new ArrayList<>();
@@ -200,7 +207,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                                     dataBean.setName(jsonObject4.getString("name"));
                                     JSONArray jsonArray1 = jsonObject4.getJSONArray("propertylist");
                                     List<Property.DataBean.PlistBean> plistBeans = new ArrayList<>();
-                                    for (int j = 0 ;j<jsonArray1.length();j++){
+                                    for (int j = 0; j < jsonArray1.length(); j++) {
                                         Property.DataBean.PlistBean plistBean = new Property.DataBean.PlistBean();
                                         JSONObject object = jsonArray1.getJSONObject(j);
                                         plistBean.setId(object.getString("id"));
@@ -214,20 +221,50 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                                     booleans.add(booleans_item);
                                     booleans2.add(booleans_item);
                                 }
-                                Log.e("success","good");
-                            }else {
-                                Toast.makeText(context,jsonObject3.getString("data"),Toast.LENGTH_SHORT).show();
+                                Log.e("success", "good");
+                            } else {
+                                Toast.makeText(context, jsonObject3.getString("data"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else {
-                        Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+                    }
+                    //加入相关推荐栏
+                case CommunalInterfaces.GET_GOOD_RECOMMEND:
+                    JSONObject jsonObject4 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject4.getString("status");
+                        JSONObject jsonObject5;
+                        if (status.equals("success")) {
+                            JSONArray jsonArray = jsonObject4.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                jsonObject5 = jsonArray.getJSONObject(i);
+                                GoodRecommendBean.DataBean dataBean = new GoodRecommendBean.DataBean();
+                                dataBean.setId(jsonObject5.getString("id"));
+                                dataBean.setShopid(jsonObject5.getString("shopid"));
+                                dataBean.setGoodsname(jsonObject5.getString("goodsname"));
+                                dataBean.setPrice(jsonObject5.getString("price"));
+                                dataBean.setDescription(jsonObject5.getString("description"));
+                                dataBean.setPicture(jsonObject5.getString("picture"));
+                                goodRecommendBean.add(dataBean);
+                            }
+                            if (goodRecommendAdapter != null) {
+                                goodRecommendAdapter.notifyDataSetChanged();
+                            } else {
+                                goodRecommendAdapter = new GoodRecommendAdapter(context, goodRecommendBean);
+                                relevanceGridView.setAdapter(goodRecommendAdapter);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                     break;
             }
         }
     };
+    private GridView relevanceGridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,13 +293,22 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         initview();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
-            new MainRequest(context,handler).GetGoodsComments(id);
-            new MainRequest(context,handler).GetGoodsPropertyList(id);
+            new MainRequest(context, handler).GetGoodsComments(id);
+            new MainRequest(context, handler).GetGoodsPropertyList(id);
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
         setview();
         initpic();
+        goodRecommendBean = new ArrayList<>();
+        initRelevance();
+    }
+
+    //初始化相关推荐
+    private void initRelevance() {
+        if (NetUtil.isConnnected(this)) {
+            new ShopRequest(this, handler).getGoodsRecommend(id, "", "", "");
+        }
     }
 
     private void initview() {
@@ -293,32 +339,34 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         tx_pic_txt.setOnClickListener(this);
         btn_store = (Button) findViewById(R.id.btn_store);
         btn_store.setOnClickListener(this);
+        relevanceGridView = (GridView) findViewById(R.id.details_gv_relevance_goods);
     }
+
 
     private void setview() {
         tx_goods_name.setText(goodsname);
         tx_goods_price.setText("￥" + price);
     }
 
-    public void  setSelect(int firstPosition , int secondPosition , Boolean judge){
-        for (int i=0;i<booleans.get(firstPosition).size();i++){
-            booleans.get(firstPosition).set(i,false);
-            if (i==secondPosition){
+    public void setSelect(int firstPosition, int secondPosition, Boolean judge) {
+        for (int i = 0; i < booleans.get(firstPosition).size(); i++) {
+            booleans.get(firstPosition).set(i, false);
+            if (i == secondPosition) {
                 booleans.get(firstPosition).set(secondPosition, judge);
             }
         }
     }
 
-    public Boolean judge(){
-        int judge=0;
-        for (int i = 0 ;i<booleans.size();i++){
+    public Boolean judge() {
+        int judge = 0;
+        for (int i = 0; i < booleans.size(); i++) {
             judge = 0;
-            for (int j = 0 ; j<booleans.get(i).size();j++){
-                if (booleans.get(i).get(j)){
-                  judge++;
+            for (int j = 0; j < booleans.get(i).size(); j++) {
+                if (booleans.get(i).get(j)) {
+                    judge++;
                 }
             }
-            if (judge==0){
+            if (judge == 0) {
                 Toast.makeText(context, "请选择" + dataBeanList.get(i).getName() + "标签", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -326,20 +374,20 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         return true;
     }
 
-    public String getLebal(){
-        for (int i = 0 ;i<booleans.size();i++){
-            for (int j = 0 ; j<booleans.get(i).size();j++){
-                if (booleans.get(i).get(j)){
-                    lebal = lebal+dataBeanList.get(i).getName()+":"+dataBeanList.get(i).getPlist().get(j).getName()+"; ";
-                    proids = proids + dataBeanList.get(i).getPlist().get(j).getProid()+",";
+    public String getLebal() {
+        for (int i = 0; i < booleans.size(); i++) {
+            for (int j = 0; j < booleans.get(i).size(); j++) {
+                if (booleans.get(i).get(j)) {
+                    lebal = lebal + dataBeanList.get(i).getName() + ":" + dataBeanList.get(i).getPlist().get(j).getName() + "; ";
+                    proids = proids + dataBeanList.get(i).getPlist().get(j).getProid() + ",";
                 }
             }
         }
-        Log.e("lebal=",lebal);
-        if (TextUtils.isEmpty(proids)){
-        }else {
-            proids = proids.substring(0,proids.length()-1);
-            Log.e("proids",proids);
+        Log.e("lebal=", lebal);
+        if (TextUtils.isEmpty(proids)) {
+        } else {
+            proids = proids.substring(0, proids.length() - 1);
+            Log.e("proids", proids);
         }
         return lebal;
     }
@@ -410,16 +458,16 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_chat:
                 Intent intent1 = new Intent();
-                intent1.putExtra("shop_uid",shop_uid);
-                intent1.putExtra("shop_photo",shop_photo);
-                intent1.putExtra("shopname",shopname);
-                intent1.setClass(context,ChatActivity.class);
+                intent1.putExtra("shop_uid", shop_uid);
+                intent1.putExtra("shop_photo", shop_photo);
+                intent1.putExtra("shopname", shopname);
+                intent1.setClass(context, ChatActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.btn_store:
                 Intent intent = new Intent();
                 intent.setClass(context, StoreHomepageActivity.class);
-                intent.putExtra("shopid",shopid);
+                intent.putExtra("shopid", shopid);
                 context.startActivity(intent);
                 break;
 //            case R.id.tx_pic_txt:
@@ -513,24 +561,24 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
         Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
 
-        selectPropertyAdapter = new SelectPropertyAdapter(GoodsDetailActivity.this,dataBeanList,booleans);
+        selectPropertyAdapter = new SelectPropertyAdapter(GoodsDetailActivity.this, dataBeanList, booleans);
         list_property.setAdapter(selectPropertyAdapter);
         setListViewHeightBasedOnChildren(list_property);
 
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (judge()){
+                if (judge()) {
                     Intent intent = new Intent();
                     intent.putExtra("count", count);
                     intent.putExtra("id", id);
                     intent.putExtra("shopname", shopname);
                     intent.putExtra("label", getLebal());
-                    intent.putExtra("proid",proids);
+                    intent.putExtra("proid", proids);
                     intent.setClass(context, ComfirmOrderActivity.class);
                     startActivity(intent);
                     window.dismiss();
-                }else {
+                } else {
 
                 }
             }
@@ -616,7 +664,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_jian = (ImageView) view.findViewById(R.id.img_jian);
         Button btn_comfirm = (Button) view.findViewById(R.id.btn_comfirm);
 
-        selectPropertyAdapter1 = new SelectPropertyAdapter(GoodsDetailActivity.this,dataBeanList,booleans);
+        selectPropertyAdapter1 = new SelectPropertyAdapter(GoodsDetailActivity.this, dataBeanList, booleans);
         list_property1.setAdapter(selectPropertyAdapter1);
         setListViewHeightBasedOnChildren(list_property1);
 
@@ -636,11 +684,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         intent.putExtra("data", "yes i am data");
                         sendBroadcast(intent);
                         getLebal();
-                        new MainRequest(context, handler).addShoppingCart(id, String.valueOf(count), shopid,proids);
-                    }else {
+                        new MainRequest(context, handler).addShoppingCart(id, String.valueOf(count), shopid, proids);
+                    } else {
                     }
                 } else {
-                    Toast.makeText(context, "请检查网络",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }

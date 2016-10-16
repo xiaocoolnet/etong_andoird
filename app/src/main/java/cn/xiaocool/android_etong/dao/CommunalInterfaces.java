@@ -87,4 +87,5 @@ public interface CommunalInterfaces {
     int xcGetChatListData = 0x0075;//获取聊天列表
     int GetMyWallet = 0x0076;//获取我的钱包
     int GetMyBrowseHistory = 0x0077;//获取我的足迹
+    int GET_GOOD_RECOMMEND = 0x0078;//获取商品相关推荐
 }

@@ -36,6 +36,7 @@
             />
 
     </RelativeLayout>
+
     <GridView
         android:background="@color/gray4"
         android:id="@+id/menulist"

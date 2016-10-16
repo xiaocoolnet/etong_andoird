@@ -332,4 +332,26 @@ public class ShopRequest {
             }
         }.start();
     }
+    //获取商品相关推荐
+    public void getGoodsRecommend(final String goodid,final String cityName,
+                                  final String longitude,final String latitude) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodid + "&cityname=" + cityName
+                         + "&longitude=" + longitude + "&latitude=" + latitude;
+                String result_data = NetUtil.getResponse(WebAddress.GET_GOOD_RECOMMEND, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_GOOD_RECOMMEND;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }
