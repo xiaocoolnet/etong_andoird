@@ -124,7 +124,7 @@
             >
 
             <Button
-                android:id="@+id/btn_qianbao"
+                android:id="@+id/btn_youhuiquan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableTop="@mipmap/ic_youhuiquan_hong"
@@ -148,7 +148,7 @@
             >
 
             <Button
-                android:id="@+id/btn_huiyuanzhongxin"
+                android:id="@+id/btn_xianjinhongbao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableTop="@mipmap/ic_yongjin"
@@ -186,38 +186,38 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@mipmap/ic_suo"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="密码管理"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:text="设置支付密码>"
-                />
-        </RelativeLayout>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:gravity="center_vertical"-->
+        <!--&gt;-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:background="@mipmap/ic_suo"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:text="密码管理"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:text="设置支付密码>"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 </LinearLayout>

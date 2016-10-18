@@ -262,14 +262,14 @@ public class MainRequest {
 
     //创建店铺
     public void CreateShop(final String city,final String type,final String legalperson, final String phone, final String idcard, final String address,
-                           final String positive_pic, final String opposite_pic, final String license_pic, final int KEY) {
+                           final String positive_pic, final String opposite_pic, final String license_pic, final int KEY, final String islocal) {
         new Thread() {
             Message msg = new Message();
 
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&city="+city + "&legalperson=" + legalperson +
                         "&phone=" + phone + "&type=" + type+"&businesslicense=123" + "&address=" + address + "&idcard=" + idcard
-                        + "&positive_pic=" + positive_pic + "&opposite_pic=" + opposite_pic + "&license_pic=" + license_pic;
+                        + "&positive_pic=" + positive_pic + "&opposite_pic=" + opposite_pic + "&license_pic=" + license_pic + "&islocal="+islocal;
                 Log.e("data is ", data);
                 String result_data = NetUtil.getResponse(WebAddress.CREATESHOP, data);
                 Log.e("successful", result_data);
@@ -343,7 +343,7 @@ public class MainRequest {
                 String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +","+pic4+","+pic5+
                         "&goodsname=" + goodsname + "&type=" + type + "&brand=" + brand + "&artno=" + artNo + "&unit=" + standard +
                         "&price=" + price + "&oprice=" + oprice + "&freight=" + freight + "&inventory=" + inventory + "&description="
-                        + description + "&address=" + address;
+                        + description + "&address=" + address + "&deliverytype=1";
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.PUBLISHGOODS, data);
                 Log.e("successful", result_data);
@@ -447,8 +447,7 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.GOODSSHANGJIA;
-                    msg.obj = jsonObject;
-                } catch (JSONException e) {
+                    msg.obj = jsonObject;                } catch (JSONException e) {
                     e.printStackTrace();
                 } finally {
                     handler.sendMessage(msg);
@@ -1086,6 +1085,7 @@ public class MainRequest {
             }
         }.start();
     }
+
 
     //获取商品简介
     public void GetGoodsPropertyList(final String goodsid){

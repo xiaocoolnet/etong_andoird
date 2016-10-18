@@ -192,6 +192,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         et_guige = (EditText) findViewById(R.id.et_guige);
         et_yunfei = (EditText) findViewById(R.id.et_yunfei);
         et_fahuodi = (EditText) findViewById(R.id.et_fahuodi);
+        et_xiangqing = (EditText) findViewById(R.id.et_xiangqing);
         tx_goods_upload = (TextView) findViewById(R.id.tx_goods_upload);
         tx_goods_upload.setOnClickListener(this);
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);

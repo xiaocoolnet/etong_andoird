@@ -39,7 +39,7 @@ import java.util.List;
 import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
-import cn.xiaocool.android_etong.UI.HomePage.ShopListActivity;
+import cn.xiaocool.android_etong.UI.Local.AllClassifyActivity;
 import cn.xiaocool.android_etong.UI.Local.DailySpecialActivity;
 import cn.xiaocool.android_etong.UI.Local.EntertainmentActivity;
 import cn.xiaocool.android_etong.UI.Local.FoodActivity;
@@ -59,7 +59,7 @@ import cn.xiaocool.android_etong.fragment.Local.LocalAddressActivity;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
-import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+;import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
 /**
  * Created by 潘 on 2016/6/12.
@@ -227,8 +227,9 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         switch (v.getId()){
             case R.id.btn_quanbu:
                 Intent intent = new Intent();
-                intent.putExtra("city",tv_local.getText().toString());
-                intent.setClass(context, ShopListActivity.class);
+//                intent.putExtra("city",tv_local.getText().toString());
+//                intent.setClass(context, ShopListActivity.class);
+                intent.setClass(context, AllClassifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_meishi:

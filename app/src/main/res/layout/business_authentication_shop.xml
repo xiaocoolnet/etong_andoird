@@ -78,8 +78,45 @@
                         android:text="个体工商户"
                         android:textSize="14sp" />
                 </RadioGroup>
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="是否为到店消费"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/rg_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_size_140"
+                    android:layout_marginTop="@dimen/activity_size_11"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rg_btn_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/rg_btn_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="否"
+                        android:textSize="14sp" />
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout

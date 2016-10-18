@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.UI.Mine;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +30,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 
 public class CouponActivity extends Activity implements View.OnClickListener {
     private ListView listView;
-    private TextView tvTitle;
+    private TextView tvTitle,tv_instructions;
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
@@ -102,6 +103,8 @@ public class CouponActivity extends Activity implements View.OnClickListener {
         tvTitle.setText("优惠券");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
+        tv_instructions = (TextView) findViewById(R.id.tv_instructions);
+        tv_instructions.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +112,11 @@ public class CouponActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btn_back:
                 finish();
+                break;
+            case R.id.tv_instructions:
+                Intent intent = new Intent();
+                intent.setClass(context,CouponInstructionsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

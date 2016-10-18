@@ -148,6 +148,7 @@
         <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
         <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
         <activity android:name=".UI.Mine.CouponActivity"></activity>
+        <activity android:name=".UI.Mine.CouponInstructionsActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>
@@ -209,7 +210,7 @@
         </activity>
 
         <activity android:name=".tool.zxingCode.activity.CaptureActivity"></activity>
-
+        <activity android:name=".UI.Local.AllClassifyActivity"></activity>
         <!--收货地址service 写入数据 能够快速加载省市区-->
         <service android:name=".service.landDivideServeice"></service>
 

@@ -25,6 +25,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -60,8 +62,11 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private RelativeLayout rl_back;
     private EditText et_name, et_phone, et_id_card, et_address;
     private ImageView img_ren, img_shenfenzheng, img_zhizhao;
+    private String select = "";
     private TextView tx_next;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
+    private RadioGroup rg_type,rg_select;
+    private RadioButton rg_btn_qiye,check_btn;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter01;
     private String city;
@@ -141,7 +146,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                             Log.e("success", "license_pic");
                             progressDialog.setMessage("正在上传资料");
                             Toast.makeText(context, "营业执照上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context, handler).CreateShop(city,show_type, name, phone, id_card, address, positive_pic + ".jpg", opposite_pic + ".jpg", licences_pic + ".jpg", KEY4);
+                            new MainRequest(context, handler).CreateShop(city,show_type, name, phone, id_card, address, positive_pic + ".jpg", opposite_pic + ".jpg", licences_pic + ".jpg", KEY4,select);
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -197,6 +202,10 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         img_shenfenzheng.setOnClickListener(this);
         img_zhizhao = (ImageView) findViewById(R.id.img_zhizhao);
         img_zhizhao.setOnClickListener(this);
+        rg_type = (RadioGroup) findViewById(R.id.rg_type);
+        rg_type.check(R.id.rg_btn_qiye);
+        rg_select = (RadioGroup) findViewById(R.id.rg_select);
+        rg_select.check(R.id.rg_btn_no);
         tx_next = (TextView) findViewById(R.id.tx_next);
         tx_next.setOnClickListener(this);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
@@ -339,6 +348,14 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         id_card = et_id_card.getText().toString();
         phone = et_phone.getText().toString();
         address = et_address.getText().toString();
+        check_btn = (RadioButton) rg_select.findViewById(rg_select.getCheckedRadioButtonId());
+        if (check_btn.getText().toString().equals("是"))
+        {
+            Log.e("是","1");
+            select = "1";
+        }else {
+            select = "0";
+        }
         if (!name.equals("")) {
             if (phone.length() == 11) {
                 if (id_card.length() == 18) {

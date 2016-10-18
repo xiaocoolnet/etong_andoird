@@ -9,8 +9,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WalletActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private String name , touxiang;
+    private Button btn_youhuiquan,btn_xianjinhongbao;
     private CircleImageView img_mine_head;
     private TextView tx_mine_name,tv_yue;
     private Context context;
@@ -76,6 +79,10 @@ public class WalletActivity extends Activity implements View.OnClickListener {
     private void initView() {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        btn_youhuiquan = (Button) findViewById(R.id.btn_youhuiquan);
+        btn_youhuiquan.setOnClickListener(this);
+        btn_xianjinhongbao = (Button) findViewById(R.id.btn_xianjinhongbao);
+        btn_xianjinhongbao.setOnClickListener(this);
         img_mine_head = (CircleImageView) findViewById(R.id.img_mine_head);
         tv_yue = (TextView) findViewById(R.id.tv_yue);
         tx_mine_name = (TextView) findViewById(R.id.tx_mine_name);
@@ -92,6 +99,12 @@ public class WalletActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.btn_youhuiquan:
+                startActivity(new Intent(context, CouponActivity.class));
+                break;
+            case R.id.btn_xianjinhongbao:
+                Toast.makeText(context,"该功能正在完善",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
