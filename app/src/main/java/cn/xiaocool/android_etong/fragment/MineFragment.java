@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.LoginActivity;
+import cn.xiaocool.android_etong.UI.Mine.AgentActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
@@ -81,6 +82,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button btn_zuji;
     @BindView(R.id.rl_coupon)
     RelativeLayout rl_coupon;
+    @BindView(R.id.btn_daili)
+    Button btn_daili;
     private ImageView img_setup,iv_saoyisao;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
@@ -229,6 +232,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         iv_saoyisao = (ImageView)getView().findViewById(R.id.saoyisao);
         iv_saoyisao.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
+        btn_daili.setOnClickListener(this);
     }
 
     @Override
@@ -322,6 +326,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.rl_coupon:
                 startActivity(new Intent(getActivity(), CouponActivity.class));
+                break;
+            case R.id.btn_daili:
+                startActivity(new Intent(getActivity(), AgentActivity.class));
                 break;
         }
     }

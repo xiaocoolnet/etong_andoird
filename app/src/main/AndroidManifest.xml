@@ -149,6 +149,7 @@
         <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
         <activity android:name=".UI.Mine.CouponActivity"></activity>
         <activity android:name=".UI.Mine.CouponInstructionsActivity"></activity>
+        <activity android:name=".UI.Mine.AgentActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>
