@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -81,11 +82,24 @@ public class PayNowActivity extends Activity {
     private String price;
     private Context context;
     // 商户PID
-    public static final String PARTNER = "2088711783586662";
+    public static final String PARTNER = "2088421788927620";
     // 商户收款账号
     public static final String SELLER = "m15935244346@163.com";
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "MIICXAIBAAKBgQCsA1mtL+T+bVZqEkCqxZOXEwm/5uvQHYsKbrEcaJDfIIIzuB44Z0A5ttzunO4gxmQR2+cpViEpFIamFCZ7wSXKNWupIt627UIMWeeO8VvvhOKbTOuBdrDHYifn5d3DttM0UjISRHyYGrnc5Ixno+aNF5SIvFhjDcHlBdIGxF1+WQIDAQABAoGBAIDFiU7TuhSWeciynWK6woCoqfXVw9drJnnK4CAqT7oaNh7NySHkefo64S5ooQQ8QRH1lBon9m8whJS0JRMkR0rct2LnZQODXV2DIjuK0D51VmZG6PFXL9rVgrdlWiOzitcwE2mPcYlpt/PORZPUxf2hjM3Ckf1b8kh1gMAECrfZAkEA4RyLvnnFPHGOqASwz8gffhxT2IDvEyG6jd+dby6r+QFaJ5R343FaQQqsFYyRhkrRzdZY6BT/8eqGlTYS6dszUwJBAMOdoAiXWsbnAb8evqFqsGMrHJE7yXUzDwN8WahhrLa9z8yIs7vJpfYlYNfiKBDjVvtWL//YJkS9rzFqDRqfXiMCQHVkzpeRp0MjMTL75z0kbw/0M+GHM6Y1g7Uy9UYi/7oGc36KlY798QRUTXObb9SptgnzC0BUmzkMhgzQO0LLdlMCQDraAFy1VI1E0MS0NjwQAhND1CtpplmJS/oLflnnUPQFtS/e7NwRdcnRQwqQMuepzfB95KD/YbwKqVufgWPCEKsCQGI4JKJTdWPvsoW8YrLN5VN1LeF96emkx4nD5JMtFX5T1r/oTUJ9S3jT2e87dkI4kGdutG38qFdZ9UhQvA0L7Lk=";
+    public static final String RSA_PRIVATE =
+            "MIICXQIBAAKBgQDb1tJNjFKOADOP+HsTOUF+erjzCzb31CWT71bSL5dVH9zfkn/1" +
+                    "7gSo3RAuuwtnAFweR2bSyXZwoDnNJyHIOturrA9l5mctIiTcwq2aLKMUa7e9bFQo" +
+                    "B+TXOrmlKiRmwmHQrcFMqlQVwESQufZpkv4X+miNPgA6tzv3En6fg1ylkQIDAQAB" +
+                    "AoGBAKuONemMcrQb1iEo8KqsyL5x+Li57Lhz1qteYCuANiGYzt2tzqvVhc9dTA6b" +
+                    "qqdDsZ9zavtdek8jyledjRBbViZrwtXxQ7Wz8aEEHlmAvyjBpCGN5rclzZV3K4Lr" +
+                    "+qoFC5uV8+1ejjsOjuVdmMLfL2pplqEIxi7rdzhdDRkmyQ0RAkEA/44kVcqrov8S" +
+                    "hEsUvX7aDyk66Hm8nDC/91mqQ54sQjNJjuwc5bf2xipIDOLdRVxxXWN1X97p7RGE" +
+                    "19V+TgELRQJBANw4xFMwkNsCGwE+tU/dBrR9eZHnCdWgs/Qv102r1dww6EVSsyB4" +
+                    "F8PWZhD7YPmr6g2s06y9M15j3vlOO4X3b90CQQDlwrw0TfUmpMHXI1HQVT5kJyOJ" +
+                    "Y/oJS2MsVfdYt9r+4fGeh/YrKsy5ucXxn/5koApkdklPGrGirP+MtavLIfEpAkAs" +
+                    "1gXqpgWoAUq8OycxBmAaGT3KHc7bxqc8vQzJzIVzGiYADzFXF/xGq/0F0hhRXNX/" +
+                    "SMOj9LVjr1OzUGFACjulAkB7EGfTW9NNglS3/jdeqZGs3WnuR1S/bwBXU7RkdgL2" +
+                    "6jXXxn63BHT8zzfD5DhbrxHjYakSkL9wCQomPHE5n6If";
     // 支付宝公钥
     public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
     private static final int SDK_PAY_FLAG = 1;
@@ -115,7 +129,7 @@ public class PayNowActivity extends Activity {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        new ShopRequest(context, handler).payOrder(orderId);
+                        new ShopRequest(context, handler).payOrder(orderId);//支付订单，订单状态改变
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -178,19 +192,18 @@ public class PayNowActivity extends Activity {
                 ivPayWay2Item.setSelected(true);
                 break;
             case R.id.rl_confirm_pay:
-                //网络请求
-                if (NetUtil.isConnnected(this)) {
-                    new ShopRequest(this, handler).payOrder(orderId);
+                if (ivPayWay2Item.isSelected()) {
+                    pay();//调用支付功能
 
+                }else {
+                    ToastUtils.makeShortToast(context,"目前仅支持支付宝支付！");
                 }
-               // pay();
                 break;
         }
     }
 
     /**
      * call alipay sdk pay. 调用SDK支付
-     *
      */
     public void pay() {
         if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
@@ -199,7 +212,7 @@ public class PayNowActivity extends Activity {
                     .setTitle("警告")
                     .setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
                     .setPositiveButton("确定",
-                                new DialogInterface.OnClickListener() {
+                            new DialogInterface.OnClickListener() {
                                 public void onClick(
                                         DialogInterface dialoginterface, int i) {
                                     //
@@ -209,7 +222,7 @@ public class PayNowActivity extends Activity {
             return;
         }
         // 订单
-        String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
+        String orderInfo = getOrderInfo("E通商城支付商品", "该测试商品的详细描述", "0.01");
 
         // 对订单做RSA 签名
         String sign = sign(orderInfo);
@@ -248,8 +261,7 @@ public class PayNowActivity extends Activity {
     /**
      * sign the order info. 对订单信息进行签名
      *
-     * @param content
-     *            待签名订单信息
+     * @param content 待签名订单信息
      */
     public String sign(String content) {
         return SignUtils.sign(content, RSA_PRIVATE);
@@ -257,7 +269,6 @@ public class PayNowActivity extends Activity {
 
     /**
      * get the sign type we use. 获取签名方式
-     *
      */
     public String getSignType() {
         return "sign_type=\"RSA\"";
@@ -265,7 +276,6 @@ public class PayNowActivity extends Activity {
 
     /**
      * create the order info. 创建订单信息
-     *
      */
     public String getOrderInfo(String subject, String body, String price) {
 
@@ -321,7 +331,6 @@ public class PayNowActivity extends Activity {
 
     /**
      * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
-     *
      */
     public String getOutTradeNo() {
         SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
