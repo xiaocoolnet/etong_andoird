@@ -50,12 +50,12 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class UploadGoodsActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private Context mContext;
     private SliderLayout mDemoSlider;
-    private RelativeLayout rl_back, rl_carousel_pic,rl_goods_details,rl_silder;
-    private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi, et_xiangqing;
-    private TextView tx_goods_upload,tv_judge;
+    private RelativeLayout rl_back, rl_carousel_pic, rl_goods_details, rl_silder;
+    private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi;
+    private TextView tx_goods_upload, tv_judge, et_xiangqing;
     private ProgressDialog progressDialog;
     private String show;
-    private String shopid,shopType;
+    private String shopid, shopType;
     private List<Provence> provences;
     private Provence provence;
     private City city;
@@ -67,8 +67,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private HashMap<String, String> url_maps = new HashMap<String, String>();
     private Spinner spinner01, spinner02, spinner03;
     private String result_data;
-    private String picname1, picname2, picname3,picname4,picname5;
-    private String pic_path1, pic_path2, pic_path3,pic_path4,pic_path5;
+    private String picname1, picname2, picname3, picname4, picname5;
+    private String pic_path1, pic_path2, pic_path3, pic_path4, pic_path5;
     private String biaoti, pinpai, huohao, guige, yunfei, fahuodi, xiangqing;
     private String price, oprice, inventory;
     private int state = 0;
@@ -135,17 +135,17 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                     try {
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
-                        if (status.equals("success")){
+                        if (status.equals("success")) {
                             progressDialog.dismiss();
-                            Toast.makeText(mContext,"上传成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
                             Log.e("success", "publish");
                             Intent intent = new Intent();
-                            intent.putExtra("type",shopType);
-                            intent.putExtra("goodsid",data);
+                            intent.putExtra("type", shopType);
+                            intent.putExtra("goodsid", data);
                             intent.setClass(mContext, UploadGoodsPropertyActivity.class);
                             startActivity(intent);
                             finish();
-                        }else {
+                        } else {
                             progressDialog.dismiss();
                             Toast.makeText(mContext, data,
                                     Toast.LENGTH_SHORT).show();
@@ -185,21 +185,21 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         rl_back.setOnClickListener(this);
         rl_carousel_pic = (RelativeLayout) findViewById(R.id.rl_carousel_pic);
         rl_carousel_pic.setOnClickListener(this);
-         //输入信息
+        //输入信息
         et_biaoti = (EditText) findViewById(R.id.et_biaoti);
         et_pinpai = (EditText) findViewById(R.id.et_pinpai);
         et_huohao = (EditText) findViewById(R.id.et_huohao);
         et_guige = (EditText) findViewById(R.id.et_guige);
         et_yunfei = (EditText) findViewById(R.id.et_yunfei);
         et_fahuodi = (EditText) findViewById(R.id.et_fahuodi);
-        et_xiangqing = (EditText) findViewById(R.id.et_xiangqing);
+        et_xiangqing = (TextView) findViewById(R.id.et_xiangqing);
         tx_goods_upload = (TextView) findViewById(R.id.tx_goods_upload);
         tx_goods_upload.setOnClickListener(this);
         etPrice = (EditText) findViewById(R.id.uploadGood_et_price);
         etOprice = (EditText) findViewById(R.id.uploadGood_et_oprice);
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
-//        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
-//        rl_goods_details.setOnClickListener(this);
+        rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
+        rl_goods_details.setOnClickListener(this);
 
         //轮播图
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
@@ -210,6 +210,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         if (NetUtil.isConnnected(this)) {
             new Thread() {
                 Message msg = Message.obtain();
+
                 @Override
                 public void run() {
                     try {
@@ -309,11 +310,12 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 //                intent2.setClass(mContext, CarouselPicActivity.class);
 //                startActivityForResult(intent2, 1);
 //                break;
-////            case R.id.iv_goods_detail:
-//                Intent intent1 = new Intent();
-//                intent1.setClass(mContext,EditGoodsDetailsActivity.class);
-//                startActivityForResult(intent1, 1);
-//                break;
+            case R.id.iv_goods_detail:
+                Intent intent3 = new Intent();
+                intent3.setClass(mContext,UploadGoodDetailsActivity.class);
+                intent3.putExtra("tv_content",et_xiangqing.getText());
+                startActivityForResult(intent3, 1000);
+                break;
 
         }
     }
@@ -336,30 +338,30 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                         if (!TextUtils.isEmpty(guige)) {
                             if (!TextUtils.isEmpty(price)) {
                                 if (!TextUtils.isEmpty(yunfei)) {
-                                        if (!TextUtils.isEmpty(xiangqing)) {
-                                            if (!TextUtils.isEmpty(fahuodi)) {
-                                                if (!TextUtils.isEmpty(show)) {
-                                                    if (NetUtil.isConnnected(mContext)) {
-                                                        progressDialog.setMessage("正在上传");
-                                                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                                        progressDialog.show();
-                                                        Log.e("pic=", picname4 + "  " + picname5);
-                                                        new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3,picname4,picname5,
-                                                                biaoti, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
-                                                    } else {
-                                                        Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
-                                                    }
+                                    if (!TextUtils.isEmpty(xiangqing)) {
+                                        if (!TextUtils.isEmpty(fahuodi)) {
+                                            if (!TextUtils.isEmpty(show)) {
+                                                if (NetUtil.isConnnected(mContext)) {
+                                                    progressDialog.setMessage("正在上传");
+                                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                    progressDialog.show();
+                                                    Log.e("pic=", picname4 + "  " + picname5);
+                                                    new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3, picname4, picname5,
+                                                            biaoti, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
                                                 } else {
-                                                    Toast.makeText(mContext, "请选择分类", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else {
-                                                Toast.makeText(mContext, "请输入发货地", Toast.LENGTH_SHORT).show();
-                                                et_fahuodi.requestFocus();
+                                                Toast.makeText(mContext, "请选择分类", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
-                                            Toast.makeText(mContext, "请输入详情", Toast.LENGTH_SHORT).show();
-                                            et_xiangqing.requestFocus();
+                                            Toast.makeText(mContext, "请输入发货地", Toast.LENGTH_SHORT).show();
+                                            et_fahuodi.requestFocus();
                                         }
+                                    } else {
+                                        Toast.makeText(mContext, "请输入详情", Toast.LENGTH_SHORT).show();
+                                        et_xiangqing.requestFocus();
+                                    }
 
                                 } else {
                                     Toast.makeText(mContext, "请输入运费", Toast.LENGTH_SHORT).show();
@@ -396,11 +398,11 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         if (requestCode == 1) {
             Log.e("success", data.getStringExtra("1111"));
             state = data.getIntExtra("state", 1);
-            pic_path1="";
-            pic_path2="";
-            pic_path3="";
-            pic_path4="";
-            pic_path5="";
+            pic_path1 = "";
+            pic_path2 = "";
+            pic_path3 = "";
+            pic_path4 = "";
+            pic_path5 = "";
             picname1 = "";
             picname2 = "";
             picname3 = "";
@@ -414,9 +416,9 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             pic_path3 = data.getStringExtra("pic_path3");
             Log.e("pic_path3=", pic_path3);
             pic_path4 = data.getStringExtra("pic_path4");
-            Log.e("pic_path4=",pic_path4);
+            Log.e("pic_path4=", pic_path4);
             pic_path5 = data.getStringExtra("pic_path5");
-            Log.e("pic_path5=",pic_path5);
+            Log.e("pic_path5=", pic_path5);
             picname1 = data.getStringExtra("picname1");
             Log.e("picname1", picname1);
             picname2 = data.getStringExtra("picname2");
@@ -433,7 +435,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 rl_carousel_pic.setVisibility(View.VISIBLE);
 
 
-            }else {
+            } else {
                 mDemoSlider.setVisibility(View.VISIBLE);
                 rl_carousel_pic.setVisibility(View.GONE);
             }
@@ -475,43 +477,47 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 picname5 = picname5 + ".jpg";
             }
             initpic();
+        } else if (requestCode == 1000) {
+            Bundle bundle = data.getExtras();
+            String etString = bundle.getString("good_details");
+            et_xiangqing.setText(etString);
         }
     }
 
     private void initpic() {
         if (pic_path1 == null || pic_path1.equals("")) {
             return;
-        }else {
-           url_maps.clear();
+        } else {
+            url_maps.clear();
             mDemoSlider.removeAllSliders();
 //        url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
 //        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
 //        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
 //        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
-           if (picname1.equals("")){
+            if (picname1.equals("")) {
 
-           }else {
-               url_maps.put("图 1" , WebAddress.GETAVATAR + picname1);
-           }
-            if (picname2.equals("")){
+            } else {
+                url_maps.put("图 1", WebAddress.GETAVATAR + picname1);
+            }
+            if (picname2.equals("")) {
 
-            }else {
+            } else {
                 url_maps.put("图 2", WebAddress.GETAVATAR + picname2);
             }
-            if (picname3.equals("")){
+            if (picname3.equals("")) {
 
-            }else {
-                url_maps.put("图 3" , WebAddress.GETAVATAR + picname3);
+            } else {
+                url_maps.put("图 3", WebAddress.GETAVATAR + picname3);
             }
-            if (picname4.equals("")){
+            if (picname4.equals("")) {
 
-            }else {
-                url_maps.put("图 4" , WebAddress.GETAVATAR + picname4);
+            } else {
+                url_maps.put("图 4", WebAddress.GETAVATAR + picname4);
             }
-            if (picname5.equals("")){
+            if (picname5.equals("")) {
 
-            }else {
-                url_maps.put("图 5" , WebAddress.GETAVATAR + picname5);
+            } else {
+                url_maps.put("图 5", WebAddress.GETAVATAR + picname5);
             }
             mDemoSlider.setVisibility(View.VISIBLE);
             for (String name : url_maps.keySet()) {

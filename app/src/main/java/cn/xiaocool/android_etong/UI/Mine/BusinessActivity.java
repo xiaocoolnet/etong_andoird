@@ -36,13 +36,15 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.tool.zxingCode.activity.CaptureActivity;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by 潘 on 2016/6/27.
  */
 public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
-    private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti;
+    private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti,
+    btn_huodongbaoming,btn_caiwujiekuan;
     private String shopid,shopType;
     private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3;
     private Context context;
@@ -150,6 +152,10 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         btn_dingdanguanli.setOnClickListener(this);
         btn_changjianwenti = (Button) findViewById(R.id.btn_changjianwenti);
         btn_changjianwenti.setOnClickListener(this);
+        btn_huodongbaoming = (Button) findViewById(R.id.btn_huodongbaoming);
+        btn_huodongbaoming.setOnClickListener(this);
+        btn_caiwujiekuan = (Button) findViewById(R.id.btn_caiwujiekuan);
+        btn_caiwujiekuan.setOnClickListener(this);
         img_store_head = (ImageView) findViewById(R.id.img_store);
         img_store_head.setOnClickListener(this);
         tx_store_name = (TextView) findViewById(R.id.tx_business_touxiang);
@@ -206,6 +212,20 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 intent7.putExtra("shopid", shopid);
                 intent7.setClass(BusinessActivity.this, StoreHomepageActivity.class);
                 startActivity(intent7);
+                break;
+            case R.id.btn_huodongbaoming:
+                ToastUtils.makeShortToast(context,"活动报名正在建设中！敬请期待！");
+                Intent intent8 = new Intent();
+//                intent8.putExtra("shopid", shopid);
+//                intent8.setClass(BusinessActivity.this, StoreHomepageActivity.class);
+//                startActivity(intent8);
+                break;
+            case R.id.btn_caiwujiekuan:
+                ToastUtils.makeShortToast(context,"财务结款正在建设中！敬请期待！");
+                Intent intent9 = new Intent();
+//                intent8.putExtra("shopid", shopid);
+//                intent9.setClass(BusinessActivity.this, StoreHomepageActivity.class);
+//                startActivity(intent9);
                 break;
             case R.id.btn_want_help:
 //                Intent intentCall = new Intent(Intent.ACTION_DIAL);

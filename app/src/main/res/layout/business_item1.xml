@@ -89,6 +89,27 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
+    <!--宝贝管理-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_huodongbaoming"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_phone"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="活动报名"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
 
 
 

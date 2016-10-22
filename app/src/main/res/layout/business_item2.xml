@@ -23,7 +23,10 @@
             android:scaleType="matrix"
             android:text="店铺管理"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
     <!--售后管理-->
     <RelativeLayout
@@ -86,6 +89,27 @@
             android:paddingTop="17dip"
             android:scaleType="matrix"
             android:text="常见问题"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <!--财务结款-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_caiwujiekuan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_shouhou"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="财务结款"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </RelativeLayout>

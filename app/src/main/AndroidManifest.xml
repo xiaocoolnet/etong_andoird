@@ -171,6 +171,7 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"></activity>
 
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
