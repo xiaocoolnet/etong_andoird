@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +34,7 @@ import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.tool.zxingCode.activity.CaptureActivity;
 import cn.xiaocool.android_etong.util.NetUtil;
 
 /**
@@ -208,10 +208,13 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 startActivity(intent7);
                 break;
             case R.id.btn_want_help:
-                Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + "15853503932");
-                intentCall.setData(data);
-                startActivity(intentCall);
+//                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+//                Uri data = Uri.parse("tel:" + "15853503932");
+//                intentCall.setData(data);
+//                startActivity(intentCall);
+                startActivity(new Intent(context, CaptureActivity.class));
+                break;
+
         }
     }
 

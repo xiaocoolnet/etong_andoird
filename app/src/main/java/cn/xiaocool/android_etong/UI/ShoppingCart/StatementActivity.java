@@ -22,13 +22,16 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.DeliveryAddressActivity;
 import cn.xiaocool.android_etong.adapter.StatementAdapter;
+import cn.xiaocool.android_etong.bean.AddressInfo;
 import cn.xiaocool.android_etong.bean.Shop.ShoppingCart_StoreName;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.db.sp.AddressDB;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 
 /**
@@ -39,6 +42,10 @@ public class StatementActivity extends Activity implements View.OnClickListener 
     private RelativeLayout rl_back;
     private double amount;
     private TextView tv_goods_price_total,tx_comfirm_order;
+    private LinearLayout ll_address;
+    private List<AddressInfo> address = new ArrayList<AddressInfo>();
+    private AddressDB addressDB;
+    private TextView et_change_infor,et_customer_phone,et_customer_name,tv_judge;
     private ListView list_statement;
     private String judge = "0";
     private String deliveryAddress = "", phone = "", name = "";
@@ -110,6 +117,32 @@ public class StatementActivity extends Activity implements View.OnClickListener 
         list_statement = (ListView) findViewById(R.id.list_statement);
         ll_delivery_address = (LinearLayout) findViewById(R.id.ll_delivery_address);
         ll_delivery_address.setOnClickListener(this);
+        et_change_infor = (TextView) findViewById(R.id.et_change_infor);
+        et_customer_phone = (TextView) findViewById(R.id.et_customer_phone);
+        et_customer_name = (TextView) findViewById(R.id.et_customer_name);
+        ll_address = (LinearLayout) findViewById(R.id.ll_address);
+        tv_judge = (TextView) findViewById(R.id.tv_judge);
+
+        addressDB = AddressDB.getInstance(getBaseContext());
+        address = addressDB.queryAddress();
+
+        if (address!=null){
+            for (int i = 0 ; i < address.size() ; i++){
+                if (address.get(i).isStatus()){
+                    ll_address.setVisibility(View.VISIBLE);
+                    et_customer_phone.setText(address.get(i).getPhone());
+                    et_customer_name.setText(address.get(i).getName());
+                    et_change_infor.setText(address.get(i).getProvinces() + " " + address.get(i).getStreet());
+                    tv_judge.setText("更改收货地址");
+                    phone = address.get(i).getPhone();
+                    name = address.get(i).getName();
+                    deliveryAddress =address.get(i).getProvinces() + " " + address.get(i).getStreet();
+                    Log.e("设置完毕","收货地址");
+                }
+            }
+        }else {
+
+        }
     }
 
     @Override
@@ -177,12 +210,20 @@ public class StatementActivity extends Activity implements View.OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            Log.e("success", "deliveryaddress");
+            Log.e("success", "delivery");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
             judge = data.getStringExtra("judge");
+            Log.e("first",judge);
             phone = data.getStringExtra("phone");
             name = data.getStringExtra("name");
             Log.e("deliveryaddress=", deliveryAddress);
+            if (!phone.isEmpty()&&!name.isEmpty()&&!deliveryAddress.isEmpty()){
+                ll_address.setVisibility(View.VISIBLE);
+                et_customer_phone.setText(phone);
+                et_customer_name.setText(name);
+                et_change_infor.setText(deliveryAddress);
+                tv_judge.setText("更改收货地址");
+            }
         }
     }
 

@@ -205,7 +205,6 @@
                         android:layout_marginTop="10dp"
                         android:text="今日订单"
                         />
-
                 </RelativeLayout>
                 <RelativeLayout
                     android:background="@color/whilte"
@@ -231,7 +230,6 @@
                         android:layout_marginTop="10dp"
                         android:text="今日访客"
                         />
-
                 </RelativeLayout>
             </LinearLayout>
             <ImageView

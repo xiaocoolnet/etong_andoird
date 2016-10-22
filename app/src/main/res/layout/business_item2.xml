@@ -4,6 +4,27 @@
     android:layout_width="match_parent"
     android:background="@color/whilte"
     android:layout_height="116dp">
+
+    <!--店铺管理-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btn_dianpuguanli"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@mipmap/ic_store"
+            android:background="@color/white"
+            android:paddingBottom="2dip"
+            android:paddingTop="17dip"
+            android:scaleType="matrix"
+            android:text="店铺管理"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
     <!--售后管理-->
     <RelativeLayout
         android:layout_width="0dp"
@@ -46,26 +67,7 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-    <!--我要求助-->
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
 
-        <Button
-            android:id="@+id/btn_want_help"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_phone"
-            android:background="@color/white"
-            android:paddingBottom="2dip"
-            android:paddingTop="17dip"
-            android:scaleType="matrix"
-            android:text="我要求助"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-    </RelativeLayout>
 
     <!--常见问题-->
     <RelativeLayout

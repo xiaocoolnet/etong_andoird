@@ -77,5 +77,15 @@
             android:text="因质量问题或其他非消费者问题导致的退货，又商家和买家友好协商后，买家可垫付运费（具体视友好协商结果而定），商家在收到退货商品后，两日内（48小时）完成退还运费，若商家超时未处理退还运费，平台客服有权介入退还并追加运费30%的金额最低10元的赔付方式赔付买家（赔付金额以无门槛现金券方式赔付，运费赔付现金）费用由商家承担，若非质量问题导致的退货，买家只用承担退回的运费"
             android:textSize="13sp"
             />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="3dp"
+            android:text="客服联系电话： 15935244346"
+            android:textSize="13sp"
+            />
     </LinearLayout>
 </LinearLayout>

@@ -213,7 +213,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            Log.e("success", "deliveryaddress");
+            Log.e("success", "delivery");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
             judge = data.getStringExtra("judge");
             Log.e("first",judge);

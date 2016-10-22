@@ -86,8 +86,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button btn_daili;
     private ImageView img_setup,iv_saoyisao;
     private CircleImageView img_mine_head;
-    private RelativeLayout ry_line, rl_mine_shoucang, rl_order_list;
-    private Button btn_kaidian, btn_daifukuan, btn_daishiyong, btn_daifahuo, btn_daiqueren, btn_daipinglun;
+    private RelativeLayout ry_line, rl_mine_shoucang;
+    private Button btn_kaidian;
     private TextView tx_mine_name;
     private ProgressDialog progressDialog;
     private Context context;
