@@ -46,7 +46,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti,
     btn_huodongbaoming,btn_caiwujiekuan;
     private String shopid,shopType;
-    private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3;
+    private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3,textView6;
     private Context context;
     private ImageView img_store_head;
     private ProgressDialog progressDialog;
@@ -68,6 +68,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
+                                textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
                                 shopType = jsonObject1.getString("type");
                                 userInfo.setUserShopId(shopid);
                                 userInfo.setUserShopName(shopname);
@@ -162,6 +163,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         tx_business_price1 = (TextView) findViewById(R.id.tx_business_price1);
         tx_business_price2 = (TextView) findViewById(R.id.tx_business_price2);
         tx_business_price3 = (TextView) findViewById(R.id.tx_business_price3);
+        textView6 = (TextView) findViewById(R.id.textView6);
     }
 
 

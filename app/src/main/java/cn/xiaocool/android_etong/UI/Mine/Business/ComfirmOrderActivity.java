@@ -89,6 +89,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
+                            finish();
                             Toast.makeText(context, "购买成功,请去个人页面支付", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
