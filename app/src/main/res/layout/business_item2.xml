@@ -104,7 +104,7 @@
             android:id="@+id/btn_caiwujiekuan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_jiekuan"
+            android:drawableTop="@mipmap/ic_caiwu"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="17dip"

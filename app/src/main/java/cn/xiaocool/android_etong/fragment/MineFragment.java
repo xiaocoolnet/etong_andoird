@@ -88,7 +88,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang;
     private Button btn_kaidian;
-    private TextView tx_mine_name;
+    private TextView tx_mine_name,tx_mine_vip;
     private ProgressDialog progressDialog;
     private Context context;
     private String name , touxiang;
@@ -113,6 +113,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             name = object.getString("name");
                             touxiang = object.getString("photo");
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), img_mine_head);
+                            if (object.getString("level").equals("0")){
+                                tx_mine_vip.setTextColor(context.getResources().getColor(R.color.gray1));
+                            }
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -233,6 +236,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         iv_saoyisao.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
         btn_daili.setOnClickListener(this);
+        tx_mine_vip = (TextView) getView().findViewById(R.id.tx_mine_vip);
     }
 
     @Override
