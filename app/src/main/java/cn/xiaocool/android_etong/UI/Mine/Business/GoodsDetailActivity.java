@@ -47,7 +47,6 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.DetailAdapter;
 import cn.xiaocool.android_etong.adapter.GoodRecommendAdapter;
 import cn.xiaocool.android_etong.adapter.SelectPropertyAdapter;
-import cn.xiaocool.android_etong.adapter.SellerOrderAdapter;
 import cn.xiaocool.android_etong.bean.Shop.Detail;
 import cn.xiaocool.android_etong.bean.Shop.GoodRecommendBean;
 import cn.xiaocool.android_etong.bean.Shop.Property;
@@ -72,7 +71,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private Button btn_store;
     private Button btn_lijigoumai, btn_shopping_cart, btn_chat;
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
+    private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo,content;
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
@@ -101,11 +100,15 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
-                            JSONObject jsonObject = json.getJSONObject("data");
+                            JSONObject jsonObject = json.getJSONObject("data")  ;
                             address = jsonObject.getString("address");
                             tv_goods_address.setText(address);
                             description = jsonObject.getString("description");
                             tv_goods_description.setText(description);
+                            content =  jsonObject.getString("content");
+                            if (content==null||content.equals("null")){
+                                content = "";
+                            }
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
@@ -128,6 +131,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                     break;
                 case CommunalInterfaces.LIKE_GOOD:
                     JSONObject jsonObject1 = (JSONObject) msg.obj;
@@ -470,14 +474,14 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent.putExtra("shopid", shopid);
                 context.startActivity(intent);
                 break;
-//            case R.id.tx_pic_txt:
-//                Intent intent = new Intent();
-//                intent.putExtra("shopid",shopid);
-//                intent.putExtra("id",id);
-//                intent.putExtra("pic",pic);
-//                intent.setClass(context,PicTxtDetailsActivity.class);
-//                startActivityForResult(intent,1);
-//                break;
+            case R.id.tx_pic_txt:
+                Intent intent2 = new Intent();
+                intent2.setClass(context,ImgTxtDetailActivity.class);
+                intent2.putExtra("pic",pic);
+                intent2.putExtra("content",content);
+                intent2.putExtra("goodsname",goodsname);
+                startActivity(intent2);
+                break;
         }
     }
 

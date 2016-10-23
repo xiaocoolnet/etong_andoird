@@ -100,7 +100,7 @@
             android:id="@+id/btn_huodongbaoming"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@mipmap/ic_phone"
+            android:drawableTop="@mipmap/ic_huodong"
             android:background="@color/white"
             android:paddingBottom="2dip"
             android:paddingTop="17dip"

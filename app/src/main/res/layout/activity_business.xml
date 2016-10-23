@@ -4,6 +4,7 @@
     android:background="@color/gray2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:background="#F7F7F7"
         android:layout_width="match_parent"
@@ -46,6 +47,7 @@
             android:background="@mipmap/ic_share_red"
             />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -57,16 +59,7 @@
                 android:background="@color/main_color_red"
                 android:layout_width="match_parent"
                 android:layout_height="125dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="店铺编号:001001"
-                    android:textColor="@color/whilte"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textSize="13sp"
-                    />
+
                 <RelativeLayout
                     android:id="@+id/rl_touxiangkuang"
                     android:layout_marginLeft="10dp"
@@ -120,29 +113,34 @@
                     android:layout_alignLeft="@+id/tx_business_touxiang"
                     android:layout_alignStart="@+id/tx_business_touxiang">
                     <ImageView
+                        android:id="@+id/img1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img2"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img3"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img4"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img5"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
