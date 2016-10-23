@@ -14,4 +14,8 @@ public interface NetBaseConstant {
      * 图片网址前缀
      */
     String NET_PIC_PREFIX = "http://mwn.xiaocool.net/uploads/microblog/";
+    /**
+     * 获取分类菜单
+     */
+    String GET_TYPE_LIST = "http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0";
 }

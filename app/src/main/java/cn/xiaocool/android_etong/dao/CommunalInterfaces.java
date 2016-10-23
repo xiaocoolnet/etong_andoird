@@ -88,4 +88,5 @@ public interface CommunalInterfaces {
     int GetMyWallet = 0x0076;//获取我的钱包
     int GetMyBrowseHistory = 0x0077;//获取我的足迹
     int GET_GOOD_RECOMMEND = 0x0078;//获取商品相关推荐
+    int GET_GOODS_TYPE_LIST = 0x0079;//获取商品分类列表
 }

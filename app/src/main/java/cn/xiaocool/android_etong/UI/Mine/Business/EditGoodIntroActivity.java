@@ -170,11 +170,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_intro:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvTitle.getText(), "a=UpdateGoodsName&id=" + goodId + "description=");
+                        (String) tvTitle.getText(), "a=UpdateGoodsDescription&id=" + goodId + "description=");
                 break;
             case R.id.edit_good_type:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,//此处待修改
-                        (String) tvTitle.getText(), "a=UpdateGoodsName&id=" + goodId + "&type=");//分类
+                IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,//此处待修改
+                        "", "a=UpdateGoodsType&id=" + goodId + "&type=");//分类
                 break;
             case R.id.edit_good_brand:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
@@ -182,7 +182,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_artNo:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvArtNo.getText(), "");
+                        (String) tvArtNo.getText(), "&a=UpdateGoodsArtno" + goodId + "&artno=");
                 break;
             case R.id.business_tv_good_standard:
                 Intent standardIntent = new Intent();
@@ -192,11 +192,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_oPrice:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvPrice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
+                        (String) tvPrice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
                 break;
-            case R.id.editGood_et_oprice:
+            case R.id.edit_good_price:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvOprice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
+                        (String) tvOprice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
                 break;
             case R.id.edit_good_freight:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
@@ -211,7 +211,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                         (String) tvInventory.getText(), "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.edit_good_details:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
                         (String) etGoodDetails.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&content=");
                 break;
             case R.id.edit_good_address:

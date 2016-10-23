@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/gray_title">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="45dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/ic_fanhui_left_red" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改信息"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/business_btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="保存"
+            android:textColor="@color/main_color_red"
+            android:textSize="17sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/activity_size_10"
+            android:layout_marginRight="@dimen/activity_size_10"
+            android:layout_marginTop="@dimen/activity_size_10"
+            android:layout_marginBottom="@dimen/activity_size_10"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/upload_good_details_et"
+            android:background="@color/gray4"
+            android:gravity="top"/>
+
+
+    </LinearLayout>
+</LinearLayout>
