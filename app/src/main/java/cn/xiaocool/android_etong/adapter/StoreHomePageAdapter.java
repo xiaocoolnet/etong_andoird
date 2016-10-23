@@ -75,7 +75,7 @@ public class StoreHomePageAdapter extends BaseAdapter {
         String pic = dataBean.getPicture();
         String[] arraypic = pic.split("[,]");
         imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_goods_pic,displayImageOptions);
-        holder.tx_goods_price.setText(dataBean.getPrice() + "￥");
+        holder.tx_goods_price.setText( "￥"+dataBean.getPrice());
         holder.tx_goods_name.setText(dataBean.getGoodsname());
         holder.img_goods_pic.setOnClickListener(new View.OnClickListener() {
             @Override
