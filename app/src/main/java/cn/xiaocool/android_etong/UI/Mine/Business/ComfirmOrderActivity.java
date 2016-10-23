@@ -42,19 +42,19 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     private RelativeLayout rl_back;
     private LinearLayout ll_delivery_address;
     private EditText et_customer_remark;
-    private TextView et_change_infor,et_customer_phone,et_customer_name,tv_judge;
+    private TextView et_change_infor, et_customer_phone, et_customer_name, tv_judge;
     private LinearLayout ll_address;
     private List<AddressInfo> address = new ArrayList<AddressInfo>();
     private AddressDB addressDB;
     private TextView tx_comfirm_order;
     private String id, shopname;
     private String deliveryAddress = "", phone = "", name = "";
-    private String money,lebal,proid;
-    private String judge = "0";
+    private String money, lebal, proid;
+    private String judge = "0", type = "";
     private int count = 0;
     private ImageView img_goods_pic;
     private TextView tx_goods_name, tx_goods_count, tx_goods_price,
-            tx_goods_price_subtotal, tx_goods_price_total, tx_shopname,tv_lebal;
+            tx_goods_price_subtotal, tx_goods_price_total, tx_shopname, tv_lebal, tv_kuaidi;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -74,6 +74,11 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                             tx_goods_price_subtotal.setText("￥" + jsonObject.getString("price"));
                             String pic = jsonObject.getString("picture");
                             String[] array_pic = pic.split("[,]");
+                            type = jsonObject.getString("deliverytype");
+                            if (type.equals("2")) {
+                                tv_kuaidi.setText("到店自取");
+                            }
+
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + array_pic[0], img_goods_pic);
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
@@ -89,8 +94,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
-                            finish();
-                            Toast.makeText(context, "购买成功,请去个人页面支付", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "购买成功,请去个人页面支付,", Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
@@ -116,6 +121,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         shopname = intent.getStringExtra("shopname");
         lebal = intent.getStringExtra("label");
         proid = intent.getStringExtra("proid");
+
         initview();
         if (NetUtil.isConnnected(context)) {
             new MainRequest(context, handler).getgoodsinfo(id);
@@ -123,6 +129,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void initview() {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
@@ -147,13 +154,13 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         et_customer_name = (TextView) findViewById(R.id.et_customer_name);
         ll_address = (LinearLayout) findViewById(R.id.ll_address);
         tv_judge = (TextView) findViewById(R.id.tv_judge);
-
+        tv_kuaidi = (TextView) findViewById(R.id.tv_kuaidi);
         addressDB = AddressDB.getInstance(getBaseContext());
         address = addressDB.queryAddress();
 
-        if (address!=null){
-            for (int i = 0 ; i < address.size() ; i++){
-                if (address.get(i).isStatus()){
+        if (address != null) {
+            for (int i = 0; i < address.size(); i++) {
+                if (address.get(i).isStatus()) {
                     ll_address.setVisibility(View.VISIBLE);
                     et_customer_phone.setText(address.get(i).getPhone());
                     et_customer_name.setText(address.get(i).getName());
@@ -161,13 +168,14 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                     tv_judge.setText("更改收货地址");
                     phone = address.get(i).getPhone();
                     name = address.get(i).getName();
-                    deliveryAddress =address.get(i).getProvinces() + " " + address.get(i).getStreet();
-                    Log.e("设置完毕","收货地址");
+                    deliveryAddress = address.get(i).getProvinces() + " " + address.get(i).getStreet();
+                    Log.e("设置完毕", "收货地址");
                 }
             }
-        }else {
+        } else {
 
         }
+
     }
 
     @Override
@@ -197,7 +205,12 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 if (!TextUtils.isEmpty(deliveryAddress)) {
                     if (phone.length() == 11) {
                         if (!TextUtils.isEmpty(name)) {
-                            new MainRequest(context, handler).bookingshopping(id, name, deliveryAddress, String.valueOf(count), phone, customer_remark, money,proid);
+                            if (type.equals("1")) {
+                                new MainRequest(context, handler).bookingshopping(id, name, deliveryAddress, String.valueOf(count), phone, customer_remark, money, proid);
+                            }
+                            if(type.equals("2")){
+
+                            }
                         } else {
                             Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
                         }
@@ -207,6 +220,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 } else {
                     Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
                 }
+
         }
     }
 
@@ -214,20 +228,21 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            Log.e("success", "delivery");
+            Log.e("success", "deliveryaddress");
             deliveryAddress = data.getStringExtra("deliveryaddress1");
             judge = data.getStringExtra("judge");
-            Log.e("first",judge);
+            Log.e("first", judge);
             phone = data.getStringExtra("phone");
             name = data.getStringExtra("name");
             Log.e("deliveryaddress=", deliveryAddress);
-            if (!phone.isEmpty()&&!name.isEmpty()&&!deliveryAddress.isEmpty()){
+            if (!phone.isEmpty() && !name.isEmpty() && !deliveryAddress.isEmpty()) {
                 ll_address.setVisibility(View.VISIBLE);
                 et_customer_phone.setText(phone);
                 et_customer_name.setText(name);
                 et_change_infor.setText(deliveryAddress);
                 tv_judge.setText("更改收货地址");
             }
+
         }
     }
 

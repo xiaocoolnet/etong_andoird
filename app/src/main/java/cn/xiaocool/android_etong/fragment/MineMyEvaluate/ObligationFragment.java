@@ -92,7 +92,7 @@ public class ObligationFragment extends Fragment {
         dataBeans = new ArrayList<>();
         list_goods = (ListView) getView().findViewById(R.id.list_goods_payment);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=1");
+            new MainRequest(context, handler).getshoppingorderlist("&state=1","");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -118,7 +118,7 @@ public class ObligationFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=1");
+            new MainRequest(context, handler).getshoppingorderlist("&state=1","");
         }
     }
 }

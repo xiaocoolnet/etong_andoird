@@ -47,7 +47,6 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.DetailAdapter;
 import cn.xiaocool.android_etong.adapter.GoodRecommendAdapter;
 import cn.xiaocool.android_etong.adapter.SelectPropertyAdapter;
-import cn.xiaocool.android_etong.adapter.SellerOrderAdapter;
 import cn.xiaocool.android_etong.bean.Shop.Detail;
 import cn.xiaocool.android_etong.bean.Shop.GoodRecommendBean;
 import cn.xiaocool.android_etong.bean.Shop.Property;
@@ -72,7 +71,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private Button btn_store;
     private Button btn_lijigoumai, btn_shopping_cart, btn_chat;
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
+    private String id, pic, deliverytype,goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
     private String[] arraypic;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;

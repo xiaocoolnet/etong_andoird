@@ -192,7 +192,7 @@ public class StatementActivity extends Activity implements View.OnClickListener 
                             list_statement.setAdapter(statementAdapter);
                             fixListViewHeight(list_statement);
                             tv_goods_price_total.setText("0");
-                            Toast.makeText(context,"结算成功",Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
                         }

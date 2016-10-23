@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -97,7 +96,7 @@ public class NoConfirmFragment extends Fragment {
         dataBeans = new ArrayList<>();
         list_goods = (ListView) getView().findViewById(R.id.list_goods_confirm);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=3");
+            new MainRequest(context, handler).getshoppingorderlist("&state=3","&deliverytype=1");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -121,7 +120,7 @@ public class NoConfirmFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=3");
+            new MainRequest(context, handler).getshoppingorderlist("&state=3","&deliverytype=1");
         }
     }
 //    activity_pending_comfirm

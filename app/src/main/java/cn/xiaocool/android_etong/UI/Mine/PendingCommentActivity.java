@@ -103,7 +103,7 @@ public class PendingCommentActivity extends Activity implements View.OnClickList
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=4");
+            new MainRequest(context, handler).getshoppingorderlist("&state=4","");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
@@ -122,7 +122,7 @@ public class PendingCommentActivity extends Activity implements View.OnClickList
     public void onResume() {
         super.onResume();
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=4");
+            new MainRequest(context, handler).getshoppingorderlist("&state=4","");
         }
     }
 }

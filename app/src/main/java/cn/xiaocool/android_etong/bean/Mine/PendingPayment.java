@@ -73,6 +73,25 @@ public class PendingPayment {
         private String statusname;
         private String statusend;
         private Object evaluate;
+        private String deliverytype;
+        private String tracking;
+
+        public void setTracking(String tracking) {
+            this.tracking = tracking;
+        }
+
+        public String getTracking(){
+            return tracking;
+        }
+
+        public String getDeliverytype() {
+            return deliverytype;
+        }
+
+        public void setDeliverytype(String deliverytype) {
+            this.deliverytype = deliverytype;
+
+        }
 
         public String getOrder_num() {
             return order_num;

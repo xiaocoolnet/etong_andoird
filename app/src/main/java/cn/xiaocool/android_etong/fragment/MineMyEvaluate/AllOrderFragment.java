@@ -69,6 +69,7 @@ public class AllOrderFragment extends Fragment {
                                 Log.e("username=", jsonObject1.getString("username"));
                                 dataBean.setUsername(jsonObject1.getString("username"));
                                 dataBean.setTime(jsonObject1.getString("time"));
+                                dataBean.setDeliverytype(jsonObject1.getString("deliverytype"));
                                 dataBeans.add(dataBean);
                             }
                             if (pendingPaymentAdapter != null) {
@@ -93,7 +94,7 @@ public class AllOrderFragment extends Fragment {
         dataBeans = new ArrayList<>();
         list_goods = (ListView) getView().findViewById(R.id.list_goods_all);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("");
+            new MainRequest(context, handler).getshoppingorderlist("","");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

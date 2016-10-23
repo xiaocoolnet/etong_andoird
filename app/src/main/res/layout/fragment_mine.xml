@@ -42,6 +42,7 @@
             <!--android:background="@mipmap/ic_xiaoxi"-->
             <!--/>-->
     </RelativeLayout>
+
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -78,7 +79,9 @@
            </RelativeLayout>
 
             <include layout="@layout/mine_order"/>
+
             <include layout="@layout/mine_item1"/>
+
             <include layout="@layout/mine_item2"/>
             <ImageView
                 android:layout_width="match_parent"

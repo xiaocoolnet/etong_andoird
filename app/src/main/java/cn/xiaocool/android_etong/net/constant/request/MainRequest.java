@@ -655,14 +655,14 @@ public class MainRequest {
     }
 
     //获取我的商城订单列表
-    public void getshoppingorderlist(final String state) {
+    public void getshoppingorderlist(final String state,final String deliverytype) {
 
         new Thread() {
             Message msg = new Message();
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + state;
+                String data = "&userid=" + user.getUserId() + state+deliverytype;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.GETSHOPPINGORDERLIST, data);
                 Log.e("result_data=", result_data);

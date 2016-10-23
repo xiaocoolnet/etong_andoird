@@ -110,7 +110,7 @@ public class NoDeliverGoodFragment extends Fragment {
         dataBeans = new ArrayList<>();
         list_goods = (ListView) getView().findViewById(R.id.list_goods_deliver);
         if (NetUtil.isConnnected(context)) {
-            new MainRequest(context, handler).getshoppingorderlist("&state=2");
+            new MainRequest(context, handler).getshoppingorderlist("&state=2","&deliverytype=1");
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }

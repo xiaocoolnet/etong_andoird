@@ -43,4 +43,6 @@ dependencies {
     compile files('libs/alipaySdk-20151103.jar')
     compile files('libs/jpush-android-2.1.9.jar')
     compile files('libs/zxing.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }

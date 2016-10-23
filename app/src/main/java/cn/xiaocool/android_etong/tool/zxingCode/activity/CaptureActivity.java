@@ -157,7 +157,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		if (holder == null) {
-			Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
 		}
 		if (!isHasSurface) {
 			isHasSurface = true;
