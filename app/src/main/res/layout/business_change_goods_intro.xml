@@ -78,6 +78,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/edit_good_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -113,7 +114,49 @@
                     android:background="@mipmap/ic_next" />
             </RelativeLayout>
 
+
+            <!--宝贝简介-->
+
+
+
+            <RelativeLayout
+                android:id="@+id/edit_good_intro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="商品简介"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/business_tv_good_intro"
+                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:hint=""
+                    android:maxLength="50"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/ic_next" />
+            </RelativeLayout>
             <LinearLayout
+                android:id="@+id/edit_good_type"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -160,6 +203,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/edit_good_brand"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -195,6 +239,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/edit_good_artNo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -268,6 +313,7 @@
 
             <!--现价原价-->
             <RelativeLayout
+                android:id="@+id/edit_good_price"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -305,6 +351,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/edit_good_oPrice"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -343,6 +390,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/edit_good_freight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -387,7 +435,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/edit_good_invrntpry"
+                android:id="@+id/edit_good_inventory"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
@@ -424,6 +472,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/edit_good_details"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -461,6 +510,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/edit_good_address"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="1dp"
