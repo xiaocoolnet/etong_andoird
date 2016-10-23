@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,6 +74,10 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         }
     };
     private String goodId;
+    private RelativeLayout rlTitle;
+    private LinearLayout llType;
+    private RelativeLayout rlBrand;
+    private RelativeLayout rlArtNo,rlPrice,rlOPrice,rlFreight,rlDetails,rlAddress,rlIntro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +124,32 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         tvInventory = (TextView) findViewById(R.id.editGood_et_inventory);
         tvFreight = (TextView) findViewById(R.id.business_tv_good_freight);
         tvFreight.setOnClickListener(this);
-        btnInventory = (RelativeLayout) findViewById(R.id.edit_good_invrntpry);
+        btnInventory = (RelativeLayout) findViewById(R.id.edit_good_inventory);
         btnInventory.setOnClickListener(this);
         etGoodDetails = (TextView) findViewById(R.id.editGood_et_details);
         etGoodDetails.setOnClickListener(this);
         etShipAddress = (TextView) findViewById(R.id.business_tv_good_ship_address);
         etShipAddress.setOnClickListener(this);
+        rlTitle = (RelativeLayout) findViewById(R.id.edit_good_title);
+        rlTitle.setOnClickListener(this);//标题
+        llType = (LinearLayout) findViewById(R.id.edit_good_type);
+        llType.setOnClickListener(this);//分类
+        rlBrand = (RelativeLayout) findViewById(R.id.edit_good_brand);
+        rlBrand.setOnClickListener(this);//品牌
+        rlArtNo = (RelativeLayout) findViewById(R.id.edit_good_artNo);
+        rlArtNo.setOnClickListener(this);//货号
+        rlPrice = (RelativeLayout) findViewById(R.id.edit_good_price);
+        rlPrice.setOnClickListener(this);//现价
+        rlOPrice = (RelativeLayout) findViewById(R.id.edit_good_oPrice);
+        rlOPrice.setOnClickListener(this);//原价
+        rlFreight = (RelativeLayout) findViewById(R.id.edit_good_freight);
+        rlFreight.setOnClickListener(this);//运费
+        rlDetails = (RelativeLayout) findViewById(R.id.edit_good_details);
+        rlDetails.setOnClickListener(this);//详情
+        rlAddress = (RelativeLayout) findViewById(R.id.edit_good_address);
+        rlAddress.setOnClickListener(this);//发货地址
+        rlIntro = (RelativeLayout) findViewById(R.id.edit_good_intro);
+        rlIntro.setOnClickListener(this);//宝贝简介
     }
 
     @Override
@@ -139,17 +164,25 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 intent.putExtra("picName", picName);
                 startActivity(intent);
                 break;
-            case R.id.business_tv_good_name:
+            case R.id.edit_good_title:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
                         (String) tvTitle.getText(), "a=UpdateGoodsName&id=" + goodId + "&goodsname=");
                 break;
-            case R.id.business_tv_good_brand:
+            case R.id.edit_good_intro:
+                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
+                        (String) tvTitle.getText(), "a=UpdateGoodsDescription&id=" + goodId + "description=");
+                break;
+            case R.id.edit_good_type:
+                IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,//此处待修改
+                        "", "a=UpdateGoodsType&id=" + goodId + "&type=");//分类
+                break;
+            case R.id.edit_good_brand:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
                         (String) tvBrand.getText(), "a=UpdateGoodsBand" + goodId + "&band=");
                 break;
-            case R.id.business_tv_good_art_no:
+            case R.id.edit_good_artNo:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvArtNo.getText(), "");
+                        (String) tvArtNo.getText(), "&a=UpdateGoodsArtno" + goodId + "&artno=");
                 break;
             case R.id.business_tv_good_standard:
                 Intent standardIntent = new Intent();
@@ -157,19 +190,19 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 standardIntent.putExtra("goodId", goodId);
                 startActivity(standardIntent);
                 break;
-            case R.id.editGood_et_price:
+            case R.id.edit_good_oPrice:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvPrice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
+                        (String) tvPrice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
                 break;
-            case R.id.editGood_et_oprice:
+            case R.id.edit_good_price:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvOprice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
+                        (String) tvOprice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
                 break;
-            case R.id.business_tv_good_freight:
+            case R.id.edit_good_freight:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
                         (String) tvFreight.getText(), "a=UpdateGoodsFreight&id=" + goodId + "&freight=");
                 break;
-            case R.id.editGood_et_inventory:
+            case R.id.edit_good_inventory:
 //                Intent inventoryIntent = new Intent();
 //                inventoryIntent.setClass(this, UploadInventoryActivity.class);//跳转修改库存
 //                inventoryIntent.putExtra("goodId", goodId);
@@ -177,13 +210,13 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
                         (String) tvInventory.getText(), "a=UpdateStock&goodsid=" + goodId);
                 break;
-            case R.id.editGood_et_details:
-                IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) etGoodDetails.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&description=");
+            case R.id.edit_good_details:
+                IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
+                        (String) etGoodDetails.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&content=");
                 break;
-            case R.id.business_tv_good_ship_address:
+            case R.id.edit_good_address:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) etShipAddress.getText(), "");
+                        (String) etShipAddress.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&address=");
                 break;
         }
     }

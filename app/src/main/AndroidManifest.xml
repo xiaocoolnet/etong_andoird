@@ -148,6 +148,9 @@
         <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
         <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
         <activity android:name=".UI.Mine.CouponActivity"></activity>
+        <activity android:name=".UI.Mine.CouponInstructionsActivity"></activity>
+        <activity android:name=".UI.Mine.AgentActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ImgTxtDetailActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>
@@ -169,6 +172,9 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ChangeGoodTypeActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ChangeGoodDetailsActivity"></activity>
 
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"
@@ -205,11 +211,12 @@
         <activity android:name=".UI.Local.DailySpecialActivity"></activity>
         <activity android:name=".fragment.Local.LocalAddressActivity"></activity>
         <activity android:name=".UI.ShoppingCart.StatementActivity"
+
             android:windowSoftInputMode="adjustPan|stateVisible" >
         </activity>
-
+        <activity android:name=".tool.zxingCode.activity.ResultActivity"></activity>
         <activity android:name=".tool.zxingCode.activity.CaptureActivity"></activity>
-
+        <activity android:name=".UI.Local.AllClassifyActivity"></activity>
         <!--收货地址service 写入数据 能够快速加载省市区-->
         <service android:name=".service.landDivideServeice"></service>
 
@@ -287,18 +294,18 @@
 
         <!--&lt;!&ndash; User defined.  For test only  用户自定义的广播接收器&ndash;&gt;-->
         <!--<receiver-->
-            <!--android:name=".jpushdemo.MyReceiver"-->
-            <!--android:exported="false"-->
-            <!--android:enabled="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt;-->
-                <!--<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt;-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt;-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt;-->
-                <!--<action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;-->
-                <!--<action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
-                <!--<category android:name="cn.xiaocool.android_etong" />-->
-            <!--</intent-filter>-->
+        <!--android:name=".jpushdemo.MyReceiver"-->
+        <!--android:exported="false"-->
+        <!--android:enabled="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
+        <!--<category android:name="cn.xiaocool.android_etong" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
 
 

@@ -101,7 +101,7 @@ public interface WebAddress extends NetBaseConstant {
 
     String UPDATASHOPADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
 
-    /*
+    /**
     * 修改店铺头像
     */
 
@@ -113,7 +113,7 @@ public interface WebAddress extends NetBaseConstant {
 
     String UPDATASHOPNAME = NET_BASE_PREFIX + "a=UpdateShopName";
 
-    /*
+    /**
     *修改店铺地址
     */
 
@@ -191,26 +191,26 @@ public interface WebAddress extends NetBaseConstant {
      * 获取商品对应的附加属性列表
      */
     String OBTAIN_GOOD_ATTRIBUTE = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
-    /*
+    /**
     * 获取店铺列表
     */
 
     String GET_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopList";
 
-    /*
+    /**
     * 添加购物车
     */
 
     String ADD_SHOPPING_CART = NET_BASE_PREFIX + "a=AddShoppingCart";
 
-    /*
+    /**
     *获取我的购物车
     */
 
     String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
 
 
-    /*
+    /**
     * 修改购物车
     */
 
@@ -277,31 +277,31 @@ public interface WebAddress extends NetBaseConstant {
 
     String SearchShops = NET_BASE_PREFIX + "a=SearchShops";
 
-    /*
+    /**
     * 搜索商品
     */
 
     String SearchGoods = NET_BASE_PREFIX + "a=SearchGoods";
 
-    /*
+    /**
     *e抢购
     */
 
     String IsE = NET_BASE_PREFIX + "a=IsE";
 
-    /*
+    /**
     *今日特价
     */
 
     String IsPrice = NET_BASE_PREFIX + "a=IsPrice";
 
-    /*
+    /**
     *新客专享
     */
 
     String IsNew = NET_BASE_PREFIX +"a=IsNew";
 
-    /*
+    /**
     *猜你喜欢
     */
 
@@ -313,25 +313,25 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_MENU = NET_BASE_PREFIX + "a=GetMenu";
 
-    /*
+    /**
     *获取商品评价信息
     */
 
     String GetGoodsComments  = NET_BASE_PREFIX + "a=GetGoodsComments";
 
-    /*
+    /**
     * 获取商店type的附加属性
     */
 
     String GetGoodPropertyList = NET_BASE_PREFIX + "a=GetGoodPropertyList";
 
-    /*
+    /**
     * 添加商品的附加属性
     */
 
     String AddGoodsProperty = NET_BASE_PREFIX + "a=AddGoodsProperty";
 
-    /*
+    /**
     * 获取产品的附加属性
     */
 
@@ -348,31 +348,31 @@ public interface WebAddress extends NetBaseConstant {
 
     String SEARCH_ORDER = NET_BASE_PREFIX + "a=SearchOrderList";
 
-    /*
+    /**
     *发送聊天信息
     */
 
     String SendChatData = NET_BASE_PREFIX + "a=SendChatData";
 
-    /*
+    /**
     * 获取聊天信息（两个人之间的）
     */
 
     String xcGetChatData = NET_BASE_PREFIX +"a=xcGetChatData";
 
-    /*
+    /**
     *获取聊天列表
     */
 
     String  xcGetChatListData = NET_BASE_PREFIX + "a=xcGetChatListData";
 
-    /*
+    /**
     * 获取我的钱包
     */
 
     String GetMyWallet = NET_BASE_PREFIX + "a=GetMyWallet";
 
-    /*
+    /**
     *获取我的足迹
     */
 
@@ -382,6 +382,11 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
+    /**
+    *获取商品分类列表
+    */
+
+    String GET_GOODS_TYPE_LIST = NET_BASE_PREFIX + "a=getShopTypeList&type=0";
 }
 
 

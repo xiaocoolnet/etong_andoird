@@ -40,6 +40,7 @@ import cn.xiaocool.android_etong.app.text.City;
 import cn.xiaocool.android_etong.app.text.District;
 import cn.xiaocool.android_etong.app.text.Provence;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
@@ -159,7 +160,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private EditText etPrice;
     private EditText etOprice;
     private EditText etInventory;
-
+    private EditText etIntro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         Log.e("shopid=", shopid);
         progressDialog = new ProgressDialog(mContext, AlertDialog.THEME_HOLO_LIGHT);
         initview();
+
         initDatas();
         Log.e("解析完毕", "JSON");
         setonclick();
@@ -200,7 +202,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         etInventory = (EditText) findViewById(R.id.uploadGood_et_inventory);
         rl_goods_details = (RelativeLayout) findViewById(R.id.iv_goods_detail);
         rl_goods_details.setOnClickListener(this);
-
+        etIntro = (EditText) findViewById(R.id.et_intro);
         //轮播图
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
@@ -214,7 +216,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 @Override
                 public void run() {
                     try {
-                        result_data = NetUtil.getResponse("http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0", "");
+                        result_data = NetUtil.getResponse(NetBaseConstant.GET_TYPE_LIST, "");
                         Log.e("announcement", result_data);
                         JSONObject jsonObject = new JSONObject(result_data);
                         msg.obj = jsonObject;
@@ -331,6 +333,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         inventory = etInventory.getText().toString();
         xiangqing = et_xiangqing.getText().toString();
         fahuodi = et_fahuodi.getText().toString();
+        String intro = etIntro.getText().toString();
         if (state == 1) {
             if (!TextUtils.isEmpty(biaoti)) {
                 if (!TextUtils.isEmpty(pinpai)) {
@@ -347,7 +350,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                                     progressDialog.show();
                                                     Log.e("pic=", picname4 + "  " + picname5);
                                                     new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3, picname4, picname5,
-                                                            biaoti, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
+                                                            biaoti,intro, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
                                                 } else {
                                                     Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
                                                 }

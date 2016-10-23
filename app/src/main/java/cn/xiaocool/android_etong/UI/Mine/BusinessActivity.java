@@ -48,6 +48,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     private String shopid,shopType;
     private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3,textView6;
     private Context context;
+    private ImageView img1,img2,img3,img4,img5;
     private ImageView img_store_head;
     private ProgressDialog progressDialog;
     private UserInfo userInfo;
@@ -68,6 +69,74 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
+                                if (jsonObject1.getString("level").equals("0")){
+                                    img1.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img2.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img3.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+
+                                }else if (jsonObject1.getString("level").equals("0.5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_half);
+                                    img2.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img3.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("1")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img3.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("1.5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_half);
+                                    img3.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("2")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("2.5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_half);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("3")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img4.setBackgroundResource(R.mipmap.ic_xingixng);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("3.5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img4.setBackgroundResource(R.mipmap.ic_star_half);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("4")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img4.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img5.setBackgroundResource(R.mipmap.ic_xingixng);
+                                }else if (jsonObject1.getString("level").equals("4.5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img4.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img5.setBackgroundResource(R.mipmap.ic_star_half);
+                                }else if (jsonObject1.getString("level").equals("5")){
+                                    img1.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img2.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img3.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img4.setBackgroundResource(R.mipmap.ic_star_all);
+                                    img5.setBackgroundResource(R.mipmap.ic_star_all);
+                                }
                                 textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
                                 shopType = jsonObject1.getString("type");
                                 userInfo.setUserShopId(shopid);
@@ -164,8 +233,12 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         tx_business_price2 = (TextView) findViewById(R.id.tx_business_price2);
         tx_business_price3 = (TextView) findViewById(R.id.tx_business_price3);
         textView6 = (TextView) findViewById(R.id.textView6);
+        img1 = (ImageView) findViewById(R.id.img1);
+        img2 = (ImageView) findViewById(R.id.img2);
+        img3 = (ImageView) findViewById(R.id.img3);
+        img4 = (ImageView) findViewById(R.id.img4);
+        img5 = (ImageView) findViewById(R.id.img5);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -252,4 +325,5 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
 }
