@@ -171,6 +171,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         Log.e("shopid=", shopid);
         progressDialog = new ProgressDialog(mContext, AlertDialog.THEME_HOLO_LIGHT);
         initview();
+
         initDatas();
         Log.e("解析完毕", "JSON");
         setonclick();

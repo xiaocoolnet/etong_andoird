@@ -166,7 +166,6 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         textView6 = (TextView) findViewById(R.id.textView6);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -252,4 +251,5 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
 }
