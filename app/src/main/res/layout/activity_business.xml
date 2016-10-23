@@ -113,29 +113,34 @@
                     android:layout_alignLeft="@+id/tx_business_touxiang"
                     android:layout_alignStart="@+id/tx_business_touxiang">
                     <ImageView
+                        android:id="@+id/img1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img2"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img3"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img4"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_star_all"
                         />
                     <ImageView
+                        android:id="@+id/img5"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
