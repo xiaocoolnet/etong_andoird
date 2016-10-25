@@ -426,9 +426,12 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:background="@mipmap/ic_shenfenzheng"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/imageView2" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -522,9 +525,10 @@
                         android:id="@+id/img_yingyezhizhao"
                         android:layout_width="175dp"
                         android:layout_height="120dp"
-                        android:layout_centerInParent="true"
                         android:background="@mipmap/ic_shangchuan"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitXY"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
                 </RelativeLayout>
             </LinearLayout>
 

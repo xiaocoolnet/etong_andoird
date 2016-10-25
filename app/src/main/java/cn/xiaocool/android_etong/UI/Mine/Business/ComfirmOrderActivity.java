@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.PayNowActivity;
 import cn.xiaocool.android_etong.bean.AddressInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.db.sp.AddressDB;
@@ -94,8 +95,13 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
-                            Toast.makeText(context, "购买成功,请去个人页面支付,", Toast.LENGTH_SHORT).show();
-
+                            Log.e(data,money);
+                            Intent intent = new Intent();
+                            intent.putExtra("orderId", data);
+                            intent.putExtra("price", money);
+                            intent.setClass(context, PayNowActivity.class);
+                            context.startActivity(intent);
+                            Toast.makeText(context, "购买成功,请选择支付方式,", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }

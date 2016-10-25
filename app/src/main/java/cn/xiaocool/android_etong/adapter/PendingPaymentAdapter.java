@@ -158,6 +158,7 @@ public class PendingPaymentAdapter extends BaseAdapter {
                         Intent intent = new Intent();
                         intent.putExtra("orderId", product.getId());
                         intent.putExtra("price", product.getPrice());
+                        Log.e(product.getId(),product.getPrice());
                         intent.setClass(context, PayNowActivity.class);
 
                         context.startActivity(intent);

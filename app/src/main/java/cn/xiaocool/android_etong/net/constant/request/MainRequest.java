@@ -639,7 +639,7 @@ public class MainRequest {
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&address=" + address +
                         "&goodnum=" + goodnum + "&mobile=" + mobile + "&remark=" + remark +
-                        "&money=" + money + "&proid=" + proid;
+                        "&money=" + money + "&proid=" + proid+"&deliverytype=2&deliverymoney=0";
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.BOOKING_SHOPPING, data);
                 Log.e("result_data=", result_data);

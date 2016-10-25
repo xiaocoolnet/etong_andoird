@@ -151,6 +151,7 @@
         <activity android:name=".UI.Mine.CouponInstructionsActivity"></activity>
         <activity android:name=".UI.Mine.AgentActivity"></activity>
         <activity android:name=".UI.Mine.Business.ImgTxtDetailActivity"></activity>
+        <activity android:name=".UI.Mine.RightsCenterActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

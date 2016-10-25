@@ -46,6 +46,7 @@ import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
+import cn.xiaocool.android_etong.UI.Mine.RightsCenterActivity;
 import cn.xiaocool.android_etong.UI.Mine.WalletActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -84,6 +85,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout rl_coupon;
     @BindView(R.id.btn_daili)
     Button btn_daili;
+    @BindView(R.id.btn_weiquan)
+    Button btn_weiquan;
     private ImageView img_setup,iv_saoyisao;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang;
@@ -236,6 +239,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         iv_saoyisao.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
         btn_daili.setOnClickListener(this);
+        btn_weiquan.setOnClickListener(this);
         tx_mine_vip = (TextView) getView().findViewById(R.id.tx_mine_vip);
     }
 
@@ -334,6 +338,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_daili:
                 startActivity(new Intent(getActivity(), AgentActivity.class));
                 break;
+            case R.id.btn_weiquan:
+                startActivity(new Intent(getActivity(), RightsCenterActivity.class));
+                break;
+
         }
     }
 

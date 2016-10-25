@@ -36,7 +36,6 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.demo.PayResult;
 import cn.xiaocool.android_etong.demo.SignUtils;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
-import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
@@ -156,6 +155,7 @@ public class PayNowActivity extends Activity {
         context = this;
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
+        Log.e("orderid=",orderId);
 //        shopName = getIntent().getStringExtra("orderId");
         price = getIntent().getStringExtra("price");
         initView();

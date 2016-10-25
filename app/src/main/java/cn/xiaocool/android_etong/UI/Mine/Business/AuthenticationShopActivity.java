@@ -61,7 +61,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private Context context;
     private RelativeLayout rl_back;
     private EditText et_name, et_phone, et_id_card, et_address;
-    private ImageView img_ren, img_shenfenzheng, img_zhizhao;
+    private ImageView img_ren, img_shenfenzheng, img_zhizhao,img_yingyezhizhao;
     private String select = "";
     private TextView tx_next;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
@@ -82,7 +82,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/myheader";
     private String positive_pic, opposite_pic, licences_pic;
-    private String positive_path, opposite_path, licences_path;
+    private String positive_path, opposite_path, licences_path,licences;
     private String show_type = "";
     String name, id_card, phone, address;
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
@@ -202,6 +202,8 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         img_shenfenzheng.setOnClickListener(this);
         img_zhizhao = (ImageView) findViewById(R.id.img_zhizhao);
         img_zhizhao.setOnClickListener(this);
+        img_yingyezhizhao = (ImageView) findViewById(R.id.img_yingyezhizhao);
+        img_yingyezhizhao.setOnClickListener(this);
         rg_type = (RadioGroup) findViewById(R.id.rg_type);
         rg_type.check(R.id.rg_btn_qiye);
         rg_select = (RadioGroup) findViewById(R.id.rg_select);
@@ -332,6 +334,10 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 break;
             case R.id.img_zhizhao:
                 judge = 3;
+                ShowPickDialog();
+                break;
+            case R.id.img_yingyezhizhao:
+                judge = 4;
                 ShowPickDialog();
                 break;
             case R.id.tx_next:
@@ -498,6 +504,8 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 state3 = 1;
                 licences_pic = "positive_pic" + user.getUserId() + String.valueOf(new Date().getTime());
                 storeImageToSDCARD(photo, licences_pic, filepath);
+            }else if (judge==4){
+                img_yingyezhizhao.setImageDrawable(drawable);
             }
         }
     }
