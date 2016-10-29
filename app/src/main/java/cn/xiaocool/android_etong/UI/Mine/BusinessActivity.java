@@ -26,6 +26,7 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.Business.AfterSalesManagementActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.CommonProblemActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.EditStoreActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.GetMyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
@@ -44,7 +45,7 @@ import cn.xiaocool.android_etong.util.ToastUtils;
 public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti,
-    btn_huodongbaoming,btn_caiwujiekuan;
+    btn_huodongbaoming,btn_caiwujiekuan,btnEvaluate;
     private String shopid,shopType;
     private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3,textView6;
     private Context context;
@@ -66,7 +67,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                             if (status.equals("success")){
                                 progressDialog.dismiss();
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                String shopid = jsonObject1.getString("id");
+                                shopid1 = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
                                 if (jsonObject1.getString("level").equals("0")){
@@ -139,10 +140,10 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 }
                                 textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
                                 shopType = jsonObject1.getString("type");
-                                userInfo.setUserShopId(shopid);
+
                                 userInfo.setUserShopName(shopname);
                                 userInfo.setUserShopType(shopType);
-                                userInfo.writeData(BusinessActivity.this);
+
                                 Log.e("head=",head);
                                 ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
                                 if (shopname.equals("null")||shopname==null||shopname.equals("")){
@@ -181,6 +182,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         }
     };
     private Button btnWantHelp;
+    private String shopid1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,13 +190,16 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_business);
         context = this;
+        Intent intent = getIntent();
+        shopid = intent.getStringExtra("shopid");
         initview();
         userInfo = new UserInfo();
         userInfo.readData(this);
+        userInfo.setUserShopId(shopid);
+        userInfo.writeData(context);//写入缓存shopid
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
-        Intent intent = getIntent();
-        shopid = intent.getStringExtra("shopid");
         Log.e("shopid=", intent.getStringExtra("shopid"));
+        Log.e("shopid get cache =", String.valueOf(userInfo.getUserShopId()));
         if(NetUtil.isConnnected(context)){
             progressDialog.setMessage("正在加载");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -228,6 +233,8 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         btn_caiwujiekuan.setOnClickListener(this);
         img_store_head = (ImageView) findViewById(R.id.img_store);
         img_store_head.setOnClickListener(this);
+        btnEvaluate = (Button) findViewById(R.id.btn_get_my_evaluate);
+        btnEvaluate.setOnClickListener(this);
         tx_store_name = (TextView) findViewById(R.id.tx_business_touxiang);
         tx_business_price1 = (TextView) findViewById(R.id.tx_business_price1);
         tx_business_price2 = (TextView) findViewById(R.id.tx_business_price2);
@@ -287,6 +294,12 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 intent7.putExtra("shopid", shopid);
                 intent7.setClass(BusinessActivity.this, StoreHomepageActivity.class);
                 startActivity(intent7);
+                break;
+            case R.id.btn_get_my_evaluate:
+                Intent intent10 = new Intent();
+                intent10.putExtra("shopid", shopid);
+                intent10.setClass(BusinessActivity.this, GetMyEvaluateActivity.class);
+                startActivity(intent10);
                 break;
             case R.id.btn_huodongbaoming:
                 ToastUtils.makeShortToast(context,"活动报名正在建设中！敬请期待！");

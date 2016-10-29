@@ -387,6 +387,11 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GET_GOODS_TYPE_LIST = NET_BASE_PREFIX + "a=getShopTypeList&type=0";
+    /**
+     *商家获取收到的评价
+     */
+
+    String SHOP_GET_EVALUATE = NET_BASE_PREFIX + "&a=SellerGetEvaluatelists";
 }
 
 

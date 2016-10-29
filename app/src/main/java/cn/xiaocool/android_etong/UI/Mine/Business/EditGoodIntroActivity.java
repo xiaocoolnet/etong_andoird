@@ -173,7 +173,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                         (String) tvTitle.getText(), "a=UpdateGoodsDescription&id=" + goodId + "description=");
                 break;
             case R.id.edit_good_type:
-                IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,//此处待修改
+                IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,
                         "", "a=UpdateGoodsType&id=" + goodId + "&type=");//分类
                 break;
             case R.id.edit_good_brand:

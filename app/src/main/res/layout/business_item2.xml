@@ -57,7 +57,7 @@
         >
 
         <Button
-            android:id="@+id/btn_huiyuanzhongxin"
+            android:id="@+id/btn_get_my_evaluate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTop="@mipmap/ic_pingjia_business"

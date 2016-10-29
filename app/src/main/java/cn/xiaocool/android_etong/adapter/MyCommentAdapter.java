@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -61,33 +63,61 @@ public class MyCommentAdapter extends BaseAdapter {
         String picName = dataBeanList.get(position).getPicture();
         String[] arrayPic = picName.split("[,]");
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.my_comment_item, null);
+            convertView = layoutInflater.inflate(R.layout.buy_my_evaluate_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.myCommentGoodPic, displayImageOptions);
-            viewHolder.myCommentGoodName.setText(dataBeanList.get(position).getGoodsname());//商品名字
-            viewHolder.myCommentGoodComment.setText(dataBeanList.get(position).getContent());//获取评价内容
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.myCommentGoodPic, displayImageOptions);
-            viewHolder.myCommentGoodName.setText(dataBeanList.get(position).getGoodsname());//商品名字
-            viewHolder.myCommentGoodComment.setText(dataBeanList.get(position).getContent());//获取评价内容
         }
+        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+                viewHolder.shopMyEvaluatePic, displayImageOptions);
+        viewHolder.shopMyEvaluateName.setText(dataBeanList.get(position).getGoodsname());//商品名字
+        viewHolder.shopEvaluateContent.setText(dataBeanList.get(position).getContent());//获取评价内容
         return convertView;
     }
 
     static class ViewHolder {
-        @BindView(R.id.my_comment_good_pic)
-        ImageView myCommentGoodPic;
-        @BindView(R.id.my_comment_good_name)
-        TextView myCommentGoodName;
-        @BindView(R.id.my_comment_good_comment)
-        TextView myCommentGoodComment;
+        @BindView(R.id.seller_order_shop_pic_icon)
+        ImageView sellerOrderShopPicIcon;
+        @BindView(R.id.seller_order_good_status_tv)
+        TextView sellerOrderGoodStatusTv;
+        @BindView(R.id.shop_my_evaluate_color_name)
+        TextView shopMyEvaluateColorName;
+        @BindView(R.id.shop_my_evaluate_size_name)
+        TextView shopMyEvaluateSizeName;
+        @BindView(R.id.shop_my_evaluate_count_name)
+        TextView shopMyEvaluateCountName;
+        @BindView(R.id.seller_order_tx_goods_count)
+        TextView sellerOrderTxGoodsCount;
+        @BindView(R.id.shop_my_evaluate_pic)
+        ImageView shopMyEvaluatePic;
+        @BindView(R.id.shop_my_evaluate_name)
+        TextView shopMyEvaluateName;
+        @BindView(R.id.rl_good_infor_up)
+        RelativeLayout rlGoodInforUp;
+        @BindView(R.id.gray_line2)
+        ImageView grayLine2;
+        @BindView(R.id.shop_evaluate_content)
+        TextView shopEvaluateContent;
+        @BindView(R.id.ll_shop_evaluate_item)
+        LinearLayout llShopEvaluateItem;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
+//    static class ViewHolder {
+//        @BindView(R.id.my_comment_good_pic)
+//        ImageView myCommentGoodPic;
+//        @BindView(R.id.my_comment_good_name)
+//        TextView myCommentGoodName;
+//        @BindView(R.id.my_comment_good_comment)
+//        TextView myCommentGoodComment;
+//
+//        ViewHolder(View view) {
+//            ButterKnife.bind(this, view);
+//        }
+//    }
 }
