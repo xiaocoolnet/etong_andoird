@@ -1,18 +1,12 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,8 +20,8 @@ import java.util.List;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.AddGoodAttributeAdapter;
 import cn.xiaocool.android_etong.bean.UploadGoodSanndard.UploadStandardBean;
-import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**

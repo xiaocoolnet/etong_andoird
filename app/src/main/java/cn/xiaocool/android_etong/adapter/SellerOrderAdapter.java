@@ -34,12 +34,14 @@ public class SellerOrderAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private DisplayImageOptions displayImageOptions;
     private Context context;
+    private String islocal;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    public SellerOrderAdapter(Context context, List<SellerOrderBean.DataBean> dataBeans) {
+    public SellerOrderAdapter(Context context, List<SellerOrderBean.DataBean> dataBeans, String islocal) {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.dataBeans = dataBeans;
+        this.islocal = islocal;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -94,15 +96,15 @@ public class SellerOrderAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (v.getId() == R.id.rl_good_infor_up) {
                     Intent intent = new Intent();
-                    intent.putExtra("name",product.getUsername());
-                    intent.putExtra("address",product.getAddress());
-                    intent.putExtra("mobile",product.getMobile());
-                    intent.putExtra("state",product.getState());
-                    intent.putExtra("goodsName",product.getGoodsname());
-                    intent.putExtra("price",product.getPrice());
-                    intent.putExtra("number",product.getNumber());
-                    intent.putExtra("orderNum",product.getOrder_num());
-                    intent.putExtra("createTime",product.getTime());
+                    intent.putExtra("name", product.getUsername());
+                    intent.putExtra("address", product.getAddress());
+                    intent.putExtra("mobile", product.getMobile());
+                    intent.putExtra("state", product.getState());
+                    intent.putExtra("goodsName", product.getGoodsname());
+                    intent.putExtra("price", product.getPrice());
+                    intent.putExtra("number", product.getNumber());
+                    intent.putExtra("orderNum", product.getOrder_num());
+                    intent.putExtra("createTime", product.getTime());
                     intent.setClass(context, SellerOrderDetailsActivity.class);
                     context.startActivity(intent);
                 }
@@ -111,38 +113,59 @@ public class SellerOrderAdapter extends BaseAdapter {
         holder.tvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.seller_order_adapter_good_status_btn){
-                    if (state.equals("2")){
+                if (v.getId() == R.id.seller_order_adapter_good_status_btn) {
+                    if (state.equals("2")) {
                         Intent intent = new Intent();
                         intent.setClass(context, DeliverNowActivity.class);
-                        intent.putExtra("picName",arraypic[0]);
-                        intent.putExtra("orderId",product.getId());
-                        intent.putExtra("orderNum",product.getOrder_num());
-                        intent.putExtra("orderTime",product.getTime());
-                        Log.e("orderNUm + time + pic",arraypic[0] + product.getOrder_num() + product.getTime());
+                        intent.putExtra("picName", arraypic[0]);
+                        intent.putExtra("orderId", product.getId());
+                        intent.putExtra("orderNum", product.getOrder_num());
+                        intent.putExtra("orderTime", product.getTime());
+                        Log.e("orderNUm + time + pic", arraypic[0] + product.getOrder_num() + product.getTime());
                         context.startActivity(intent);
                     }
-                }else if (state.equals("3")){
+                } else if (state.equals("3")) {
 
                 }
             }
         });
-        if (state.equals("2")) {
-            holder.tvStatus.setText("待发货");
-            holder.tvBtn.setText("马上发货");
-        } else if (state.equals("3")) {
-            holder.tvStatus.setText("待签收");
-            holder.tvBtn.setText("实时追踪");
-        } else if (state.equals("4")) {
-            holder.tvStatus.setText("已完成");
-            holder.tvBtn.setText("评价");
+        if (islocal.equals("0")) {
+            if (state.equals("2")) {
+                holder.tvStatus.setText("待验证");
+                holder.tvBtn.setText("请扫码验证");
+                holder.tvBtn.setEnabled(false);
+            } else if (state.equals("3")) {
+                holder.tvStatus.setText("待确认");
+                holder.tvBtn.setText("实时追踪");
+            } else if (state.equals("4")) {
+                holder.tvStatus.setText("已完成");
+                holder.tvBtn.setText("评价");
+            }
+            Log.e("pic=", arraypic[0]);
+            imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
+            holder.tx_shopping_cloth_name.setText(product.getGoodsname());
+            holder.tx_shopping_cloth_price.setText("¥" + product.getMoney());
+            holder.tx_goods_count.setText("X" + product.getNumber());
         }
-        Log.e("pic=", arraypic[0]);
-        imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
-        holder.tx_shopping_cloth_name.setText(product.getGoodsname());
-        holder.tx_shopping_cloth_price.setText("¥" + product.getMoney());
-        holder.tx_goods_count.setText("X" + product.getNumber());
+        else{
+            if (state.equals("2")) {
+                holder.tvStatus.setText("待发货");
+                holder.tvBtn.setText("马上发货");
+            } else if (state.equals("3")) {
+                holder.tvStatus.setText("待确认");
+                holder.tvBtn.setText("实时追踪");
+            } else if (state.equals("4")) {
+                holder.tvStatus.setText("已完成");
+                holder.tvBtn.setText("评价");
+            }
+            Log.e("pic=", arraypic[0]);
+            imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_shopping_chanpin, displayImageOptions);
+            holder.tx_shopping_cloth_name.setText(product.getGoodsname());
+            holder.tx_shopping_cloth_price.setText("¥" + product.getMoney());
+            holder.tx_goods_count.setText("X" + product.getNumber());
+        }
         return convertView;
+
     }
 
     class ViewHolder {

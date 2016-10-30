@@ -33,9 +33,9 @@ import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.CancelOrderActivi
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.OrderDetailsActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.PayNowActivity;
 import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
-import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
 import static android.view.View.VISIBLE;

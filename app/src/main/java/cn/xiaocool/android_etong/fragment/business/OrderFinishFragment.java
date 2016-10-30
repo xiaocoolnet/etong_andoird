@@ -34,6 +34,7 @@ public class OrderFinishFragment extends Fragment implements View.OnClickListene
 
     private ListView list_goods;
     private Context context;
+    private String islocal="";
     private List<SellerOrderBean.DataBean> dataBeans;
     private SellerOrderAdapter sellerOrderAdapter;
     private Handler handler = new Handler() {
@@ -73,7 +74,7 @@ public class OrderFinishFragment extends Fragment implements View.OnClickListene
                             if (sellerOrderAdapter != null) {
                                 sellerOrderAdapter.notifyDataSetChanged();
                             } else {
-                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans);
+                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans,islocal);
                                 list_goods.setAdapter(sellerOrderAdapter);
                             }
                         }

@@ -51,6 +51,7 @@ public class NoUseAdapter extends BaseAdapter {
     private Context context;
     private Bitmap bitmap=null;
     private String textContent="";
+    private String text,userId;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -119,13 +120,15 @@ public class NoUseAdapter extends BaseAdapter {
         }
         textContent = product.getTracking();
         holder.tv_number.setText(textContent);
+
         holder.iv_erweima = (ImageView) convertView.findViewById(R.id.iv_erweima);
         bitmap = CodeUtils.createImage(textContent, 400, 400, BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_920));
         holder.iv_erweima.setImageBitmap(bitmap);
+
         String pic = product.getPicture();
         final String[] arraypic = pic.split("[,]");
         final String state = dataBeans.get(position).getState();
-        final String deliverytype = dataBeans.get(position).getDeliverytype();
+//        final String deliverytype = dataBeans.get(position).getDeliverytype();
         holder.rl_detiels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

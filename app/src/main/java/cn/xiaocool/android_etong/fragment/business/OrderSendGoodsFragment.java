@@ -73,7 +73,7 @@ public class OrderSendGoodsFragment extends Fragment {
                             if (sellerOrderAdapter != null) {
                                 sellerOrderAdapter.notifyDataSetChanged();
                             } else {
-                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans);
+                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans,islocal);
                                 list_goods.setAdapter(sellerOrderAdapter);
                             }
                         }
@@ -84,7 +84,7 @@ public class OrderSendGoodsFragment extends Fragment {
             }
         }
     };
-    private String shopId;
+    private String shopId,islocal;
 
 
     private void initView() {
@@ -102,6 +102,7 @@ public class OrderSendGoodsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context = getActivity();
+
         initView();
     }
 
@@ -112,6 +113,7 @@ public class OrderSendGoodsFragment extends Fragment {
         View view = inflater.inflate(R.layout.business_order_all, container, false);
         Bundle bundle = this.getArguments();
         shopId = bundle.getString("shopId");
+        islocal = bundle.getString("islocal");
         return view;
     }
 

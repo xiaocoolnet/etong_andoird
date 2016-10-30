@@ -19,11 +19,11 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.ShopGetMyEvaluateAdapter;
-import cn.xiaocool.android_etong.bean.Mine.MyCommentBean;
 import cn.xiaocool.android_etong.bean.business.ShopMyEvaluateBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+
 
 /**
  * Created by wzh on 2016/10/26.
