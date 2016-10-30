@@ -394,4 +394,24 @@ public class ShopRequest {
             }
         }.start();
     }
+    //卖家确认验证码
+    public void verifyShoppingCode(final String result) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid"+user.getshopId()+"&code"+result;
+                String result_data = NetUtil.getResponse(WebAddress.VerifyShoppingCode, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.VerifyShoppingCode;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

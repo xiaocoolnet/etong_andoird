@@ -36,6 +36,7 @@ public class OrderAllFragment extends Fragment {
     private Context context;
     private List<SellerOrderBean.DataBean> dataBeans;
     private SellerOrderAdapter sellerOrderAdapter;
+    private String islocal="";
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -68,12 +69,13 @@ public class OrderAllFragment extends Fragment {
                                 dataBean.setNumber(jsonObject1.getString("number"));
                                 dataBean.setMoney(jsonObject1.getString("money"));
                                 dataBean.setUsername(jsonObject1.getString("username"));
+
                                 dataBeans.add(dataBean);
                             }
                             if (sellerOrderAdapter != null) {
                                 sellerOrderAdapter.notifyDataSetChanged();
                             } else {
-                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans);
+                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans,islocal);
                                 list_goods.setAdapter(sellerOrderAdapter);
                             }
                         }

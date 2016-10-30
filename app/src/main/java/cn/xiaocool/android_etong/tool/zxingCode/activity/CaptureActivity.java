@@ -17,6 +17,7 @@ package cn.xiaocool.android_etong.tool.zxingCode.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -33,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.zxing.Result;
-
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -68,6 +68,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private RelativeLayout scanCropView;
 	private ImageView scanLine;
 
+	private Context context;
 	private Rect mCropRect = null;
 
 	public Handler getHandler() {
@@ -193,6 +194,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		bundle.putString("result", rawResult.getText());
 
 		startActivity(new Intent(CaptureActivity.this, ResultActivity.class).putExtras(bundle));
+
+
 	}
 
 	private void initCamera(SurfaceHolder surfaceHolder) {

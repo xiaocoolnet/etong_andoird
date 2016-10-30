@@ -34,8 +34,9 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
     private Fragment[] fragments;
     private FragmentManager fragmentManager;
     private int index, currentIndex;
-    private String shopId;
+    private String shopId,islocal;
     private ImageView imageView;
+    private Button daifahuo,daiqianshou;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,21 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_order_manage);
         context = this;
         shopId = getIntent().getStringExtra("shopid");
+        islocal = getIntent().getStringExtra("islocal");
         initfragment();
         initdata();
+        if(islocal.equals("0")){
+            daifahuo.setText("待验证");
+            daiqianshou.setText("待确认");
+        }
     }
 
     private void initdata() {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        daifahuo = (Button) findViewById(R.id.btn_daifahuo);
+        daiqianshou = (Button) findViewById(R.id.btn_daiqianshou);
+
     }
 
     private void initfragment() {
@@ -62,6 +71,7 @@ public class OrderManageActivity extends Activity implements View.OnClickListene
         fragments = new Fragment[]{orderAllFragment,orderSendGoodsFragment,orderSignFragment,orderFinishFragment};
         Bundle bundle = new Bundle();
         bundle.putString("shopId",shopId);
+        bundle.putString("islocal",islocal);
         fragments[0].setArguments(bundle);//传值
         fragments[1].setArguments(bundle);//传值
         fragments[2].setArguments(bundle);//传值
