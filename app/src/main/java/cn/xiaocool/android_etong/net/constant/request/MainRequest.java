@@ -637,7 +637,8 @@ public class MainRequest {
             Message msg = new Message();
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&address=" + address +
+                Log.e("shopid is shop id", String.valueOf(user.getUserShopId()));
+                String data = "&userid=" + user.getUserId()+"&shopid=" + user.getshopId() + "&goodsid=" + goodsid + "&address=" + address +
                         "&goodnum=" + goodnum + "&mobile=" + mobile + "&remark=" + remark +
                         "&money=" + money + "&proid=" + proid+"&deliverytype=2&deliverymoney=0";
                 Log.e("data=", data);

@@ -35,6 +35,7 @@ public class OrderSignFragment extends Fragment {
     private Context context;
     private List<SellerOrderBean.DataBean> dataBeans;
     private SellerOrderAdapter sellerOrderAdapter;
+    private String islocal="";
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,7 +73,7 @@ public class OrderSignFragment extends Fragment {
                             if (sellerOrderAdapter != null) {
                                 sellerOrderAdapter.notifyDataSetChanged();
                             } else {
-                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans);
+                                sellerOrderAdapter = new SellerOrderAdapter(context, dataBeans,islocal);
                                 list_goods.setAdapter(sellerOrderAdapter);
                             }
                         }

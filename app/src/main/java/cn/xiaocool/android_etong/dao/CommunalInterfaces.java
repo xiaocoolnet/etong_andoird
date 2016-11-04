@@ -89,4 +89,6 @@ public interface CommunalInterfaces {
     int GetMyBrowseHistory = 0x0077;//获取我的足迹
     int GET_GOOD_RECOMMEND = 0x0078;//获取商品相关推荐
     int GET_GOODS_TYPE_LIST = 0x0079;//获取商品分类列表
+    int SHOP_GET_EVALUATE = 0x0080;//卖家获取收到的评价
+    int VerifyShoppingCode = 0x0081;//卖家确认验证码
 }

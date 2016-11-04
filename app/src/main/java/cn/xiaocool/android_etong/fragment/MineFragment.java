@@ -137,9 +137,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             if (status.equals("success")) {
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
+                                String islocal = jsonObject1.getString("islocal");
                                 progressDialog.dismiss();
                                 Intent intent = new Intent();
                                 intent.putExtra("shopid", shopid);
+                                intent.putExtra("islocal",islocal);
                                 intent.setClass(context, ConfirmSecurityActivity.class);
                                 startActivity(intent);
                             }

@@ -179,6 +179,7 @@
         </activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodTypeActivity"></activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodDetailsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.GetMyEvaluateActivity"></activity>
 
         <activity
             android:name=".UI.Mine.Business.StoreHomepageActivity"

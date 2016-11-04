@@ -35,7 +35,7 @@ import cn.xiaocool.android_etong.util.KeyBoardUtils;
 
 public class ConfirmSecurityActivity extends Activity implements View.OnClickListener{
     private UserInfo user;
-    private String phone, password,shopid;
+    private String phone, password,shopid,islocal;
     private EditText et_login_phone, et_login_password;
     private Context context;
     private RelativeLayout rl_back;
@@ -56,6 +56,7 @@ public class ConfirmSecurityActivity extends Activity implements View.OnClickLis
                                     Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent();
                             intent1.putExtra("shopid", shopid);
+                            intent1.putExtra("islocal",islocal);
                             intent1.setClass(context, BusinessActivity.class);
                             startActivity(intent1);
                             finish();
@@ -83,6 +84,7 @@ public class ConfirmSecurityActivity extends Activity implements View.OnClickLis
         user.readData(this);
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
+        islocal = intent.getStringExtra("islocal");
         initView();
     }
 
