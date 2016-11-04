@@ -33,6 +33,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
     private RelativeLayout rlPic;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case CommunalInterfaces.CHANGE_GOOD_INTRO:
                     JSONObject jsonObject = (JSONObject) msg.obj;
