@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
@@ -39,6 +40,7 @@ public class NewArrivalActivity extends Activity implements View.OnClickListener
             switch (msg.what) {
                 case CommunalInterfaces.GET_NEW_ARRIVAL:
                     JSONObject jsonObject = (JSONObject) msg.obj;
+                    Log.e("00","0x00");
                     try {
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {

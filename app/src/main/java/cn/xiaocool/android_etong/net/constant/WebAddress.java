@@ -381,7 +381,6 @@ public interface WebAddress extends NetBaseConstant {
     *获取相关推荐
     */
 
-    String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
     /**
     *获取商品分类列表
     */
@@ -391,6 +390,13 @@ public interface WebAddress extends NetBaseConstant {
     String SHOP_GET_EVALUATE = NET_BASE_PREFIX + "a=SellerGetEvaluatelists";
     //卖家确认
     String VerifyShoppingCode = NET_BASE_PREFIX + "g=apps&m=index&a=VerifyShoppingCode";
+    String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
+
+    /**
+    *获取订单信息(传入订单id)
+    */
+
+    String GET_ORDER_DETAILS = NET_BASE_PREFIX + "a=GetOrderInfoById";
 }
 
 

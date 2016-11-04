@@ -96,6 +96,7 @@ public class SellerOrderAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (v.getId() == R.id.rl_good_infor_up) {
                     Intent intent = new Intent();
+//                    intent.putExtra("orderId", product.getId());//取orderId
                     intent.putExtra("name", product.getUsername());
                     intent.putExtra("address", product.getAddress());
                     intent.putExtra("mobile", product.getMobile());

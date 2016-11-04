@@ -124,15 +124,16 @@ public class PendingPaymentAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (v.getId() == R.id.rl_good_infor_up) {
                     Intent intent = new Intent();
-                    intent.putExtra("name", product.getUsername());
-                    intent.putExtra("address", product.getAddress());
-                    intent.putExtra("mobile", product.getMobile());
-                    intent.putExtra("state", product.getState());
-                    intent.putExtra("goodsName", product.getGoodsname());
-                    intent.putExtra("price", product.getPrice());
-                    intent.putExtra("number", product.getNumber());
-                    intent.putExtra("orderNum", product.getOrder_num());
-                    intent.putExtra("createTime", product.getTime());
+                    intent.putExtra("orderId", product.getId());//取orderId
+//                    intent.putExtra("name", product.getUsername());
+//                    intent.putExtra("address", product.getAddress());
+//                    intent.putExtra("mobile", product.getMobile());
+//                    intent.putExtra("state", product.getState());
+//                    intent.putExtra("goodsName", product.getGoodsname());
+//                    intent.putExtra("price", product.getPrice());
+//                    intent.putExtra("number", product.getNumber());
+//                    intent.putExtra("orderNum", product.getOrder_num());
+//                    intent.putExtra("createTime", product.getTime());
 
                     intent.setClass(context, OrderDetailsActivity.class);
                     context.startActivity(intent);

@@ -45,7 +45,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti,
     btn_huodongbaoming,btn_caiwujiekuan;
-    private String shopid,shopType;
+    private String shopid,shopType,islocal;
     private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3,textView6;
     private Context context;
     private ImageView img1,img2,img3,img4,img5;
@@ -194,6 +194,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
+        islocal = intent.getStringExtra("islocal");
         Log.e("shopid=", intent.getStringExtra("shopid"));
         if(NetUtil.isConnnected(context)){
             progressDialog.setMessage("正在加载");
@@ -274,6 +275,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             case R.id.btn_dingdanguanli:
                 Intent intent5 = new Intent();
                 intent5.putExtra("shopid", shopid);
+                intent5.putExtra("islocal",islocal);
                 intent5.setClass(BusinessActivity.this, OrderManageActivity.class);
                 startActivity(intent5);
                 break;

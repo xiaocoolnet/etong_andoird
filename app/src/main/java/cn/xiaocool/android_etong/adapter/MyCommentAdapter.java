@@ -1,6 +1,7 @@
 package cn.xiaocool.android_etong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.OrderDetails.OrderDetailsActivity;
 import cn.xiaocool.android_etong.bean.Mine.MyCommentBean;
+import cn.xiaocool.android_etong.bean.Mine.PendingPayment;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 
 
 /**
@@ -32,10 +36,11 @@ public class MyCommentAdapter extends BaseAdapter {
     private DisplayImageOptions displayImageOptions;
     private List<MyCommentBean.DataBean> dataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-
+    private Context context;
     public MyCommentAdapter(Context context, List<MyCommentBean.DataBean> dataBeanList) {
         this.layoutInflater = LayoutInflater.from(context);
         this.dataBeanList = dataBeanList;
+        this.context = context;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -60,6 +65,7 @@ public class MyCommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+        final MyCommentBean.DataBean product = dataBeanList.get(position);
         String picName = dataBeanList.get(position).getPicture();
         String[] arrayPic = picName.split("[,]");
         if (convertView == null) {
@@ -74,6 +80,19 @@ public class MyCommentAdapter extends BaseAdapter {
                 viewHolder.shopMyEvaluatePic, displayImageOptions);
         viewHolder.shopMyEvaluateName.setText(dataBeanList.get(position).getGoodsname());//商品名字
         viewHolder.shopEvaluateContent.setText(dataBeanList.get(position).getContent());//获取评价内容
+        //设置点击跳转订单详情
+        viewHolder.llShopEvaluateItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.ll_shop_evaluate_item) {
+                    Intent intent = new Intent();
+                    intent.putExtra("orderId", product.getOrderid());//取orderId
+
+                    intent.setClass(context, OrderDetailsActivity.class);
+                    context.startActivity(intent);
+                }
+            }
+        });
         return convertView;
     }
 

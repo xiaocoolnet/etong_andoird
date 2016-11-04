@@ -332,15 +332,16 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //获取商品相关推荐
-    public void getGoodsRecommend(final String goodid,final String cityName,
-                                  final String longitude,final String latitude) {
+    public void getGoodsRecommend(final String goodid, final String cityName,
+                                  final String longitude, final String latitude) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodid + "&cityname=" + cityName
-                         + "&longitude=" + longitude + "&latitude=" + latitude;
+                        + "&longitude=" + longitude + "&latitude=" + latitude;
                 String result_data = NetUtil.getResponse(WebAddress.GET_GOOD_RECOMMEND, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
@@ -354,6 +355,7 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //获取商品列表list
     public void getGoodstypeList() {
         new Thread() {
@@ -374,6 +376,7 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //卖家获取收到的评价
     public void getMyEvaluate() {
         new Thread() {
@@ -394,17 +397,40 @@ public class ShopRequest {
             }
         }.start();
     }
+
     //卖家确认验证码
     public void verifyShoppingCode(final String result) {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data = "&userid"+user.getshopId()+"&code"+result;
+                String data = "&userid=" + user.getshopId() + "&code=" + result;
                 String result_data = NetUtil.getResponse(WebAddress.VerifyShoppingCode, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.VerifyShoppingCode;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取订单详情
+    public void getOrderDetails(final String orderId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&orderid=" + orderId;
+                String result_data = NetUtil.getResponse(WebAddress.GET_ORDER_DETAILS, data);
+                Log.e("resu;lt",result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_ORDER_DETAILS;
                     msg.obj = obj;
                 } catch (JSONException e) {
                     e.printStackTrace();

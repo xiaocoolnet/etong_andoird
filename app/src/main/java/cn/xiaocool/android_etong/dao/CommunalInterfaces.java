@@ -91,4 +91,5 @@ public interface CommunalInterfaces {
     int GET_GOODS_TYPE_LIST = 0x0079;//获取商品分类列表
     int SHOP_GET_EVALUATE = 0x0080;//卖家获取收到的评价
     int VerifyShoppingCode = 0x0081;//卖家确认验证码
+    int GET_ORDER_DETAILS = 0x0082;//根据订单id查询订单信息
 }
