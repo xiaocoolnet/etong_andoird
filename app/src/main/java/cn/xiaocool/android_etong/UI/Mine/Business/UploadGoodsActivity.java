@@ -489,7 +489,10 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         } else if (requestCode == 1000) {
             Bundle bundle = data.getExtras();
             picStr = bundle.getString("picStr");
-            Log.e("picStr=", picStr);
+            if (TextUtils.isEmpty(picStr)){
+            }else {
+                Log.e("picStr=", picStr);
+            }
             String etString = bundle.getString("good_details");
             et_xiangqing.setText(etString);
         }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,10 @@ import android.view.Window;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +37,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 
 public class MineFootprintActivity extends Activity implements View.OnClickListener {
 
-    private ListView listView;
+    private PullToRefreshListView listView;
     private TextView tvTitle;
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
@@ -84,37 +89,79 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         new HomeRequest(this, handler).GetMyBrowseHistory();
+
+        //设置刷新时显示的文本
+        ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true,false);
+        startLayout.setPullLabel("正在下拉刷新...");
+        startLayout.setRefreshingLabel("正在玩命加载中...");
+        startLayout.setReleaseLabel("放开以刷新");
+
+        ILoadingLayout endLayout = listView.getLoadingLayoutProxy(false,true);
+        endLayout.setPullLabel("正在上拉刷新...");
+        endLayout.setRefreshingLabel("正在玩命加载中...");
+        endLayout.setReleaseLabel("放开以刷新");
+
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                new LoadDataAsyncTask(MineFootprintActivity.this).execute();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+            }
+        });
     }
 
+    /**
+     * 异步下载任务
+     */
+    private static class LoadDataAsyncTask extends AsyncTask<Void,Void,String> {
+
+        private MineFootprintActivity mainActivity;
+
+        public LoadDataAsyncTask(MineFootprintActivity mainActivity) {
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                mainActivity.loadData();
+                Thread.sleep(2000);
+                return "seccess";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        /**
+         * 完成时的方法
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("seccess")){
+                mainActivity.everydayChoicenessAdapter.notifyDataSetChanged();
+                mainActivity.listView.onRefreshComplete();//刷新完成
+            }
+        }
+    }
+
+    private void loadData(){
+    }
+
+
     private void initView() {
-        listView = (ListView) findViewById(R.id.listView_everyday_choiceness);
+        listView = (PullToRefreshListView) findViewById(R.id.listView_everyday_choiceness);
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("我的足迹");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
-        //设置刷新时显示的文本
-//        ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true,false);
-//        startLayout.setPullLabel("正在下拉刷新...");
-//        startLayout.setRefreshingLabel("正在玩命加载中...");
-//        startLayout.setReleaseLabel("放开以刷新");
-//
-//        ILoadingLayout endLayout = listView.getLoadingLayoutProxy(false,true);
-//        endLayout.setPullLabel("正在上拉刷新...");
-//        endLayout.setRefreshingLabel("正在玩命加载中...");
-//        endLayout.setReleaseLabel("放开以刷新");
-//
-//        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
+
     }
 
     @Override
