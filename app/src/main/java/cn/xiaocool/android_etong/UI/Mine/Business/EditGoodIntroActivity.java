@@ -166,11 +166,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_title:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvTitle.getText(), "a=UpdateGoodsName&id=" + goodId + "&goodsname=");
+                        title, "a=UpdateGoodsName&id=" + goodId + "&goodsname=");
                 break;
             case R.id.edit_good_intro:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvTitle.getText(), "a=UpdateGoodsDescription&id=" + goodId + "description=");
+                        title, "a=UpdateGoodsDescription&id=" + goodId + "description=");
                 break;
             case R.id.edit_good_type:
                 IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,
@@ -178,11 +178,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_brand:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvBrand.getText(), "a=UpdateGoodsBand" + goodId + "&band=");
+                        brand, "a=UpdateGoodsBand" + goodId + "&band=");
                 break;
             case R.id.edit_good_artNo:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvArtNo.getText(), "&a=UpdateGoodsArtno" + goodId + "&artno=");
+                        artNo, "&a=UpdateGoodsArtno" + goodId + "&artno=");
                 break;
             case R.id.business_tv_good_standard:
                 Intent standardIntent = new Intent();
@@ -192,15 +192,15 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_oPrice:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvPrice.getText(), "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
+                        oprice, "a=UpdateGoodsOPrice&id=" + goodId + "&oprice=");
                 break;
             case R.id.edit_good_price:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvOprice.getText(), "a=UpdateGoodsPrice&id=" + goodId + "&price=");
+                        price, "a=UpdateGoodsPrice&id=" + goodId + "&price=");
                 break;
             case R.id.edit_good_freight:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvFreight.getText(), "a=UpdateGoodsFreight&id=" + goodId + "&freight=");
+                        freight, "a=UpdateGoodsFreight&id=" + goodId + "&freight=");
                 break;
             case R.id.edit_good_inventory:
 //                Intent inventoryIntent = new Intent();
@@ -208,15 +208,15 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
 //                inventoryIntent.putExtra("goodId", goodId);
 //                startActivity(inventoryIntent);
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) tvInventory.getText(), "a=UpdateStock&goodsid=" + goodId);
+                        inventory, "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.edit_good_details:
                 IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
-                        (String) etGoodDetails.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&content=");
+                        "", "a=UpdateGoodsDescription&id=" + goodId + "&content=");
                 break;
             case R.id.edit_good_address:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        (String) etShipAddress.getText(), "a=UpdateGoodsDescription&id=" + goodId + "&address=");
+                        "", "a=UpdateGoodsDescription&id=" + goodId + "&address=");
                 break;
         }
     }
