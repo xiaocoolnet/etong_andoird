@@ -40,7 +40,7 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
         context = this;
         Intent intent =getIntent();
         shopid = intent.getStringExtra("shopid");
-        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        progressDialog = new ProgressDialog(context,AlertDialog.THEME_HOLO_LIGHT);
         initfragment();
         initview();
 

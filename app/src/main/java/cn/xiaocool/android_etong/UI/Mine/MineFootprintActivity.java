@@ -1,6 +1,8 @@
 package cn.xiaocool.android_etong.UI.Mine;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +37,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
+    private ProgressDialog progressDialog;
     private MineFootprintAdapter everydayChoicenessAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -44,6 +47,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
                     try {
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
+                            progressDialog.dismiss();
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
                             int length = jsonArray.length();
                             JSONObject dataObject;
@@ -75,6 +79,10 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.everyday_choiceness);
         context = this;
         initView();
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        progressDialog.setMessage("正在加载...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         new HomeRequest(this, handler).GetMyBrowseHistory();
     }
 
@@ -85,6 +93,28 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         tvTitle.setText("我的足迹");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
+        //设置刷新时显示的文本
+//        ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true,false);
+//        startLayout.setPullLabel("正在下拉刷新...");
+//        startLayout.setRefreshingLabel("正在玩命加载中...");
+//        startLayout.setReleaseLabel("放开以刷新");
+//
+//        ILoadingLayout endLayout = listView.getLoadingLayoutProxy(false,true);
+//        endLayout.setPullLabel("正在上拉刷新...");
+//        endLayout.setRefreshingLabel("正在玩命加载中...");
+//        endLayout.setReleaseLabel("放开以刷新");
+//
+//        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//
+//            }
+//        });
     }
 
     @Override

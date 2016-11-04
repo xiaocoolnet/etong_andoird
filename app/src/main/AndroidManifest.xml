@@ -173,7 +173,10 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.PayNowActivity"></activity>
         <activity android:name=".UI.Mine.Business.BuyWriteCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
-        <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"></activity>
+        <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            >
+        </activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodTypeActivity"></activity>
         <activity android:name=".UI.Mine.Business.ChangeGoodDetailsActivity"></activity>
 
@@ -313,6 +316,23 @@
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="07509039e09abf4683bf73a7" />
+
+        <!--qq活动接口调用-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105613476.data" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
     </application>
 
 </manifest>

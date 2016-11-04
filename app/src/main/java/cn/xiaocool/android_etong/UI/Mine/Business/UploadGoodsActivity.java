@@ -57,6 +57,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private ProgressDialog progressDialog;
     private String show;
     private String shopid, shopType;
+    private String picStr;
     private List<Provence> provences;
     private Provence provence;
     private City city;
@@ -161,6 +162,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     private EditText etOprice;
     private EditText etInventory;
     private EditText etIntro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -314,8 +316,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 //                break;
             case R.id.iv_goods_detail:
                 Intent intent3 = new Intent();
-                intent3.setClass(mContext,UploadGoodDetailsActivity.class);
-                intent3.putExtra("tv_content",et_xiangqing.getText());
+                intent3.setClass(mContext, UploadGoodDetailsActivity.class);
+                intent3.putExtra("tv_content", et_xiangqing.getText());
                 startActivityForResult(intent3, 1000);
                 break;
 
@@ -334,64 +336,68 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         xiangqing = et_xiangqing.getText().toString();
         fahuodi = et_fahuodi.getText().toString();
         String intro = etIntro.getText().toString();
-        if (state == 1) {
-            if (!TextUtils.isEmpty(biaoti)) {
-                if (!TextUtils.isEmpty(pinpai)) {
-                    if (!TextUtils.isEmpty(huohao)) {
-                        if (!TextUtils.isEmpty(guige)) {
-                            if (!TextUtils.isEmpty(price)) {
-                                if (!TextUtils.isEmpty(yunfei)) {
-                                    if (!TextUtils.isEmpty(xiangqing)) {
-                                        if (!TextUtils.isEmpty(fahuodi)) {
-                                            if (!TextUtils.isEmpty(show)) {
-                                                if (NetUtil.isConnnected(mContext)) {
-                                                    progressDialog.setMessage("正在上传");
-                                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                                    progressDialog.show();
-                                                    Log.e("pic=", picname4 + "  " + picname5);
-                                                    new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3, picname4, picname5,
-                                                            biaoti,intro, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi);
+        if (!TextUtils.isEmpty(picStr)) {
+            if (state == 1) {
+                if (!TextUtils.isEmpty(biaoti)) {
+                    if (!TextUtils.isEmpty(pinpai)) {
+                        if (!TextUtils.isEmpty(huohao)) {
+                            if (!TextUtils.isEmpty(guige)) {
+                                if (!TextUtils.isEmpty(price)) {
+                                    if (!TextUtils.isEmpty(yunfei)) {
+                                        if (!TextUtils.isEmpty(xiangqing)) {
+                                            if (!TextUtils.isEmpty(fahuodi)) {
+                                                if (!TextUtils.isEmpty(show)) {
+                                                    if (NetUtil.isConnnected(mContext)) {
+                                                        progressDialog.setMessage("正在上传");
+                                                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                        progressDialog.show();
+                                                        Log.e("pic=", picname4 + "  " + picname5);
+                                                        new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3, picname4, picname5,
+                                                                biaoti, intro, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi,picStr);
+                                                    } else {
+                                                        Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 } else {
-                                                    Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(mContext, "请选择分类", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else {
-                                                Toast.makeText(mContext, "请选择分类", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(mContext, "请输入发货地", Toast.LENGTH_SHORT).show();
+                                                et_fahuodi.requestFocus();
                                             }
                                         } else {
-                                            Toast.makeText(mContext, "请输入发货地", Toast.LENGTH_SHORT).show();
-                                            et_fahuodi.requestFocus();
+                                            Toast.makeText(mContext, "请输入详情", Toast.LENGTH_SHORT).show();
+                                            et_xiangqing.requestFocus();
                                         }
-                                    } else {
-                                        Toast.makeText(mContext, "请输入详情", Toast.LENGTH_SHORT).show();
-                                        et_xiangqing.requestFocus();
-                                    }
 
+                                    } else {
+                                        Toast.makeText(mContext, "请输入运费", Toast.LENGTH_SHORT).show();
+                                        et_yunfei.requestFocus();
+                                    }
                                 } else {
-                                    Toast.makeText(mContext, "请输入运费", Toast.LENGTH_SHORT).show();
-                                    et_yunfei.requestFocus();
+                                    Toast.makeText(mContext, "请输入现价", Toast.LENGTH_SHORT).show();
+                                    etPrice.requestFocus();
                                 }
                             } else {
-                                Toast.makeText(mContext, "请输入现价", Toast.LENGTH_SHORT).show();
-                                etPrice.requestFocus();
+                                Toast.makeText(mContext, "请输入规格", Toast.LENGTH_SHORT).show();
+                                et_guige.requestFocus();
                             }
                         } else {
-                            Toast.makeText(mContext, "请输入规格", Toast.LENGTH_SHORT).show();
-                            et_guige.requestFocus();
+                            Toast.makeText(mContext, "请输入货号", Toast.LENGTH_SHORT).show();
+                            et_huohao.requestFocus();
                         }
                     } else {
-                        Toast.makeText(mContext, "请输入货号", Toast.LENGTH_SHORT).show();
-                        et_huohao.requestFocus();
+                        Toast.makeText(mContext, "请输入品牌", Toast.LENGTH_SHORT).show();
+                        et_pinpai.requestFocus();
                     }
                 } else {
-                    Toast.makeText(mContext, "请输入品牌", Toast.LENGTH_SHORT).show();
-                    et_pinpai.requestFocus();
+                    Toast.makeText(mContext, "请输入标题", Toast.LENGTH_SHORT).show();
+                    et_biaoti.requestFocus();
                 }
             } else {
-                Toast.makeText(mContext, "请输入标题", Toast.LENGTH_SHORT).show();
-                et_biaoti.requestFocus();
+                Toast.makeText(mContext, "请传入至少一张照片", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(mContext, "请传入至少一张照片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "请设置宝贝详情的图片", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -482,6 +488,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             initpic();
         } else if (requestCode == 1000) {
             Bundle bundle = data.getExtras();
+            picStr = bundle.getString("picStr");
+            Log.e("picStr=", picStr);
             String etString = bundle.getString("good_details");
             et_xiangqing.setText(etString);
         }
