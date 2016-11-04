@@ -26,7 +26,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
  * Created by wzh on 2016/7/20.
  */
 public class EditGoodIntroActivity extends Activity implements View.OnClickListener {
-    private String picName, title, type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress;
+    private String picName, title, description,type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress,content;
     private RelativeLayout btnBack, btnStandard, btnInventory;
     private TextView tvTitle, tvType, tvBrand, tvArtNo, tvStandard, tvPrice, tvOprice, tvFreight, tvInventory,
             etGoodDetails, etShipAddress;
@@ -43,6 +43,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             picName = object.getString("picture");
                             Log.e("aaaabbbb", picName);
                             title = object.getString("goodsname");
+                            description = object.getString("description");
 //                            type = object.getString("type");
                             brand = object.getString("brand");
                             artNo = object.getString("artno");
@@ -53,6 +54,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             inventory = object.getString("inventory");
                             goodDetails = object.getString("description");
                             shipAddress = object.getString("address");
+                            content = object.getString("content");
                             Log.e("result", picName + title + type + brand + artNo + standard + price
                                     + oprice + freight + inventory + goodDetails + shipAddress);
                             tvTitle.setText(title);
@@ -88,6 +90,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         initView();
         Intent intent = getIntent();
         goodId = intent.getStringExtra("goodId");
+        Log.e("goodidis",goodId);
         if (NetUtil.isConnnected(this)) {
             new MineRequest(this, handler).changeGoodIntro(goodId);
             Log.e("next", "next");
@@ -170,7 +173,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_intro:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        title, "a=UpdateGoodsDescription&id=" + goodId + "description=");
+                        description, "a=UpdateGoodsDescription&id=" + goodId + "description=");
                 break;
             case R.id.edit_good_type:
                 IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,
@@ -208,15 +211,15 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
 //                inventoryIntent.putExtra("goodId", goodId);
 //                startActivity(inventoryIntent);
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        inventory, "a=UpdateStock&goodsid=" + goodId);
+                       inventory, "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.edit_good_details:
                 IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
-                        "", "a=UpdateGoodsDescription&id=" + goodId + "&content=");
+                        content, "a=UpdateGoodsDescription&id=" + goodId + "&content=");
                 break;
             case R.id.edit_good_address:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        "", "a=UpdateGoodsDescription&id=" + goodId + "&address=");
+                        shipAddress, "a=UpdateGoodsDescription&id=" + goodId + "&address=");
                 break;
         }
     }
