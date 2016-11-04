@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -153,11 +154,11 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
             case R.id.upload_good_btn:
                 Intent intent = new Intent();
                 intent.putExtra("good_details", uploadGoodDetailsEt.getText().toString());//携带数据返回
-                if (lists == null) {
+                if (lists == null|| TextUtils.isEmpty(uploadGoodDetailsEt.getText().toString())) {
                     intent.putExtra("picStr", "");
                 } else {
                     for (int i = 0; i < lists.size(); i++) {
-                        picStr = picStr + lists.get(i) + ",";
+                        picStr = picStr + lists.get(i).toString() + ",";
                     }
                     picStr= picStr.substring(0, picStr.length() - 1);
                     Log.e("picStr=", picStr);
