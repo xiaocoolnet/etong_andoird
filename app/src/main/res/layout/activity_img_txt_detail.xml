@@ -41,25 +41,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <cn.xiaocool.android_etong.util.NoScrollListView
+                android:id="@+id/list_pic"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/img_goods_pic"
-                    android:layout_width="375dp"
-                    android:layout_height="375dp"
-                    android:layout_centerHorizontal="true"
-                    android:visibility="gone" />
-
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/slider"
-                    android:layout_width="375dp"
-                    android:layout_height="375dp"
-                    android:layout_centerHorizontal="true">
-
-                </com.daimajia.slider.library.SliderLayout>
-            </RelativeLayout>
+            </cn.xiaocool.android_etong.util.NoScrollListView>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"

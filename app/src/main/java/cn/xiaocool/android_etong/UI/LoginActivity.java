@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.tauth.Tencent;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +27,7 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cn.xiaocool.android_etong.Listener.BaseUiListener;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -33,16 +36,20 @@ import cn.xiaocool.android_etong.service.landDivideServeice;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
 
+
+
 /**
  * Created by 潘 on 2016/6/21.
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
     private UserInfo user;
     private Context context;
+    private Tencent mTencent;
+    private BaseUiListener listener;
     private String phone, password;
     private EditText et_login_phone, et_login_password;
     private TextView tx_forget_password, tx_zhuce;
-    private Button btn_login;
+    private Button btn_login,btn_qq;
     private ProgressDialog progressDialog;
     private static final int MSG_SET_ALIAS = 1001;
     private Handler handle = new Handler() {
@@ -122,6 +129,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         context = this;
+        // Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
+        // 其中APP_ID是分配给第三方应用的appid，类型为String。
+        mTencent = Tencent.createInstance("1105613476", this.getApplicationContext());
+        // 1.4版本:此处需新增参数，传入应用程序的全局context，可通过activity的getApplicationContext方法获取
+        // 初始化视图
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         //启动服务 加载写入收货地址时的 省市区
         Intent i = new Intent(this, landDivideServeice.class);
@@ -142,6 +154,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         btn_login.setOnClickListener(this);
         tx_forget_password = (TextView) findViewById(R.id.tx_forget_password);
         tx_forget_password.setOnClickListener(this);
+        btn_qq = (Button) findViewById(R.id.btn_qq);
+        btn_qq.setOnClickListener(this);
         tx_zhuce = (TextView) findViewById(R.id.tx_zhuce);
         tx_zhuce.setOnClickListener(this);
 
@@ -171,6 +185,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.btn_login:
                 login();
                 break;
+            case R.id.btn_qq:
+                login2();
+                break;
         }
     }
 
@@ -198,6 +215,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
             et_login_phone.requestFocus();
         }
+
+    }
+
+    private void login2() {
+        if (!mTencent.isSessionValid())
+        {
+            mTencent.login(this, "all", listener);
+        }
     }
 
     @Override
@@ -211,4 +236,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onPause();
         JPushInterface.onPause(this);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Tencent.onActivityResultData(requestCode,resultCode,data,listener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTencent.logout(this);
+    }
+
 }
+

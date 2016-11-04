@@ -74,6 +74,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
     private String content;
     private String[] arraypic;
+    private String picStr;
     private int count = 1;
     private List<Detail.DataBean> dataBeans;
     private List<Property.DataBean> dataBeanList;
@@ -107,6 +108,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                             description = jsonObject.getString("description");
                             tv_goods_description.setText(description);
                             content = jsonObject.getString("content");
+                            Log.e("content=",content);
+                            picStr = jsonObject.getString("cpiclist");
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
@@ -477,6 +480,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent2.putExtra("pic",pic);
                 intent2.putExtra("content",content);
                 intent2.putExtra("goodsname",goodsname);
+                intent2.putExtra("picStr",picStr);
                 startActivity(intent2);
                 break;
         }

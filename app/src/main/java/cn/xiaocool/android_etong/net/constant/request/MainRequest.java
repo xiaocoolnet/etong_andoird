@@ -336,7 +336,7 @@ public class MainRequest {
                              final String description, final String type,
                              final String brand, final String artNo, final String standard, final String price,
                              final String oprice, final String freight,
-                             final String inventory, final String content, final String address) {
+                             final String inventory, final String content, final String address,final String cpiclist ) {
         new Thread() {
             Message msg = new Message();
 
@@ -345,7 +345,7 @@ public class MainRequest {
                 String data = "&userid=" + user.getUserId() + "&shopid=" + shopid + "&piclist=" + pic1 + "," + pic2 + "," + pic3 +","+pic4+","+pic5+
                         "&goodsname=" + goodsname + "&type=" + type + "&band=" + brand + "&artno=" + artNo + "&unit=" + standard +
                         "&price=" + price + "&oprice=" + oprice + "&freight=" + freight + "&inventory=" + inventory + "&description="
-                        + description + "&address=" + address + "&deliverytype=1" + "&content=" + content;
+                        + description + "&address=" + address + "&deliverytype=1" + "&content=" + content+"&cpiclist="+cpiclist;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.PUBLISHGOODS, data);
                 Log.e("successful", result_data);
@@ -715,7 +715,8 @@ public class MainRequest {
 
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid + "&goodsnum=" + goodsnum + "&shopid=" + shopid + "&proid=" + proid;
+                String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid +
+                        "&goodsnum=" + goodsnum + "&shopid=" + shopid + "&proid=" + proid;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.ADD_SHOPPING_CART, data);
                 Log.e("result_data=", result_data);
