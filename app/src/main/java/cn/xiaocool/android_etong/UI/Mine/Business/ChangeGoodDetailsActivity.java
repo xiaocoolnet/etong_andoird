@@ -27,8 +27,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import cn.xiaocool.android_etong.adapter.cPicAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,11 +37,12 @@ import java.util.Date;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.adapter.cPicAdapter;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
-import cn.xiaocool.android_etong.bean.UserInfo;
 
 /**
  * Created by wzh on 2016/7/20.

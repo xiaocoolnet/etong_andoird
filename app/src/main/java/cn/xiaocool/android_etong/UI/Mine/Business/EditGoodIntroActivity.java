@@ -36,9 +36,9 @@ import cn.xiaocool.android_etong.util.NetUtil;
 /**
  * Created by wzh on 2016/7/20.
  */
-public class EditGoodIntroActivity extends Activity implements View.OnClickListener,ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
+public class EditGoodIntroActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private Context mContext;
-    private String picName, title, description,type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress,content;
+    private String picName, title, description, type, brand, artNo, standard, price, oprice, freight, inventory, goodDetails, shipAddress, content;
     private RelativeLayout btnBack, btnStandard, btnInventory;
     private TextView tvTitle, tvType, tvBrand, tvArtNo, tvStandard, tvPrice, tvOprice, tvFreight, tvInventory,
             etGoodDetails, etShipAddress;
@@ -102,10 +102,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
     private RelativeLayout rlTitle;
     private LinearLayout llType;
     private RelativeLayout rlBrand;
-    private RelativeLayout rlArtNo,rlPrice,rlOPrice,rlFreight,rlDetails,rlAddress,rlIntro;
+    private RelativeLayout rlArtNo, rlPrice, rlOPrice, rlFreight, rlDetails, rlAddress, rlIntro;
 
     private TextView et_xiangqing;
     private RelativeLayout rl_carousel_pic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +117,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         initView();
         Intent intent = getIntent();
         goodId = intent.getStringExtra("goodId");
-        Log.e("goodidis",goodId);
+        Log.e("goodidis", goodId);
         if (NetUtil.isConnnected(this)) {
             new MineRequest(this, handler).changeGoodIntro(goodId);
             Log.e("next", "next");
@@ -270,8 +271,8 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
         } else if (requestCode == 1000) {
             Bundle bundle = data.getExtras();
             picStr = bundle.getString("picStr");
-            if (TextUtils.isEmpty(picStr)){
-            }else {
+            if (TextUtils.isEmpty(picStr)) {
+            } else {
                 Log.e("picStr=", picStr);
             }
             String etString = bundle.getString("good_details");
@@ -341,11 +342,6 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
     }
 
 
-
-
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -355,7 +351,12 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             case R.id.rl_carousel_pic:
                 Intent intent = new Intent();
                 intent.setClass(this, EditGoodLookPicActivity.class);
-                intent.putExtra("picName", picName);
+                if (picName != null) {
+                    intent.putExtra("picName", picName);
+                }else {
+                    intent.putExtra("picName", "");
+                }
+                Log.e("pic name is", picName);
                 startActivity(intent);
                 break;
             case R.id.edit_good_title:
@@ -364,7 +365,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.edit_good_intro:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                        description, "a=UpdateGoodsDescription&id=" + goodId + "description=");
+                        description, "a=UpdateGoodsDescription&id=" + goodId + "&description=");
                 break;
             case R.id.edit_good_type:
                 IntentUtils.changeInforIntent(this, ChangeGoodTypeActivity.class,
@@ -402,7 +403,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
 //                inventoryIntent.putExtra("goodId", goodId);
 //                startActivity(inventoryIntent);
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
-                       inventory, "a=UpdateStock&goodsid=" + goodId);
+                        inventory, "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.edit_good_details:
                 IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
