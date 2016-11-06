@@ -50,13 +50,16 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class ChangeGoodDetailsActivity extends Activity implements View.OnClickListener {
     private EditText etGoodInforItem;
     private Button btnSave;
+    private String[] arraypic,arryPicStr;
     private RelativeLayout btnBack;
     private cPicAdapter cPicAdapter;
     private UserInfo user;
+    private String goodid;
     private Context context;
     private List<String> lists;
     private String picName, picPath;
     private String picStr = "";
+    private String picstr;
     // 保存的文件的路径
     @SuppressLint("SdCardPath")
     private String filepath = "/sdcard/goodspic";
@@ -64,7 +67,7 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
     private static final int PHOTO_REQUEST_ALBUM = 2;// 剪裁
     private static final int KEY = 0x777;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog,progressDialog1;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -81,9 +84,6 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
-
                 case KEY:
                     Log.e("upload goodspic", "success");
                     String key = (String) msg.obj;
@@ -99,6 +99,28 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.GET_GOODS_INFO:
+                    JSONObject json = (JSONObject) msg.obj;
+                    try {
+                        String status = json.getString("status");
+                        String data = json.getString("data");
+                        if (status.equals("success")) {
+                            JSONObject jsonObject1 = json.getJSONObject("data");
+                            picstr = jsonObject1.getString("cpiclist");
+                            arryPicStr = picstr.split(",");
+                            for (String pic_name : arryPicStr) {
+                                lists.add(pic_name);
+                            }
+                            cPicAdapter = new cPicAdapter(context, lists);
+                            list_pic.setAdapter(cPicAdapter);
+                            progressDialog1.dismiss();
+                        } else {
+                            Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -130,10 +152,21 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
         Intent intent = getIntent();
         infor = intent.getStringExtra("changeInfor");
         suffix = intent.getStringExtra("webAddress");
+        goodid = intent.getStringExtra("goodid");
         etGoodInforItem.setText(infor);
         etGoodInforItem.setSelection(etGoodInforItem.getText().length());//光标置于最后
 
         setDialog();
+
+        progressDialog1 = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
+        progressDialog1.setMessage("正在加载...");
+        progressDialog1.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog1.show();
+        if (NetUtil.isConnnected(context)){
+            new MainRequest(context, handler).getgoodsinfo(goodid);
+        }else {
+            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

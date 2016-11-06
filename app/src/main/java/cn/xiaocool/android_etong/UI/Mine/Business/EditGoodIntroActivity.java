@@ -338,9 +338,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             mDemoSlider.addOnPageChangeListener(this);
         }
 
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -406,8 +404,14 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                         inventory, "a=UpdateStock&goodsid=" + goodId);
                 break;
             case R.id.edit_good_details:
-                IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
-                        content, "a=UpdateGoodsDescription&id=" + goodId + "&content=");
+//                IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
+//                        content, "a=UpdateGoodsDescription&id=" + goodId + "&content=");
+                Intent intent1 = new Intent();
+                intent1.putExtra("changeInfor",content);
+                intent1.putExtra("webAddress","a=UpdateGoodsDescription&id=" + goodId + "&content=");
+                intent1.putExtra("goodid",goodId);
+                intent1.setClass(EditGoodIntroActivity.this,ChangeGoodDetailsActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.edit_good_address:
                 IntentUtils.changeInforIntent(this, ChangeGoodInforActivity.class,
