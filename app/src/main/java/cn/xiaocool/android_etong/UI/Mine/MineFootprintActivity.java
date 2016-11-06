@@ -31,6 +31,7 @@ import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 
+
 /**
  * Created by 潘 on 2016/10/10.
  */
@@ -41,6 +42,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
     private TextView tvTitle;
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
+    private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanListLoading;
     private Context context;
     private ProgressDialog progressDialog;
     private MineFootprintAdapter everydayChoicenessAdapter;
@@ -67,7 +69,16 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
 
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
-                            everydayChoicenessAdapter = new MineFootprintAdapter(context, newArrivalDataBeanList);
+                            if (newArrivalDataBeanList.size()>=7){
+                                for (int i = 0 ; i<7;i++){
+                                    newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
+                                }
+                            }else {
+                                for (int i = 0 ; i<newArrivalDataBeanList.size();i++){
+                                    newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
+                                }
+                            }
+                            everydayChoicenessAdapter = new MineFootprintAdapter(context, newArrivalDataBeanListLoading);
                             listView.setAdapter(everydayChoicenessAdapter);
                         }
                     } catch (JSONException e) {
@@ -90,6 +101,10 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         progressDialog.show();
         new HomeRequest(this, handler).GetMyBrowseHistory();
 
+
+        //设置可上拉刷新和下拉刷新
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
+
         //设置刷新时显示的文本
         ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true,false);
         startLayout.setPullLabel("正在下拉刷新...");
@@ -104,11 +119,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                new LoadDataAsyncTask(MineFootprintActivity.this).execute();
+                new LoadDataAsyncTask(MineFootprintActivity.this , 1 ).execute();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                new LoadDataAsyncTask(MineFootprintActivity.this , 2 ).execute();
 
             }
         });
@@ -120,15 +136,17 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
     private static class LoadDataAsyncTask extends AsyncTask<Void,Void,String> {
 
         private MineFootprintActivity mainActivity;
+        private int judge;
 
-        public LoadDataAsyncTask(MineFootprintActivity mainActivity) {
+        public LoadDataAsyncTask(MineFootprintActivity mainActivity , int judge) {
             this.mainActivity = mainActivity;
+            this.judge = judge;
         }
 
         @Override
         protected String doInBackground(Void... params) {
             try {
-                mainActivity.loadData();
+                mainActivity.loadData(judge);
                 Thread.sleep(2000);
                 return "seccess";
             } catch (InterruptedException e) {
@@ -150,18 +168,32 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private void loadData(){
+    private void loadData(int judge){
+        int size = newArrivalDataBeanListLoading.size();
+        if (judge==1){
+            return;
+        }else {
+            if (newArrivalDataBeanList.size()>=(size+7)){
+                for (int i = size ; i<size+7;i++){
+                    newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
+                }
+            }else {
+                for (int i = size ; i<newArrivalDataBeanList.size();i++){
+                    newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
+                }
+            }
+            return;
+        }
     }
-
 
     private void initView() {
         listView = (PullToRefreshListView) findViewById(R.id.listView_everyday_choiceness);
         newArrivalDataBeanList = new ArrayList<>();
+        newArrivalDataBeanListLoading = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("我的足迹");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
-
     }
 
     @Override
