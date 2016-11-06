@@ -363,6 +363,32 @@ public class MainRequest {
         }.start();
     }
 
+    //修改商品轮播图
+    public void  changeGoodPics(final String goodId,final String picList ) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&id=" +  goodId+ "&picture=" + picList;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(WebAddress.CHANGE_GOOD_PICS, data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CHANGE_GOOD_PICS;
+                    msg.obj = obj;
+                    Log.e("return is", result_data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+
     //获取上架产品列表
     public void getshopgoodlist(final String shopid) {
         new Thread() {

@@ -32,7 +32,8 @@
         android:text="长按删除轮播图，再次长按取消"
         android:textSize="@dimen/activity_size_18"
         android:gravity="center"
-        android:layout_below="@+id/gridView_show_pics"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_size_80"
         android:layout_marginTop="@dimen/activity_size_10"
         />
 
@@ -72,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="确定上传"
+                android:text="确定修改"
                 android:textColor="@color/whilte"
                 android:textSize="@dimen/text_size_18" />
 

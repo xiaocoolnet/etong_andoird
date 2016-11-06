@@ -397,6 +397,16 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GET_ORDER_DETAILS = NET_BASE_PREFIX + "a=GetOrderInfoById";
+    /**
+    *修改商品轮播图
+    */
+
+    String CHANGE_GOOD_PICS = NET_BASE_PREFIX + "a=UpdateGoodsPicture";
+    /**
+    *修改图文详情
+    */
+
+    String CHANGE_GOOD_PIC_DETAILS = NET_BASE_PREFIX + "a=UpdateGoodsCPicList";
 }
 
 
