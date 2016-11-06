@@ -159,9 +159,9 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.change_good_details);
+        context = this;
         initView();
 
-        context = this;
         user = new UserInfo();
         user.readData(context);
 
@@ -222,6 +222,7 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
         rl_upload_cpic.setOnClickListener(this);
         btnConfirm = (RelativeLayout) findViewById(R.id.change_good_details_confirm);
         btnConfirm.setOnClickListener(this);
+        ToastUtils.makeShortToast(context,"长按图片可删除");
     }
 
     @Override
