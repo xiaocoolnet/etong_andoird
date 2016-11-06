@@ -249,8 +249,8 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
         intent.putExtra("aspectX", 3);
         intent.putExtra("aspectY", 2);
         // outputX outputY 是裁剪图片宽高
-//        intent.putExtra("outputX", 340);
-//        intent.putExtra("outputY", 340);
+        intent.putExtra("outputX", 340);
+        intent.putExtra("outputY", 340);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }

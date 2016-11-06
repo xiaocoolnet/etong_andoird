@@ -103,7 +103,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/upload_good_btn"
+            android:id="@+id/change_good_details_confirm"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="@dimen/activity_size_50"

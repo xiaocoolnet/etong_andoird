@@ -95,7 +95,7 @@
 
                 <TextView
                     android:id="@+id/business_tv_good_name"
-                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"
@@ -116,7 +116,6 @@
 
 
             <!--宝贝简介-->
-
 
 
             <RelativeLayout
@@ -155,6 +154,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@mipmap/ic_next" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/edit_good_type"
                 android:layout_width="match_parent"
@@ -220,7 +220,7 @@
 
                 <TextView
                     android:id="@+id/business_tv_good_brand"
-                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"
@@ -256,7 +256,7 @@
 
                 <TextView
                     android:id="@+id/business_tv_good_art_no"
-                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"
@@ -330,7 +330,7 @@
 
                 <TextView
                     android:id="@+id/editGood_et_price"
-                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"
@@ -340,14 +340,13 @@
                     android:maxLength="50"
                     android:textSize="16sp" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="¥"
-                    android:textSize="@dimen/activity_size_15" />
+                    android:background="@mipmap/ic_next" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -364,28 +363,28 @@
                     android:layout_marginLeft="10dp"
                     android:text="原价"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:id="@+id/textView8" />
 
-                <TextView
-                    android:id="@+id/editGood_et_oprice"
-                    android:layout_width="@dimen/activity_size_200"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@null"
-                    android:hint=""
-                    android:maxLength="50"
-                    android:textSize="16sp" />
-
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="¥"
-                    android:textSize="@dimen/activity_size_15" />
+                    android:background="@mipmap/ic_next" />
+
+                <TextView
+                    android:id="@+id/editGood_et_oprice"
+                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="36dp"
+                    android:background="@null"
+                    android:hint=""
+                    android:maxLength="50"
+                    android:textSize="16sp"
+                    android:layout_alignBottom="@+id/textView8"
+                    android:layout_marginEnd="36dp" />
             </RelativeLayout>
 
 
@@ -407,7 +406,7 @@
 
                 <TextView
                     android:id="@+id/business_tv_good_freight"
-                    android:layout_width="@dimen/activity_size_150"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"
@@ -527,7 +526,7 @@
 
                 <TextView
                     android:id="@+id/business_tv_good_ship_address"
-                    android:layout_width="@dimen/activity_size_200"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="130dp"

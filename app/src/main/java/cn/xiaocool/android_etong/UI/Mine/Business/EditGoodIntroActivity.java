@@ -74,10 +74,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             price = object.getString("price");
                             oprice = object.getString("oprice");
                             freight = object.getString("freight");
-                            inventory = object.getString("inventory");
+//                            Log.e("aaaabbbb", picName);
                             goodDetails = object.getString("description");
                             shipAddress = object.getString("address");
                             content = object.getString("content");
+                            inventory = object.getString("inventory");
                             Log.e("result", picName + title + type + brand + artNo + standard + price
                                     + oprice + freight + inventory + goodDetails + shipAddress);
                             tvTitle.setText(title);
