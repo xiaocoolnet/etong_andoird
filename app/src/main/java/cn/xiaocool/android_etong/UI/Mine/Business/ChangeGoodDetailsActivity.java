@@ -43,6 +43,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by wzh on 2016/7/20.
@@ -126,6 +127,19 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.CHANGE_GOOD_PIC_DETAILS:
+                    JSONObject jsonObject3 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject3.getString("status");
+                        if (status.equals("success")) {
+                            ToastUtils.makeShortToast(context, "图片集修改成功！");
+                            finish();
+                        } else {
+                            ToastUtils.makeShortToast(context, "修改失败！请重试");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     };
@@ -138,14 +152,16 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
 //    RelativeLayout rl_upload_cpic;
     private ListView list_pic;
     private RelativeLayout rl_upload_cpic;
+    private RelativeLayout btnConfirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.change_good_details);
+        context = this;
         initView();
 
-        context = this;
         user = new UserInfo();
         user.readData(context);
 
@@ -204,6 +220,9 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
         list_pic = (ListView) findViewById(R.id.list_pic);
         rl_upload_cpic = (RelativeLayout) findViewById(R.id.rl_upload_cpic);
         rl_upload_cpic.setOnClickListener(this);
+        btnConfirm = (RelativeLayout) findViewById(R.id.change_good_details_confirm);
+        btnConfirm.setOnClickListener(this);
+        ToastUtils.makeShortToast(context,"长按图片可删除");
     }
 
     @Override
@@ -221,6 +240,13 @@ public class ChangeGoodDetailsActivity extends Activity implements View.OnClickL
                 }
             case R.id.rl_upload_cpic:
                 ShowPickDialog();
+                break;
+            case R.id.change_good_details_confirm:
+                String str = lists.toString();
+                String picAdd = str.replace("[", "").replace("]", "").replace(" ", "");//去除首尾[]和空格
+                if (NetUtil.isConnnected(context)) {
+                    new MainRequest(this, handler).changeGoodDetailsPics(goodid, picAdd);//传入good id和picture list
+                }
                 break;
         }
     }

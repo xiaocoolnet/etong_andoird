@@ -387,6 +387,30 @@ public class MainRequest {
             }
         }.start();
     }
+    //修改图文详情的图片
+    public void  changeGoodDetailsPics(final String goodId,final String picList ) {
+        new Thread() {
+            Message msg = new Message();
+
+            @Override
+            public void run() {
+                String data = "&id=" +  goodId+ "&cpiclist=" + picList;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(WebAddress.CHANGE_GOOD_PIC_DETAILS, data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CHANGE_GOOD_PIC_DETAILS;
+                    msg.obj = obj;
+                    Log.e("return is", result_data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 
 
     //获取上架产品列表

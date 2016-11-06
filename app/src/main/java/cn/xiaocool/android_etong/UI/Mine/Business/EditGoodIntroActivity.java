@@ -74,10 +74,11 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
                             price = object.getString("price");
                             oprice = object.getString("oprice");
                             freight = object.getString("freight");
-                            inventory = object.getString("inventory");
+//                            Log.e("aaaabbbb", picName);
                             goodDetails = object.getString("description");
                             shipAddress = object.getString("address");
                             content = object.getString("content");
+                            inventory = object.getString("inventory");
                             Log.e("result", picName + title + type + brand + artNo + standard + price
                                     + oprice + freight + inventory + goodDetails + shipAddress);
                             tvTitle.setText(title);
@@ -349,13 +350,13 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             case R.id.rl_carousel_pic:
                 Intent intent = new Intent();
                 intent.setClass(this, EditGoodLookPicActivity.class);
-                intent.putExtra("goodId",goodId);
+                intent.putExtra("goodId", goodId);
                 if (picName != null) {
                     intent.putExtra("picName", picName);
-                }else {
+                } else {
                     intent.putExtra("picName", "");
                 }
-                Log.e("pic name is", picName);
+//                Log.e("pic name is", picName);
                 startActivity(intent);
                 break;
             case R.id.edit_good_title:
@@ -408,10 +409,16 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
 //                IntentUtils.changeInforIntent(this, ChangeGoodDetailsActivity.class,
 //                        content, "a=UpdateGoodsDescription&id=" + goodId + "&content=");
                 Intent intent1 = new Intent();
-                intent1.putExtra("changeInfor",content);
-                intent1.putExtra("webAddress","a=UpdateGoodsDescription&id=" + goodId + "&content=");
-                intent1.putExtra("goodid",goodId);
-                intent1.setClass(EditGoodIntroActivity.this,ChangeGoodDetailsActivity.class);
+                intent1.putExtra("changeInfor", content);
+                intent1.putExtra("webAddress", "a=UpdateGoodsDescription&id=" + goodId + "&content=");
+                if (goodId != null) {
+
+                    intent1.putExtra("goodid", goodId);
+                } else {
+                    intent1.putExtra("goodid", "");
+
+                }
+                intent1.setClass(EditGoodIntroActivity.this, ChangeGoodDetailsActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.edit_good_address:
