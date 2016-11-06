@@ -47,7 +47,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_size_40"
+        android:layout_height="@dimen/activity_size_90"
         android:layout_marginTop="@dimen/activity_size_15"
         android:background="@color/whilte">
 
@@ -57,8 +57,9 @@
             android:layout_marginLeft="@dimen/activity_size_10"
             android:textSize="@dimen/activity_size_16"
             android:layout_gravity="center_vertical"
-            android:layout_height="@dimen/activity_size_30"
+            android:layout_height="@dimen/activity_size_80"
             android:hint="信息"
+            android:gravity="top"
             android:background="@null"/>
 
     </LinearLayout>

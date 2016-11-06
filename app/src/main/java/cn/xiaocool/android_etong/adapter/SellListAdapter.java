@@ -157,7 +157,7 @@ public class SellListAdapter extends BaseAdapter {
                     Intent intent = new Intent();
                     intent.setClass(context,EditGoodIntroActivity.class);
                     intent.putExtra("goodId",selllist.get(position).getId());
-                    Log.e("id isisisisisisi",selllist.get(position).getId());
+                    Log.e("adapteridhere",selllist.get(position).getId());
                     context.startActivity(intent);
                 }
             }

@@ -76,6 +76,7 @@ public class ChangeGoodInforActivity extends Activity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
+
                 finish();
                 break;
             case R.id.business_btn_save:

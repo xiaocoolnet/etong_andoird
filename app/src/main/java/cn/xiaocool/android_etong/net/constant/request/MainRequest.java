@@ -332,7 +332,7 @@ public class MainRequest {
     }
 
     //发布商品
-    public void publishgoods(final String shopid, final String pic1, final String pic2, final String pic3, final String pic4, final String pic5, final String goodsname,
+    public void  publishgoods(final String shopid, final String pic1, final String pic2, final String pic3, final String pic4, final String pic5, final String goodsname,
                              final String description, final String type,
                              final String brand, final String artNo, final String standard, final String price,
                              final String oprice, final String freight,

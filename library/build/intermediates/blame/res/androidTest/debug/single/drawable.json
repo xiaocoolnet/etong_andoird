@@ -1,10 +1,10 @@
 [
     {
-        "merged": "D:\\winjian\\etong\\etong_android\\etong_andoird\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
-        "source": "D:\\winjian\\etong\\etong_android\\etong_andoird\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+        "merged": "D:\\etong_andoird\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "D:\\etong_andoird\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
     },
     {
-        "merged": "D:\\winjian\\etong\\etong_android\\etong_andoird\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
-        "source": "D:\\winjian\\etong\\etong_android\\etong_andoird\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+        "merged": "D:\\etong_andoird\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "D:\\etong_andoird\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
     }
 ]
