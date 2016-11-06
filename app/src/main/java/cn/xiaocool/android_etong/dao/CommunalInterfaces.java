@@ -92,4 +92,5 @@ public interface CommunalInterfaces {
     int SHOP_GET_EVALUATE = 0x0080;//卖家获取收到的评价
     int VerifyShoppingCode = 0x0081;//卖家确认验证码
     int GET_ORDER_DETAILS = 0x0082;//根据订单id查询订单信息
+    int CHANGE_GOOD_PICS = 0x0083;//修改商品轮播图
 }

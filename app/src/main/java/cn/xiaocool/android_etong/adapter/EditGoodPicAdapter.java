@@ -47,6 +47,7 @@ public class EditGoodPicAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        Log.e("listsize", String.valueOf(list.size()));
         return list.size();
     }
 
@@ -75,7 +76,7 @@ public class EditGoodPicAdapter extends BaseAdapter {
         }
         imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + list.get(position),
                 viewHolder.editGoodIvPicDisplay, displayImageOptions);
-
+        Log.e("here", String.valueOf(list));
         deleteView = convertView.findViewById(R.id.delete_markView);
         deleteView.setVisibility(isShowDelete ? View.VISIBLE : View.GONE);//设置删除按钮是否显示
         //点击删除移除当前图片

@@ -349,6 +349,7 @@ public class EditGoodIntroActivity extends Activity implements View.OnClickListe
             case R.id.rl_carousel_pic:
                 Intent intent = new Intent();
                 intent.setClass(this, EditGoodLookPicActivity.class);
+                intent.putExtra("goodId",goodId);
                 if (picName != null) {
                     intent.putExtra("picName", picName);
                 }else {

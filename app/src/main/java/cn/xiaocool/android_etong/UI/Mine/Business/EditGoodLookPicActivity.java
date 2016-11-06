@@ -29,6 +29,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -38,14 +41,10 @@ import java.util.List;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.EditGoodPicAdapter;
 import cn.xiaocool.android_etong.bean.UserInfo;
-import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
-import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
-
-import static cn.xiaocool.android_etong.R.id.img_lunbo_pic1;
-import static cn.xiaocool.android_etong.R.id.img_lunbo_pic2;
-import static cn.xiaocool.android_etong.R.id.lin_lunbo3;
+import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by wzh on 2016/7/28.
@@ -60,10 +59,44 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
     private List list = new ArrayList();
     private EditGoodPicAdapter editGoodPicAdapter;
     private GridView gridView;
+    private ProgressDialog progressDialog;
     private boolean isShowDelete = false;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-
+            switch (msg.what) {
+                case KEY:
+                    String key = (String) msg.obj;
+                    try {
+                        JSONObject json = new JSONObject(key);
+                        String state1 = json.getString("status");
+                        if (state1.equals("success")) {
+                            Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
+                            Log.e("yes", "success0");
+                            //刷新新加图片
+                            list.add(storePicName + ".jpg");
+                            editGoodPicAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(context, "上传失败！", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.CHANGE_GOOD_PICS:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        if (status.equals("success")) {
+                            ToastUtils.makeShortToast(context, "轮播图修改成功！");
+                            finish();
+                        } else {
+                            ToastUtils.makeShortToast(context, "修改失败！请重试");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }
         }
     };
 
@@ -77,6 +110,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
     private String storePicName;
     private String picPath;
     private static final int KEY = 0x0808;
+    private String goodId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +124,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
 //        initPic();
         Intent intent = getIntent();
         picName = intent.getStringExtra("picName");
+        goodId = intent.getStringExtra("goodId");
         String picArray[] = picName.split("[,]");
         for (int i = 0; i < picArray.length; i++) {
             list.add(picArray[i]);
@@ -153,6 +188,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
         rlUpload.setOnClickListener(this);
         rlConfirm = (RelativeLayout) findViewById(R.id.edit_rl_confirm);
         rlConfirm.setOnClickListener(this);
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
     }
 
     //弹出选择相册 拍照
@@ -257,14 +293,19 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
             colorImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 //            if (judge == 1) {
             picPath = imagefile.getPath();
-            Log.e("path=", picPath);
+            Log.e("pic now at", picPath);
 //            }
             fos.flush();
             fos.close();
 
             if (NetUtil.isConnnected(context)) {
+                if (!(picPath == null || picPath.equals(""))) {
+                    Log.e("aaa", "aabb");
+                    new MainRequest(context, handler).uploadavatar(picPath, KEY);
+                } else {
 
-                new MainRequest(context, handler).uploadavatar(picPath, KEY);
+                    Toast.makeText(context, "错误！图片地址为空！", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
             }
@@ -281,8 +322,18 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
                 finish();
                 break;
             case R.id.edit_rl_upload_pic:
-                ShowPickDialog();
+                if (list.size() < 5) {
+                    ShowPickDialog();
+                } else {
+                    ToastUtils.makeShortToast(context, "最多上传5张轮播图！");
+                }
                 break;
+            case R.id.edit_rl_confirm:
+                String str = list.toString();
+                String picAdd = str.replace("[", "").replace("]", "").replace(" ", "");//去除首尾[]和空格
+                if (NetUtil.isConnnected(context)) {
+                    new MainRequest(this, handler).changeGoodPics(goodId, picAdd);//传入goodid和照片列表
+                }
         }
     }
 }
