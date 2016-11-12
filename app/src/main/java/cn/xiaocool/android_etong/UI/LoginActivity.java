@@ -18,11 +18,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.mm.sdk.constants.ConstantsAPI;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
@@ -35,7 +53,7 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.service.landDivideServeice;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
-
+import cn.xiaocool.android_etong.view.etongApplaction;
 
 
 /**
@@ -52,6 +70,22 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button btn_login,btn_qq;
     private ProgressDialog progressDialog;
     private static final int MSG_SET_ALIAS = 1001;
+
+    //以下为微信登录
+    public static IWXAPI WXapi;
+    private String weixinCode;
+    private final static int LOGIN_WHAT_INIT = 1;
+    private static String get_access_token = "";
+    // 获取第一步的code后，请求以下链接获取access_token
+    public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    //获取用户个人信息
+    public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+    private BaseResp resp = null;
+    private etongApplaction applaction;
+
+
+
+
     private Handler handle = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -122,12 +156,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }
     };
+    private Button btnWeChat;
+    private String openid;
+    private String nickname;
+    private String headimgurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+
+
+
         context = this;
         // Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
         // 其中APP_ID是分配给第三方应用的appid，类型为String。
@@ -158,7 +199,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         btn_qq.setOnClickListener(this);
         tx_zhuce = (TextView) findViewById(R.id.tx_zhuce);
         tx_zhuce.setOnClickListener(this);
-
+        btnWeChat = (Button) findViewById(R.id.btn_weixin);
+        btnWeChat.setOnClickListener(this);
         if (!user.getUserPhone().equals("")) {
             user.readData(this);
             et_login_phone.setText(user.getUserPhone());
@@ -171,6 +213,30 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
         KeyBoardUtils.showKeyBoardByTime(et_login_phone, 300);
     }
+
+
+    /**
+     * 登录微信
+     */
+    private void WXLogin() {
+        WXapi = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", false);
+        WXapi.registerApp("wxb32c00ffa8140d93");
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo";
+        WXapi.sendReq(req);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+    }
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -187,6 +253,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_qq:
                 login2();
+                break;
+            case R.id.btn_weixin:
+//                startActivity(new Intent(LoginActivity.this, WXEntryActivity.class));
+                WXLogin();
+                Log.e("in","in");
                 break;
         }
     }
@@ -229,7 +300,183 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);
+			/*
+			 * resp是你保存在全局变量中的
+			 */
+
+        //设置微信登录全局变量
+        applaction = (etongApplaction) getApplication();
+        resp = applaction.getResp();
+        if (resp!=null){
+        if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+            // code返回
+            weixinCode = ((SendAuth.Resp)resp).code;
+				/*
+				 * 将你前面得到的AppID、AppSecret、code，拼接成URL
+				 */
+            get_access_token = getCodeRequest(weixinCode);
+            Thread thread=new Thread(downloadRun);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }}
+
+
+
+
+    /**
+     * 获取access_token的URL（微信）
+     * @param code 授权时，微信回调给的
+     * @return URL
+     */
+    public static String getCodeRequest(String code) {
+        String result = null;
+        GetCodeRequest = GetCodeRequest.replace("APPID",
+                urlEnodeUTF8("wxb32c00ffa8140d93"));//AppId
+        GetCodeRequest = GetCodeRequest.replace("SECRET",
+                urlEnodeUTF8("e05af493eca32b4e79c305cd4b72adea"));//
+        GetCodeRequest = GetCodeRequest.replace("CODE",urlEnodeUTF8( code));
+        result = GetCodeRequest;
+        return result;
     }
+    /**
+     * 获取用户个人信息的URL（微信）
+     * @param access_token 获取access_token时给的
+     * @param openid 获取access_token时给的
+     * @return URL
+     */
+    public static String getUserInfo(String access_token,String openid){
+        String result = null;
+        GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
+                urlEnodeUTF8(access_token));
+        GetUserInfo = GetUserInfo.replace("OPENID",
+                urlEnodeUTF8(openid));
+        result = GetUserInfo;
+        return result;
+    }
+    public static String urlEnodeUTF8(String str) {
+        String result = str;
+        try {
+            result = URLEncoder.encode(str, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public  Runnable downloadRun = new Runnable() {
+
+        @Override
+        public void run() {
+            WXGetAccessToken();
+
+        }
+    };
+
+    /**
+     * 获取access_token等等的信息(微信)
+     */
+    private  void WXGetAccessToken(){
+        HttpClient get_access_token_httpClient = new DefaultHttpClient();
+        HttpClient get_user_info_httpClient = new DefaultHttpClient();
+        String access_token="";
+        String openid ="";
+        try {
+            HttpPost postMethod = new HttpPost(get_access_token);
+            HttpResponse response = get_access_token_httpClient.execute(postMethod); // 执行POST方法
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                InputStream is = response.getEntity().getContent();
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(is));
+                String str = "";
+                StringBuffer sb = new StringBuffer();
+                while ((str = br.readLine()) != null) {
+                    sb.append(str);
+                }
+                is.close();
+                String josn = sb.toString();
+                JSONObject json1 = new JSONObject(josn);
+                access_token = (String) json1.get("access_token");
+                openid = (String) json1.get("openid");
+
+
+            } else {
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String get_user_info_url=getUserInfo(access_token,openid);
+        WXGetUserInfo(get_user_info_url);
+        Log.e("getuserinfor",get_user_info_url);
+    }
+
+    /**
+     * 获取微信用户个人信息
+     * @param get_user_info_url 调用URL
+     */
+    private  void WXGetUserInfo(String get_user_info_url){
+        Log.e("abcdef","abcdefg");
+        HttpClient get_access_token_httpClient = new DefaultHttpClient();
+        openid = "";
+        nickname = "";
+        headimgurl = "";
+        try {
+            HttpGet getMethod = new HttpGet(get_user_info_url);
+            HttpResponse response = get_access_token_httpClient.execute(getMethod); // 执行GET方法
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                InputStream is = response.getEntity().getContent();
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(is));
+                String str = "";
+                StringBuffer sb = new StringBuffer();
+                while ((str = br.readLine()) != null) {
+                    sb.append(str);
+                }
+                is.close();
+                String josn = sb.toString();
+                JSONObject json1 = new JSONObject(josn);
+                openid = (String) json1.get("openid");
+                nickname = (String) json1.get("nickname");
+                headimgurl =(String)json1.get("headimgurl");
+                Log.e("return infor is",openid + "," + nickname + "," + headimgurl);
+
+            } else {
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onPause() {

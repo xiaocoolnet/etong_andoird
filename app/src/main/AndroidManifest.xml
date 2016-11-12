@@ -73,6 +73,10 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
 
+
+
+
+
     <application
         android:name=".view.etongApplaction"
         android:allowBackup="true"
@@ -105,6 +109,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name="cn.xiaocool.android_etong.wxapi.WXEntryActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
         <!--HomePage-->
