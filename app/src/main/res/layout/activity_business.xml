@@ -78,8 +78,11 @@
                         android:layout_centerInParent="true"
                         android:layout_width="68dp"
                         android:layout_height="68dp"
-                        android:background="@mipmap/ic_touxiang_tu"
                         />
+<!--
+                        android:background="@mipmap/ic_touxiang_tu"
+-->
+
 
                 </RelativeLayout>
                 <TextView

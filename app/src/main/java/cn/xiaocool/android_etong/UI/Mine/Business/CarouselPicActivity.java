@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
 
@@ -37,6 +39,9 @@ import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+
+import static android.R.attr.data;
+import static com.baidu.location.h.i.B;
 
 /**
  * Created by 潘 on 2016/7/14.
@@ -54,6 +59,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
     private static final int PHOTO_REQUEST_ALBUM = 2;// 剪裁
+    private static final int CHOOSE_BIG_PICTURE = 0x11111;
+
     private static final int KEY1 = 0x666;
     private static final int KEY2 = 0x667;
     private static final int KEY3 = 0x668;
@@ -64,6 +71,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     private int judge;
     private int state = 0;
     private ProgressDialog progressDialog;
+    private static final String IMAGE_FILE_LOCATION = "file:///sdcard/temp1.jpg";//temp file
+    Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);//The Uri to store the big bitmap
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -83,6 +92,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                                 Log.e("path2", "not set");
                                 progressDialog.dismiss();
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                initFinish();
+                                finish();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -107,6 +118,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                                 Log.e("path3", "not set");
                                 progressDialog.dismiss();
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                initFinish();
+                                finish();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -131,6 +144,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                initFinish();
+                                finish();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -156,6 +171,8 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                                 Log.e("path4", "not set");
                                 progressDialog.dismiss();
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
+                                initFinish();
+                                finish();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -175,8 +192,12 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                             if (!(pic_path5 == null || pic_path5.equals(""))) {
                                 Toast.makeText(context,"上传成功",Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
+                                initFinish();
+                                finish();
                             } else {
                                 progressDialog.dismiss();
+                                initFinish();
+                                finish();
                             }
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
@@ -232,7 +253,6 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
         lin_lunbo4.setVisibility(View.GONE);
         lin_lunbo5 = (LinearLayout) findViewById(R.id.lin_lunbo5);
         lin_lunbo5.setVisibility(View.GONE);
-
 
         img_lunbo_pic1 = (ImageView) findViewById(R.id.img_lunbo_pic1);
         img_lunbo_pic1.setOnClickListener(this);
@@ -375,23 +395,73 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
                     if (state.equals(Environment.MEDIA_MOUNTED)) {
                         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
                         File tempFile = new File(path, "newpic.jpg");
-                        startPhotoZoom(Uri.fromFile(tempFile));
+                        imageUri =Uri.fromFile(tempFile);
+                        cropImageUri(imageUri, 600, 600, CHOOSE_BIG_PICTURE);
                     } else {
                         Toast.makeText(getApplicationContext(), "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case PHOTO_REQUEST_ALBUM:// 图库
-                    startPhotoZoom(data.getData());
+                    initBigPhoto(data.getData());
+//                    startPhotoZoom(data.getData());
                     break;
                 case PHOTO_REQUEST_CUT: // 图片缩放完成后
                     if (data != null) {
                         getImageToView(data);
                     }
                     break;
+                case CHOOSE_BIG_PICTURE:
+
+                    Log.e("TAG", "CHOOSE_BIG_PICTURE: data = " + data);//it seems to be null
+
+                    if(imageUri != null){
+
+                        Bitmap bitmap = decodeUriAsBitmap(imageUri) ;//decode bitmap
+                        getImageToView1(bitmap);
+
+                    }
+
+//                    Log.e("next","break");
+//                    if (data != null) {
+//                        getImageToView1();
+//                    }
+                    break;
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+        private void initBigPhoto(Uri uri) {
+
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+            Intent intent = new Intent("com.android.camera.action.CROP");
+
+            intent.setDataAndType(uri, "image/*");
+
+//        intent.setType("image/*");
+
+            intent.putExtra("crop", "true");
+
+            intent.putExtra("aspectX", 1);
+
+            intent.putExtra("aspectY", 1);
+
+            intent.putExtra("outputX", 600);
+
+            intent.putExtra("outputY", 600);
+
+            intent.putExtra("scale", true);
+
+            intent.putExtra("return-data", false);
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+
+            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
+            intent.putExtra("noFaceDetection", true); // no face detection
+
+            startActivityForResult(intent, CHOOSE_BIG_PICTURE);
+        }
 
     /**
      * 裁剪图片方法实现
@@ -407,11 +477,45 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 340);
-        intent.putExtra("outputY", 340);
+        intent.putExtra("outputX", 600);
+        intent.putExtra("outputY", 600);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
+    /**
+     * 保存裁剪之后的图片数据
+     *
+     * @param data
+    */
+    private void getImageToView1(Bitmap bitmap) {
+
+            if (judge == 1) {
+                img_lunbo_pic1.setImageBitmap(bitmap);
+                lin_lunbo2.setVisibility(View.VISIBLE);
+                picname1 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(bitmap, picname1, filepath);
+            } else if (judge == 2) {
+                img_lunbo_pic2.setImageBitmap(bitmap);
+                lin_lunbo3.setVisibility(View.VISIBLE);
+                picname2 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(bitmap, picname2, filepath);
+            } else if (judge == 3) {
+                img_lunbo_pic3.setImageBitmap(bitmap);
+                lin_lunbo4.setVisibility(View.VISIBLE);
+                picname3 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(bitmap, picname3, filepath);
+            } else if (judge == 4) {
+                img_lunbo_pic4.setImageBitmap(bitmap);
+                lin_lunbo5.setVisibility(View.VISIBLE);
+                picname4 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(bitmap, picname4, filepath);
+            } else if (judge == 5) {
+                img_lunbo_pic5.setImageBitmap(bitmap);
+                picname5 = user.getUserId() + String.valueOf(new Date().getTime());
+                storeImageToSDCARD(bitmap, picname5, filepath);
+            }
+    }
+
 
     /**
      * 保存裁剪之后的图片数据
@@ -491,53 +595,105 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent_data = new Intent();
-            intent_data.putExtra("1111", "111");
-            if (pic_path1 == null || pic_path1.equals("")) {
-                pic_path1 = "";
-            }
-            if (pic_path2 == null || pic_path2.equals("")) {
-                pic_path2 = "";
-            }
-            if (pic_path3 == null || pic_path3.equals("")) {
-                pic_path3 = "";
-            }
-            if (pic_path4 == null || pic_path4.equals("")) {
-                pic_path4 = "";
-            }
-            if (pic_path5 == null || pic_path5.equals("")) {
-                pic_path5 = "";
-            }
-            if (picname1 == null || picname1.equals("")) {
-                picname1 = "";
-            }
-            if (picname2 == null || picname2.equals("")) {
-                picname2 = "";
-            }
-            if (picname3 == null || picname3.equals("")) {
-                picname3 = "";
-            }
-            if (picname4 == null || picname4.equals("")) {
-                picname4 = "";
-            }
-            if (picname5 == null || picname5.equals("")) {
-                picname5 = "";
-            }
-            intent_data.putExtra("pic_path1", pic_path1);
-            intent_data.putExtra("pic_path2", pic_path2);
-            intent_data.putExtra("pic_path3", pic_path3);
-            intent_data.putExtra("pic_path4", pic_path4);
-            intent_data.putExtra("pic_path5", pic_path5);
-            intent_data.putExtra("picname1", picname1);
-            intent_data.putExtra("picname2", picname2);
-            intent_data.putExtra("picname3", picname3);
-            intent_data.putExtra("picname4", picname4);
-            intent_data.putExtra("picname5", picname5);
-
-            setResult(RESULT_OK, intent_data);
-            return true;
+            initFinish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void initFinish(){
+        Intent intent_data = new Intent();
+        intent_data.putExtra("1111", "111");
+        if (pic_path1 == null || pic_path1.equals("")) {
+            pic_path1 = "";
+        }
+        if (pic_path2 == null || pic_path2.equals("")) {
+            pic_path2 = "";
+        }
+        if (pic_path3 == null || pic_path3.equals("")) {
+            pic_path3 = "";
+        }
+        if (pic_path4 == null || pic_path4.equals("")) {
+            pic_path4 = "";
+        }
+        if (pic_path5 == null || pic_path5.equals("")) {
+            pic_path5 = "";
+        }
+        if (picname1 == null || picname1.equals("")) {
+            picname1 = "";
+        }
+        if (picname2 == null || picname2.equals("")) {
+            picname2 = "";
+        }
+        if (picname3 == null || picname3.equals("")) {
+            picname3 = "";
+        }
+        if (picname4 == null || picname4.equals("")) {
+            picname4 = "";
+        }
+        if (picname5 == null || picname5.equals("")) {
+            picname5 = "";
+        }
+        intent_data.putExtra("pic_path1", pic_path1);
+        intent_data.putExtra("pic_path2", pic_path2);
+        intent_data.putExtra("pic_path3", pic_path3);
+        intent_data.putExtra("pic_path4", pic_path4);
+        intent_data.putExtra("pic_path5", pic_path5);
+        intent_data.putExtra("picname1", picname1);
+        intent_data.putExtra("picname2", picname2);
+        intent_data.putExtra("picname3", picname3);
+        intent_data.putExtra("picname4", picname4);
+        intent_data.putExtra("picname5", picname5);
+
+        setResult(RESULT_OK, intent_data);
+    }
+
+    private Bitmap decodeUriAsBitmap(Uri uri){
+
+        Bitmap bitmap = null;
+
+        try {
+
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+        return bitmap;
+
+    }
+
+    private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode){
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+
+        intent.setDataAndType(uri, "image/*");
+
+        intent.putExtra("crop", "true");
+
+        intent.putExtra("aspectX", 1);
+
+        intent.putExtra("aspectY", 1);
+
+        intent.putExtra("outputX", outputX);
+
+        intent.putExtra("outputY", outputY);
+
+        intent.putExtra("scale", true);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+        intent.putExtra("return-data", false);
+
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
+        intent.putExtra("noFaceDetection", true); // no face detection
+
+        startActivityForResult(intent, requestCode);
     }
 
 }

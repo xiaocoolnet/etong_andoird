@@ -77,6 +77,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
+
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         btn_youhuiquan = (Button) findViewById(R.id.btn_youhuiquan);
@@ -92,6 +93,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
             tx_mine_name.setText(name);
         }
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + touxiang, img_mine_head);
+
     }
 
     @Override

@@ -7,7 +7,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,8 +23,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,7 +35,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,6 +88,7 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
                             cPicAdapter = new cPicAdapter(context, lists);
                             list_pic.setAdapter(cPicAdapter);
                             progressDialog.dismiss();
+//                            setListViewHeightBasedOnChildren(list_pic);
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -218,13 +227,19 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
                     if (state.equals(Environment.MEDIA_MOUNTED)) {
                         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
                         File tempFile = new File(path, "newpic.jpg");
-                        startPhotoZoom(Uri.fromFile(tempFile));
+//                      startPhotoZoom(Uri.fromFile(tempFile));
+//                        startPhotoNotCrap(Uri.parse(tempFile.toString()));
+                        decodeUriAsBitmap(Uri.fromFile(tempFile),tempFile);
+
                     } else {
                         Toast.makeText(getApplicationContext(), "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case PHOTO_REQUEST_ALBUM:// 图库
-                    startPhotoZoom(data.getData());
+//                    startPhotoZoom(data.getData());
+                    if (data != null) {
+                        startPhotoNotCrap(data.getData());
+                    }
                     break;
                 case PHOTO_REQUEST_CUT: // 图片缩放完成后
                     if (data != null) {
@@ -236,6 +251,31 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /*
+    *  从相册选照片不剪切
+    */
+
+    public void startPhotoNotCrap(Uri selectedImage){
+        try {
+//            Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor =getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);  //获取照片路径
+            cursor.close();
+            Bitmap bitmap= BitmapFactory.decodeFile(picturePath);
+            bitmap = zoomImage(bitmap,600,400);
+            Drawable drawable = new BitmapDrawable(this.getResources(), bitmap);
+            picName = user.getUserId() + String.valueOf(new Date().getTime());
+            storeImageToSDCARD(bitmap, picName, filepath);
+        } catch (Exception e) {
+            // TODO Auto-generatedcatch block
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 裁剪图片方法实现
      *
@@ -244,13 +284,13 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
     public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");        // 设置裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 3);
-        intent.putExtra("aspectY", 2);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 340);
-        intent.putExtra("outputY", 340);
+//        intent.putExtra("crop", "true");
+//        // aspectX aspectY 是宽高的比例
+//        intent.putExtra("aspectX", 3);
+//        intent.putExtra("aspectY", 2);
+//        // outputX outputY 是裁剪图片宽高
+//        intent.putExtra("outputX", 100);
+//        intent.putExtra("outputY", 100);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
@@ -300,4 +340,101 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
         }
     }
 
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+
+        ListAdapter listAdapter = listView.getAdapter();
+
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+
+        ((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10); // 可删除
+
+        listView.setLayoutParams(params);
+
+    }
+
+    private Bitmap decodeUriAsBitmap(Uri uri,File file){
+
+        Bitmap bitmap = null;
+
+        try {
+
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+
+            bitmap = zoomImage(bitmap,600,400);
+
+            Drawable drawable = new BitmapDrawable(this.getResources(), bitmap);
+
+            picName = user.getUserId() + String.valueOf(new Date().getTime());
+
+            storeImageToSDCARD(bitmap,picName,filepath);
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+        return bitmap;
+
+    }
+
+    private Bitmap compressBmpFromBmp(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int options = 100;
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        while (baos.toByteArray().length / 1024 > 100) {
+            baos.reset();
+            options -= 10;
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        return bitmap;
+    }
+
+    /***
+     * 图片的缩放方法
+     *
+     * @param bgimage
+     *            ：源图片资源
+     * @param newWidth
+     *            ：缩放后宽度
+     * @param newHeight
+     *            ：缩放后高度
+     * @return
+     */
+    public static Bitmap zoomImage(Bitmap bgimage, double newWidth,
+                                   double newHeight) {
+        // 获取这个图片的宽和高
+        float width = bgimage.getWidth();
+        float height = bgimage.getHeight();
+        // 创建操作图片用的matrix对象
+        Matrix matrix = new Matrix();
+        // 计算宽高缩放率
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 缩放图片动作
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width,
+                (int) height, matrix, true);
+        return bitmap;
+    }
 }

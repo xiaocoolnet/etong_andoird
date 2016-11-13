@@ -40,7 +40,7 @@ public class ApplyShopActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.rl_next:
                 Intent intent = new Intent();
-                intent.setClass(context,AuthenticationShopActivity.class);
+                intent.setClass(context,AuthenticationClassificationActivity.class);
                 startActivity(intent);
                 finish();
                 break;

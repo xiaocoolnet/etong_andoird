@@ -98,9 +98,9 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@mipmap/ic_touxiang_tu"
-                        />
+                        android:layout_marginBottom="10dp"     />
+                        <!--android:background="@mipmap/ic_touxiang_tu"-->
+
                     <TextView
                         android:id="@+id/tx_store_name"
                         android:layout_width="wrap_content"

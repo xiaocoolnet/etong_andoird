@@ -69,6 +69,7 @@ public class ConfirmSecurityActivity extends Activity implements View.OnClickLis
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
+
                     break;
             }
         }

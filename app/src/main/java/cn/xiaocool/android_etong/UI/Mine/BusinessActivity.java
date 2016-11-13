@@ -205,6 +205,9 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
         }
+//        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+//        Log.e("deviced","''''''''''''''''"+tm.getDeviceId());
+
     }
     private void initview() {
         btnWantHelp = (Button) findViewById(R.id.btn_want_help);
