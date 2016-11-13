@@ -11,6 +11,8 @@ public interface CommunalInterfaces {
     int REGISTER = 0x0003;//注册
     int FORGETPASSWORD = 0x0004;//忘记密码
     int LOGIN = 0x0005;//登录
+    int BIND_WECHAT_AND_USERID = 0x0006;//绑定微信
+    int CHECK_WECHAT_BIND = 0x0007;//检查是否已经绑定微信
     //首页商城(0x0100开始)
     int LIKE_GOOD = 0x0100;//收藏商城商品
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品

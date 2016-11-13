@@ -407,6 +407,17 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String CHANGE_GOOD_PIC_DETAILS = NET_BASE_PREFIX + "a=UpdateGoodsCPicList";
+    /**
+    *绑定微信和userid
+    */
+
+    String BIND_WECHAT_AND_USERID = NET_BASE_PREFIX + "a=UpdateUserWeixin";
+
+    /**
+    *检查微信是否已经绑定了
+    */
+
+    String CHECK_WECHAT_BIND = NET_BASE_PREFIX + "a=GetUserInfoByWeixin";
 }
 
 

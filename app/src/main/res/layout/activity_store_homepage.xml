@@ -46,6 +46,7 @@
                     />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/shop_search_center"
                 android:background="@drawable/btn_gray"
                 android:layout_centerInParent="true"
                 android:layout_width="293dp"
@@ -68,14 +69,19 @@
                     android:textSize="13sp"
                     />
             </RelativeLayout>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/ic_etc"
-                />
+            <RelativeLayout
+                android:id="@+id/shop_right_share_icon"
+                android:layout_toRightOf="@+id/shop_search_center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_etc"
+                    />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <ScrollView

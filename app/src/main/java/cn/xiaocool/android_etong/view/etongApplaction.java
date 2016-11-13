@@ -16,6 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.io.File;
 
@@ -31,7 +34,8 @@ public class etongApplaction extends Application {
     public static String isFrist="yes";
     public LocationService locationService;
     public Vibrator mVibrator;
-
+    public BaseResp resp;//微信登录
+    public static IWXAPI api;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +48,14 @@ public class etongApplaction extends Application {
         UID=sp.getInt("UID", 0);
         isFrist=sp.getString("isFrist", "");
         Log.e("hou", "APPlication:UID=" + UID);
+
+
+        api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93",  true);
+
+        api.registerApp("wxb32c00ffa8140d93");
+
+
+
 
         /***
          * 初始化定位sdk，建议在Application中创建
@@ -87,6 +99,12 @@ public class etongApplaction extends Application {
                 .writeDebugLogs() // Remove for release app
                 .build();
         ImageLoader.getInstance().init(config);// 全局初始化此配置
+    }
+    public void setResp(BaseResp resp){
+        this.resp = resp;
+    }
+    public BaseResp getResp(){
+        return resp;
     }
 
 }
