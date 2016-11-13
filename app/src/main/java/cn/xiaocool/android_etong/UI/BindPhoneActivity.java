@@ -24,11 +24,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
-
-import static android.R.attr.phoneNumber;
+import cn.xiaocool.android_etong.view.etongApplaction;
 
 /**
  * Created by hzh on 2016/11/12.
@@ -41,13 +42,16 @@ public class BindPhoneActivity extends Activity implements View.OnClickListener 
     private EditText etPhone, etCode;
     private Context context;
     private String passWeChatCode;
+    private etongApplaction applaction;
     private static int second = 30;
     private String code;
+    private UserInfo user;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CommunalInterfaces.SEND_CODE:
                     JSONObject jsonObject = (JSONObject) msg.obj;
+
                     try {
                         String status = jsonObject.getString("status");
                         Log.e("status = ", status);
@@ -113,8 +117,34 @@ public class BindPhoneActivity extends Activity implements View.OnClickListener 
                         String status = jsonObject1.getString("status");
                         if (status.equals("success")){
                             ToastUtils.makeShortToast(context,"绑定微信成功！");
+                            if (NetUtil.isConnnected(context)){
+                                new MainRequest(context,handler).checkWeChatBind(openId);//检查微信是否已经绑定手机号
+                            }else {
+
+                            }
                         }else {
                             ToastUtils.makeShortToast(context,"绑定微信失败！");
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CommunalInterfaces.CHECK_WECHAT_BIND:
+                    JSONObject jsObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsObject.getString("status");
+                        if (status.equals("success")){
+                            ToastUtils.makeShortToast(context,"微信登陆成功！");//跳转登录界面
+                            JSONObject jsObject1 = jsObject.getJSONObject("data");
+                            user.setUserId(jsObject1.getString("id"));
+                            user.setUserImg(jsObject1.getString("photo"));
+                            user.writeData(context);
+                            applaction.setResp(null);
+                            startActivity(new Intent(context, MainActivity.class));
+                            finish();
+                        }
+                        else {
 
                         }
                     } catch (JSONException e) {
@@ -134,6 +164,8 @@ public class BindPhoneActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bind_login_phone);
         context = this;
+        applaction = (etongApplaction) getApplication();
+        user = new UserInfo();
         openId = getIntent().getStringExtra("openid");
         nickName = getIntent().getStringExtra("nickname");
         initView();

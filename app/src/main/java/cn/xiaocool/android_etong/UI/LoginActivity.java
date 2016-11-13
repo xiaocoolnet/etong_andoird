@@ -133,7 +133,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     try {
                         String status = jsonObject.getString("status");
                         if (status.equals("success")){
-                            ToastUtils.makeShortToast(context,"已绑定过微信");//跳转登录界面
+                            Log.e("openis",openid);
+                            ToastUtils.makeShortToast(context,"微信登陆成功！");//跳转登录界面
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            user.setUserId(jsonObject1.getString("id"));
+                            user.setUserImg(jsonObject1.getString("photo"));
+                            user.writeData(context);
+                            applaction.setResp(null);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
                         }
                         else {
                             Intent intent = new Intent();
@@ -168,6 +176,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     Log.i("Set alias", logs);
                     // 延迟 60 秒来调用 Handler 设置别名
                     handle.sendMessageDelayed(handle.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+
                     break;
                 default:
                     logs = "Failed with errorCode = " + code;
@@ -188,6 +197,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
         context = this;
+
+        applaction = (etongApplaction) getApplication();
+
         // Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
         // 其中APP_ID是分配给第三方应用的appid，类型为String。
         mTencent = Tencent.createInstance("1105613476", this.getApplicationContext());
@@ -319,7 +331,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			 */
 
         //设置微信登录全局变量
-        applaction = (etongApplaction) getApplication();
+
         resp = applaction.getResp();
         if (resp != null) {
             if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
@@ -470,7 +482,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 headimgurl = (String) json1.get("headimgurl");
                 Log.e("return infor is", openid + "," + nickname + "," + headimgurl);
                 if (NetUtil.isConnnected(context)){
-                    new MainRequest(context,handle).checkWeChatBind(openid);
+                    new MainRequest(context,handle).checkWeChatBind(openid);//检查微信是否已经绑定手机号
                 }else {
 
                 }
