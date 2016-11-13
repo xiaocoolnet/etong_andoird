@@ -53,6 +53,8 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.service.landDivideServeice;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
+import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 import cn.xiaocool.android_etong.view.etongApplaction;
 
 
@@ -67,7 +69,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private String phone, password;
     private EditText et_login_phone, et_login_password;
     private TextView tx_forget_password, tx_zhuce;
-    private Button btn_login,btn_qq;
+    private Button btn_login, btn_qq;
     private ProgressDialog progressDialog;
     private static final int MSG_SET_ALIAS = 1001;
 
@@ -79,11 +81,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     // 获取第一步的code后，请求以下链接获取access_token
     public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
     //获取用户个人信息
-    public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+    public static String GetUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
     private BaseResp resp = null;
     private etongApplaction applaction;
-
-
 
 
     private Handler handle = new Handler() {
@@ -101,7 +101,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             user.setUserImg(item.getString("photo"));
                             user.writeData(context);
                             progressDialog.dismiss();
-                            if (JPushInterface.isPushStopped(context)){
+                            if (JPushInterface.isPushStopped(context)) {
                                 JPushInterface.resumePush(context);
                             }
                             // 调用 Handler 来异步设置别名
@@ -128,6 +128,25 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             null,
                             mAliasCallback);
                     break;
+                case CommunalInterfaces.CHECK_WECHAT_BIND:
+                    JSONObject jsonObject = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject.getString("status");
+                        if (status.equals("success")){
+                            ToastUtils.makeShortToast(context,"已绑定过微信");//跳转登录界面
+                        }
+                        else {
+                            Intent intent = new Intent();
+                            intent.setClass(context, BindPhoneActivity.class);
+                            intent.putExtra("openid", openid);
+                            intent.putExtra("nickname", nickname);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 default:
                     Log.i("handle msg", "Unhandled msg - " + msg.what);
 
@@ -137,7 +156,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
         public void gotResult(int code, String alias, Set<String> tags) {
-            String logs ;
+            String logs;
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
@@ -166,7 +185,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
 
 
         context = this;
@@ -235,9 +253,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -255,9 +270,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 login2();
                 break;
             case R.id.btn_weixin:
-//                startActivity(new Intent(LoginActivity.this, WXEntryActivity.class));
+                //调用微信登录
                 WXLogin();
-                Log.e("in","in");
+                Log.e("in", "in");
                 break;
         }
     }
@@ -290,8 +305,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void login2() {
-        if (!mTencent.isSessionValid())
-        {
+        if (!mTencent.isSessionValid()) {
             mTencent.login(this, "all", listener);
         }
     }
@@ -300,37 +314,37 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);
-			/*
-			 * resp是你保存在全局变量中的
+            /*
+             * resp是你保存在全局变量中的
 			 */
 
         //设置微信登录全局变量
         applaction = (etongApplaction) getApplication();
         resp = applaction.getResp();
-        if (resp!=null){
-        if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
-            // code返回
-            weixinCode = ((SendAuth.Resp)resp).code;
-				/*
+        if (resp != null) {
+            if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+                // code返回
+                weixinCode = ((SendAuth.Resp) resp).code;
+                /*
 				 * 将你前面得到的AppID、AppSecret、code，拼接成URL
 				 */
-            get_access_token = getCodeRequest(weixinCode);
-            Thread thread=new Thread(downloadRun);
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                get_access_token = getCodeRequest(weixinCode);
+                Thread thread = new Thread(downloadRun);
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
-    }}
-
-
+    }
 
 
     /**
      * 获取access_token的URL（微信）
+     *
      * @param code 授权时，微信回调给的
      * @return URL
      */
@@ -340,17 +354,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 urlEnodeUTF8("wxb32c00ffa8140d93"));//AppId
         GetCodeRequest = GetCodeRequest.replace("SECRET",
                 urlEnodeUTF8("e05af493eca32b4e79c305cd4b72adea"));//
-        GetCodeRequest = GetCodeRequest.replace("CODE",urlEnodeUTF8( code));
+        GetCodeRequest = GetCodeRequest.replace("CODE", urlEnodeUTF8(code));
         result = GetCodeRequest;
         return result;
     }
+
     /**
      * 获取用户个人信息的URL（微信）
+     *
      * @param access_token 获取access_token时给的
-     * @param openid 获取access_token时给的
+     * @param openid       获取access_token时给的
      * @return URL
      */
-    public static String getUserInfo(String access_token,String openid){
+    public static String getUserInfo(String access_token, String openid) {
         String result = null;
         GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
                 urlEnodeUTF8(access_token));
@@ -359,6 +375,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         result = GetUserInfo;
         return result;
     }
+
     public static String urlEnodeUTF8(String str) {
         String result = str;
         try {
@@ -368,7 +385,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
         return result;
     }
-    public  Runnable downloadRun = new Runnable() {
+
+    public Runnable downloadRun = new Runnable() {
 
         @Override
         public void run() {
@@ -380,11 +398,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     /**
      * 获取access_token等等的信息(微信)
      */
-    private  void WXGetAccessToken(){
+    private void WXGetAccessToken() {
         HttpClient get_access_token_httpClient = new DefaultHttpClient();
         HttpClient get_user_info_httpClient = new DefaultHttpClient();
-        String access_token="";
-        String openid ="";
+        String access_token = "";
+        String openid = "";
         try {
             HttpPost postMethod = new HttpPost(get_access_token);
             HttpResponse response = get_access_token_httpClient.execute(postMethod); // 执行POST方法
@@ -416,17 +434,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
 
-        String get_user_info_url=getUserInfo(access_token,openid);
+        String get_user_info_url = getUserInfo(access_token, openid);
         WXGetUserInfo(get_user_info_url);
-        Log.e("getuserinfor",get_user_info_url);
+        Log.e("getuserinfor", get_user_info_url);
     }
 
     /**
      * 获取微信用户个人信息
+     *
      * @param get_user_info_url 调用URL
      */
-    private  void WXGetUserInfo(String get_user_info_url){
-        Log.e("abcdef","abcdefg");
+    private void WXGetUserInfo(String get_user_info_url) {
+        Log.e("abcdef", "abcdefg");
         HttpClient get_access_token_httpClient = new DefaultHttpClient();
         openid = "";
         nickname = "";
@@ -448,8 +467,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 JSONObject json1 = new JSONObject(josn);
                 openid = (String) json1.get("openid");
                 nickname = (String) json1.get("nickname");
-                headimgurl =(String)json1.get("headimgurl");
-                Log.e("return infor is",openid + "," + nickname + "," + headimgurl);
+                headimgurl = (String) json1.get("headimgurl");
+                Log.e("return infor is", openid + "," + nickname + "," + headimgurl);
+                if (NetUtil.isConnnected(context)){
+                    new MainRequest(context,handle).checkWeChatBind(openid);
+                }else {
+
+                }
+
 
             } else {
             }
@@ -466,18 +491,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -486,7 +499,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Tencent.onActivityResultData(requestCode,resultCode,data,listener);
+        Tencent.onActivityResultData(requestCode, resultCode, data, listener);
     }
 
     @Override

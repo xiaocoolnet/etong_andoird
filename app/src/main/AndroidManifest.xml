@@ -135,6 +135,7 @@
         <activity android:name=".UI.HomePage.SearchResultShopActivity"></activity>
         <activity android:name=".UI.HomePage.SearchResultGoodsActivity"></activity>
         <activity android:name=".UI.HomePage.TypeListActivity"></activity>
+        <activity android:name=".UI.BindPhoneActivity"></activity>
         <!--Main-->
         <activity android:name=".UI.Main.NewArrivalActivity"></activity>
         <activity android:name=".UI.Main.EverydayBargainActivity"></activity>

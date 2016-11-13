@@ -48,7 +48,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         }
         switch(resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                result ="发送成功";
+                result ="授权成功";
                 Toast.makeText(this, result, Toast.LENGTH_LONG).show();
                 finish();
                 break;
