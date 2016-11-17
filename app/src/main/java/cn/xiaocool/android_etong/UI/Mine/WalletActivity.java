@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private String name , touxiang;
     private Button btn_youhuiquan,btn_xianjinhongbao;
+    private LinearLayout ll_bank;
     private CircleImageView img_mine_head;
     private TextView tx_mine_name,tv_yue;
     private Context context;
@@ -80,6 +82,8 @@ public class WalletActivity extends Activity implements View.OnClickListener {
 
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        ll_bank = (LinearLayout) findViewById(R.id.ll_bank);
+        ll_bank.setOnClickListener(this);
         btn_youhuiquan = (Button) findViewById(R.id.btn_youhuiquan);
         btn_youhuiquan.setOnClickListener(this);
         btn_xianjinhongbao = (Button) findViewById(R.id.btn_xianjinhongbao);
@@ -87,7 +91,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
         img_mine_head = (CircleImageView) findViewById(R.id.img_mine_head);
         tv_yue = (TextView) findViewById(R.id.tv_yue);
         tx_mine_name = (TextView) findViewById(R.id.tx_mine_name);
-        if (name.equals("null")) {
+        if (name.equals("null")||name==null||name.equals("")) {
             tx_mine_name.setText("未设置昵称");
         } else {
             tx_mine_name.setText(name);
@@ -107,6 +111,9 @@ public class WalletActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_xianjinhongbao:
                 Toast.makeText(context,"该功能正在完善",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_bank:
+                startActivity(new Intent(context, WithdrawSelectActivity.class));
                 break;
         }
     }

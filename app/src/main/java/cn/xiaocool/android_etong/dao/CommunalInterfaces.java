@@ -96,4 +96,5 @@ public interface CommunalInterfaces {
     int GET_ORDER_DETAILS = 0x0082;//根据订单id查询订单信息
     int CHANGE_GOOD_PICS = 0x0083;//修改商品轮播图
     int CHANGE_GOOD_PIC_DETAILS = 0x0084;//修改商品图文详情图片集
+    int GetUserBankInfo = 0x0085;//获取我的银行信息
 }

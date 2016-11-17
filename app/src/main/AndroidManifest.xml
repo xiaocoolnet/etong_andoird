@@ -169,6 +169,9 @@
         <activity android:name=".UI.Mine.Business.OrderDetails.DeliverNowActivity"></activity>
         <activity android:name=".UI.Mine.EditCityActivity"></activity>
         <activity android:name=".UI.Mine.WalletActivity"></activity>
+        <activity android:name=".UI.Mine.WithdrawSelectActivity"></activity>
+        <activity android:name=".UI.Mine.WithdrawBankActivity"></activity>
+        <activity android:name=".UI.Mine.WithdrawApplyActivity"></activity>
         <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
         <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
         <activity android:name=".UI.Mine.CouponActivity"></activity>
@@ -186,6 +189,7 @@
         <activity android:name=".UI.Mine.Business.ApplyShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.ApplyShopFailActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuthenticationShopActivity"></activity>
+        <activity android:name=".UI.Mine.Business.AuthenticationPersonActivity"></activity>
         <activity android:name=".UI.Mine.Business.AuditShopActivity"></activity>
         <activity android:name=".UI.Mine.Business.CarouselPicActivity"></activity>
         <activity android:name=".UI.Mine.Business.GoodsManageActivity"></activity>

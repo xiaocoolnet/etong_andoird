@@ -418,6 +418,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String CHECK_WECHAT_BIND = NET_BASE_PREFIX + "a=GetUserInfoByWeixin";
+
+    /*
+    * 获取我的银行信息
+    */
+
+    String GetUserBankInfo = NET_BASE_PREFIX + "a=GetUserBankInfo";
 }
 
 

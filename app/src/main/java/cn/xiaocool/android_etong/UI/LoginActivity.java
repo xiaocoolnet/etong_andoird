@@ -200,6 +200,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         applaction = (etongApplaction) getApplication();
 
+        listener = new BaseUiListener(context);
+
         // Tencent类是SDK的主要实现类，开发者可通过Tencent类访问腾讯开放的OpenAPI。
         // 其中APP_ID是分配给第三方应用的appid，类型为String。
         mTencent = Tencent.createInstance("1105613476", this.getApplicationContext());
@@ -279,6 +281,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 login();
                 break;
             case R.id.btn_qq:
+                //调用QQ登录
                 login2();
                 break;
             case R.id.btn_weixin:
@@ -519,6 +522,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onDestroy();
         mTencent.logout(this);
     }
+
 
 }
 

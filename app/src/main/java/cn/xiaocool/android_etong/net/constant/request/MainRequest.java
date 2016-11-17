@@ -19,6 +19,8 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.util.NetBaseUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
+import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
+
 
 /**
  * Created by 潘 on 2016/6/21.
@@ -1314,4 +1316,28 @@ public class MainRequest {
             }
         }.start();
     }
+
+    // 获取成交信息
+    public void GetUserBankInfo() {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId();
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(GetUserBankInfo, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetUserBankInfo;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
 }

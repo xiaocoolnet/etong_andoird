@@ -32,6 +32,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.Poi;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -51,6 +55,7 @@ import cn.xiaocool.android_etong.app.text.City;
 import cn.xiaocool.android_etong.app.text.District;
 import cn.xiaocool.android_etong.app.text.Provence;
 import cn.xiaocool.android_etong.bean.UserInfo;
+import cn.xiaocool.android_etong.bean.business.LocationService;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
@@ -60,12 +65,13 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class AuthenticationShopActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
-    private EditText et_name, et_phone, et_id_card, et_address;
+    private EditText et_name, et_phone, et_id_card, et_address,et_city;
     private ImageView img_ren, img_shenfenzheng, img_zhizhao,img_yingyezhizhao;
-    private String select = "";
+    private String select = "1";
     private TextView tx_next;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
     private RadioGroup rg_type,rg_select;
+    private LocationService locationService;
     private RadioButton rg_btn_qiye,check_btn;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter01;
@@ -84,7 +90,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
     private String positive_pic, opposite_pic, licences_pic;
     private String positive_path, opposite_path, licences_path,licences;
     private String show_type = "";
-    String name, id_card, phone, address;
+    String name, id_card, phone, address,city1;
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_CUT = 3;// 相册
     private static final int PHOTO_REQUEST_ALBUM = 2;// 剪裁
@@ -146,7 +152,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                             Log.e("success", "license_pic");
                             progressDialog.setMessage("正在上传资料");
                             Toast.makeText(context, "营业执照上传成功", Toast.LENGTH_SHORT).show();
-                            new MainRequest(context, handler).CreateShop(city,show_type, name, phone, id_card, address, positive_pic + ".jpg", opposite_pic + ".jpg", licences_pic + ".jpg", KEY4,select);
+                            new MainRequest(context, handler).CreateShop(city1,show_type, name, phone, id_card, address, positive_pic + ".jpg", opposite_pic + ".jpg", licences_pic + ".jpg", KEY4,select);
                         } else {
                             Toast.makeText(context, json.getString("data"), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -189,6 +195,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initview();
         initdata();
+        onrefrsh();
     }
 
     private void initview() {
@@ -196,6 +203,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         et_address = (EditText) findViewById(R.id.et_address);
         et_id_card = (EditText) findViewById(R.id.et_id_card);
         et_phone = (EditText) findViewById(R.id.et_phone);
+        et_city = (EditText) findViewById(R.id.et_city);
         img_ren = (ImageView) findViewById(R.id.img_ren);
         img_ren.setOnClickListener(this);
         img_shenfenzheng = (ImageView) findViewById(R.id.img_shenfenzheng);
@@ -321,6 +329,23 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         });
     }
 
+    public void onrefrsh() {
+        // -----------location config ------------
+        locationService = ((cn.xiaocool.android_etong.view.etongApplaction) getApplication()).locationService;
+        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+        locationService.registerListener(mListener);
+        //注册监听
+        int type = getIntent().getIntExtra("from", 0);
+        if (type == 0) {
+            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+        } else if (type == 1) {
+            locationService.setLocationOption(locationService.getOption());
+        }
+        locationService.start();// 定位SDK
+        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -354,19 +379,19 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         id_card = et_id_card.getText().toString();
         phone = et_phone.getText().toString();
         address = et_address.getText().toString();
+        city1 = et_city.getText().toString();
         check_btn = (RadioButton) rg_select.findViewById(rg_select.getCheckedRadioButtonId());
-        if (check_btn.getText().toString().equals("是"))
-        {
-            Log.e("是","1");
-            select = "1";
-        }else {
+        if (check_btn.getText().toString().equals("是")) {
+            Log.e("是", "0");
             select = "0";
+        } else {
+            select = "1";
         }
-        if (!name.equals("")) {
-            if (phone.length() == 11) {
-                if (id_card.length() == 18) {
-                    if (!address.equals("")) {
-                        if (!TextUtils.isEmpty(city)) {
+        if (!city1.equals("")) {
+            if (!name.equals("")) {
+                if (phone.length() == 11) {
+                    if (id_card.length() == 18) {
+                        if (!address.equals("")) {
                             if (state1 == 1 && state2 == 1 && state3 == 1) {
                                 if (!TextUtils.isEmpty(show_type)) {
                                     if (NetUtil.isConnnected(context)) {
@@ -384,23 +409,24 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                                 Toast.makeText(context, "请完善图片信息", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(context, "请输入城市", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
+                            et_address.requestFocus();
                         }
                     } else {
-                        Toast.makeText(context, "请输入地址", Toast.LENGTH_SHORT).show();
-                        et_address.requestFocus();
+                        Toast.makeText(context, "请输入正确身份证", Toast.LENGTH_SHORT).show();
+                        et_id_card.requestFocus();
                     }
                 } else {
-                    Toast.makeText(context, "请输入正确身份证", Toast.LENGTH_SHORT).show();
-                    et_id_card.requestFocus();
+                    Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
+                    et_phone.requestFocus();
                 }
             } else {
-                Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
-                et_phone.requestFocus();
+                Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
+                et_name.requestFocus();
             }
         } else {
-            Toast.makeText(context, "请输入姓名", Toast.LENGTH_SHORT).show();
-            et_name.requestFocus();
+            Toast.makeText(context, "请输入城市", Toast.LENGTH_SHORT).show();
+            et_city.requestFocus();
         }
     }
 
@@ -622,4 +648,91 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         }
         return provinces;
     }
+
+    /*****
+     * @see copy funtion to you project
+     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     */
+    private BDLocationListener mListener = new BDLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // TODO Auto-generated method stub
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                StringBuffer sb = new StringBuffer(256);
+                sb.append("time : ");
+                /**
+                 * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
+                 * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
+                 */
+                sb.append(location.getTime());
+                sb.append("\nerror code : ");
+                sb.append(location.getLocType());
+                sb.append("\nlatitude : ");
+                sb.append(location.getLatitude());
+                sb.append("\nlontitude : ");
+                sb.append(location.getLongitude());
+                sb.append("\nradius : ");
+                sb.append(location.getRadius());
+                sb.append("\nCountryCode : ");
+                sb.append(location.getCountryCode());
+                sb.append("\nCountry : ");
+                sb.append(location.getCountry());
+                sb.append("\ncitycode : ");
+                sb.append(location.getCityCode());
+                sb.append("\ncity : ");
+                sb.append(location.getCity());
+                sb.append("\nDistrict : ");
+                sb.append(location.getDistrict());
+                sb.append("\nStreet : ");
+                sb.append(location.getStreet());
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                sb.append("\nDescribe: ");
+                sb.append(location.getLocationDescribe());
+                sb.append("\nDirection(not all devices have value): ");
+                sb.append(location.getDirection());
+                sb.append("\nPoi: ");
+                if (location.getPoiList() != null && !location.getPoiList().isEmpty()) {
+                    for (int i = 0; i < location.getPoiList().size(); i++) {
+                        Poi poi = (Poi) location.getPoiList().get(i);
+                        sb.append(poi.getName() + ";");
+                    }
+                }
+                if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                    sb.append("\nspeed : ");
+                    sb.append(location.getSpeed());// 单位：km/h
+                    sb.append("\nsatellite : ");
+                    sb.append(location.getSatelliteNumber());
+                    sb.append("\nheight : ");
+                    sb.append(location.getAltitude());// 单位：米
+                    sb.append("\ndescribe : ");
+                    sb.append("gps定位成功");
+                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                    // 运营商信息
+                    sb.append("\noperationers : ");
+                    sb.append(location.getOperators());
+                    sb.append("\ndescribe : ");
+                    sb.append("网络定位成功");
+                } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                    sb.append("\ndescribe : ");
+                    sb.append("离线定位成功，离线定位结果也是有效的");
+                } else if (location.getLocType() == BDLocation.TypeServerError) {
+                    sb.append("\ndescribe : ");
+                    sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+                } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("网络不同导致定位失败，请检查网络是否通畅");
+                } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                    sb.append("\ndescribe : ");
+                    sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+                }
+                Log.e("sb=", sb.toString());
+//                tv_local.setText(location.getCity());
+                et_city.setText(location.getAddrStr().toString());
+                locationService.stop();
+            }
+        }
+    };
+
 }

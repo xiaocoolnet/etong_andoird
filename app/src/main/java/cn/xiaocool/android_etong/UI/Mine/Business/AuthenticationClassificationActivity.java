@@ -45,15 +45,15 @@ public class AuthenticationClassificationActivity extends Activity implements Vi
                 finish();
                 break;
             case R.id.textView9:
-                Intent intent = new Intent();
-                intent.setClass(context,AuthenticationShopActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent();
+                intent1.setClass(context,AuthenticationPersonActivity.class);
+                startActivity(intent1);
                 finish();
                 break;
             case R.id.textView10:
-                Intent intent1 = new Intent();
-                intent1.setClass(context,AuthenticationShopActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent();
+                intent.setClass(context,AuthenticationShopActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }
