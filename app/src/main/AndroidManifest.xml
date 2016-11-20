@@ -172,6 +172,7 @@
         <activity android:name=".UI.Mine.WithdrawSelectActivity"></activity>
         <activity android:name=".UI.Mine.WithdrawBankActivity"></activity>
         <activity android:name=".UI.Mine.WithdrawApplyActivity"></activity>
+        <activity android:name=".UI.Mine.SelectBankActivity"></activity>
         <activity android:name=".UI.Mine.Business.ConfirmSecurityActivity"></activity>
         <activity android:name=".UI.Mine.MineFootprintActivity"></activity>
         <activity android:name=".UI.Mine.CouponActivity"></activity>

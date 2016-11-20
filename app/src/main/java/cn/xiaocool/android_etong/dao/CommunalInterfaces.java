@@ -97,4 +97,5 @@ public interface CommunalInterfaces {
     int CHANGE_GOOD_PICS = 0x0083;//修改商品轮播图
     int CHANGE_GOOD_PIC_DETAILS = 0x0084;//修改商品图文详情图片集
     int GetUserBankInfo = 0x0085;//获取我的银行信息
+    int UpdateUserBank = 0x0086;// 绑定个人银行卡账号
 }

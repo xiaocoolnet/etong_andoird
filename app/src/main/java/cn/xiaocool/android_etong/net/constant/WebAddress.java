@@ -424,6 +424,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetUserBankInfo = NET_BASE_PREFIX + "a=GetUserBankInfo";
+
+    /*
+    * 绑定个人银行卡账号
+    */
+
+    String UpdateUserBank = NET_BASE_PREFIX + "a=UpdateUserBank";
 }
 
 
