@@ -13,6 +13,10 @@ public interface CommunalInterfaces {
     int LOGIN = 0x0005;//登录
     int BIND_WECHAT_AND_USERID = 0x0006;//绑定微信
     int CHECK_WECHAT_BIND = 0x0007;//检查是否已经绑定微信
+
+
+
+
     //首页商城(0x0100开始)
     int LIKE_GOOD = 0x0100;//收藏商城商品
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品
@@ -97,4 +101,6 @@ public interface CommunalInterfaces {
     int CHANGE_GOOD_PICS = 0x0083;//修改商品轮播图
     int CHANGE_GOOD_PIC_DETAILS = 0x0084;//修改商品图文详情图片集
     int GetUserBankInfo = 0x0085;//获取我的银行信息
+    int GET_MY_AGENCY_SHOP_LIST = 0x0086;//获取我的e代理店铺列表
+
 }

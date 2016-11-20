@@ -440,4 +440,24 @@ public class ShopRequest {
             }
         }.start();
     }
+    //获取e代理店铺列表
+    public void getMyAgencyShopList(final String agentId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&agentid=" + agentId;
+                String result_data = NetUtil.getResponse(WebAddress.GET_MY_AGENCY_SHOP_LIST, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_MY_AGENCY_SHOP_LIST;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

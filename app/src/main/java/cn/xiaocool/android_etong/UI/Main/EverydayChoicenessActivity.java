@@ -109,7 +109,7 @@ public class EverydayChoicenessActivity extends Activity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_back:
                 finish();
                 break;

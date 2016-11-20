@@ -17,5 +17,9 @@ public interface NetBaseConstant {
     /**
      * 获取分类菜单
      */
-        String GET_TYPE_LIST = "http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0";
+    String GET_TYPE_LIST = "http://mwn.xiaocool.net/index.php?g=apps&m=index&a=getShopTypeList&type=0";
+    /**
+     * 分享h5界面前缀
+     */
+    String SHARE_H5_PREFIX = "http://www.mwn.xiaocool.net/index.php?g=portal&m=article&";
 }

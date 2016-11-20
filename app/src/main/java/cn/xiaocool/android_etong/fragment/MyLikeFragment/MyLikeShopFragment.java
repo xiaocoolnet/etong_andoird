@@ -2,15 +2,12 @@ package cn.xiaocool.android_etong.fragment.MyLikeFragment;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,13 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
-import cn.xiaocool.android_etong.adapter.MyLikeGoodAdapter;
 import cn.xiaocool.android_etong.adapter.MyLikeShopAdapter;
-import cn.xiaocool.android_etong.bean.MyLikeBean.MyLikeGoodBean;
 import cn.xiaocool.android_etong.bean.MyLikeBean.MyLikeShopBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;

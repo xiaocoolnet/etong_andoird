@@ -46,6 +46,8 @@ import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
+import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_SHOP_TO_FRIEND;
+
 /**
  * Created by 潘 on 2016/7/19.
  */
@@ -314,13 +316,13 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         }
 
         WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = "http://baidu.com";
+        webpage.webpageUrl = SHARE_SHOP_TO_FRIEND + shopid;//分享shopid
         WXMediaMessage msg = new WXMediaMessage(webpage);
 
         msg.title = shopName;
-        msg.description = "非常好的店铺！！";
+        msg.description = "分享店铺给你！";
         Bitmap thumb = BitmapFactory.decodeResource(getResources(),
-                R.drawable.wechat_logo);
+                R.drawable.share_to_wechat_icon);
         msg.setThumbImage(thumb);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
