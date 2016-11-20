@@ -36,6 +36,15 @@
             android:background="@mipmap/ic_touxiang"
             />
         <TextView
+            android:id="@+id/tv_withdraw_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/whilte"
+            android:text="提现记录"
+            />
+        <TextView
             android:id="@+id/tx_mine_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -221,5 +230,21 @@
                 />
         </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_withdraw"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button_shape"
+            android:text="提现"
+            android:textColor="@color/whilte"
+            android:textSize="14sp"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -103,6 +103,7 @@ public class WithdrawBankActivity extends Activity implements View.OnClickListen
         et_id_card = (EditText) findViewById(R.id.et_id_card);
         et_bank = (EditText) findViewById(R.id.et_bank);
         et_phone = (EditText) findViewById(R.id.et_phone);
+        et_code = (EditText) findViewById(R.id.et_code);
         tv_send_code = (TextView) findViewById(R.id.tv_send_code);
         tv_send_code.setOnClickListener(this);
         tv_select = (TextView) findViewById(R.id.tv_select);
@@ -131,7 +132,7 @@ public class WithdrawBankActivity extends Activity implements View.OnClickListen
 
     private void updateUserBank() {
         if (!TextUtils.isEmpty(et_name.getText().toString())){
-            if (!TextUtils.isEmpty(et_id_card.getText().toString())){
+            if (et_id_card.getText().toString().length()==18){
                 if (!TextUtils.isEmpty(et_bank.getText().toString())){
                     if (!tv_select.getText().toString().equals("请选择开户银行")){
                         if (et_phone.getText().toString().length()==11){
@@ -149,11 +150,11 @@ public class WithdrawBankActivity extends Activity implements View.OnClickListen
                         Toast.makeText(context,"请选择开户银行",Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(context,"请输入银行卡号",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"请输入正确银行卡号",Toast.LENGTH_SHORT).show();
                 }
 
             }else {
-                Toast.makeText(context,"请输入身份证",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"请输入正确身份证",Toast.LENGTH_SHORT).show();
             }
 
         }else {

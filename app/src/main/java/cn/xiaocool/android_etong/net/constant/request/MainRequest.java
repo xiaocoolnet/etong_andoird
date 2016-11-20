@@ -19,6 +19,8 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.util.NetBaseUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
+import static cn.xiaocool.android_etong.net.constant.WebAddress.ApplyWithdraw;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdraw;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserBank;
 
@@ -1355,6 +1357,52 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.UpdateUserBank;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //    提现申请
+    public void ApplyWithdraw(final String money, final String banktype) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId()+"&money="+money+"&banktype="+banktype;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(ApplyWithdraw, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.ApplyWithdraw;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //    提现申请
+    public void GetMyApplyWithdraw() {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId();
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(GetMyApplyWithdraw, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetMyApplyWithdraw;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

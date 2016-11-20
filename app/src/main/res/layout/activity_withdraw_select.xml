@@ -138,6 +138,7 @@
 
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_payWay2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_size_55"

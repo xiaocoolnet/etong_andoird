@@ -98,4 +98,7 @@ public interface CommunalInterfaces {
     int CHANGE_GOOD_PIC_DETAILS = 0x0084;//修改商品图文详情图片集
     int GetUserBankInfo = 0x0085;//获取我的银行信息
     int UpdateUserBank = 0x0086;// 绑定个人银行卡账号
+    int GET_MY_AGENCY_SHOP_LIST = 0x0087;
+    int ApplyWithdraw = 0x0088;// 提现申请
+    int GetMyApplyWithdraw = 0x0089;// 我的提现申请记录
 }

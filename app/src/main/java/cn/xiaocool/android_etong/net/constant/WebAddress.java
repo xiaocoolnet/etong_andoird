@@ -430,6 +430,36 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String UpdateUserBank = NET_BASE_PREFIX + "a=UpdateUserBank";
+    /**
+     * 分享H5页面(店铺)
+     */
+
+    String SHARE_SHOP_TO_FRIEND = SHARE_H5_PREFIX + "a=shop&id=";
+    /**
+     * 分享H5页面(商品)
+     */
+
+    String SHARE_GOOD_TO_FRIEND = SHARE_H5_PREFIX + "a=goods&id=";
+
+    /**
+     * 获取我的代理店铺列表
+     */
+
+    String GET_MY_AGENCY_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopListByAgentId";
+
+    /*
+    * 提现申请
+    */
+
+    String ApplyWithdraw = NET_BASE_PREFIX + "a=ApplyWithdraw";
+
+    /*
+    * 我的提现申请记录
+    */
+
+    String GetMyApplyWithdraw = NET_BASE_PREFIX + "a=GetMyApplyWithdraw";
+
+
 }
 
 

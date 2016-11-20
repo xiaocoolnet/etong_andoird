@@ -110,10 +110,11 @@ public class WithdrawSelectActivity extends Activity implements View.OnClickList
                 if (iv_payWay0_item.isSelected()){
                    if (tv_withdraw1.getText().toString().equals("未绑定")){
                        startActivity(new Intent(context,WithdrawBankActivity.class));
+//                       startActivity(new Intent(context,WithdrawActivity.class));
                        finish();
                    }else {
                        if(NetUtil.isConnnected(context)){
-
+                           startActivity(new Intent(context,WithdrawActivity.class));
                        }else {
                            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                        }

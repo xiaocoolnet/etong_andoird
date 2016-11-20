@@ -33,10 +33,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WalletActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
     private String name , touxiang;
-    private Button btn_youhuiquan,btn_xianjinhongbao;
+    private Button btn_youhuiquan,btn_xianjinhongbao,btn_withdraw;
     private LinearLayout ll_bank;
     private CircleImageView img_mine_head;
-    private TextView tx_mine_name,tv_yue;
+    private TextView tx_mine_name,tv_yue,tv_withdraw_record;
     private Context context;
 
     private Handler handler = new Handler() {
@@ -79,17 +79,20 @@ public class WalletActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         ll_bank = (LinearLayout) findViewById(R.id.ll_bank);
         ll_bank.setOnClickListener(this);
+        btn_withdraw = (Button) findViewById(R.id.btn_withdraw);
+        btn_withdraw.setOnClickListener(this);
         btn_youhuiquan = (Button) findViewById(R.id.btn_youhuiquan);
         btn_youhuiquan.setOnClickListener(this);
         btn_xianjinhongbao = (Button) findViewById(R.id.btn_xianjinhongbao);
         btn_xianjinhongbao.setOnClickListener(this);
         img_mine_head = (CircleImageView) findViewById(R.id.img_mine_head);
         tv_yue = (TextView) findViewById(R.id.tv_yue);
+        tv_withdraw_record = (TextView) findViewById(R.id.tv_withdraw_record);
+        tv_withdraw_record.setOnClickListener(this);
         tx_mine_name = (TextView) findViewById(R.id.tx_mine_name);
         if (name.equals("null")||name==null||name.equals("")) {
             tx_mine_name.setText("未设置昵称");
@@ -114,6 +117,12 @@ public class WalletActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ll_bank:
                 startActivity(new Intent(context, WithdrawSelectActivity.class));
+                break;
+            case R.id.btn_withdraw:
+                startActivity(new Intent(context, WithdrawSelectActivity.class));
+                break;
+            case R.id.tv_withdraw_record:
+                startActivity(new Intent(context, WithdrawRecordActivity.class));
                 break;
         }
     }
