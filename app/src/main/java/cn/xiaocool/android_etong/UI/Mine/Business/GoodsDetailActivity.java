@@ -5,14 +5,18 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,6 +38,11 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +65,8 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
+
+import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_GOOD_TO_FRIEND;
 
 /**
  * Created by 潘 on 2016/7/20.
@@ -123,6 +134,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
+
                             progressDialog.dismiss();
                             Toast.makeText(context, "添加购物车成功", Toast.LENGTH_SHORT).show();
                         } else {
@@ -269,13 +281,19 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         }
     };
     private GridView relevanceGridView;
-
+    private RelativeLayout shareGoodIcon;
+    private IWXAPI api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_goodsdetails);
         context = this;
+
+        // 微信注册初始化
+        api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", true);
+        api.registerApp("wxb32c00ffa8140d93");
+
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
 //        Log.e("shopid=", shopid);
@@ -344,6 +362,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         btn_store = (Button) findViewById(R.id.btn_store);
         btn_store.setOnClickListener(this);
         relevanceGridView = (GridView) findViewById(R.id.details_gv_relevance_goods);
+        shareGoodIcon = (RelativeLayout) findViewById(R.id.good_details_share_icon);
+        shareGoodIcon.setOnClickListener(this);
     }
 
 
@@ -438,6 +458,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
     //对应轮播图片部分
     @Override
+
+
+      
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
@@ -483,8 +506,73 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent2.putExtra("picStr",picStr);
                 startActivity(intent2);
                 break;
+            case R.id.good_details_share_icon:
+                showPopupMenu(shareGoodIcon);
+                break;
         }
     }
+
+    private void showPopupMenu(View view) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.share_good, popupMenu.getMenu());
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+//                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                switch (item.getItemId()) {
+                    case R.id.share_shop_to_wechat0:
+                        share2weixin(0,goodsname);//好友
+                        break;
+                    case R.id.share_shop_to_wechat1:
+                        share2weixin(1,goodsname);//朋友圈
+                        break;
+                }
+                return false;
+            }
+        });
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+//                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        popupMenu.show();
+    }
+
+
+
+
+    private void share2weixin(int flag,String goodName) {
+        // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+        // R.drawable.weixin_share);
+
+        if (!api.isWXAppInstalled()) {
+            Toast.makeText(context, "您还未安装微信客户端",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = SHARE_GOOD_TO_FRIEND + id;//分享goodid到微信
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+
+        msg.title = goodName;
+        msg.description = "推荐商品给你！";
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(),
+                R.drawable.share_to_wechat_icon);
+        msg.setThumbImage(thumb);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag;
+        api.sendReq(req);
+    }
+
 
     @Override
     public void onStop() {

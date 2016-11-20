@@ -32,7 +32,7 @@ import cn.xiaocool.android_etong.util.ToastUtils;
 import cn.xiaocool.android_etong.view.etongApplaction;
 
 /**
- * Created by hzh on 2016/11/12.
+ * Created by wzh on 2016/11/12.
  */
 
 public class BindPhoneActivity extends Activity implements View.OnClickListener {
@@ -235,31 +235,6 @@ public class BindPhoneActivity extends Activity implements View.OnClickListener 
     }
 
 
-    private void share2weixin(int flag) {
-        // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-        // R.drawable.weixin_share);
-
-        if (!api.isWXAppInstalled()) {
-            Toast.makeText(BindPhoneActivity.this, "您还未安装微信客户端",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = "http://baidu.com";
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-
-        msg.title = "title";
-        msg.description = "非常好！";
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(),
-                R.drawable.wechat_logo);
-        msg.setThumbImage(thumb);
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = String.valueOf(System.currentTimeMillis());
-        req.message = msg;
-        req.scene = flag;
-        api.sendReq(req);
-    }
 
 
 }
