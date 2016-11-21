@@ -101,4 +101,5 @@ public interface CommunalInterfaces {
     int GET_MY_AGENCY_SHOP_LIST = 0x0087;
     int ApplyWithdraw = 0x0088;// 提现申请
     int GetMyApplyWithdraw = 0x0089;// 我的提现申请记录
+    int GetTimeGoodList = 0x0090;//根据时间获得 限时抢购
 }

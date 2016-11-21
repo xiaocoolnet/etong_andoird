@@ -458,6 +458,12 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetMyApplyWithdraw = NET_BASE_PREFIX + "a=GetMyApplyWithdraw";
+    /*
+    *限时抢购
+    */
+
+    String GetTimeGoodList = NET_BASE_PREFIX + "a=GetTimeGoodList";
+
 
 
 }

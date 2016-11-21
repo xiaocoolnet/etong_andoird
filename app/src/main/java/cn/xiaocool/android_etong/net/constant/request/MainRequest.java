@@ -21,6 +21,7 @@ import cn.xiaocool.android_etong.util.NetUtil;
 
 import static cn.xiaocool.android_etong.net.constant.WebAddress.ApplyWithdraw;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdraw;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.GetTimeGoodList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserBank;
 
@@ -1298,6 +1299,7 @@ public class MainRequest {
             }
         }.start();
     }
+
     // 检查微信是否已经绑定
     public void checkWeChatBind(final String weChatId) {
         new Thread() {
@@ -1403,6 +1405,30 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.GetMyApplyWithdraw;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //根据时间获取 限时购 商品
+
+    public void GetTimeGoodList(final String type) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&type="+type;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(GetTimeGoodList, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetTimeGoodList;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

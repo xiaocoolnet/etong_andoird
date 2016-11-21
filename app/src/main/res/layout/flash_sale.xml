@@ -55,56 +55,65 @@
                 ></RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_size_50"
+                android:layout_height="@dimen/activity_size_45"
                 android:background="@color/whilte">
               <TextView
+                  android:id="@+id/tv1"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
-                  android:layout_marginRight="1dp"
                   android:layout_weight="1"
                   android:gravity="center"
                   android:textSize="14sp"
                   android:text="6:00"
-                  android:background="@color/red1"
+                  android:background="@drawable/selsct_color"
                   android:textColor="@color/whilte"
                   />
                 <TextView
+                    android:id="@+id/tv2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:layout_marginRight="1dp"
                     android:text="8:00"
-                    android:background="@color/red1"
+                    android:background="@drawable/selsct_color"
                     android:textColor="@color/whilte"
                     />
                 <TextView
+                    android:id="@+id/tv3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginRight="1dp"
                     android:gravity="center"
                     android:textSize="14sp"
                     android:text="10:00"
-                    android:background="@color/red1"
+                    android:background="@drawable/selsct_color"
                     android:textColor="@color/whilte"
                     />
+
                 <TextView
+                    android:id="@+id/tv4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="14sp"
                     android:text="12:00"
-                    android:background="@color/red1"
+                    android:background="@drawable/selsct_color"
+                    android:textColor="@color/whilte"
+                />
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="14:00"
+                    android:background="@drawable/selsct_color"
                     android:textColor="@color/whilte"
                     />
-
-
             </LinearLayout>
-
-
 
             <cn.xiaocool.android_etong.util.NoScrollListView
                 android:id="@+id/gridView_flash_sale"
@@ -117,7 +126,6 @@
                 android:stretchMode="columnWidth"
                 android:horizontalSpacing="@dimen/activity_size_5"
                 android:verticalSpacing="@dimen/activity_size_5">
-
             </cn.xiaocool.android_etong.util.NoScrollListView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
