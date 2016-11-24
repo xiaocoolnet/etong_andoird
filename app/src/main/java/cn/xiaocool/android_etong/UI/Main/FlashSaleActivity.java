@@ -1,6 +1,8 @@
 package cn.xiaocool.android_etong.UI.Main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,14 +44,17 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class FlashSaleActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private ListView listView;
     private TextView mTabs[];
-    private TextView tvTitle,tv_progress_shengyu;
+    private TextView tvTitle,tv_progress_shengyu,tv_time,tv_time1,tv_time2,tv_time3;
     private TextView tv1,tv2,tv3,tv4,tv5;
+    private int index, currentIndex;
     private RelativeLayout rlBack;
     private SliderLayout mDemoSlider;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
+    private long time;
     private String type;
     private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     private FlashSaleAdapter flashSaleAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -91,15 +96,17 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
                                     newArrivalDataBean.setShopname(shopName);
                                 } else {
                                     newArrivalDataBean.setShopname("null");
-
                                 }
                                 newArrivalDataBean.setSales(dataObject.getString("sales"));
                                 newArrivalDataBean.setPayNum(dataObject.getString("paynum"));
-
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             flashSaleAdapter = new FlashSaleAdapter(context, newArrivalDataBeanList);
                             listView.setAdapter(flashSaleAdapter);
+                            progressDialog.dismiss();
+                       }else {
+                            progressDialog.dismiss();
+                            Toast.makeText(context,jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -114,11 +121,14 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.flash_sale);
         context = this;
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initView();
         initdata();
         judgeTime();
         if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+            progressDialog.setMessage("正在加载");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
             new MainRequest(context,handler).GetTimeGoodList(type);
         }else {
             Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
@@ -130,6 +140,10 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("限时抢购");
+        tv_time = (TextView) findViewById(R.id.tv_time);
+        tv_time1 = (TextView) findViewById(R.id.tv_time1);
+        tv_time2 = (TextView) findViewById(R.id.tv_time2);
+        tv_time3 = (TextView) findViewById(R.id.tv_time3);
         mTabs = new TextView[5];
         mTabs[0] = (TextView) findViewById(R.id.tv1);
         mTabs[0].setOnClickListener(this);
@@ -154,46 +168,64 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.tv1:
+                index = 0;
                 if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+                    progressDialog.setMessage("正在加载");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
                     new MainRequest(context,handler).GetTimeGoodList("1");
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv2:
+                index = 1;
                 if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+                    progressDialog.setMessage("正在加载");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
                     new MainRequest(context,handler).GetTimeGoodList("2");
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv3:
+                index = 2;
                 if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+                    progressDialog.setMessage("正在加载");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
                     new MainRequest(context,handler).GetTimeGoodList("3");
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv4:
+                index = 3;
                 if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+                    progressDialog.setMessage("正在加载");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
                     new MainRequest(context,handler).GetTimeGoodList("4");
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv5:
+                index = 4;
                 if (NetUtil.isConnnected(context)){
-//            new HomeRequest(this, handler).getNewArrival("&recommend=2");
+                    progressDialog.setMessage("正在加载");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
                     new MainRequest(context,handler).GetTimeGoodList("5");
                 }else {
                     Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
+        mTabs[currentIndex].setSelected(false);
+        mTabs[index].setSelected(true);
+        currentIndex = index;
     }
 
     private void initdata() {
@@ -232,30 +264,120 @@ public class FlashSaleActivity extends Activity implements View.OnClickListener,
         int hour = cal.get(Calendar.HOUR_OF_DAY);// 获取小时
         int minute = cal.get(Calendar.MINUTE);// 获取分钟
         int minuteOfDay = hour * 60 + minute;// 从0:00分开是到目前为止的分钟数
-        final int start = 6* 60 ;// 起始时间 00:00的分钟数
-        final int end = 8 * 60;// 结束时间 8:00的分钟数
-        final int end2 = 10*60;
-        final int end3 = 12*60;
-        final int end4 = 14*60;
+        final long start = 6* 60 ;// 起始时间 00:00的分钟数
+        final long end = 8 * 60;// 结束时间 8:00的分钟数
+        final long end2 = 10*60;
+        final long end3 = 12*60;
+        final long end4 = 14*60;
+        final long end5 = 16*60;
         if (minuteOfDay >= start && minuteOfDay <= end) {
             type = "1";
-            mTabs[0].setSelected(true);
+            currentIndex = 0;
+            mTabs[0].setText("6:00\n正在进行");
+            mTabs[1].setText("8:00\n即将开始");
+            mTabs[2].setText("10:00\n即将开始");
+            mTabs[3].setText("12:00\n即将开始");
+            mTabs[4].setText("14:00\n即将开始");
+            time = end*60 - minuteOfDay*60;
+            handler1.postDelayed(runnable, 1000);
         }else if (minuteOfDay >= end && minuteOfDay <= end2){
             type = "2";
-            mTabs[1].setSelected(true);
+            currentIndex = 1;
+            mTabs[0].setText("6:00\n已结束");
+            mTabs[1].setText("8:00\n正在进行");
+            mTabs[2].setText("10:00\n即将开始");
+            mTabs[3].setText("12:00\n即将开始");
+            mTabs[4].setText("14:00\n即将开始");
+            time = end2*60 - minuteOfDay*60;
+            handler1.postDelayed(runnable, 1000);
         }else if (minuteOfDay >= end2 && minuteOfDay <= end3){
             type = "3";
-            mTabs[2].setSelected(true);
+            currentIndex = 2;
+            mTabs[0].setText("6:00\n已结束");
+            mTabs[1].setText("8:00\n已结束");
+            mTabs[2].setText("10:00\n正在进行");
+            mTabs[3].setText("12:00\n即将开始");
+            mTabs[4].setText("14:00\n即将开始");
+            time = end3*60 - minuteOfDay*60;
+            handler1.postDelayed(runnable, 1000);
         }else if (minuteOfDay >= end3 && minuteOfDay <= end4){
             type = "4";
-            mTabs[3].setSelected(true);
-        }else if (minuteOfDay >= end4){
+            currentIndex = 3;
+            mTabs[0].setText("6:00\n已结束");
+            mTabs[1].setText("8:00\n已结束");
+            mTabs[2].setText("10:00\n已结束");
+            mTabs[3].setText("12:00\n正在进行");
+            mTabs[4].setText("14:00\n即将开始");
+            time = end4*60 - minuteOfDay*60;
+            handler1.postDelayed(runnable, 1000);
+        }else if (minuteOfDay >= end4&& minuteOfDay <= end5){
             type = "5";
-            mTabs[4].setSelected(true);
+            currentIndex = 4;
+            mTabs[0].setText("6:00\n已结束");
+            mTabs[1].setText("8:00\n已结束");
+            mTabs[2].setText("10:00\n已结束");
+            mTabs[3].setText("12:00\n已结束");
+            mTabs[4].setText("14:00\n正在进行");
+            time = end5*60  - minuteOfDay*60;
+            handler1.postDelayed(runnable, 1000);
+        }else if (minuteOfDay >= end5){
+            type = "5";
+            currentIndex = 4;
+            mTabs[0].setText("6:00\n已结束");
+            mTabs[1].setText("8:00\n已结束");
+            mTabs[2].setText("10:00\n已结束");
+            mTabs[3].setText("12:00\n已结束");
+            mTabs[4].setText("14:00\n已结束");
+            tv_time2.setText("已结束");
         }
         Log.e("type=",type);
+        mTabs[currentIndex].setSelected(true);
         return;
     }
+
+    public  String formatLongToTimeStr(Long l) {
+        int hour = 0;
+        int minute = 0;
+        int second = 0;
+        second = l.intValue() ;
+        if (second > 60) {
+            minute = second / 60;         //取整
+            second = second % 60;         //取余
+        }
+
+        if (minute > 60) {
+            hour = minute / 60;
+            minute = minute % 60;
+        }
+        String strtime = hour+"："+minute+"："+second;
+        return strtime;
+
+    }
+
+    Handler handler1 = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            time--;
+            String formatLongToTimeStr = formatLongToTimeStr(time);
+            String[] split = formatLongToTimeStr.split("：");
+            for (int i = 0; i < split.length; i++) {
+                if(i==0){
+                    tv_time1.setText(split[0]+"小时");
+                }
+                if(i==1){
+                    tv_time2.setText(split[1]+"分钟");
+                }
+                if(i==2){
+                    tv_time3.setText(split[2]+"秒");
+                }
+
+            }
+            if(time>0){
+                handler.postDelayed(this, 1000);
+            }
+        }
+    };
 
     @Override
     public void onStop() {

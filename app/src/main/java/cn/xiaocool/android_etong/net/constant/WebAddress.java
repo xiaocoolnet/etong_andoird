@@ -463,8 +463,17 @@ public interface WebAddress extends NetBaseConstant {
     */
 
     String GetTimeGoodList = NET_BASE_PREFIX + "a=GetTimeGoodList";
+    /*
+    *qq登录
+    */
 
+    String GetUserInfoByQQ = NET_BASE_PREFIX + "a=GetUserInfoByQQ";
 
+    /*
+    * 绑定QQ
+    */
+
+    String UpdateUserQQ = NET_BASE_PREFIX + "a=UpdateUserQQ";
 
 }
 

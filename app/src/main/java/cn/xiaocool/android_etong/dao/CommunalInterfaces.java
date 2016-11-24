@@ -102,4 +102,6 @@ public interface CommunalInterfaces {
     int ApplyWithdraw = 0x0088;// 提现申请
     int GetMyApplyWithdraw = 0x0089;// 我的提现申请记录
     int GetTimeGoodList = 0x0090;//根据时间获得 限时抢购
+    int GetUserInfoByQQ = 0x0091;//QQ登录
+    int UpdateUserQQ = 0x0092;//绑定QQ
 }

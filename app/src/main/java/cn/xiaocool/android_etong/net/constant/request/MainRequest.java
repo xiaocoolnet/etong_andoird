@@ -23,7 +23,9 @@ import static cn.xiaocool.android_etong.net.constant.WebAddress.ApplyWithdraw;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdraw;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetTimeGoodList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserInfoByQQ;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserBank;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserQQ;
 
 
 /**
@@ -420,7 +422,6 @@ public class MainRequest {
         }.start();
     }
 
-
     //获取上架产品列表
     public void getshopgoodlist(final String shopid) {
         new Thread() {
@@ -589,7 +590,6 @@ public class MainRequest {
         }.start();
     }
 
-
     //修改店铺名称
     public void updateshopname(final String id, final String shopname) {
         new Thread() {
@@ -614,7 +614,6 @@ public class MainRequest {
         }.start();
     }
 
-
     //修改店铺地址
     public void UpdateShopAddress(final String id, final String address) {
         new Thread() {
@@ -638,7 +637,6 @@ public class MainRequest {
             }
         }.start();
     }
-
 
     //获取单个商品详情
     public void getgoodsinfo(final String id) {
@@ -768,7 +766,6 @@ public class MainRequest {
         }.start();
     }
 
-
     //    添加购物车
     public void addShoppingCart(final String goodsid, final String goodsnum, final String shopid, final String proid) {
         new Thread() {
@@ -846,7 +843,6 @@ public class MainRequest {
     public void DeleteShoppingCart(final String goodsid) {
         new Thread() {
             Message msg = new Message();
-
             @Override
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid;
@@ -896,7 +892,6 @@ public class MainRequest {
     public void SearchShops(final String shop) {
         new Thread() {
             Message msg = new Message();
-
             @Override
             public void run() {
                 String data = "&shop=" + shop;
@@ -1416,7 +1411,6 @@ public class MainRequest {
     }
 
     //根据时间获取 限时购 商品
-
     public void GetTimeGoodList(final String type) {
         new Thread() {
             Message msg = Message.obtain();
@@ -1429,6 +1423,52 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.GetTimeGoodList;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //QQ登录
+    public void GetUserInfoByQQ(final String qq) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&qq="+qq;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(GetUserInfoByQQ, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GetUserInfoByQQ;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 修改个人资料[qq]
+    public void UpdateUserQQ(final String qq) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&userid="+user.getUserId()+"&qq="+qq;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(UpdateUserQQ, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UpdateUserQQ;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

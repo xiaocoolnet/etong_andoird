@@ -101,7 +101,7 @@
                     android:layout_height="@dimen/activity_size_25"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/button_shape"
-                    android:text="12:00开抢"
+                    android:text="抢购"
                     android:textColor="@color/whilte"
                     android:textSize="@dimen/activity_size_14" />
             </RelativeLayout>

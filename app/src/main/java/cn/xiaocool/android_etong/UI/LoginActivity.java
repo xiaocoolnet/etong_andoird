@@ -155,6 +155,27 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
+                //测试QQ登录代码
+//                case CommunalInterfaces.GetUserInfoByQQ:
+//                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+//                    try {
+//                        String status = jsonObject1.getString("status");
+//                        if (status.equals("success")) {
+//                            JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+//                            user.setUserId(jsonObject2.getString("id"));
+//                            user.setUserImg(jsonObject2.getString("photo"));
+//                            user.writeData(context);
+//                            context.startActivity(new Intent(context, MainActivity.class));
+//                        }else {
+//                            Intent intent = new Intent();
+//                            intent.putExtra("openid","6EC516A02F07F5B7DFE2BF5D73EBEFCC");
+//                            intent.setClass(context, QQBindingActivity.class);
+//                            context.startActivity(intent);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    break;
                 default:
                     Log.i("handle msg", "Unhandled msg - " + msg.what);
 
@@ -194,7 +215,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
 
         context = this;
 
@@ -262,7 +282,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
         setIntent(intent);
     }
 
@@ -283,6 +302,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.btn_qq:
                 //调用QQ登录
                 login2();
+//                listener.onComplete("{\"openid\":\"6EC516A02F07F5B7DFE2BF5D73EBEFCC\"}");
+                //测试QQ登录代码
+//                if (NetUtil.isConnnected(context)){
+//                    new MainRequest(context,handle).GetUserInfoByQQ("6EC516A02F07F5B7DFE2BF5D73EBEFCC");
+//                }else {
+//                    Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+//                }
                 break;
             case R.id.btn_weixin:
                 //调用微信登录
@@ -319,6 +345,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     }
 
+    //QQ登录
     private void login2() {
         if (!mTencent.isSessionValid()) {
             mTencent.login(this, "all", listener);

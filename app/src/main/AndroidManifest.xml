@@ -130,6 +130,7 @@
 
         <activity android:name=".UI.RegisiterActivity"></activity>
         <activity android:name=".UI.ForgetPasswordActivity"></activity>
+        <activity android:name=".UI.QQBindingActivity"></activity>
         <!--HomePage-->
         <activity android:name=".UI.HomePage.SearchActivity"></activity>
         <activity android:name=".UI.HomePage.SearchResultShopActivity"></activity>
