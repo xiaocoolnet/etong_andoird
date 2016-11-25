@@ -5,20 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -237,13 +242,94 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                 startActivity(intent1);
                 break;
             case R.id.shop_right_share_icon:
-                showPopupMenu(shopShare);//弹出分享店铺菜单
+                showSharePopwindow();
+//                showPopupMenu(shopShare);//弹出分享店铺菜单
                 break;
 
         }
     }
 
 
+    /**
+     * 显示分享到社交app的popupWindow
+     */
+    private void showSharePopwindow() {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.show_share_good_popup_window, null);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        PopupWindow window = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        window.setOutsideTouchable(true); // 设置popupwindow外部可点击
+        window.setFocusable(true); // 获取焦点
+
+        // 实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(dw);
+
+
+        // 设置popWindow的显示和消失动画
+//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(StoreHomepageActivity.this.findViewById(R.id.btn_chat_store),
+                Gravity.BOTTOM, 0, 0);
+
+
+        // 这里检验popWindow里的button是否可以点击
+//        Button first = (Button) view.findViewById(R.id.first);
+        Button icWeChat = (Button) view.findViewById(R.id.pop_share_to_weChat_icon);
+        Button icFriend = (Button) view.findViewById(R.id.pop_share_to_weChat_friend_icon);
+        Button icQQ = (Button) view.findViewById(R.id.pop_share_to_qq_icon);
+        Button icMicroBlog = (Button) view.findViewById(R.id.pop_share_to_microBlog_icon);
+        icWeChat.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(0,shopname);//好友
+            }
+        });
+        icFriend.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(1,shopname);//朋友圈
+            }
+        });
+        icQQ.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中");
+            }
+        });
+        icMicroBlog.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ToastUtils.makeShortToast(context,"分享到微博功能正在开发中");
+            }
+        });
+        //popWindow消失监听方法
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                System.out.println("popWindow消失");
+            }
+        });
+
+    }
+
+
+    /**
+     * 废弃！！
+     * @param view
+     */
     private void showPopupMenu(View view) {
         // View当前PopupMenu显示的相对View的位置
         PopupMenu popupMenu = new PopupMenu(this, view);

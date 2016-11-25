@@ -209,6 +209,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private String openid;
     private String nickname;
     private String headimgurl;
+    private Button btnBlog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,6 +254,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tx_zhuce.setOnClickListener(this);
         btnWeChat = (Button) findViewById(R.id.btn_weixin);
         btnWeChat.setOnClickListener(this);
+        btnBlog = (Button) findViewById(R.id.btn_weibo);
+        btnBlog.setOnClickListener(this);
         if (!user.getUserPhone().equals("")) {
             user.readData(this);
             et_login_phone.setText(user.getUserPhone());
@@ -314,6 +317,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 //调用微信登录
                 WXLogin();
                 Log.e("in", "in");
+                break;
+            case R.id.btn_weibo:
+                //微博登录
+                ToastUtils.makeShortToast(context,"微博登录开发中！");
                 break;
         }
     }

@@ -6,7 +6,8 @@
     <item
         android:id="@+id/share_shop_to_wechat0"
         android:orderInCategory="3"
-        android:title="分享店铺到微信好友"
+        android:title=""
+        android:icon="@mipmap/ic_weibo"
         >
     </item>
     <item
@@ -16,4 +17,18 @@
         >
     </item>
 
+
+
+    <item
+        android:id="@+id/share_shop_to_qq"
+        android:orderInCategory="3"
+        android:title="分享店铺到QQ"
+        >
+    </item>
+    <item
+        android:id="@+id/share_shop_to_microBlog"
+        android:orderInCategory="3"
+        android:title="分享店铺到微博"
+        >
+    </item>
 </menu>
