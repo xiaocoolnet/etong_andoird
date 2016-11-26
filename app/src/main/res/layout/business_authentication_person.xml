@@ -39,6 +39,7 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -46,37 +47,21 @@
                 android:background="@color/whilte">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="营业执照类型"
+                    android:text="店铺类型"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <RadioGroup
-                    android:id="@+id/rg_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_size_140"
-                    android:layout_marginTop="@dimen/activity_size_11"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rg_btn_qiye"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="企业法人"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/rg_btn_geti"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="个体工商户"
-                        android:textSize="14sp" />
-                </RadioGroup>
+                <Spinner
+                    android:id="@+id/spinner_shop_type"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="100dp"
+                    android:hint="经营地址"
+                    android:textSize="14sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -117,6 +102,48 @@
                         android:textSize="14sp" />
                 </RadioGroup>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="营业执照类型"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/rg_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_size_140"
+                    android:layout_marginTop="@dimen/activity_size_11"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rg_btn_qiye"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="企业法人"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/rg_btn_geti"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个体工商户"
+                        android:textSize="14sp" />
+                </RadioGroup>
+            </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -369,29 +396,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/whilte">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center"
-                    android:text="店铺类型"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/spinner_shop_type"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="100dp"
-                    android:hint="经营地址"
-                    android:textSize="14sp" />
-            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

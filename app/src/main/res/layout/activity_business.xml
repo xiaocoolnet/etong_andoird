@@ -60,6 +60,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="店铺编号: 010010"
+                    android:textColor="@color/whilte"
+                    android:textSize="@dimen/activity_size_12"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_marginLeft="@dimen/activity_size_10"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_marginRight="@dimen/activity_size_20">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_xiaoxi"/>
+                </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/rl_touxiangkuang"
                     android:layout_marginLeft="10dp"
@@ -90,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/rl_touxiangkuang"
-                    android:layout_marginTop="55dp"
+                    android:layout_alignTop="@+id/rl_touxiangkuang"
                     android:layout_marginLeft="15dp"
                     android:textSize="16sp"
                     android:text="E小姐原创服装"
@@ -110,9 +131,11 @@
                     android:id="@+id/textView6" />
 
                 <LinearLayout
+                    android:id="@+id/myShop_stare_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView6"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_below="@+id/tx_business_touxiang"
                     android:layout_alignLeft="@+id/tx_business_touxiang"
                     android:layout_alignStart="@+id/tx_business_touxiang">
                     <ImageView
@@ -151,6 +174,21 @@
                         />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tx_store_saleNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/myShop_stare_level"
+                    android:layout_toRightOf="@+id/rl_touxiangkuang"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:text="累计销售：1550"
+                    android:textColor="@color/whilte"
+                    android:textSize="@dimen/text_size_10" />
+
+
+
             </RelativeLayout>
             <LinearLayout
                 android:layout_marginTop="15dp"

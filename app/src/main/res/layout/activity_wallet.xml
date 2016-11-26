@@ -132,7 +132,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
-                <!--钱包-->
+                <!--优惠券-->
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -156,7 +156,7 @@
                         android:layout_alignParentStart="true" />
                 </RelativeLayout>
 
-                <!--会员中心-->
+                <!--现金红包-->
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -180,26 +180,26 @@
                         android:layout_alignParentStart="true" />
                 </RelativeLayout>
 
-                <!--足迹-->
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    >
+                <!--&lt;!&ndash;足迹&ndash;&gt;-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--&gt;-->
 
-                    <Button
-                        android:id="@+id/btn_zuji"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableTop="@mipmap/ic_more_hong"
-                        android:background="@color/white"
-                        android:paddingBottom="2dip"
-                        android:paddingTop="38dip"
-                        android:scaleType="matrix"
-                        android:text="敬请期待"
-                        android:textColor="@color/gray3"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_zuji"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:drawableTop="@mipmap/ic_more_hong"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:paddingBottom="2dip"-->
+                        <!--android:paddingTop="38dip"-->
+                        <!--android:scaleType="matrix"-->
+                        <!--android:text="敬请期待"-->
+                        <!--android:textColor="@color/gray3"-->
+                        <!--android:textSize="14sp" />-->
+                <!--</RelativeLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -233,14 +233,55 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:text="设置银行卡>"
+                        android:text="设置银行卡 >"
                         />
                 </RelativeLayout>
             </LinearLayout>
 
+            <!--设置支付密码-->
+            <LinearLayout
+                android:id="@+id/ll_set_pay_password"
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/ic_suo"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="支付密码"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="设置支付密码 >"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+
             <LinearLayout
                 android:id="@+id/ll_withdraw"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
