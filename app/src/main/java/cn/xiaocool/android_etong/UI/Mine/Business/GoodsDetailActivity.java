@@ -609,56 +609,56 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     }
 
 
-    /**
-     * 此分享到社交app函数！！废弃！！
-     * @param view
-     */
-    private void showPopupMenu(View view) {
-        // View当前PopupMenu显示的相对View的位置
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        try {
-            Field field = popupMenu.getClass().getDeclaredField("mPopup");
-            field.setAccessible(true);
-            MenuPopupHelper mHelper = (MenuPopupHelper) field.get(popupMenu);
-            mHelper.setForceShowIcon(true);
-        }  catch (Exception e) {
-            e.printStackTrace();
-        }
-        // menu布局
-        popupMenu.getMenuInflater().inflate(R.menu.share_good, popupMenu.getMenu());
-        // menu的item点击事件
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-//                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                switch (item.getItemId()) {
-                    case R.id.share_shop_to_wechat0:
-                        share2weixin(0,goodsname);//好友
-                        break;
-                    case R.id.share_shop_to_wechat1:
-                        share2weixin(1,goodsname);//朋友圈
-                        break;
-                    case R.id.share_shop_to_qq:
-                        ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中！");
-                        break;
-                    case R.id.share_shop_to_microBlog:
-                        ToastUtils.makeShortToast(context,"分享到微博功能正在开发中！");
-                        break;
-                }
-                return false;
-            }
-        });
-        // PopupMenu关闭事件
-        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        popupMenu.show();
-    }
-
+//    /**
+//     * 此分享到社交app函数！！废弃！！
+//     * @param view
+//     */
+//    private void showPopupMenu(View view) {
+//        // View当前PopupMenu显示的相对View的位置
+//        PopupMenu popupMenu = new PopupMenu(this, view);
+//        try {
+//            Field field = popupMenu.getClass().getDeclaredField("mPopup");
+//            field.setAccessible(true);
+//            MenuPopupHelper mHelper = (MenuPopupHelper) field.get(popupMenu);
+//            mHelper.setForceShowIcon(true);
+//        }  catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        // menu布局
+//        popupMenu.getMenuInflater().inflate(R.menu.share_good, popupMenu.getMenu());
+//        // menu的item点击事件
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+////                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+//                switch (item.getItemId()) {
+//                    case R.id.share_shop_to_wechat0:
+//                        share2weixin(0,goodsname);//好友
+//                        break;
+//                    case R.id.share_shop_to_wechat1:
+//                        share2weixin(1,goodsname);//朋友圈
+//                        break;
+//                    case R.id.share_shop_to_qq:
+//                        ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中！");
+//                        break;
+//                    case R.id.share_shop_to_microBlog:
+//                        ToastUtils.makeShortToast(context,"分享到微博功能正在开发中！");
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+//        // PopupMenu关闭事件
+//        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+//            @Override
+//            public void onDismiss(PopupMenu menu) {
+////                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        popupMenu.show();
+//    }
+//
 
 
 

@@ -272,9 +272,20 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         ColorDrawable dw = new ColorDrawable(0x0000);
         window.setBackgroundDrawable(dw);
 
+        //设置背景半透明
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        this.getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(cd);
+
+
+
+
 
         // 设置popWindow的显示和消失动画
-//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
         window.showAtLocation(StoreHomepageActivity.this.findViewById(R.id.btn_chat_store),
                 Gravity.BOTTOM, 0, 0);
@@ -319,48 +330,51 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
             @Override
             public void onDismiss() {
-                System.out.println("popWindow消失");
+                //设置背景变回原色
+                WindowManager.LayoutParams lp = StoreHomepageActivity.this.getWindow().getAttributes();
+                lp.alpha =1f;
+                StoreHomepageActivity.this.getWindow().setAttributes(lp);
             }
         });
 
     }
 
-
-    /**
-     * 废弃！！
-     * @param view
-     */
-    private void showPopupMenu(View view) {
-        // View当前PopupMenu显示的相对View的位置
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        // menu布局
-        popupMenu.getMenuInflater().inflate(R.menu.share_shop, popupMenu.getMenu());
-        // menu的item点击事件
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-//                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                switch (item.getItemId()) {
-                    case R.id.share_shop_to_wechat0:
-                        share2weixin(0,shopname);//好友
-                        break;
-                    case R.id.share_shop_to_wechat1:
-                        share2weixin(1,shopname);//朋友圈
-                        break;
-                }
-                return false;
-            }
-        });
-        // PopupMenu关闭事件
-        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        popupMenu.show();
-    }
+//
+//    /**
+//     * 废弃！！
+//     * @param view
+//     */
+//    private void showPopupMenu(View view) {
+//        // View当前PopupMenu显示的相对View的位置
+//        PopupMenu popupMenu = new PopupMenu(this, view);
+//        // menu布局
+//        popupMenu.getMenuInflater().inflate(R.menu.share_shop, popupMenu.getMenu());
+//        // menu的item点击事件
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+////                Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+//                switch (item.getItemId()) {
+//                    case R.id.share_shop_to_wechat0:
+//                        share2weixin(0,shopname);//好友
+//                        break;
+//                    case R.id.share_shop_to_wechat1:
+//                        share2weixin(1,shopname);//朋友圈
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+//        // PopupMenu关闭事件
+//        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+//            @Override
+//            public void onDismiss(PopupMenu menu) {
+////                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        popupMenu.show();
+//    }
 
 
     /*
