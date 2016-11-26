@@ -541,8 +541,20 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         window.setBackgroundDrawable(dw);
 
 
+        //设置背景半透明
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        this.getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(cd);
+
+
+
+
+
         // 设置popWindow的显示和消失动画
-//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
         window.showAtLocation(GoodsDetailActivity.this.findViewById(R.id.btn_lijigoumai),
                 Gravity.BOTTOM, 0, 0);
@@ -587,7 +599,10 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onDismiss() {
-                System.out.println("popWindow消失");
+                //设置背景变回原色
+                WindowManager.LayoutParams lp = GoodsDetailActivity.this.getWindow().getAttributes();
+                lp.alpha =1f;
+                GoodsDetailActivity.this.getWindow().setAttributes(lp);
             }
         });
 
