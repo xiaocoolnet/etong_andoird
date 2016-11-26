@@ -552,9 +552,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
 
 
-
-        // 设置popWindow的显示和消失动画
-        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+//
+//        // 设置popWindow的显示和消失动画
+//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
         window.showAtLocation(GoodsDetailActivity.this.findViewById(R.id.btn_lijigoumai),
                 Gravity.BOTTOM, 0, 0);
