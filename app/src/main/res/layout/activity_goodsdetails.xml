@@ -35,6 +35,8 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
+
+
         <Button
             android:id="@+id/btn_shopping_cart"
             android:layout_width="0dp"
@@ -89,31 +91,49 @@
                 </RelativeLayout>
 
 
-                    <TextView
-                        android:id="@+id/good_details_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="宝贝详情"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/good_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="宝贝详情"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                <RelativeLayout
-                    android:id="@+id/good_details_share_icon"
-                    android:layout_toRightOf="@+id/good_details_title"
-                    android:layout_marginLeft="@dimen/activity_size_100"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true">
-
-                    <ImageView
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+                    <!--消息图标-->
+                    <RelativeLayout
+                        android:id="@+id/good_details_news_icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_etc" />
-                </RelativeLayout>
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/activity_size_10">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@mipmap/ic_new" />
+                    </RelativeLayout>
+                    <!--分享图标-->
+
+                    <RelativeLayout
+                        android:id="@+id/good_details_share_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/activity_size_10">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@mipmap/ic_etc" />
+                    </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -162,6 +182,18 @@
                     android:text="商品名称"
                     android:textColor="@color/black" />
 
+
+                <TextView
+                    android:id="@+id/tx_goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tx_goods_name"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="¥199"
+                    android:textColor="@color/main_color_red" />
+
                 <ImageView
                     android:id="@+id/good_details_iv_like"
                     android:layout_width="wrap_content"
@@ -172,15 +204,14 @@
                     android:background="@drawable/btn_selected_shop_like" />
 
                 <TextView
-                    android:id="@+id/tx_goods_price"
+                    android:id="@+id/tx_goods_saleNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:maxLines="2"
-                    android:text="￥199"
-                    android:textColor="@color/main_color_red" />
+                    android:text="已售：1252件"
+                    android:textColor="@color/black3" />
             </RelativeLayout>
 
             <RelativeLayout
