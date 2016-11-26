@@ -299,22 +299,22 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-            '
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="1dp"
-                android:background="@color/whilte">
+<!--加入E通，共享生活-->
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginBottom="1dp"-->
+                <!--android:background="@color/whilte">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="加入e通，共享生活"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="加入e通，共享生活"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="14sp" />-->
+            <!--</RelativeLayout>-->
             <!--每日好店-->
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package cn.xiaocool.android_etong.fragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,9 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
         prefectureProductFragment = new  PrefectureProductFragment();
         prefectureMyFragment = new PrefectureMyFragment();
         fragments = new Fragment[]{prefectureMyFragment, prefectureProductFragment};
-        getChildFragmentManager().beginTransaction().add(R.id.fragment_container,prefectureMyFragment).commit();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            getChildFragmentManager().beginTransaction().add(R.id.fragment_container,prefectureMyFragment).commit();
+        }
         initview();
     }
 
