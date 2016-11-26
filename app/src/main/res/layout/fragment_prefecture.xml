@@ -25,14 +25,6 @@
             android:textSize="20sp"
             />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/edit"
-            android:layout_marginRight="24dp"
-            />
     </RelativeLayout>
     <LinearLayout
         android:background="@color/whilte"
@@ -52,7 +44,7 @@
             />
         <Button
             android:id="@+id/btn_prefecture_product"
-            android:layout_width="0dp "
+            android:layout_width="0dp"
             android:background="@color/whilte"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -63,6 +55,11 @@
             />
         
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/view_color"
+        ></RelativeLayout>
     <RelativeLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

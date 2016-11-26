@@ -44,12 +44,12 @@ public class WithdrawSelectActivity extends Activity implements View.OnClickList
                         String state = jsonObject.getString("status");
                         if (state.equals("success")) {
                             JSONObject object = jsonObject.getJSONObject("data");
-                            if (object.getString("alipay").equals("null")|| TextUtils.isEmpty(object.getString("alipay"))){
+                            if (object.getString("bank").equals("null")|| TextUtils.isEmpty(object.getString("bank"))){
                                 tv_withdraw1.setText("未绑定");
                             }
-                            if (object.getString("bankno").equals("null")|| TextUtils.isEmpty(object.getString("bankno"))){
-                                tv_withdraw2.setText("未绑定");
-                            }
+//                            if (object.getString("bankno").equals("null")|| TextUtils.isEmpty(object.getString("bankno"))){
+//                                tv_withdraw2.setText("未绑定");
+//                            }
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }
@@ -110,11 +110,13 @@ public class WithdrawSelectActivity extends Activity implements View.OnClickList
                 if (iv_payWay0_item.isSelected()){
                    if (tv_withdraw1.getText().toString().equals("未绑定")){
                        startActivity(new Intent(context,WithdrawBankActivity.class));
+                       finish();
 //                       startActivity(new Intent(context,WithdrawActivity.class));
                        finish();
                    }else {
                        if(NetUtil.isConnnected(context)){
                            startActivity(new Intent(context,WithdrawActivity.class));
+                           finish();
                        }else {
                            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
                        }
