@@ -19,6 +19,7 @@ public class AuthenticationClassificationActivity extends Activity implements Vi
     private Context context;
     private RelativeLayout rl_back;
     private TextView textView9,textView10;
+    private TextView tvShopGuide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class AuthenticationClassificationActivity extends Activity implements Vi
         textView9.setOnClickListener(this);
         textView10 = (TextView) findViewById(R.id.textView10);
         textView10.setOnClickListener(this);
+        tvShopGuide = (TextView) findViewById(R.id.start_shop_guide);
+        tvShopGuide.setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +57,12 @@ public class AuthenticationClassificationActivity extends Activity implements Vi
                 Intent intent = new Intent();
                 intent.setClass(context,AuthenticationShopActivity.class);
                 startActivity(intent);
+                finish();
+                break;
+            case R.id.start_shop_guide:
+                Intent intent2 = new Intent();
+                intent2.setClass(context,StartShopGuideActivity.class);
+                startActivity(intent2);
                 finish();
                 break;
         }

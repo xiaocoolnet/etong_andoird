@@ -27,6 +27,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -70,6 +71,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
             }
         }
     };
+    private LinearLayout setPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,8 @@ public class WalletActivity extends Activity implements View.OnClickListener {
         img_mine_head = (CircleImageView) findViewById(R.id.img_mine_head);
         tv_yue = (TextView) findViewById(R.id.tv_yue);
         tx_mine_name = (TextView) findViewById(R.id.tx_mine_name);
+        setPass = (LinearLayout) findViewById(R.id.ll_set_pay_password);
+        setPass.setOnClickListener(this);
         if (name.equals("null")||name==null||name.equals("")) {
             tx_mine_name.setText("未设置昵称");
         } else {
@@ -137,6 +141,9 @@ public class WalletActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ll_withdraw:
                 startActivity(new Intent(context, WithdrawRecordActivity.class));
+                break;
+            case R.id.ll_set_pay_password:
+                ToastUtils.makeShortToast(context,"设置支付密码功能正在开发中！");
                 break;
         }
     }

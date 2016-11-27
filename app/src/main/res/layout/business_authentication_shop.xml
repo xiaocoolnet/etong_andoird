@@ -40,6 +40,35 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/whilte">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="店铺类型"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_shop_type"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="100dp"
+                    android:hint="经营地址"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -373,29 +402,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/whilte">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center"
-                    android:text="店铺类型"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                    <Spinner
-                    android:id="@+id/spinner_shop_type"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="100dp"
-                    android:hint="经营地址"
-                    android:textSize="14sp" />
-            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
