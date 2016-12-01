@@ -349,7 +349,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Toast.makeText(context, "请输入正确手机号", Toast.LENGTH_SHORT).show();
             et_login_phone.requestFocus();
         }
-
     }
 
     //QQ登录

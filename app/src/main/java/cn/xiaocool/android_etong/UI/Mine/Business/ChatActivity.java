@@ -191,8 +191,8 @@ public class ChatActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                if (TextUtils.isEmpty(et_chat_message.getText().toString())) {
+                // TODO Aut-generated method stub
+                if (TextUtils.isEmpty(et_chat_message.getText().toString().trim())) {
                     Toast.makeText(context, "发送内容不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }

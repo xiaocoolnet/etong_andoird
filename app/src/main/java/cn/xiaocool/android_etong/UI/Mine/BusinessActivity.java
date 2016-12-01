@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -137,7 +138,11 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                     img4.setBackgroundResource(R.mipmap.ic_star_all);
                                     img5.setBackgroundResource(R.mipmap.ic_star_all);
                                 }
-                                textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
+                                if (TextUtils.isEmpty(jsonObject1.getString("favorite"))||!jsonObject1.getString("favorite").equals("null")){
+                                    textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
+                                }else {
+                                    textView6.setText("收藏:0人");
+                                }
                                 shopType = jsonObject1.getString("type");
                                 userInfo.setUserShopId(shopid);
                                 userInfo.setUserShopName(shopname);
