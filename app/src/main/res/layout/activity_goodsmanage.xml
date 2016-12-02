@@ -32,6 +32,39 @@
             android:text="宝贝管理"
             android:textColor="@color/black"
             android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+            <!--消息图标-->
+            <RelativeLayout
+                android:id="@+id/good_manage_news_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/activity_size_10">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/ic_news_red" />
+            </RelativeLayout>
+            <!--分享图标-->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/activity_size_10">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_etc" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <ImageView
             android:layout_width="wrap_content"

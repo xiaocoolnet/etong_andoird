@@ -33,14 +33,14 @@
             android:layout_marginRight="44dp"
             android:background="@mipmap/mine_btn_setting"
             />
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:background="@mipmap/ic_xiaoxi"-->
-            <!--/>-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/ic_xiaoxi"
+            />
     </RelativeLayout>
 
     <cn.xiaocool.android_etong.util.ReboundScrollView
