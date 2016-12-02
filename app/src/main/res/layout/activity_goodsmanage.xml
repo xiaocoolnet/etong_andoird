@@ -44,7 +44,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="31dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -63,10 +63,12 @@
                 android:background="@mipmap/ic_sousuo" />
 
             <EditText
+                android:id="@+id/goods_manage_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:background="@null"
+                android:editable="false"
                 android:hint="搜索宝贝名称" />
         </LinearLayout>
     </RelativeLayout>

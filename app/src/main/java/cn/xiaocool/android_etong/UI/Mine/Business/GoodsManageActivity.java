@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.fragment.business.RemoveFragment;
 import cn.xiaocool.android_etong.fragment.business.SellFragment;
+import cn.xiaocool.android_etong.util.IntentUtils;
 
 /**
  * Created by 潘 on 2016/7/15.
@@ -32,6 +35,8 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
     private int index, currentIndex;
     private Context context;
     private ProgressDialog progressDialog;
+    private EditText etSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,8 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
     private void initview() {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        etSearch = (EditText) findViewById(R.id.goods_manage_search);
+        etSearch.setOnClickListener(this);
     }
 
     private void initfragment() {
@@ -93,6 +100,9 @@ public class GoodsManageActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.goods_manage_search:
+                IntentUtils.getIntent(this,GoodsManageSearchActivity.class);
                 break;
         }
         if (currentIndex!=index){
