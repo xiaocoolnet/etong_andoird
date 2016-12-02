@@ -170,11 +170,18 @@
                 android:layout_marginTop="@dimen/activity_size_10"
                 android:background="@color/gray2" />
 
-
-
-
-
-
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="28dp"
+                android:layout_below="@+id/gray_line2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@drawable/btn_shape_red"
+                android:textColor="@color/red1"
+                android:textSize="13sp"
+                android:text="查看详情"
+                />
 
             <TextView
                 android:id="@+id/seller_order_adapter_good_status_btn"
