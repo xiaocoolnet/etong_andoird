@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -59,6 +60,8 @@ import cn.xiaocool.android_etong.bean.business.LocationService;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
+import static android.R.attr.breadCrumbShortTitle;
+import static android.R.attr.id;
 import static cn.xiaocool.android_etong.R.id.tv_local;
 
 /**
@@ -68,14 +71,15 @@ import static cn.xiaocool.android_etong.R.id.tv_local;
 public class AuthenticationPersonActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
+    private LinearLayout ll_shipinliutong;
     private EditText et_name, et_phone, et_id_card, et_address, et_city;
-    private ImageView img_ren, img_shenfenzheng, img_zhizhao, img_yingyezhizhao;
+    private ImageView img_ren, img_shenfenzheng, img_zhizhao, img_yingyezhizhao,img_shipinliucheng;
     private String select = "";
     private TextView tx_next;
     private LocationService locationService;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
     private RadioGroup rg_type, rg_select;
-    private RadioButton rg_btn_qiye, check_btn;
+    private RadioButton check_btn,rg_btn_yes,rg_btn_no,rg_btn_qiye,rg_btn_geti;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter01;
     private String city;
@@ -207,6 +211,7 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
         et_id_card = (EditText) findViewById(R.id.et_id_card);
         et_phone = (EditText) findViewById(R.id.et_phone);
         et_city = (EditText) findViewById(R.id.et_city);
+        ll_shipinliutong = (LinearLayout) findViewById(R.id.ll_shipinliutong);
         img_ren = (ImageView) findViewById(R.id.img_ren);
         img_ren.setOnClickListener(this);
         img_shenfenzheng = (ImageView) findViewById(R.id.img_shenfenzheng);
@@ -215,10 +220,31 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
         img_zhizhao.setOnClickListener(this);
         img_yingyezhizhao = (ImageView) findViewById(R.id.img_yingyezhizhao);
         img_yingyezhizhao.setOnClickListener(this);
+        img_shipinliucheng = (ImageView) findViewById(R.id.img_shipinliucheng);
+        img_shipinliucheng.setOnClickListener(this);
+        rg_btn_yes = (RadioButton) findViewById(R.id.rg_btn_yes);
+        rg_btn_no = (RadioButton) findViewById(R.id.rg_btn_no);
+        rg_btn_qiye = (RadioButton) findViewById(R.id.rg_btn_qiye);
+        rg_btn_geti = (RadioButton) findViewById(R.id.rg_btn_geti);
         rg_type = (RadioGroup) findViewById(R.id.rg_type);
         rg_type.check(R.id.rg_btn_qiye);
         rg_select = (RadioGroup) findViewById(R.id.rg_select);
         rg_select.check(R.id.rg_btn_no);
+        rg_select.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId==rg_btn_yes.getId()){
+                    rg_select.check(R.id.rg_btn_yes);
+                    rg_type.check(R.id.rg_btn_geti);
+                    rg_btn_geti.setEnabled(false);
+                    rg_btn_qiye.setEnabled(false);
+                }else if(checkedId==rg_btn_no.getId()){
+                    rg_select.check(R.id.rg_btn_no);
+                    rg_btn_geti.setEnabled(true);
+                    rg_btn_qiye.setEnabled(true);
+                }
+            }
+        });
         tx_next = (TextView) findViewById(R.id.tx_next);
         tx_next.setOnClickListener(this);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
@@ -235,30 +261,38 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
                 if (show_type.equals("美食")) {
                     show_type = "1";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.VISIBLE);
                 } else if (show_type.equals("电影")) {
                     show_type = "2";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("酒店")) {
                     show_type = "3";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("外卖")) {
                     show_type = "4";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("生活娱乐")) {
                     show_type = "5";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("周边游")) {
                     show_type = "6";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("生活服务")) {
                     show_type = "7";
                     Log.e("show=", show_type);
                 } else if (show_type.equals("KTV")) {
                     show_type = "8";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("手机充值")) {
                     show_type = "9";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 }
             }
 
@@ -349,6 +383,10 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
                 break;
             case R.id.img_yingyezhizhao:
                 judge = 4;
+                ShowPickDialog();
+                break;
+            case R.id.img_shipinliucheng:
+                judge = 5 ;
                 ShowPickDialog();
                 break;
             case R.id.tx_next:
@@ -518,6 +556,8 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
                 storeImageToSDCARD(photo, licences_pic, filepath);
             } else if (judge == 4) {
                 img_yingyezhizhao.setImageDrawable(drawable);
+            }else if (judge == 5) {
+                img_shipinliucheng.setImageDrawable(drawable);
             }
         }
     }
@@ -737,7 +777,8 @@ public class AuthenticationPersonActivity extends Activity implements View.OnCli
                 }
                 Log.e("sb=", sb.toString());
 //                tv_local.setText(location.getCity());
-                et_city.setText(location.getAddrStr().toString());
+                et_address.setText(location.getAddrStr().toString());
+                et_city.setText(location.getCity().toString());
                 locationService.stop();
             }
         }

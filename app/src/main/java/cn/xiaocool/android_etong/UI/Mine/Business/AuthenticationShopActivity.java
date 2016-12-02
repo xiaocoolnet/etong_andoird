@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -65,8 +66,9 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class AuthenticationShopActivity extends Activity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
+    private LinearLayout ll_shipinliutong;
     private EditText et_name, et_phone, et_id_card, et_address,et_city;
-    private ImageView img_ren, img_shenfenzheng, img_zhizhao,img_yingyezhizhao;
+    private ImageView img_ren, img_shenfenzheng, img_zhizhao,img_yingyezhizhao,img_shipinliutong;
     private String select = "1";
     private TextView tx_next;
     private int judge = 0, state1 = 0, state2 = 0, state3 = 0;
@@ -212,6 +214,8 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         img_zhizhao.setOnClickListener(this);
         img_yingyezhizhao = (ImageView) findViewById(R.id.img_yingyezhizhao);
         img_yingyezhizhao.setOnClickListener(this);
+        img_shipinliutong = (ImageView) findViewById(R.id.img_shipinliutong);
+        img_shipinliutong.setOnClickListener(this);
         rg_type = (RadioGroup) findViewById(R.id.rg_type);
         rg_type.check(R.id.rg_btn_qiye);
         rg_select = (RadioGroup) findViewById(R.id.rg_select);
@@ -220,6 +224,7 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
         tx_next.setOnClickListener(this);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        ll_shipinliutong = (LinearLayout) findViewById(R.id.ll_shipinliutong);
         spinner_shop_type = (Spinner) findViewById(R.id.spinner_shop_type);
         adapter01 = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, type);
         spinner_shop_type.setAdapter(adapter01);
@@ -232,30 +237,39 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 if (show_type.equals("美食")) {
                     show_type = "1";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.VISIBLE);
                 } else if (show_type.equals("电影")) {
                     show_type = "2";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("酒店")) {
                     show_type = "3";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("外卖")) {
                     show_type = "4";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("生活娱乐")) {
                     show_type = "5";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("周边游")) {
                     show_type = "6";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("生活服务")) {
                     show_type = "7";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("KTV")) {
                     show_type = "8";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 } else if (show_type.equals("手机充值")) {
                     show_type = "9";
                     Log.e("show=", show_type);
+                    ll_shipinliutong.setVisibility(View.GONE);
                 }
             }
 
@@ -363,6 +377,10 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 break;
             case R.id.img_yingyezhizhao:
                 judge = 4;
+                ShowPickDialog();
+                break;
+            case R.id.img_shipinliutong:
+                judge = 5;
                 ShowPickDialog();
                 break;
             case R.id.tx_next:
@@ -532,6 +550,8 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 storeImageToSDCARD(photo, licences_pic, filepath);
             }else if (judge==4){
                 img_yingyezhizhao.setImageDrawable(drawable);
+            }else if (judge==5){
+                img_shipinliutong.setImageDrawable(drawable);
             }
         }
     }
@@ -729,7 +749,8 @@ public class AuthenticationShopActivity extends Activity implements View.OnClick
                 }
                 Log.e("sb=", sb.toString());
 //                tv_local.setText(location.getCity());
-                et_city.setText(location.getAddrStr().toString());
+                et_address.setText(location.getAddrStr().toString());
+                et_city.setText(location.getCity().toString());
                 locationService.stop();
             }
         }

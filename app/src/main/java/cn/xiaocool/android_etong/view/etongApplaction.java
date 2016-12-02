@@ -42,6 +42,19 @@ public class etongApplaction extends Application {
         //极光推送初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        //设置极光推送图片不好用...
+//        CustomPushNotificationBuilder builder = new
+//                CustomPushNotificationBuilder(getApplicationContext(),
+//                R.layout.customer_notitfication_layout,
+//                R.id.icon,
+//                R.id.title,
+//                R.id.text);
+//        // 指定定制的 Notification Layout
+//        builder.statusBarDrawable = R.drawable.logo_920;
+//        // 指定最顶层状态栏小图标
+//        builder.layoutIconDrawable = R.drawable.logo_920;
+//        // 指定下拉状态栏时显示的通知图标
+//        JPushInterface.setPushNotificationBuilder(2, builder);
         mInstance = this;
         initImageLoader(getApplicationContext());
         SharedPreferences sp=getSharedPreferences("UserUID", Context.MODE_PRIVATE);
