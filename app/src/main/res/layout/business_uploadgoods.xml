@@ -89,7 +89,8 @@
                 android:layout_width="375dp"
                 android:layout_height="375dp"
                 android:layout_centerHorizontal="true"
-                android:visibility="gone"></com.daimajia.slider.library.SliderLayout>
+                android:visibility="gone">
+            </com.daimajia.slider.library.SliderLayout>
 
 
             <RelativeLayout
@@ -455,6 +456,13 @@
 
             </RelativeLayout>
 
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider1"
+                android:layout_width="375dp"
+                android:layout_height="375dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone">
+            </com.daimajia.slider.library.SliderLayout>
             <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->

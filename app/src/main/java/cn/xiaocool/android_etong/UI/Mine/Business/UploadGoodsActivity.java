@@ -51,11 +51,13 @@ import cn.xiaocool.android_etong.util.NetUtil;
 public class UploadGoodsActivity extends Activity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
     private Context mContext;
     private SliderLayout mDemoSlider;
+    private SliderLayout mDemoSlider1;
     private RelativeLayout rl_back, rl_carousel_pic, rl_goods_details, rl_silder;
     private EditText et_biaoti, et_pinpai, et_guige, et_huohao, et_yunfei, et_fahuodi;
     private TextView tx_goods_upload, tv_judge, et_xiangqing;
     private ProgressDialog progressDialog;
     private String show;
+    private int judge;
     private String shopid, shopType;
     private String picStr;
     private List<Provence> provences;
@@ -67,6 +69,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     ArrayAdapter<City> adapter02;
     ArrayAdapter<District> adapter03;
     private HashMap<String, String> url_maps = new HashMap<String, String>();
+    private HashMap<String, String> url_maps1 = new HashMap<String, String>();
+    private List<String> lists;
     private Spinner spinner01, spinner02, spinner03;
     private String result_data;
     private String picname1, picname2, picname3, picname4, picname5;
@@ -207,7 +211,8 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
         etIntro = (EditText) findViewById(R.id.et_intro);
         //轮播图
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
-
+        mDemoSlider1 = (SliderLayout) findViewById(R.id.slider1);
+        lists = new ArrayList<>();
     }
 
     private void initDatas() {
@@ -405,6 +410,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
+            judge = 1;
             Log.e("success", data.getStringExtra("1111"));
             state = data.getIntExtra("state", 1);
             pic_path1 = "";
@@ -442,8 +448,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 pic_path1 = "";
                 mDemoSlider.setVisibility(View.GONE);
                 rl_carousel_pic.setVisibility(View.VISIBLE);
-
-
             } else {
                 mDemoSlider.setVisibility(View.VISIBLE);
                 rl_carousel_pic.setVisibility(View.GONE);
@@ -485,8 +489,11 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             } else {
                 picname5 = picname5 + ".jpg";
             }
+
             initpic();
+
         } else if (requestCode == 1000) {
+            judge = 2;
             Bundle bundle = data.getExtras();
             picStr = bundle.getString("picStr");
             if (TextUtils.isEmpty(picStr)){
@@ -495,6 +502,37 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             }
             String etString = bundle.getString("good_details");
             et_xiangqing.setText(etString);
+            lists = bundle.getStringArrayList("result");
+            Log.e("lists",lists.toString());
+            if (lists!=null){
+                url_maps1.clear();
+                mDemoSlider1.removeAllSliders();
+                for (int i = 0; i < lists.size(); i++) {
+                    url_maps1.put("图"+i, WebAddress.GETAVATAR + lists.get(i).toString());
+                }
+                mDemoSlider1.setVisibility(View.VISIBLE);
+                rl_goods_details.setVisibility(View.GONE);
+                for (String name : url_maps1.keySet()) {
+                    TextSliderView textSliderView = new TextSliderView(mContext);
+                    textSliderView
+                            .description(name)
+                            .image(url_maps1.get(name))
+                            .setScaleType(BaseSliderView.ScaleType.Fit)
+                            .setOnSliderClickListener(this);
+
+                    //add your extra information
+                    textSliderView.bundle(new Bundle());
+                    textSliderView.getBundle()
+                            .putString("extra", name);
+
+                    mDemoSlider1.addSlider(textSliderView);
+                }
+                mDemoSlider1.setPresetTransformer(SliderLayout.Transformer.Default);
+                mDemoSlider1.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+                mDemoSlider1.setCustomAnimation(new DescriptionAnimation());
+                mDemoSlider1.setDuration(4000);
+                mDemoSlider1.addOnPageChangeListener(this);
+            }
         }
     }
 
@@ -576,11 +614,21 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Intent intent2 = new Intent();
-        intent2.setClass(mContext, CarouselPicActivity.class);
-        startActivityForResult(intent2, 1);
-        return;
+        if (judge==1){
+            Intent intent2 = new Intent();
+            intent2.setClass(mContext, CarouselPicActivity.class);
+            startActivityForResult(intent2, 1);
+            return;
+        }
+        if (judge==2){
+            Intent intent3 = new Intent();
+            intent3.setClass(mContext, UploadGoodDetailsActivity.class);
+            intent3.putExtra("tv_content", et_xiangqing.getText());
+            startActivityForResult(intent3, 1000);
+            return;
+        }
     }
+
 }
 
 

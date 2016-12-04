@@ -40,6 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +86,7 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
                         if (state1.equals("success")) {
                             picName = picName + ".jpg";
                             lists.add(picName);
+                            Log.e("lists",lists.toString());
                             cPicAdapter = new cPicAdapter(context, lists);
                             list_pic.setAdapter(cPicAdapter);
                             progressDialog.dismiss();
@@ -122,7 +124,7 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
         user = new UserInfo();
         user.readData(context);
         ButterKnife.bind(this);
-        topTitleText.setText("输入宝贝详情");
+        topTitleText.setText("输入;宝贝详情");
         Intent intent = getIntent();
         final String content = intent.getStringExtra("tv_content");
         uploadGoodDetailsEt.setText(content);
@@ -157,6 +159,8 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
             case R.id.btn_back:
                 Intent intent0 = new Intent();
                 intent0.putExtra("good_details", "");
+                intent0.putExtra("picStr", "");
+                intent0.putExtra("result", (Serializable) lists);
                 setResult(1000, intent0);
                 finish();
                 break;
@@ -173,6 +177,7 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
                     Log.e("picStr=", picStr);
                     intent.putExtra("picStr", picStr);
                 }
+                intent.putExtra("result", (Serializable) lists);
                 setResult(1000, intent);
                 finish();
                 break;
@@ -187,6 +192,8 @@ public class UploadGoodDetailsActivity extends Activity implements View.OnClickL
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent0 = new Intent();
             intent0.putExtra("good_details", "");
+            intent0.putExtra("picStr", "");
+            intent0.putExtra("result", (Serializable) lists);
             setResult(1000, intent0);
         }
         return super.onKeyDown(keyCode, event);
