@@ -208,6 +208,7 @@
         <activity android:name=".UI.Mine.Business.MyCommentActivity"></activity>
         <activity android:name=".UI.Mine.Business.EAgencyShopListActivity"></activity>
         <activity android:name=".UI.Mine.Business.StartShopGuideActivity"></activity>
+        <activity android:name=".UI.Mine.Business.GoodsManageSearchActivity"></activity>
 
         <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

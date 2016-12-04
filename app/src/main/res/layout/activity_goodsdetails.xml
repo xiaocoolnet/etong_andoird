@@ -119,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginRight="10dp"
-                            android:background="@mipmap/ic_new" />
+                            android:background="@mipmap/ic_news_red" />
                     </RelativeLayout>
                     <!--分享图标-->
 
