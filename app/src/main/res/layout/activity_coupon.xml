@@ -58,13 +58,13 @@
                     />
             </RelativeLayout>
 
-            <ListView
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
                 android:layout_marginTop="@dimen/activity_size_1"
                 android:id="@+id/listView_everyday_choiceness"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </ListView>
+            </com.handmark.pulltorefresh.library.PullToRefreshListView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
 
