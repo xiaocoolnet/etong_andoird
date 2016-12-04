@@ -274,12 +274,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 登录微信
      */
     private void WXLogin() {
+        Log.e("weixin","weixin");
         WXapi = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", false);
         WXapi.registerApp("wxb32c00ffa8140d93");
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
         req.state = "wechat_sdk_demo";
         WXapi.sendReq(req);
+        Log.e("weixin","weixin");
     }
 
     @Override
