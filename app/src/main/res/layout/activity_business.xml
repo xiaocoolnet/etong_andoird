@@ -273,13 +273,13 @@
                         />
                 </RelativeLayout>
             </LinearLayout>
-            <ImageView
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="@mipmap/ic_guanggao"
-                android:layout_marginBottom="15dp"
-                />
+            <!--<ImageView-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="75dp"-->
+                <!--android:background="@mipmap/ic_guanggao"-->
+                <!--android:layout_marginBottom="15dp"-->
+                <!--/>-->
             <include layout="@layout/business_item1"/>
             <include layout="@layout/business_item2"/>
         </LinearLayout>
