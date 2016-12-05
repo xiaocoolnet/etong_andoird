@@ -9,11 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -62,7 +60,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private String shopid, shopname, shop_uid, shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
-    private Button btn_chat_store;
+    private Button btn_chat_store,btn_lianximaijia;
     private ImageView img_store_head;
     private GridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
@@ -204,6 +202,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         rl_back.setOnClickListener(this);
         btn_shoucang = (Button) findViewById(R.id.btn_shoucang);
         btn_shoucang.setOnClickListener(this);
+        btn_lianximaijia = (Button) findViewById(R.id.btn_lianximaijia);
+        btn_lianximaijia.setOnClickListener(this);
         btn_chat_store = (Button) findViewById(R.id.btn_chat_store);
         btn_chat_store.setOnClickListener(this);
         shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
@@ -245,7 +245,14 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                 showSharePopwindow();
 //                showPopupMenu(shopShare);//弹出分享店铺菜单
                 break;
-
+            case R.id.btn_lianximaijia:
+                Intent intent2 = new Intent();
+                intent2.putExtra("shop_uid", shop_uid);
+                intent2.putExtra("shop_photo", shop_photo);
+                intent2.putExtra("shopname", shopname);
+                intent2.setClass(context, ChatActivity.class);
+                startActivity(intent2);
+                break;
         }
     }
 

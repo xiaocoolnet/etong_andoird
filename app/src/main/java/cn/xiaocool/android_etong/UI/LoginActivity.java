@@ -537,7 +537,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 

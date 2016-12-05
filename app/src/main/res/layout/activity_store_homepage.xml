@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="105dp"
                     android:layout_marginTop="1dp"
-                    android:background="@mipmap/ic_dianpubeijing">
+                   android:background="@color/whilte">
 
                     <ImageView
                         android:id="@+id/img_store_head"
@@ -129,8 +129,8 @@
                         android:layout_alignTop="@+id/img_store_head"
                         android:layout_marginLeft="85dp"
                         android:text="E小姐原创衣柜"
-                        android:textColor="@color/whilte"
-                        android:textSize="13sp" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tx_store_saleNum"
@@ -138,12 +138,13 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tx_store_name"
                         android:layout_marginLeft="@dimen/activity_size_85"
-                        android:layout_marginTop="@dimen/activity_size_3"
+                        android:layout_marginTop="25dp"
                         android:text="累计销售：1550"
-                        android:textColor="@color/whilte"
-                        android:textSize="@dimen/text_size_10" />
+                        android:textColor="@color/black1"
+                        android:textSize="14sp" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/ll_store_starNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -177,22 +178,9 @@
                             android:background="@mipmap/ic_star_half" />
                     </LinearLayout>
 
-
-                    <TextView
-                        android:id="@+id/tx_store_intro"
-                        android:layout_width="@dimen/activity_size_200"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ll_store_starNum"
-                        android:layout_marginLeft="@dimen/activity_size_85"
-                        android:layout_marginTop="@dimen/activity_size_5"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="店铺介绍：出售各类衣服、代理各大品牌销售品牌服装，线上线下销售。"
-                        android:textColor="@color/whilte"
-                        android:textSize="@dimen/text_size_9" />
-
-
+                    <!--联系卖家 已经注释-->
                     <Button
+                        android:visibility="gone"
                         android:id="@+id/btn_shoucang"
                         android:layout_width="66dp"
                         android:layout_height="26dp"
@@ -201,21 +189,70 @@
                         android:layout_marginRight="10dp"
                         android:background="@drawable/shop_shoucang"
                         android:paddingLeft="20dp"
-                        android:text="收藏"
+                        android:text="联系卖家"
                         android:textColor="@color/whilte"
                         android:textSize="11sp" />
 
+                    <Button
+                        android:id="@+id/btn_lianximaijia"
+                        android:layout_width="66dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/img_store_head"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/txt_red"
+                        android:text="联系卖家"
+                        android:textColor="@color/whilte"
+                        android:textSize="11sp" />
                     <TextView
                         android:layout_width="wrap_content"
+                        android:layout_alignTop="@+id/tx_store_saleNum"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
                         android:text="收藏:1234人"
-                        android:textColor="@color/whilte"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black1"
+                        android:textSize="14sp" />
                 </RelativeLayout>
+                <TextView
+                    android:id="@+id/tx_store_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/ll_store_starNum"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@color/whilte"
+                   android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="店铺介绍：出售各类衣服、代理各大品牌销售品牌服装，线上线下销售。"
+                    android:textColor="@color/black1"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/ll_store_starNum"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="优惠券"
+                    android:textColor="@color/black1"
+                    android:textSize="15sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/ll_store_starNum"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:background="@color/whilte"
+                    android:text="目前暂无优惠券"
+                    android:textColor="@color/black1"
+                    android:textSize="15sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -228,16 +265,19 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:text="全部宝贝"
+                        android:text="全部商品"
                         android:textColor="@color/black" />
-
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_next" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="默认排序 ∨"
+                        android:textColor="@color/main_color_red" />
+
+
                 </RelativeLayout>
 
                 <cn.xiaocool.android_etong.util.NoScrollGridView

@@ -11,14 +11,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.view.menu.MenuPopupHelper;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -51,7 +46,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -138,7 +132,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         if (status.equals("success")) {
-
                             progressDialog.dismiss();
                             Toast.makeText(context, "添加购物车成功", Toast.LENGTH_SHORT).show();
                         } else {

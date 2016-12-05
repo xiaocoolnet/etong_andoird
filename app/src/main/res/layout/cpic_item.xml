@@ -9,8 +9,8 @@
         android:layout_centerInParent="true"
         android:id="@+id/img_pic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
         />
     </RelativeLayout>
 </RelativeLayout>
