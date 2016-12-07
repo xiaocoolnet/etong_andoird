@@ -60,7 +60,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private String shopid, shopname, shop_uid, shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
-    private Button btn_chat_store,btn_lianximaijia;
+    private Button btn_chat_store;
     private ImageView img_store_head;
     private GridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
@@ -178,7 +178,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
 
-
         // 微信注册初始化
         api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", true);
         api.registerApp("wxb32c00ffa8140d93");
@@ -202,8 +201,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         rl_back.setOnClickListener(this);
         btn_shoucang = (Button) findViewById(R.id.btn_shoucang);
         btn_shoucang.setOnClickListener(this);
-        btn_lianximaijia = (Button) findViewById(R.id.btn_lianximaijia);
-        btn_lianximaijia.setOnClickListener(this);
         btn_chat_store = (Button) findViewById(R.id.btn_chat_store);
         btn_chat_store.setOnClickListener(this);
         shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
@@ -244,14 +241,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             case R.id.shop_right_share_icon:
                 showSharePopwindow();
 //                showPopupMenu(shopShare);//弹出分享店铺菜单
-                break;
-            case R.id.btn_lianximaijia:
-                Intent intent2 = new Intent();
-                intent2.putExtra("shop_uid", shop_uid);
-                intent2.putExtra("shop_photo", shop_photo);
-                intent2.putExtra("shopname", shopname);
-                intent2.setClass(context, ChatActivity.class);
-                startActivity(intent2);
                 break;
         }
     }
