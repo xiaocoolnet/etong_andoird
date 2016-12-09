@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -60,7 +61,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private String shopid, shopname, shop_uid, shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
-    private Button btn_chat_store,btn_lianximaijia;
+    private Button btn_chat_store, btn_lianximaijia;
     private ImageView img_store_head;
     private GridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
@@ -118,6 +119,11 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 JSONObject jsonObject1 = jsonObject0.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
+                                starLevel = jsonObject1.getString("level");
+                                if (!starLevel.equals("")) {
+                                    //设置星星显示个数
+                                    setStarBg(starLevel);
+                                }
                                 shop_uid = jsonObject1.getString("uid");
                                 shop_photo = head;
                                 shopname = jsonObject1.getString("shopname");
@@ -165,9 +171,38 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             }
         }
     };
+    private LinearLayout starLayout;
+
+    private void setStarBg(String starLevel) {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        switch (starLevel) {
+            case "0.5":
+                layoutInflater.inflate(R.layout.red_star_05, starLayout);
+            case "1":
+                layoutInflater.inflate(R.layout.red_star_1, starLayout);
+            case "1.5":
+                layoutInflater.inflate(R.layout.red_star_15, starLayout);
+            case "2":
+                layoutInflater.inflate(R.layout.red_star_2, starLayout);
+            case "2.5":
+                layoutInflater.inflate(R.layout.red_star_25, starLayout);
+            case "3":
+                layoutInflater.inflate(R.layout.red_star_3, starLayout);
+            case "3.5":
+                layoutInflater.inflate(R.layout.red_star_35, starLayout);
+            case "4":
+                layoutInflater.inflate(R.layout.red_star_4, starLayout);
+            case "4.5":
+                layoutInflater.inflate(R.layout.red_star_45, starLayout);
+            case "5":
+                layoutInflater.inflate(R.layout.red_star_5, starLayout);
+        }
+    }
+
     private RelativeLayout shopShare;
 
     private IWXAPI api;
+    private String starLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +243,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         btn_chat_store.setOnClickListener(this);
         shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
         shopShare.setOnClickListener(this);
+        starLayout = (LinearLayout) findViewById(R.id.store_red_star);
     }
 
     private void initdata() {
@@ -288,9 +324,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         window.setBackgroundDrawable(cd);
 
 
-
-
-
 //        // 设置popWindow的显示和消失动画
 //        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
@@ -308,28 +341,28 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
             @Override
             public void onClick(View v) {
-                share2weixin(0,shopname);//好友
+                share2weixin(0, shopname);//好友
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                share2weixin(1,shopname);//朋友圈
+                share2weixin(1, shopname);//朋友圈
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到QQ功能正在开发中");
             }
         });
         icMicroBlog.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到微博功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到微博功能正在开发中");
             }
         });
         //popWindow消失监听方法
@@ -339,7 +372,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             public void onDismiss() {
                 //设置背景变回原色
                 WindowManager.LayoutParams lp = StoreHomepageActivity.this.getWindow().getAttributes();
-                lp.alpha =1f;
+                lp.alpha = 1f;
                 StoreHomepageActivity.this.getWindow().setAttributes(lp);
             }
         });
@@ -412,7 +445,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     }
 
 
-    private void share2weixin(int flag,String shopName) {
+    private void share2weixin(int flag, String shopName) {
         // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
         // R.drawable.weixin_share);
 
