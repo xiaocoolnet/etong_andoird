@@ -36,6 +36,7 @@ public class EverydayGoodShopAdapter extends BaseAdapter {
     private List<EveryDayGoodShopBean.DataBean> dataBeenList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
+
     public EverydayGoodShopAdapter(Context context, List<EveryDayGoodShopBean.DataBean> dataBeenList) {
         this.layoutInflater = LayoutInflater.from(context);
         this.dataBeenList = dataBeenList;
@@ -71,17 +72,14 @@ public class EverydayGoodShopAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.homepage_everyday_goodshop_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + picName,
-                    viewHolder.shopPic, displayImageOptions);
-            viewHolder.shopTvName.setText(dataBeenList.get(position).getShopname());
-//            viewHolder.likeTvPeopleNum.setText(dataBeenList.get(position).getFavorite());
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + picName,
-                    viewHolder.shopPic, displayImageOptions);
-            viewHolder.shopTvName.setText(dataBeenList.get(position).getShopname());
-//            viewHolder.likeTvPeopleNum.setText(dataBeenList.get(position).getFavorite());
         }
+        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + picName,
+                viewHolder.shopPic, displayImageOptions);
+        viewHolder.shopTvName.setText(dataBeenList.get(position).getShopname());
+        viewHolder.likeTvPeopleNum.setText(dataBeenList.get(position).getLikeNum());
 
         viewHolder.llClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +87,11 @@ public class EverydayGoodShopAdapter extends BaseAdapter {
                 if (v.getId() == R.id.homepage_everyday_goodshop_ll) {
                     Intent intent = new Intent();
                     intent.setClass(context, StoreHomepageActivity.class);
-                    intent.putExtra("shopid",bean.getId());
+                    intent.putExtra("shopid", bean.getId());
                     context.startActivity(intent);
                 }
             }
         });
-
-
 
 
         return convertView;

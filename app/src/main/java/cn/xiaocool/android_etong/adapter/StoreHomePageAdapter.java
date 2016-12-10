@@ -28,11 +28,11 @@ public class StoreHomePageAdapter extends BaseAdapter {
     private ArrayList<StoreHomepage.DataBean> goods_list;
     private LayoutInflater layoutInflater;
     private DisplayImageOptions displayImageOptions;
-    private String shopid,shop_uid,shop_photo;
+    private String shopid, shop_uid, shop_photo;
     private Context context;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    public StoreHomePageAdapter(Context context , ArrayList<StoreHomepage.DataBean> goods_list,String shopid,String shop_uid,String shop_photo){
+    public StoreHomePageAdapter(Context context, ArrayList<StoreHomepage.DataBean> goods_list, String shopid, String shop_uid, String shop_photo) {
         layoutInflater = LayoutInflater.from(context);
         this.goods_list = goods_list;
         this.context = context;
@@ -64,32 +64,32 @@ public class StoreHomePageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         final StoreHomepage.DataBean dataBean = goods_list.get(position);
-        if (convertView==null){
-            convertView = layoutInflater.inflate(R.layout.activity_store_homepage_item,null);
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.activity_store_homepage_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         String pic = dataBean.getPicture();
         String[] arraypic = pic.split("[,]");
-        imageLoader.displayImage(WebAddress.GETAVATAR+arraypic[0],holder.img_goods_pic,displayImageOptions);
-        holder.tx_goods_price.setText( "￥"+dataBean.getPrice());
+        imageLoader.displayImage(WebAddress.GETAVATAR + arraypic[0], holder.img_goods_pic, displayImageOptions);
+        holder.tx_goods_price.setText("￥" + dataBean.getPrice());
         holder.tx_goods_name.setText(dataBean.getGoodsname());
         holder.img_goods_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId()==R.id.img_goods_pic){
+                if (v.getId() == R.id.img_goods_pic) {
                     Intent intent = new Intent();
-                    intent.putExtra("pic",dataBean.getPicture());
-                    intent.putExtra("shopid",shopid);
-                    intent.putExtra("id",dataBean.getId());
-                    intent.putExtra("price",dataBean.getPrice());
-                    intent.putExtra("goodsname",dataBean.getGoodsname());
-                    intent.putExtra("shopname",dataBean.getShowid());
-                    intent.putExtra("shop_uid",shop_uid);
-                    intent.putExtra("shop_photo",shop_photo);
+                    intent.putExtra("pic", dataBean.getPicture());
+                    intent.putExtra("shopid", shopid);
+                    intent.putExtra("id", dataBean.getId());
+                    intent.putExtra("price", dataBean.getPrice());
+                    intent.putExtra("goodsname", dataBean.getGoodsname());
+                    intent.putExtra("shopname", dataBean.getShowid());
+                    intent.putExtra("shop_uid", shop_uid);
+                    intent.putExtra("shop_photo", shop_photo);
                     intent.setClass(context, GoodsDetailActivity.class);
                     context.startActivity(intent);
                 }
@@ -97,13 +97,15 @@ public class StoreHomePageAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    class ViewHolder{
+
+    class ViewHolder {
         ImageView img_goods_pic;
-        TextView tx_goods_name,tx_goods_price;
-        public ViewHolder(View convertView){
-            img_goods_pic = (ImageView)convertView.findViewById(R.id.img_goods_pic);
-            tx_goods_name = (TextView)convertView.findViewById(R.id.tx_goods_name);
-            tx_goods_price = (TextView)convertView.findViewById(R.id.tx_goods_price);
+        TextView tx_goods_name, tx_goods_price;
+
+        public ViewHolder(View convertView) {
+            img_goods_pic = (ImageView) convertView.findViewById(R.id.img_goods_pic);
+            tx_goods_name = (TextView) convertView.findViewById(R.id.tx_goods_name);
+            tx_goods_price = (TextView) convertView.findViewById(R.id.tx_goods_price);
         }
     }
 }

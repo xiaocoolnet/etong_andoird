@@ -22,4 +22,8 @@ public interface NetBaseConstant {
      * 分享h5界面前缀
      */
     String SHARE_H5_PREFIX = "http://www.mwn.xiaocool.net/index.php?g=portal&m=article&";
+    /**
+     * 会员中心
+     */
+    String MEMBER_CENTER = "http://mwn.xiaocool.net/index.php?g=portal&m=article&a=member&uid=";
 }

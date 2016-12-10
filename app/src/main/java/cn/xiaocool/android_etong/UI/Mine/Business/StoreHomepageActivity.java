@@ -120,6 +120,13 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 starLevel = jsonObject1.getString("level");
+                                String sellCount = jsonObject1.getString("sellcount");
+                                String likeNum = jsonObject1.getString("favorite");
+                                //设置销量、收藏人数
+                                if ((!sellCount.equals("")) && (!likeNum.equals(""))) {
+                                    tvsellCount.setText("累计销售：" + sellCount);
+                                    tvLikeNum.setText("收藏人数：" + likeNum + "人");
+                                }
                                 if (!starLevel.equals("")) {
                                     //设置星星显示个数
                                     setStarBg(starLevel);
@@ -172,6 +179,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         }
     };
     private LinearLayout starLayout;
+    private TextView tvsellCount;
+    private TextView tvLikeNum;
 
     private void setStarBg(String starLevel) {
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -237,13 +246,13 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         rl_back.setOnClickListener(this);
         btn_shoucang = (Button) findViewById(R.id.btn_shoucang);
         btn_shoucang.setOnClickListener(this);
-        btn_lianximaijia = (Button) findViewById(R.id.btn_lianximaijia);
-        btn_lianximaijia.setOnClickListener(this);
         btn_chat_store = (Button) findViewById(R.id.btn_chat_store);
         btn_chat_store.setOnClickListener(this);
         shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
         shopShare.setOnClickListener(this);
         starLayout = (LinearLayout) findViewById(R.id.store_red_star);
+        tvsellCount = (TextView) findViewById(R.id.tx_store_saleNum);
+        tvLikeNum = (TextView) findViewById(R.id.tv_like_num);
     }
 
     private void initdata() {
@@ -281,14 +290,14 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                 showSharePopwindow();
 //                showPopupMenu(shopShare);//弹出分享店铺菜单
                 break;
-            case R.id.btn_lianximaijia:
-                Intent intent2 = new Intent();
-                intent2.putExtra("shop_uid", shop_uid);
-                intent2.putExtra("shop_photo", shop_photo);
-                intent2.putExtra("shopname", shopname);
-                intent2.setClass(context, ChatActivity.class);
-                startActivity(intent2);
-                break;
+//            case R.id.btn_lianximaijia:
+//                Intent intent2 = new Intent();
+//                intent2.putExtra("shop_uid", shop_uid);
+//                intent2.putExtra("shop_photo", shop_photo);
+//                intent2.putExtra("shopname", shopname);
+//                intent2.setClass(context, ChatActivity.class);
+//                startActivity(intent2);
+//                break;
         }
     }
 

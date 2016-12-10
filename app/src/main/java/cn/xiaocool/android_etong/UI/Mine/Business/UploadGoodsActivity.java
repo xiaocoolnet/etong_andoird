@@ -236,7 +236,6 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                 }
             }.start();
         } else {
-            Log.e("net", "is not open");
         }
     }
 
@@ -358,7 +357,7 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
                                                         progressDialog.show();
                                                         Log.e("pic=", picname4 + "  " + picname5);
                                                         new MainRequest(mContext, handler).publishgoods(shopid, picname1, picname2, picname3, picname4, picname5,
-                                                                biaoti, intro, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi,picStr);
+                                                                biaoti, intro, show, pinpai, huohao, guige, price, oprice, yunfei, inventory, xiangqing, fahuodi, picStr);
                                                     } else {
                                                         Toast.makeText(mContext, "请检查网络", Toast.LENGTH_SHORT).show();
                                                     }
@@ -496,19 +495,19 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
             judge = 2;
             Bundle bundle = data.getExtras();
             picStr = bundle.getString("picStr");
-            if (TextUtils.isEmpty(picStr)){
-            }else {
+            if (TextUtils.isEmpty(picStr)) {
+            } else {
                 Log.e("picStr=", picStr);
             }
             String etString = bundle.getString("good_details");
             et_xiangqing.setText(etString);
             lists = bundle.getStringArrayList("result");
-            Log.e("lists",lists.toString());
-            if (lists!=null){
+            Log.e("lists", lists.toString());
+            if (lists != null) {
                 url_maps1.clear();
                 mDemoSlider1.removeAllSliders();
                 for (int i = 0; i < lists.size(); i++) {
-                    url_maps1.put("图"+i, WebAddress.GETAVATAR + lists.get(i).toString());
+                    url_maps1.put("图" + i, WebAddress.GETAVATAR + lists.get(i).toString());
                 }
                 mDemoSlider1.setVisibility(View.VISIBLE);
                 rl_goods_details.setVisibility(View.GONE);
@@ -614,13 +613,13 @@ public class UploadGoodsActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        if (judge==1){
+        if (judge == 1) {
             Intent intent2 = new Intent();
             intent2.setClass(mContext, CarouselPicActivity.class);
             startActivityForResult(intent2, 1);
             return;
         }
-        if (judge==2){
+        if (judge == 2) {
             Intent intent3 = new Intent();
             intent3.setClass(mContext, UploadGoodDetailsActivity.class);
             intent3.putExtra("tv_content", et_xiangqing.getText());

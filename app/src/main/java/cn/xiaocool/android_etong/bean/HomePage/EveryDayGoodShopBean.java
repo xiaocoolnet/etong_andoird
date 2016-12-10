@@ -46,6 +46,7 @@ public class EveryDayGoodShopBean {
         private String license_pic;
         private String state;
         private String create_time;
+        private String likeNum;
 
         public String getId() {
             return id;
@@ -110,6 +111,13 @@ public class EveryDayGoodShopBean {
         public void setAddress(String address) {
             this.address = address;
         }
+        public void setLikeNum(String likeNum) {
+            this.likeNum = likeNum;
+        }
+        public String getLikeNum() {
+            return likeNum;
+        }
+
 
         public String getIdcard() {
             return idcard;

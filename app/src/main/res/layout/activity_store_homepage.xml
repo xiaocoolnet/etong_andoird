@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/img_store_head"
                         android:layout_marginLeft="85dp"
-                        android:text="E小姐原创衣柜"
+                        android:text="e通衣柜"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -193,22 +193,22 @@
                     </LinearLayout>
 
                     <!--联系卖家 已经注释-->
-                    <Button
-                        android:visibility="gone"
-                        android:id="@+id/btn_shoucang"
-                        android:layout_width="66dp"
-                        android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@+id/img_store_head"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/shop_shoucang"
-                        android:paddingLeft="20dp"
-                        android:text="联系卖家"
-                        android:textColor="@color/whilte"
-                        android:textSize="11sp" />
+                    <!--<Button-->
+                        <!--android:visibility="gone"-->
+                        <!--android:id="@+id/btn_shoucang"-->
+                        <!--android:layout_width="66dp"-->
+                        <!--android:layout_height="26dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_alignTop="@+id/img_store_head"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@drawable/shop_shoucang"-->
+                        <!--android:paddingLeft="20dp"-->
+                        <!--android:text="联系卖家"-->
+                        <!--android:textColor="@color/whilte"-->
+                        <!--android:textSize="11sp" />-->
 
                     <Button
-                        android:id="@+id/btn_lianximaijia"
+                        android:id="@+id/btn_shoucang"
                         android:layout_width="66dp"
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
@@ -219,6 +219,7 @@
                         android:textColor="@color/whilte"
                         android:textSize="11sp" />
                     <TextView
+                        android:id="@+id/tv_like_num"
                         android:layout_width="wrap_content"
                         android:layout_alignTop="@+id/tx_store_saleNum"
                         android:layout_height="wrap_content"

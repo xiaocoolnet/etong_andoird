@@ -102,6 +102,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     public static final String action = "jason.broadcast.action";
     private GoodRecommendAdapter goodRecommendAdapter;
     private Handler handler = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -114,10 +115,13 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                             JSONObject jsonObject = json.getJSONObject("data");
                             address = jsonObject.getString("address");
                             tv_goods_address.setText(address);
+                            //设置运费
+                            String freight = jsonObject.getString("freight");
+                            tvFreight.setText("快递：" + freight + "元");
                             description = jsonObject.getString("description");
                             tv_goods_description.setText(description);
                             content = jsonObject.getString("content");
-                            Log.e("content=",content);
+                            Log.e("content=", content);
                             picStr = jsonObject.getString("cpiclist");
                         } else {
                             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
@@ -280,6 +284,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private GridView relevanceGridView;
     private RelativeLayout shareGoodIcon;
     private IWXAPI api;
+    private TextView tvFreight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -361,6 +367,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         relevanceGridView = (GridView) findViewById(R.id.details_gv_relevance_goods);
         shareGoodIcon = (RelativeLayout) findViewById(R.id.good_details_share_icon);
         shareGoodIcon.setOnClickListener(this);
+        tvFreight = (TextView) findViewById(R.id.good_details_freight);
     }
 
 
@@ -422,7 +429,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
 //        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
         for (int i = 0; i < arraypic.length; i++) {
-            url_maps.put(goodsname + "  图" + i, WebAddress.GETAVATAR + arraypic[i]);
+            url_maps.put("图" + i, WebAddress.GETAVATAR + arraypic[i]);
         }
         if (arraypic.length == 1) {
             img_goods_pic.setVisibility(View.VISIBLE);
@@ -457,7 +464,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     @Override
 
 
-      
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
@@ -496,11 +502,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.tx_pic_txt:
                 Intent intent2 = new Intent();
-                intent2.setClass(context,ImgTxtDetailActivity.class);
-                intent2.putExtra("pic",pic);
-                intent2.putExtra("content",content);
-                intent2.putExtra("goodsname",goodsname);
-                intent2.putExtra("picStr",picStr);
+                intent2.setClass(context, ImgTxtDetailActivity.class);
+                intent2.putExtra("pic", pic);
+                intent2.putExtra("content", content);
+                intent2.putExtra("goodsname", goodsname);
+                intent2.putExtra("picStr", picStr);
                 startActivity(intent2);
                 break;
             case R.id.good_details_share_icon:
@@ -543,9 +549,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         window.setBackgroundDrawable(cd);
 
 
-
-
-
 //        // 设置popWindow的显示和消失动画
 //        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
@@ -563,28 +566,28 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onClick(View v) {
-                share2weixin(0,goodsname);//好友
+                share2weixin(0, goodsname);//好友
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                share2weixin(1,goodsname);//朋友圈
+                share2weixin(1, goodsname);//朋友圈
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到QQ功能正在开发中");
             }
         });
         icMicroBlog.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到微博功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到微博功能正在开发中");
             }
         });
         //popWindow消失监听方法
@@ -594,7 +597,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             public void onDismiss() {
                 //设置背景变回原色
                 WindowManager.LayoutParams lp = GoodsDetailActivity.this.getWindow().getAttributes();
-                lp.alpha =1f;
+                lp.alpha = 1f;
                 GoodsDetailActivity.this.getWindow().setAttributes(lp);
             }
         });
@@ -653,9 +656,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //    }
 
 
-
-
-    private void share2weixin(int flag,String goodName) {
+    private void share2weixin(int flag, String goodName) {
         // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
         // R.drawable.weixin_share);
 

@@ -109,6 +109,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 dataBean.setShopname(dataObject.getString("shopname"));
                                 dataBean.setPhoto(dataObject.getString("photo"));
                                 dataBean.setAddress(dataObject.getString("address"));
+                                dataBean.setLikeNum("1220");
                                 dataBeenList.add(dataBean);
                             }
                             everydayGoodShopAdapter = new EverydayGoodShopAdapter(context, dataBeenList);
