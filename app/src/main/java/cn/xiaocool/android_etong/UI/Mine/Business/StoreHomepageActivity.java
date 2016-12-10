@@ -47,6 +47,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
@@ -181,6 +182,13 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private LinearLayout starLayout;
     private TextView tvsellCount;
     private TextView tvLikeNum;
+    private Button btnShare;
+    private TextView tvSort;
+    private PopupWindow sortPopupWindow;
+    private TextView sortTv3;
+    private TextView sortTv2;
+    private TextView sortTv1;
+    private TextView sortTv0;
 
     private void setStarBg(String starLevel) {
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -208,7 +216,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private RelativeLayout shopShare;
+    private RelativeLayout shopSearch;
 
     private IWXAPI api;
     private String starLevel;
@@ -248,11 +256,15 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         btn_shoucang.setOnClickListener(this);
         btn_chat_store = (Button) findViewById(R.id.btn_chat_store);
         btn_chat_store.setOnClickListener(this);
-        shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
-        shopShare.setOnClickListener(this);
+        shopSearch = (RelativeLayout) findViewById(R.id.shop_right_search_icon);
+        shopSearch.setOnClickListener(this);
         starLayout = (LinearLayout) findViewById(R.id.store_red_star);
         tvsellCount = (TextView) findViewById(R.id.tx_store_saleNum);
         tvLikeNum = (TextView) findViewById(R.id.tv_like_num);
+        btnShare = (Button) findViewById(R.id.btn_store_share);
+        btnShare.setOnClickListener(this);
+        tvSort = (TextView) findViewById(R.id.tv_store_home_sort);
+        tvSort.setOnClickListener(this);
     }
 
     private void initdata() {
@@ -286,7 +298,11 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                 intent1.setClass(context, ChatActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.shop_right_share_icon:
+            case R.id.shop_right_search_icon:
+                //跳转搜索
+                IntentUtils.getIntents(context,SearchStoreHomeActivity.class);
+                break;
+            case R.id.btn_store_share:
                 showSharePopwindow();
 //                showPopupMenu(shopShare);//弹出分享店铺菜单
                 break;
@@ -298,8 +314,73 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 //                intent2.setClass(context, ChatActivity.class);
 //                startActivity(intent2);
 //                break;
+            //四个排序选择
+            case R.id.tv_store_home_sort:
+                showSortPopWindow();
+                break;
+            case R.id.search_pop_sort0:
+                tvSort.setText(sortTv0.getText() + " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort1:
+                tvSort.setText(sortTv1.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort2:
+                tvSort.setText(sortTv2.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort3:
+                tvSort.setText(sortTv3.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
         }
     }
+
+
+
+    /**排序popupWindow
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
+    private void showSortPopWindow() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.search_sort_popuplayout, null);
+        sortPopupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        sortPopupWindow.setBackgroundDrawable(cd);
+        sortPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+        sortPopupWindow.showAsDropDown(tvSort, 0, 0);//puw显示位置
+
+        sortTv0 = (TextView) contentView.findViewById(R.id.search_pop_sort0);
+        sortTv1 = (TextView) contentView.findViewById(R.id.search_pop_sort1);
+        sortTv2 = (TextView) contentView.findViewById(R.id.search_pop_sort2);
+        sortTv3 =  (TextView) contentView.findViewById(R.id.search_pop_sort3);
+        sortTv0.setOnClickListener(this);
+        sortTv1.setOnClickListener(this);
+        sortTv2.setOnClickListener(this);
+        sortTv3.setOnClickListener(this);
+    }
+
+
+
 
 
     /**

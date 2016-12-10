@@ -53,7 +53,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CommunalInterfaces.SEARCH_GOODS:
-                    Log.e("yes","enter");
+                    Log.e("yes", "enter");
                     try {
                         JSONObject jsonObject = (JSONObject) msg.obj;
                         String state = jsonObject.getString("status");
@@ -62,6 +62,7 @@ public class SearchResultGoodsActivity extends Activity implements View.OnClickL
                             Log.e("success", "加载数据");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
                                 Local local = new Local();
                                 local.setId(jsonObject1.getString("id"));
                                 local.setShopid(jsonObject1.getString("shopid"));
