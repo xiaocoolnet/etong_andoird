@@ -173,23 +173,13 @@
                 android:layout_height="58dp"
                 android:background="@color/whilte">
 
-                <TextView
-                    android:id="@+id/tx_goods_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:maxLines="2"
-                    android:text="商品名称"
-                    android:textColor="@color/black" />
+
 
 
                 <TextView
                     android:id="@+id/tx_goods_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tx_goods_name"
                     android:layout_marginLeft="@dimen/activity_size_10"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
@@ -214,6 +204,14 @@
                     android:layout_marginTop="10dp"
                     android:text="已售：1252件"
                     android:textColor="@color/black3" />
+                <TextView
+                    android:layout_below="@+id/tx_goods_price"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:id="@+id/good_details_freight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="快递：0.00" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -226,18 +224,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="快递：0.00" />
 
-                    <TextView
-                        android:id="@+id/tv_goods_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="江苏常州" />
+
+
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
@@ -245,25 +234,40 @@
                     <!--android:text="已售:240"-->
                     <!--/>-->
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_goods_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    android:text="江苏常州" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/whilte">
 
+
+
                 <TextView
+                    android:id="@+id/tx_goods_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="商品描述"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="商品名称"
                     android:textColor="@color/black" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="1dp"
                 android:background="@color/whilte">
@@ -274,6 +278,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:hint="商品描述"
+                    android:ellipsize="end"
+                    android:maxLines="7"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:textColor="@color/black" />

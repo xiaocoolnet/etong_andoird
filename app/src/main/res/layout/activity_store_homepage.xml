@@ -16,20 +16,30 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btn_good_classify"
+                android:id="@+id/btn_store_homepage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/whilte"
-                android:text="宝贝分类"
+                android:text="首页"
                 android:textColor="@color/black" />
             <Button
+                android:layout_marginLeft="@dimen/activity_size_1"
                 android:id="@+id/btn_chat_store"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/whilte"
                 android:text="联系卖家"
+                android:textColor="@color/black" />
+            <Button
+                android:layout_marginLeft="@dimen/activity_size_1"
+                android:id="@+id/btn_store_share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/whilte"
+                android:text="分享"
                 android:textColor="@color/black" />
         </LinearLayout>
     </RelativeLayout>
@@ -86,7 +96,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/shop_right_share_icon"
+                android:id="@+id/shop_right_search_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/shop_search_center">
@@ -130,10 +140,24 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/img_store_head"
                         android:layout_marginLeft="85dp"
-                        android:text="E小姐原创衣柜"
+                        android:text="e通衣柜"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
+                    <!--星星-->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/store_red_star"
+                        android:layout_below="@+id/tx_store_name"
+                        android:layout_toRightOf="@+id/img_store_head"
+                        android:layout_marginLeft="@dimen/activity_size_5"
+                        android:layout_marginTop="@dimen/activity_size_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/tx_store_saleNum"
                         android:layout_width="wrap_content"
@@ -205,6 +229,7 @@
                         android:textColor="@color/whilte"
                         android:textSize="11sp" />
                     <TextView
+                        android:id="@+id/tv_like_num"
                         android:layout_width="wrap_content"
                         android:layout_alignTop="@+id/tx_store_saleNum"
                         android:layout_height="wrap_content"
@@ -228,31 +253,31 @@
                     android:text="店铺介绍：出售各类衣服、代理各大品牌销售品牌服装，线上线下销售。"
                     android:textColor="@color/black1"
                     android:textSize="13sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_below="@+id/ll_store_starNum"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="2"
-                    android:text="优惠券"
-                    android:textColor="@color/black1"
-                    android:textSize="15sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_below="@+id/ll_store_starNum"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="2"
-                    android:background="@color/whilte"
-                    android:text="目前暂无优惠券"
-                    android:textColor="@color/black1"
-                    android:textSize="15sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:layout_below="@+id/ll_store_starNum"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:paddingRight="10dp"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:text="优惠券"-->
+                    <!--android:textColor="@color/black1"-->
+                    <!--android:textSize="15sp" />-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_below="@+id/ll_store_starNum"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:paddingRight="10dp"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:background="@color/whilte"-->
+                    <!--android:text="目前暂无优惠券"-->
+                    <!--android:textColor="@color/black1"-->
+                    <!--android:textSize="15sp" />-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -268,13 +293,14 @@
                         android:text="全部商品"
                         android:textColor="@color/black" />
                     <TextView
+                        android:id="@+id/tv_store_home_sort"
                         android:layout_width="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:text="默认排序 ∨"
+                        android:text="综合排序 ∨"
                         android:textColor="@color/main_color_red" />
 
 

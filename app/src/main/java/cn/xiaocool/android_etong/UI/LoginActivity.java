@@ -269,7 +269,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         KeyBoardUtils.showKeyBoardByTime(et_login_phone, 300);
     }
 
-
     /**
      * 登录微信
      */

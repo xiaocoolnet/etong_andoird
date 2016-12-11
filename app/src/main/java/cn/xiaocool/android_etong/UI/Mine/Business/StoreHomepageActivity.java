@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -46,6 +47,7 @@ import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
@@ -60,7 +62,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private String shopid, shopname, shop_uid, shop_photo;
     private RelativeLayout rl_back;
     private TextView tx_store_name;
-    private Button btn_chat_store;
+    private Button btn_chat_store, btn_lianximaijia;
     private ImageView img_store_head;
     private GridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
@@ -118,6 +120,18 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 JSONObject jsonObject1 = jsonObject0.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
+                                starLevel = jsonObject1.getString("level");
+                                String sellCount = jsonObject1.getString("sellcount");
+                                String likeNum = jsonObject1.getString("favorite");
+                                //设置销量、收藏人数
+                                if ((!sellCount.equals("")) && (!likeNum.equals(""))) {
+                                    tvsellCount.setText("累计销售：" + sellCount);
+                                    tvLikeNum.setText("收藏人数：" + likeNum + "人");
+                                }
+                                if (!starLevel.equals("")) {
+                                    //设置星星显示个数
+                                    setStarBg(starLevel);
+                                }
                                 shop_uid = jsonObject1.getString("uid");
                                 shop_photo = head;
                                 shopname = jsonObject1.getString("shopname");
@@ -165,9 +179,47 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             }
         }
     };
-    private RelativeLayout shopShare;
+    private LinearLayout starLayout;
+    private TextView tvsellCount;
+    private TextView tvLikeNum;
+    private Button btnShare;
+    private TextView tvSort;
+    private PopupWindow sortPopupWindow;
+    private TextView sortTv3;
+    private TextView sortTv2;
+    private TextView sortTv1;
+    private TextView sortTv0;
+
+    private void setStarBg(String starLevel) {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        switch (starLevel) {
+            case "0.5":
+                layoutInflater.inflate(R.layout.red_star_05, starLayout);
+            case "1":
+                layoutInflater.inflate(R.layout.red_star_1, starLayout);
+            case "1.5":
+                layoutInflater.inflate(R.layout.red_star_15, starLayout);
+            case "2":
+                layoutInflater.inflate(R.layout.red_star_2, starLayout);
+            case "2.5":
+                layoutInflater.inflate(R.layout.red_star_25, starLayout);
+            case "3":
+                layoutInflater.inflate(R.layout.red_star_3, starLayout);
+            case "3.5":
+                layoutInflater.inflate(R.layout.red_star_35, starLayout);
+            case "4":
+                layoutInflater.inflate(R.layout.red_star_4, starLayout);
+            case "4.5":
+                layoutInflater.inflate(R.layout.red_star_45, starLayout);
+            case "5":
+                layoutInflater.inflate(R.layout.red_star_5, starLayout);
+        }
+    }
+
+    private RelativeLayout shopSearch;
 
     private IWXAPI api;
+    private String starLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +229,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         context = this;
         Intent intent = getIntent();
         shopid = intent.getStringExtra("shopid");
+
 
         // 微信注册初始化
         api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", true);
@@ -203,8 +256,15 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         btn_shoucang.setOnClickListener(this);
         btn_chat_store = (Button) findViewById(R.id.btn_chat_store);
         btn_chat_store.setOnClickListener(this);
-        shopShare = (RelativeLayout) findViewById(R.id.shop_right_share_icon);
-        shopShare.setOnClickListener(this);
+        shopSearch = (RelativeLayout) findViewById(R.id.shop_right_search_icon);
+        shopSearch.setOnClickListener(this);
+        starLayout = (LinearLayout) findViewById(R.id.store_red_star);
+        tvsellCount = (TextView) findViewById(R.id.tx_store_saleNum);
+        tvLikeNum = (TextView) findViewById(R.id.tv_like_num);
+        btnShare = (Button) findViewById(R.id.btn_store_share);
+        btnShare.setOnClickListener(this);
+        tvSort = (TextView) findViewById(R.id.tv_store_home_sort);
+        tvSort.setOnClickListener(this);
     }
 
     private void initdata() {
@@ -238,12 +298,89 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                 intent1.setClass(context, ChatActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.shop_right_share_icon:
+            case R.id.shop_right_search_icon:
+                //跳转搜索
+                IntentUtils.getIntents(context,SearchStoreHomeActivity.class);
+                break;
+            case R.id.btn_store_share:
                 showSharePopwindow();
 //                showPopupMenu(shopShare);//弹出分享店铺菜单
                 break;
+//            case R.id.btn_lianximaijia:
+//                Intent intent2 = new Intent();
+//                intent2.putExtra("shop_uid", shop_uid);
+//                intent2.putExtra("shop_photo", shop_photo);
+//                intent2.putExtra("shopname", shopname);
+//                intent2.setClass(context, ChatActivity.class);
+//                startActivity(intent2);
+//                break;
+            //四个排序选择
+            case R.id.tv_store_home_sort:
+                showSortPopWindow();
+                break;
+            case R.id.search_pop_sort0:
+                tvSort.setText(sortTv0.getText() + " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort1:
+                tvSort.setText(sortTv1.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort2:
+                tvSort.setText(sortTv2.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
+            case R.id.search_pop_sort3:
+                tvSort.setText(sortTv3.getText()+ " ∨");
+                sortPopupWindow.dismiss();
+                break;
         }
     }
+
+
+
+    /**排序popupWindow
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
+    private void showSortPopWindow() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.search_sort_popuplayout, null);
+        sortPopupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        sortPopupWindow.setBackgroundDrawable(cd);
+        sortPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+        sortPopupWindow.showAsDropDown(tvSort, 0, 0);//puw显示位置
+
+        sortTv0 = (TextView) contentView.findViewById(R.id.search_pop_sort0);
+        sortTv1 = (TextView) contentView.findViewById(R.id.search_pop_sort1);
+        sortTv2 = (TextView) contentView.findViewById(R.id.search_pop_sort2);
+        sortTv3 =  (TextView) contentView.findViewById(R.id.search_pop_sort3);
+        sortTv0.setOnClickListener(this);
+        sortTv1.setOnClickListener(this);
+        sortTv2.setOnClickListener(this);
+        sortTv3.setOnClickListener(this);
+    }
+
+
+
 
 
     /**
@@ -277,9 +414,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         window.setBackgroundDrawable(cd);
 
 
-
-
-
 //        // 设置popWindow的显示和消失动画
 //        window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
@@ -297,28 +431,28 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
             @Override
             public void onClick(View v) {
-                share2weixin(0,shopname);//好友
+                share2weixin(0, shopname);//好友
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                share2weixin(1,shopname);//朋友圈
+                share2weixin(1, shopname);//朋友圈
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到QQ功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到QQ功能正在开发中");
             }
         });
         icMicroBlog.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ToastUtils.makeShortToast(context,"分享到微博功能正在开发中");
+                ToastUtils.makeShortToast(context, "分享到微博功能正在开发中");
             }
         });
         //popWindow消失监听方法
@@ -328,7 +462,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             public void onDismiss() {
                 //设置背景变回原色
                 WindowManager.LayoutParams lp = StoreHomepageActivity.this.getWindow().getAttributes();
-                lp.alpha =1f;
+                lp.alpha = 1f;
                 StoreHomepageActivity.this.getWindow().setAttributes(lp);
             }
         });
@@ -401,7 +535,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     }
 
 
-    private void share2weixin(int flag,String shopName) {
+    private void share2weixin(int flag, String shopName) {
         // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
         // R.drawable.weixin_share);
 

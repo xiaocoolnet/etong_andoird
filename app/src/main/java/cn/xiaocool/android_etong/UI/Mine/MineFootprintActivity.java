@@ -69,12 +69,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
 
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
-                            if (newArrivalDataBeanList.size()>=7){
-                                for (int i = 0 ; i<7;i++){
+                            if (newArrivalDataBeanList.size() >= 7) {
+                                for (int i = 0; i < 7; i++) {
                                     newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
                                 }
-                            }else {
-                                for (int i = 0 ; i<newArrivalDataBeanList.size();i++){
+                            } else {
+                                for (int i = 0; i < newArrivalDataBeanList.size(); i++) {
                                     newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
                                 }
                             }
@@ -106,12 +106,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         listView.setMode(PullToRefreshBase.Mode.BOTH);
 
         //设置刷新时显示的文本
-        ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true,false);
+        ILoadingLayout startLayout = listView.getLoadingLayoutProxy(true, false);
         startLayout.setPullLabel("正在下拉刷新...");
         startLayout.setRefreshingLabel("正在玩命加载中...");
         startLayout.setReleaseLabel("放开以刷新");
 
-        ILoadingLayout endLayout = listView.getLoadingLayoutProxy(false,true);
+        ILoadingLayout endLayout = listView.getLoadingLayoutProxy(false, true);
         endLayout.setPullLabel("正在上拉刷新...");
         endLayout.setRefreshingLabel("正在玩命加载中...");
         endLayout.setReleaseLabel("放开以刷新");
@@ -119,12 +119,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                new LoadDataAsyncTask(MineFootprintActivity.this , 1 ).execute();
+                new LoadDataAsyncTask(MineFootprintActivity.this, 1).execute();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                new LoadDataAsyncTask(MineFootprintActivity.this , 2 ).execute();
+                new LoadDataAsyncTask(MineFootprintActivity.this, 2).execute();
 
             }
         });
@@ -133,12 +133,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
     /**
      * 异步下载任务
      */
-    private static class LoadDataAsyncTask extends AsyncTask<Void,Void,String> {
+    private static class LoadDataAsyncTask extends AsyncTask<Void, Void, String> {
 
         private MineFootprintActivity mainActivity;
         private int judge;
 
-        public LoadDataAsyncTask(MineFootprintActivity mainActivity , int judge) {
+        public LoadDataAsyncTask(MineFootprintActivity mainActivity, int judge) {
             this.mainActivity = mainActivity;
             this.judge = judge;
         }
@@ -161,24 +161,24 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (s.equals("seccess")){
+            if (s.equals("seccess")) {
                 mainActivity.everydayChoicenessAdapter.notifyDataSetChanged();
                 mainActivity.listView.onRefreshComplete();//刷新完成
             }
         }
     }
 
-    private void loadData(int judge){
+    private void loadData(int judge) {
         int size = newArrivalDataBeanListLoading.size();
-        if (judge==1){
+        if (judge == 1) {
             return;
-        }else {
-            if (newArrivalDataBeanList.size()>=(size+7)){
-                for (int i = size ; i<size+7;i++){
+        } else {
+            if (newArrivalDataBeanList.size() >= (size + 7)) {
+                for (int i = size; i < size + 7; i++) {
                     newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
                 }
-            }else {
-                for (int i = size ; i<newArrivalDataBeanList.size();i++){
+            } else {
+                for (int i = size; i < newArrivalDataBeanList.size(); i++) {
                     newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
                 }
             }
@@ -198,7 +198,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_back:
                 finish();
                 break;

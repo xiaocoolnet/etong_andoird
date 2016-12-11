@@ -102,8 +102,8 @@ public interface WebAddress extends NetBaseConstant {
     String UPDATASHOPADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
 
     /**
-    * 修改店铺头像
-    */
+     * 修改店铺头像
+     */
 
     String UPDATESHOPPHOTO = NET_BASE_PREFIX + "a=UpdateShopPhoto";
 
@@ -114,8 +114,8 @@ public interface WebAddress extends NetBaseConstant {
     String UPDATASHOPNAME = NET_BASE_PREFIX + "a=UpdateShopName";
 
     /**
-    *修改店铺地址
-    */
+     * 修改店铺地址
+     */
 
     String UPDATA_SHOP_ADDRESS = NET_BASE_PREFIX + "a=UpdateShopAddress";
 
@@ -192,27 +192,27 @@ public interface WebAddress extends NetBaseConstant {
      */
     String OBTAIN_GOOD_ATTRIBUTE = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
     /**
-    * 获取店铺列表
-    */
+     * 获取店铺列表
+     */
 
     String GET_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopList";
 
     /**
-    * 添加购物车
-    */
+     * 添加购物车
+     */
 
     String ADD_SHOPPING_CART = NET_BASE_PREFIX + "a=AddShoppingCart";
 
     /**
-    *获取我的购物车
-    */
+     * 获取我的购物车
+     */
 
     String GET_SHOPPPING_CART = NET_BASE_PREFIX + "a=GetShoppingCart";
 
 
     /**
-    * 修改购物车
-    */
+     * 修改购物车
+     */
 
     String Edit_Shopping_Cart = NET_BASE_PREFIX + "a=EditShoppingCart";
 
@@ -227,48 +227,47 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_HOMEPAGE_EVERY_GOODSHOP = NET_BASE_PREFIX + "a=GetDayShop";
     /**
-     *获取首页猜你喜欢
+     * 获取首页猜你喜欢
      */
 
     String GET_GUESS_LIKE = NET_BASE_PREFIX + "a=IsLike";
     /**
-     *获取卖家订单列表
+     * 获取卖家订单列表
      */
 
     String GET_SELLER_ORDER_LIST = NET_BASE_PREFIX + "a=Shopgetorderlist";
 
     /**
-     *产品发货
+     * 产品发货
      */
 
     String SELLER_DELIVER_GOOD = NET_BASE_PREFIX + "a=DeliverOrder";
     /**
-     *产品发货
+     * 产品发货
      */
 
     String PAY_ORDER_LIST = NET_BASE_PREFIX + "a=PayOrder";
 
     /**
-     *确认收货
+     * 确认收货
      */
 
     String CONFIRM_GOOD = NET_BASE_PREFIX + "a=CountersignOrder";
- /**
-     *买家评价订单
+    /**
+     * 买家评价订单
      */
 
     String BUY_WRITE_COMMENT = NET_BASE_PREFIX + "a=BuyerSetEvaluate";
-/**
-     *我的评论
+    /**
+     * 我的评论
      */
 
     String MY_COMMENT = NET_BASE_PREFIX + "a=GetMyEvaluatelists";
     /**
-     *首页每日好店
+     * 首页每日好店
      */
 
     String EVERYDAY_GOODSHOP = NET_BASE_PREFIX + "a=GetDayShop";
-
 
 
     /**
@@ -278,68 +277,68 @@ public interface WebAddress extends NetBaseConstant {
     String SearchShops = NET_BASE_PREFIX + "a=SearchShops";
 
     /**
-    * 搜索商品
-    */
+     * 搜索商品
+     */
 
     String SearchGoods = NET_BASE_PREFIX + "a=SearchGoods";
 
     /**
-    *e抢购
-    */
+     * e抢购
+     */
 
     String IsE = NET_BASE_PREFIX + "a=IsE";
 
     /**
-    *今日特价
-    */
+     * 今日特价
+     */
 
     String IsPrice = NET_BASE_PREFIX + "a=IsPrice";
 
     /**
-    *新客专享
-    */
+     * 新客专享
+     */
 
-    String IsNew = NET_BASE_PREFIX +"a=IsNew";
+    String IsNew = NET_BASE_PREFIX + "a=IsNew";
 
     /**
-    *猜你喜欢
-    */
+     * 猜你喜欢
+     */
 
     String IsLike = NET_BASE_PREFIX + "a=IsLike";
 
     /**
-    *获取首页菜单列表
-    */
+     * 获取首页菜单列表
+     */
 
     String GET_MENU = NET_BASE_PREFIX + "a=GetMenu";
 
     /**
-    *获取商品评价信息
-    */
+     * 获取商品评价信息
+     */
 
-    String GetGoodsComments  = NET_BASE_PREFIX + "a=GetGoodsComments";
+    String GetGoodsComments = NET_BASE_PREFIX + "a=GetGoodsComments";
 
     /**
-    * 获取商店type的附加属性
-    */
+     * 获取商店type的附加属性
+     */
 
     String GetGoodPropertyList = NET_BASE_PREFIX + "a=GetGoodPropertyList";
 
     /**
-    * 添加商品的附加属性
-    */
+     * 添加商品的附加属性
+     */
 
     String AddGoodsProperty = NET_BASE_PREFIX + "a=AddGoodsProperty";
 
     /**
-    * 获取产品的附加属性
-    */
+     * 获取产品的附加属性
+     */
 
     String GetGoodsPropertyList = NET_BASE_PREFIX + "a=GetGoodsPropertyList";
 
     /**
-    * 取消订单
-    */
+     * 取消订单
+     */
 
     String CANCEL_ORDER = NET_BASE_PREFIX + "a=DeleteOrder";
     /**
@@ -349,41 +348,41 @@ public interface WebAddress extends NetBaseConstant {
     String SEARCH_ORDER = NET_BASE_PREFIX + "a=SearchOrderList";
 
     /**
-    *发送聊天信息
-    */
+     * 发送聊天信息
+     */
 
     String SendChatData = NET_BASE_PREFIX + "a=SendChatData";
 
     /**
-    * 获取聊天信息（两个人之间的）
-    */
+     * 获取聊天信息（两个人之间的）
+     */
 
-    String xcGetChatData = NET_BASE_PREFIX +"a=xcGetChatData";
-
-    /**
-    *获取聊天列表
-    */
-
-    String  xcGetChatListData = NET_BASE_PREFIX + "a=xcGetChatListData";
+    String xcGetChatData = NET_BASE_PREFIX + "a=xcGetChatData";
 
     /**
-    * 获取我的钱包
-    */
+     * 获取聊天列表
+     */
+
+    String xcGetChatListData = NET_BASE_PREFIX + "a=xcGetChatListData";
+
+    /**
+     * 获取我的钱包
+     */
 
     String GetMyWallet = NET_BASE_PREFIX + "a=GetMyWallet";
 
     /**
-    *获取我的足迹
-    */
+     * 获取我的足迹
+     */
 
     String GetMyBrowseHistory = NET_BASE_PREFIX + "a=GetMyBrowseHistory";
     /**
-    *获取相关推荐
-    */
+     *获取相关推荐
+     */
 
     /**
-    *获取商品分类列表
-    */
+     * 获取商品分类列表
+     */
 
     String GET_GOODS_TYPE_LIST = NET_BASE_PREFIX + "a=getShopTypeList&type=0";
 
@@ -393,41 +392,41 @@ public interface WebAddress extends NetBaseConstant {
     String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
 
     /**
-    *获取订单信息(传入订单id)
-    */
+     * 获取订单信息(传入订单id)
+     */
 
     String GET_ORDER_DETAILS = NET_BASE_PREFIX + "a=GetOrderInfoById";
     /**
-    *修改商品轮播图
-    */
+     * 修改商品轮播图
+     */
 
     String CHANGE_GOOD_PICS = NET_BASE_PREFIX + "a=UpdateGoodsPicture";
     /**
-    *修改图文详情
-    */
+     * 修改图文详情
+     */
 
     String CHANGE_GOOD_PIC_DETAILS = NET_BASE_PREFIX + "a=UpdateGoodsCPicList";
     /**
-    *绑定微信和userid
-    */
+     * 绑定微信和userid
+     */
 
     String BIND_WECHAT_AND_USERID = NET_BASE_PREFIX + "a=UpdateUserWeixin";
 
     /**
-    *检查微信是否已经绑定了
-    */
+     * 检查微信是否已经绑定了
+     */
 
     String CHECK_WECHAT_BIND = NET_BASE_PREFIX + "a=GetUserInfoByWeixin";
 
-    /*
-    * 获取我的银行信息
-    */
+    /**
+     * 获取我的银行信息
+     */
 
     String GetUserBankInfo = NET_BASE_PREFIX + "a=GetUserBankInfo";
 
-    /*
-    * 绑定个人银行卡账号
-    */
+    /**
+     * 绑定个人银行卡账号
+     */
 
     String UpdateUserBank = NET_BASE_PREFIX + "a=UpdateUserBank";
     /**
@@ -447,31 +446,31 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_MY_AGENCY_SHOP_LIST = NET_BASE_PREFIX + "a=GetShopListByAgentId";
 
-    /*
-    * 提现申请
-    */
+    /**
+     * 提现申请
+     */
 
     String ApplyWithdraw = NET_BASE_PREFIX + "a=ApplyWithdraw";
 
-    /*
-    * 我的提现申请记录
-    */
+    /**
+     * 我的提现申请记录
+     */
 
     String GetMyApplyWithdraw = NET_BASE_PREFIX + "a=GetMyApplyWithdraw";
-    /*
-    *限时抢购
-    */
+    /**
+     * 限时抢购
+     */
 
     String GetTimeGoodList = NET_BASE_PREFIX + "a=GetTimeGoodList";
-    /*
-    *qq登录
-    */
+    /**
+     * qq登录
+     */
 
     String GetUserInfoByQQ = NET_BASE_PREFIX + "a=GetUserInfoByQQ";
 
-    /*
-    * 绑定QQ
-    */
+    /**
+     * 绑定QQ
+     */
 
     String UpdateUserQQ = NET_BASE_PREFIX + "a=UpdateUserQQ";
 

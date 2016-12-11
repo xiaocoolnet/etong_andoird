@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="@color/whilte"
+    android:layout_marginTop="@dimen/activity_size_1"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +17,15 @@
 
             <ImageView
                 android:id="@+id/everyday_choiceness_pic"
-                android:layout_width="@dimen/activity_size_100"
-                android:layout_height="match_parent" />
+                android:layout_width="@dimen/activity_size_90"
+                android:layout_height="@dimen/activity_size_90"
+                android:layout_centerInParent="true"/>
 
         </RelativeLayout>
         <!--右边-->
         <LinearLayout
-            android:layout_marginLeft="@dimen/activity_size_5"
+            android:layout_marginLeft="@dimen/activity_size_3"
+            android:layout_marginRight="@dimen/activity_size_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
@@ -35,7 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/activity_size_5"
-                android:text="A字长连衣裙"
+                android:text="e通商城商品"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/black2"
                 android:textSize="@dimen/activity_size_14" />
 

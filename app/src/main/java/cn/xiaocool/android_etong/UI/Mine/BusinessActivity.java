@@ -44,103 +44,103 @@ import cn.xiaocool.android_etong.util.ToastUtils;
  */
 public class BusinessActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
-    private Button btn_uploadgoods,btn_baobeiguanli,btn_dianpuguanli,btn_shouhouguanli,btn_dingdanguanli,btn_changjianwenti,
-    btn_huodongbaoming,btn_caiwujiekuan;
-    private String shopid,shopType,islocal;
-    private TextView tx_store_name,tx_business_price1,tx_business_price2,tx_business_price3,textView6;
+    private Button btn_uploadgoods, btn_baobeiguanli, btn_dianpuguanli, btn_shouhouguanli, btn_dingdanguanli, btn_changjianwenti,
+            btn_huodongbaoming, btn_caiwujiekuan;
+    private String shopid, shopType, islocal;
+    private TextView tx_store_name, tx_business_price1, tx_business_price2, tx_business_price3, textView6;
     private Context context;
-    private ImageView img1,img2,img3,img4,img5;
+    private ImageView img1, img2, img3, img4, img5;
     private ImageView img_store_head;
     private ProgressDialog progressDialog;
     private UserInfo userInfo;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case CommunalInterfaces.GETMYSHOP:
-                    Log.e("getmyshop","getmyshop");
+                    Log.e("getmyshop", "getmyshop");
                     JSONObject jsonObject = (JSONObject) msg.obj;
-                    if(NetUtil.isConnnected(context)){
+                    if (NetUtil.isConnnected(context)) {
                         try {
                             String status = jsonObject.getString("status");
                             String data = jsonObject.getString("data");
-                            if (status.equals("success")){
+                            if (status.equals("success")) {
                                 progressDialog.dismiss();
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                                 String shopid = jsonObject1.getString("id");
                                 String head = jsonObject1.getString("photo");
                                 String shopname = jsonObject1.getString("shopname");
-                                if (jsonObject1.getString("level").equals("0")){
+                                if (jsonObject1.getString("level").equals("0")) {
                                     img1.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img2.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img3.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
 
-                                }else if (jsonObject1.getString("level").equals("0.5")){
+                                } else if (jsonObject1.getString("level").equals("0.5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_half);
                                     img2.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img3.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("1")){
+                                } else if (jsonObject1.getString("level").equals("1")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img3.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("1.5")){
+                                } else if (jsonObject1.getString("level").equals("1.5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_half);
                                     img3.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("2")){
+                                } else if (jsonObject1.getString("level").equals("2")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("2.5")){
+                                } else if (jsonObject1.getString("level").equals("2.5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_half);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("3")){
+                                } else if (jsonObject1.getString("level").equals("3")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_all);
                                     img4.setBackgroundResource(R.mipmap.ic_xingixng);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("3.5")){
+                                } else if (jsonObject1.getString("level").equals("3.5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_all);
                                     img4.setBackgroundResource(R.mipmap.ic_star_half);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("4")){
+                                } else if (jsonObject1.getString("level").equals("4")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_all);
                                     img4.setBackgroundResource(R.mipmap.ic_star_all);
                                     img5.setBackgroundResource(R.mipmap.ic_xingixng);
-                                }else if (jsonObject1.getString("level").equals("4.5")){
+                                } else if (jsonObject1.getString("level").equals("4.5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_all);
                                     img4.setBackgroundResource(R.mipmap.ic_star_all);
                                     img5.setBackgroundResource(R.mipmap.ic_star_half);
-                                }else if (jsonObject1.getString("level").equals("5")){
+                                } else if (jsonObject1.getString("level").equals("5")) {
                                     img1.setBackgroundResource(R.mipmap.ic_star_all);
                                     img2.setBackgroundResource(R.mipmap.ic_star_all);
                                     img3.setBackgroundResource(R.mipmap.ic_star_all);
                                     img4.setBackgroundResource(R.mipmap.ic_star_all);
                                     img5.setBackgroundResource(R.mipmap.ic_star_all);
                                 }
-                                if (TextUtils.isEmpty(jsonObject1.getString("favorite"))||!jsonObject1.getString("favorite").equals("null")){
-                                    textView6.setText("收藏:"+jsonObject1.getString("favorite")+"人");
-                                }else {
+                                if (TextUtils.isEmpty(jsonObject1.getString("favorite")) || !jsonObject1.getString("favorite").equals("null")) {
+                                    textView6.setText("收藏:" + jsonObject1.getString("favorite") + "人");
+                                } else {
                                     textView6.setText("收藏:0人");
                                 }
                                 shopType = jsonObject1.getString("type");
@@ -148,33 +148,33 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                                 userInfo.setUserShopName(shopname);
                                 userInfo.setUserShopType(shopType);
                                 userInfo.writeData(BusinessActivity.this);
-                                Log.e("head=",head);
-                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR+jsonObject1.getString("photo"), img_store_head);
-                                if (shopname.equals("null")||shopname==null||shopname.equals("")){
+                                Log.e("head=", head);
+                                ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + jsonObject1.getString("photo"), img_store_head);
+                                if (shopname.equals("null") || shopname == null || shopname.equals("")) {
                                     tx_store_name.setText("未设置");
-                                }else {
+                                } else {
                                     tx_store_name.setText(shopname);
                                 }
-                            }else {
+                            } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(context,jsonObject.getString("data"),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else {
-                        Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case CommunalInterfaces.GetMyWallet:
                     JSONObject jsonObject1 = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject1.getString("status");
-                        if (status.equals("success")){
-                            Log.e("success","GetMyWallet");
+                        if (status.equals("success")) {
+                            Log.e("success", "GetMyWallet");
                             JSONObject object = jsonObject1.getJSONObject("data");
-                            tx_business_price1.setText("￥"+object.getString("allorder"));
+                            tx_business_price1.setText("￥" + object.getString("allorder"));
                             tx_business_price2.setText(object.getString("dayorders"));
                             tx_business_price3.setText(object.getString("dayvisitor"));
                         }
@@ -201,25 +201,26 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         shopid = intent.getStringExtra("shopid");
         islocal = intent.getStringExtra("islocal");
         Log.e("shopid=", intent.getStringExtra("shopid"));
-        if(NetUtil.isConnnected(context)){
+        if (NetUtil.isConnnected(context)) {
             progressDialog.setMessage("正在加载");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
-            new MainRequest(context,handler).getmyshop();
-            new MainRequest(context,handler).GetMyWallet();
-        }else {
-            Toast.makeText(context,"请检查网络",Toast.LENGTH_SHORT).show();
+            new MainRequest(context, handler).getmyshop();
+            new MainRequest(context, handler).GetMyWallet();
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
 //        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 //        Log.e("deviced","''''''''''''''''"+tm.getDeviceId());
 
     }
+
     private void initview() {
         btnWantHelp = (Button) findViewById(R.id.btn_want_help);
         btnWantHelp.setOnClickListener(this);
-        rl_back=(RelativeLayout)findViewById(R.id.rl_back);
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
-        btn_uploadgoods=(Button)findViewById(R.id.btn_uploadgoods);
+        btn_uploadgoods = (Button) findViewById(R.id.btn_uploadgoods);
         btn_uploadgoods.setOnClickListener(this);
         btn_baobeiguanli = (Button) findViewById(R.id.btn_baobeiguanli);
         btn_baobeiguanli.setOnClickListener(this);
@@ -251,14 +252,14 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
             case R.id.btn_uploadgoods:
                 Intent intent = new Intent();
                 intent.putExtra("shopid", shopid);
-                intent.putExtra("type",shopType);
+                intent.putExtra("type", shopType);
                 intent.setClass(BusinessActivity.this, UploadGoodsActivity.class);
                 startActivity(intent);
                 break;
@@ -283,7 +284,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             case R.id.btn_dingdanguanli:
                 Intent intent5 = new Intent();
                 intent5.putExtra("shopid", shopid);
-                intent5.putExtra("islocal",islocal);
+                intent5.putExtra("islocal", islocal);
                 intent5.setClass(BusinessActivity.this, OrderManageActivity.class);
                 startActivity(intent5);
                 break;
@@ -299,14 +300,14 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 startActivity(intent7);
                 break;
             case R.id.btn_huodongbaoming:
-                ToastUtils.makeShortToast(context,"活动报名正在建设中！敬请期待！");
+                ToastUtils.makeShortToast(context, "活动报名正在建设中！敬请期待！");
                 Intent intent8 = new Intent();
 //                intent8.putExtra("shopid", shopid);
 //                intent8.setClass(BusinessActivity.this, StoreHomepageActivity.class);
 //                startActivity(intent8);
                 break;
             case R.id.btn_caiwujiekuan:
-                ToastUtils.makeShortToast(context,"财务结款正在建设中！敬请期待！");
+                ToastUtils.makeShortToast(context, "财务结款正在建设中！敬请期待！");
                 Intent intent9 = new Intent();
 //                intent8.putExtra("shopid", shopid);
 //                intent9.setClass(BusinessActivity.this, StoreHomepageActivity.class);
@@ -327,9 +328,9 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            Log.e("编辑店铺回调","success");
+            Log.e("编辑店铺回调", "success");
             try {
-                new MainRequest(context,handler).getmyshop();
+                new MainRequest(context, handler).getmyshop();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
