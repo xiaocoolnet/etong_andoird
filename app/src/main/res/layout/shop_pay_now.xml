@@ -537,7 +537,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_qq" />
+                                android:background="@mipmap/ic_qzone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
