@@ -84,13 +84,22 @@
                     android:background="@mipmap/ic_next" />
             </RelativeLayout>
 
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider"
-                android:layout_width="375dp"
-                android:layout_height="375dp"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone">
-            </com.daimajia.slider.library.SliderLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider3"
+                    android:layout_width="375dp"
+                    android:layout_height="375dp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"></com.daimajia.slider.library.SliderLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_slider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></RelativeLayout>
+            </RelativeLayout>
 
 
             <RelativeLayout
@@ -125,14 +134,24 @@
 
             </RelativeLayout>
 
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider1"
-                android:layout_width="375dp"
-                android:layout_height="375dp"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone">
-            </com.daimajia.slider.library.SliderLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider4"
+                    android:layout_width="375dp"
+                    android:layout_height="375dp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"></com.daimajia.slider.library.SliderLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_slider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -462,9 +481,6 @@
                     android:maxLength="50"
                     android:textSize="16sp" />
             </RelativeLayout>
-
-
-
 
 
             <!--<LinearLayout-->
