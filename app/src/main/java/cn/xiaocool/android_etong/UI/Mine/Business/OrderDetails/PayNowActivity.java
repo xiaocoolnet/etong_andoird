@@ -155,7 +155,7 @@ public class PayNowActivity extends Activity {
         context = this;
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
-        Log.e("orderid=",orderId);
+        Log.e("orderid=", orderId);
 //        shopName = getIntent().getStringExtra("orderId");
         price = getIntent().getStringExtra("price");
         initView();
@@ -166,7 +166,7 @@ public class PayNowActivity extends Activity {
         payWay0Icon.setSelected(true);
         payWay1Icon.setSelected(false);
         payWay2Icon.setSelected(false);
-        payNowPrice.setText(price);
+        payNowPrice.setText("¥" + price);
         payNowBtnPrice.setText("立即支付¥" + price);
     }
 
@@ -195,8 +195,8 @@ public class PayNowActivity extends Activity {
                 if (ivPayWay2Item.isSelected()) {
                     pay();//调用支付功能
 
-                }else {
-                    ToastUtils.makeShortToast(context,"目前仅支持支付宝支付！");
+                } else {
+                    ToastUtils.makeShortToast(context, "目前仅支持支付宝支付！");
                 }
                 break;
         }
