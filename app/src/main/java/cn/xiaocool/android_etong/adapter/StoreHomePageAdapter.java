@@ -86,6 +86,7 @@ public class StoreHomePageAdapter extends BaseAdapter {
                     intent.putExtra("shopid", shopid);
                     intent.putExtra("id", dataBean.getId());
                     intent.putExtra("price", dataBean.getPrice());
+                    intent.putExtra("oprice",dataBean.getOprice());
                     intent.putExtra("goodsname", dataBean.getGoodsname());
                     intent.putExtra("shopname", dataBean.getShowid());
                     intent.putExtra("shop_uid", shop_uid);

@@ -12,7 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true">
-
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_shouye_red_bold"
+            android:paddingTop="5dp"
+            android:text="首页"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
         <Button
             android:id="@+id/btn_chat"
             android:layout_width="0dp"
@@ -36,25 +46,30 @@
             android:text="店铺"
             android:textColor="@color/black"
             android:textSize="12sp" />
-
-
-
-        <Button
-            android:id="@+id/btn_shopping_cart"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:background="#FF9800"
-            android:text="加入购物车"
-            android:textColor="@color/whilte" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_shopping_cart"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1.2"-->
+            <!--android:background="#FF9800"-->
+            <!--android:text="加入购物车"-->
+            <!--android:textColor="@color/whilte" />-->
 
         <Button
             android:id="@+id/btn_lijigoumai"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
-            android:background="@color/main_color_red"
+            android:background="@color/homepage_orange"
             android:text="立即抢购"
+            android:textColor="@color/whilte" />
+        <Button
+            android:id="@+id/btn_sharebuy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:background="@color/main_color_red"
+            android:text="分享购"
             android:textColor="@color/whilte" />
 
     </LinearLayout>
@@ -204,14 +219,14 @@
                     android:layout_marginTop="10dp"
                     android:text="已售：1252件"
                     android:textColor="@color/black3" />
-                <TextView
-                    android:layout_below="@+id/tx_goods_price"
-                    android:layout_marginTop="@dimen/activity_size_10"
-                    android:id="@+id/good_details_freight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="快递：0.00" />
+                <!--<TextView-->
+                    <!--android:layout_below="@+id/tx_goods_price"-->
+                    <!--android:layout_marginTop="@dimen/activity_size_10"-->
+                    <!--android:id="@+id/good_details_freight"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:text="快递：0.00" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -223,10 +238,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical">
-
-
-
-
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
@@ -248,9 +259,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/whilte">
-
-
-
                 <TextView
                     android:id="@+id/tx_goods_name"
                     android:layout_width="wrap_content"

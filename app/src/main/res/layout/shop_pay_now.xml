@@ -346,8 +346,6 @@
                         android:background="@drawable/btn_selecter_icon" />
 
                 </RelativeLayout>
-
-
                 <RelativeLayout
                     android:id="@+id/rl_payShare"
                     android:layout_width="match_parent"

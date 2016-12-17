@@ -90,6 +90,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 databean.setGoodsname(json.getString("goodsname"));
                                 databean.setPicture(pic);
                                 databean.setPrice(json.getString("price"));
+                                databean.setOprice(json.getString("oprice"));
                                 databean.setShopid(json.getString("shopid"));
                                 databean.setId(json.getString("id"));
                                 databean.setShowid(shopname);

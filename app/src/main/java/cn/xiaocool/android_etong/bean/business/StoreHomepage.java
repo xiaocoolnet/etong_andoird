@@ -52,6 +52,7 @@ public class StoreHomepage {
         private String shopid;
         private String goodsname;
         private String price;
+        private String oprice;
         private String unit;
         private String description;
         private String picture;
@@ -87,11 +88,15 @@ public class StoreHomepage {
         public String getPrice() {
             return price;
         }
-
+        public String getOprice(){
+            return oprice;
+        }
         public void setPrice(String price) {
             this.price = price;
         }
-
+        public void setOprice(String oprice){
+            this.oprice= oprice;
+        }
         public String getUnit() {
             return unit;
         }

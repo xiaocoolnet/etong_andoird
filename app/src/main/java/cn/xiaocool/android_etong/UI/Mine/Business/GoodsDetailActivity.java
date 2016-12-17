@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.MainActivity;
 import cn.xiaocool.android_etong.adapter.DetailAdapter;
 import cn.xiaocool.android_etong.adapter.GoodRecommendAdapter;
 import cn.xiaocool.android_etong.adapter.SelectPropertyAdapter;
@@ -78,9 +79,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private TextView tx_goods_name, tx_pic_txt, tx_goods_price, tv_goods_address, tv_goods_description, tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_store;
-    private Button btn_lijigoumai, btn_shopping_cart, btn_chat;
+    private Button btn_lijigoumai, btn_chat,btn_home,btn_sharebuy;//btn_shopping_cart
     private ImageView btnLike;
-    private String id, pic, goodsname, price, shopname, address, description, shopid, shop_uid, shop_photo;
+    private String id, pic, goodsname,price,shareprice, shopname, address, description, shopid, shop_uid, shop_photo;
     private String content;
     private String[] arraypic;
     private String picStr;
@@ -117,7 +118,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                             tv_goods_address.setText(address);
                             //设置运费
                             String freight = jsonObject.getString("freight");
-                            tvFreight.setText("快递：" + freight + "元");
+//                            tvFreight.setText("快递：" + freight + "元");
                             description = jsonObject.getString("description");
                             tv_goods_description.setText(description);
                             content = jsonObject.getString("content");
@@ -284,7 +285,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private GridView relevanceGridView;
     private RelativeLayout shareGoodIcon;
     private IWXAPI api;
-    private TextView tvFreight;
+//    private TextView tvFreight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -302,7 +303,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 //        Log.e("shopid=", shopid);
         id = intent.getStringExtra("id");//这是goodsId
         pic = intent.getStringExtra("pic");
-        price = intent.getStringExtra("price");
+        price = intent.getStringExtra("oprice");
+        shareprice =intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         shopname = intent.getStringExtra("shopname");
         shop_uid = intent.getStringExtra("shop_uid");
@@ -346,8 +348,10 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
         btn_lijigoumai = (Button) findViewById(R.id.btn_lijigoumai);
         btn_lijigoumai.setOnClickListener(this);
-        btn_shopping_cart = (Button) findViewById(R.id.btn_shopping_cart);
-        btn_shopping_cart.setOnClickListener(this);
+//        btn_shopping_cart = (Button) findViewById(R.id.btn_shopping_cart);
+//        btn_shopping_cart.setOnClickListener(this);
+        btn_sharebuy = (Button) findViewById(R.id.btn_sharebuy);
+        btn_sharebuy.setOnClickListener(this);
         tx_goods_name = (TextView) findViewById(R.id.tx_goods_name);
         tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
         tv_goods_address = (TextView) findViewById(R.id.tv_goods_address);
@@ -358,6 +362,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         btnLike.setOnClickListener(this);
         btn_chat = (Button) findViewById(R.id.btn_chat);
         btn_chat.setOnClickListener(this);
+        btn_home = (Button) findViewById(R.id.btn_home);
+        btn_home.setOnClickListener(this);
         list_detail = (ListView) findViewById(R.id.list_detail);
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
         tx_pic_txt = (TextView) findViewById(R.id.tx_pic_txt);
@@ -367,13 +373,13 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         relevanceGridView = (GridView) findViewById(R.id.details_gv_relevance_goods);
         shareGoodIcon = (RelativeLayout) findViewById(R.id.good_details_share_icon);
         shareGoodIcon.setOnClickListener(this);
-        tvFreight = (TextView) findViewById(R.id.good_details_freight);
+//        tvFreight = (TextView) findViewById(R.id.good_details_freight);
     }
-
-
     private void setview() {
         tx_goods_name.setText(goodsname);
         tx_goods_price.setText("￥" + price);
+        btn_sharebuy.setText(shareprice+"\n分享购");
+        btn_lijigoumai.setText(price+"\n立即购");
     }
 
     public void setSelect(int firstPosition, int secondPosition, Boolean judge) {
@@ -384,7 +390,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             }
         }
     }
-
     public Boolean judge() {
         int judge = 0;
         for (int i = 0; i < booleans.size(); i++) {
@@ -473,10 +478,10 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 goodsdetail_scrollview.scrollTo(0, 0);
                 showPopwindow(context, arraypic[0], price, goodsname);
                 break;
-            case R.id.btn_shopping_cart:
-                goodsdetail_scrollview.scrollTo(0, 0);
-                showPopwindow_shoppingcart(GoodsDetailActivity.this, arraypic[0], price, goodsname);
-                break;
+//            case R.id.btn_shopping_cart:
+//                goodsdetail_scrollview.scrollTo(0, 0);
+//                showPopwindow_shoppingcart(GoodsDetailActivity.this, arraypic[0], price, goodsname);
+//                break;
             case R.id.good_details_iv_like:
                 if (!btnLike.isSelected()) {
                     new ShopRequest(this, handler).likeGood(id);
@@ -485,6 +490,11 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                     new ShopRequest(this, handler).cancelLike(id);
                     btnLike.setSelected(false);
                 }
+                break;
+            case R.id.btn_home:
+                Intent intenthome = new Intent();
+                intenthome.setClass(context, MainActivity.class);
+                startActivity(intenthome);
                 break;
             case R.id.btn_chat:
                 Intent intent1 = new Intent();
@@ -508,6 +518,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 intent2.putExtra("goodsname", goodsname);
                 intent2.putExtra("picStr", picStr);
                 startActivity(intent2);
+                break;
+            case R.id.btn_sharebuy:
+                share2weixin(1, goodsname);//朋友圈
                 break;
             case R.id.good_details_share_icon:
 //                showPopupMenu(shareGoodIcon);
