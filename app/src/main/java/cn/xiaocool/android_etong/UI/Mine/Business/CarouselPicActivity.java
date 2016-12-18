@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,6 +27,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +40,7 @@ import java.util.Date;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.UserInfo;
+import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 
@@ -267,6 +271,54 @@ public class CarouselPicActivity extends Activity implements View.OnClickListene
 
         tx_upload = (TextView) findViewById(R.id.tx_upload);
         tx_upload.setOnClickListener(this);
+        initPic();
+    }
+
+    private void initPic() {
+        pic_path1 = "";
+        pic_path2 = "";
+        pic_path3 = "";
+        pic_path4 = "";
+        pic_path5 = "";
+        picname1 = "";
+        picname2 = "";
+        picname3 = "";
+        picname4 = "";
+        picname5 = "";
+        Intent intent = getIntent();
+        Log.e("pic_name1","success");
+        pic_path1 = intent.getStringExtra("pic_path1");
+        pic_path2 = intent.getStringExtra("pic_path2");
+        pic_path3 = intent.getStringExtra("pic_path3");
+        pic_path4 = intent.getStringExtra("pic_path4");
+        pic_path5 = intent.getStringExtra("pic_path5");
+        picname1 = intent.getStringExtra("picname1");
+        picname2 = intent.getStringExtra("picname2");
+        picname3 = intent.getStringExtra("picname3");
+        picname4 = intent.getStringExtra("picname4");
+        picname5 = intent.getStringExtra("picname5");
+        Log.e("pic_name1","success");
+        if (pic_path1==null||pic_path1.equals("")){
+            Log.e("success11","success11");
+        }else {
+        }
+        if (!TextUtils.isEmpty(pic_path1)){
+            Log.e("pic_name1","success");
+            lin_lunbo2.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname1+".jpg",img_lunbo_pic1);
+        } if (!TextUtils.isEmpty(pic_path2)){
+            lin_lunbo3.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname2+".jpg",img_lunbo_pic2);
+        } if (!TextUtils.isEmpty(pic_path3)){
+            lin_lunbo4.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname3+".jpg",img_lunbo_pic3);
+        } if (!TextUtils.isEmpty(pic_path4)){
+            lin_lunbo5.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname4+".jpg",img_lunbo_pic4);
+        } if (!TextUtils.isEmpty(pic_path5)){
+            ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname5+".jpg",img_lunbo_pic5);
+        }
+
     }
 
     @Override

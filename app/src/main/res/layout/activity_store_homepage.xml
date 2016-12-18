@@ -47,8 +47,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -165,41 +167,39 @@
                         android:layout_marginTop="25dp"
                         android:text="累计销售：1550"
                         android:textColor="@color/black1"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/ll_store_starNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_store_saleNum"
                         android:layout_marginLeft="85dp"
-                        android:layout_marginTop="3dp">
+                        android:layout_marginTop="45dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_star_all" />
+                            android:background="@mipmap/ic_star_all_red" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_star_all" />
+                            android:background="@mipmap/ic_star_all_red" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_star_all" />
+                            android:background="@mipmap/ic_star_all_red" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_star_all" />
+                            android:background="@mipmap/ic_star_all_red" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_star_half" />
+                            android:background="@mipmap/ic_star_half_red" />
                     </LinearLayout>
 
                     <!--联系卖家 已经注释-->
@@ -238,7 +238,7 @@
                         android:layout_marginRight="10dp"
                         android:text="收藏:1234人"
                         android:textColor="@color/black1"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/tx_store_intro"
