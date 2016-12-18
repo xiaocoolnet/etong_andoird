@@ -217,6 +217,8 @@ public class ChatActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
+    //这是格式化时间的
     public static String getStrTime(long cc_time){
         String re_StrTime = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
@@ -228,35 +230,6 @@ public class ChatActivity extends Activity implements View.OnClickListener {
 
 
 
-//    public static String fromateTimeShowByRule(long time) {
-//        Log.e("nowtime", String.valueOf(getNowLongTime()));
-//        long timeDistance = getNowLongTime() - time;
-//        Log.e("distance", String.valueOf(timeDistance));
-//        long days = timeDistance / (1000 * 60 * 60 * 24);
-//        Log.e("days", String.valueOf(days));
-//        long hours = (timeDistance - days * (1000 * 60 * 60 * 24))
-//                / (1000 * 60 * 60);
-//        long minutes = (timeDistance - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-//        if (days == 0) {
-//            if (hours == 0) {
-//                if (minutes == 0) {
-//                    return "刚刚";
-//                } else {
-//                    return minutes + "分钟前";
-//                }
-//            } else {
-//                return hours + "小时前";
-//            }
-//        } else if (days == 1) {
-//            return "1天前";
-//        } else if (days == 2) {
-//            return "2天前";
-//        } else if (days == 3) {
-//            return "3天前";
-//        } else {
-//            return fromateTimeShow(time, "yyyy-MM-dd");
-//        }
-//    }
 
 
 
