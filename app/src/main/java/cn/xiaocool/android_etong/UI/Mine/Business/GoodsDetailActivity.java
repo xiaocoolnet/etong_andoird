@@ -35,6 +35,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
@@ -120,7 +121,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                             String freight = jsonObject.getString("freight");
 //                            tvFreight.setText("快递：" + freight + "元");
                             description = jsonObject.getString("description");
-                            tv_goods_description.setText(description);
+                            expTv1.setText(description);//可以下拉的文字介绍
+//                            tv_goods_description.setText(description);
                             content = jsonObject.getString("content");
                             Log.e("content=", content);
                             picStr = jsonObject.getString("cpiclist");
@@ -286,6 +288,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private RelativeLayout shareGoodIcon;
     private IWXAPI api;
     private etongApplaction applaction;
+    private ExpandableTextView expTv1;
 
     //    private TextView tvFreight;
     @Override
@@ -356,7 +359,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         tx_goods_name = (TextView) findViewById(R.id.tx_goods_name);
         tx_goods_price = (TextView) findViewById(R.id.tx_goods_price);
         tv_goods_address = (TextView) findViewById(R.id.tv_goods_address);
-        tv_goods_description = (TextView) findViewById(R.id.tv_goods_description);
+        tv_goods_description = (TextView) findViewById(R.id.expandable_text);//此处可以下拉
         goodsdetail_scrollview = (ScrollView) findViewById(R.id.goodsdetail_scrollview);
         progressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
         btnLike = (ImageView) findViewById(R.id.good_details_iv_like);
@@ -374,14 +377,20 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         relevanceGridView = (GridView) findViewById(R.id.details_gv_relevance_goods);
         shareGoodIcon = (RelativeLayout) findViewById(R.id.good_details_share_icon);
         shareGoodIcon.setOnClickListener(this);
+//        可以下拉的文字介绍
+        expTv1 = (ExpandableTextView) findViewById(R.id.expand_text_view);
+
+// IMPORTANT - call setText on the ExpandableTextView to set the text content to display
+//        expTv1.setText("");
 //        tvFreight = (TextView) findViewById(R.id.good_details_freight);
     }
+
 
     private void setview() {
         tx_goods_name.setText(goodsname);
         tx_goods_price.setText("￥" + price);
-        btn_sharebuy.setText(shareprice + "\n分享购");
-        btn_lijigoumai.setText(price + "\n立即购");
+        btn_sharebuy.setText("¥" + shareprice + "\n分享购");
+        btn_lijigoumai.setText("¥" + price + "\n立即购");
     }
 
     public void setSelect(int firstPosition, int secondPosition, Boolean judge) {

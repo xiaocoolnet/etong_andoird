@@ -1,6 +1,8 @@
 package cn.xiaocool.android_etong.util;
 
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -18,6 +20,7 @@ public class TimeToolUtils {
         String date = new java.text.SimpleDateFormat(formats).format(new java.util.Date(timestamp));
         return date;
     }
+
     //传入string类型的时间
     public static String timeStampDateString(String timestampString, String formats) {
         long l = Long.parseLong(timestampString);
@@ -31,8 +34,8 @@ public class TimeToolUtils {
      *
      * @return 当前时间的时间戳
      */
-    public static long getNowTime() {
-        return System.currentTimeMillis();
+    public static long getNowLongTime() {
+        return System.currentTimeMillis() / 1000;
     }
 
     /**
@@ -42,7 +45,7 @@ public class TimeToolUtils {
      * @return 当前时间
      */
     public static String getNowTime(String fromateType) {
-        return fromateTimeShow(getNowTime(), fromateType);
+        return fromateTimeShow(getNowLongTime(), fromateType);
     }
 
     /**
@@ -59,16 +62,16 @@ public class TimeToolUtils {
     }
 
     /**
-     * @param time
-     * @return
-     * @throws rule：1分钟以内 显示“刚刚”  1小时以内    显示“几分钟前”，24小时以内  显示“几小时前” ，24*3小时以内  显示“几天前”，其他显示具体时间： 年 月  日
+     * 1分钟以内 显示“刚刚”  1小时以内    显示“几分钟前”，24小时以内  显示“几小时前” ，24*3小时以内  显示“几天前”，其他显示具体时间： 年 月  日
      */
     public static String fromateTimeShowByRule(long time) {
-        long timeDistance = getNowTime() - time;
-        long days = timeDistance / (1000 * 60 * 60 * 24);
-        long hours = (timeDistance - days * (1000 * 60 * 60 * 24))
-                / (1000 * 60 * 60);
-        long minutes = (timeDistance - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+        long timeDistance = getNowLongTime() - time;
+
+        long days = timeDistance / (60 * 60 * 24);
+
+        long hours = (timeDistance - days * ( 60 * 60 * 24))
+                / (60 * 60);
+        long minutes = (timeDistance - days * ( 60 * 60 * 24) - hours * (60 * 60)) / (60);
         if (days == 0) {
             if (hours == 0) {
                 if (minutes == 0) {
