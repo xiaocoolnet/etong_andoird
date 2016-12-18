@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +28,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
@@ -41,6 +45,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
 import cn.xiaocool.android_etong.adapter.StoreHomePageAdapter;
 import cn.xiaocool.android_etong.bean.business.StoreHomepage;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -65,7 +70,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private TextView tx_store_name;
     private Button btn_chat_store, btn_lianximaijia;
     private ImageView img_store_head;
-    private GridView list_store_goods;
+    private PullToRefreshGridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
     private StoreHomePageAdapter storeHomePageAdapter;
     private Handler handler = new Handler() {
@@ -249,7 +254,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
     private void initview() {
         goods_list = new ArrayList<StoreHomepage.DataBean>();
-        list_store_goods = (GridView) findViewById(R.id.list_store_goods);
+        list_store_goods = (PullToRefreshGridView) findViewById(R.id.list_store_goods);
         tx_store_name = (TextView) findViewById(R.id.tx_store_name);
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
@@ -267,6 +272,55 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         btnShare.setOnClickListener(this);
         tvSort = (TextView) findViewById(R.id.tv_store_home_sort);
         tvSort.setOnClickListener(this);
+
+
+        //设置可上拉刷新和下拉刷新
+        list_store_goods.setMode(PullToRefreshBase.Mode.BOTH);
+
+        //设置刷新时显示的文本
+        ILoadingLayout startLayout = list_store_goods.getLoadingLayoutProxy(true, false);
+        startLayout.setPullLabel("正在下拉刷新...");
+        startLayout.setRefreshingLabel("正在玩命加载中...");
+        startLayout.setReleaseLabel("放开以刷新");
+
+        ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+        endLayout.setPullLabel("正在上拉刷新...");
+        endLayout.setRefreshingLabel("正在玩命加载中...");
+        endLayout.setReleaseLabel("放开以刷新");
+
+    }
+
+    /**
+     * 异步下载任务
+     */
+    private static class LoadDataAsyncTask extends AsyncTask<Void, Void, String> {
+        private Context context;
+        public LoadDataAsyncTask(Context context) {
+            this.context = context;
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(2000);
+                return "seccess";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        /**
+         * 完成时的方法
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("seccess")) {
+
+            }
+        }
     }
 
     private void initdata() {

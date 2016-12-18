@@ -142,7 +142,6 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
             this.mainActivity = mainActivity;
             this.judge = judge;
         }
-
         @Override
         protected String doInBackground(Void... params) {
             try {
@@ -154,7 +153,6 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
             }
             return null;
         }
-
         /**
          * 完成时的方法
          */

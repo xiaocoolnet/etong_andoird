@@ -22,6 +22,7 @@ import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 
@@ -61,6 +62,9 @@ public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridView
 		gv.setId(R.id.gridview);
 		return gv;
 	}
+
+
+
 
 	class InternalGridView extends GridView implements EmptyViewMethodAccessor {
 
