@@ -36,6 +36,9 @@ public class etongApplaction extends Application {
     public Vibrator mVibrator;
     public BaseResp resp;//微信登录
     public static IWXAPI api;
+    public String judgeCode;
+    public int shareBuyCode = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -120,4 +123,18 @@ public class etongApplaction extends Application {
         return resp;
     }
 
+
+    public void setjudgeCode(String judgeCode){
+        this.judgeCode = judgeCode;
+    }
+    public String getjudgeCode(){
+        return judgeCode;
+    }
+
+    public void setShareBuyCode(int shareBuyCode){
+        this.shareBuyCode = shareBuyCode;
+    }
+    public int getShareBuyCode(){
+        return shareBuyCode;
+    }
 }

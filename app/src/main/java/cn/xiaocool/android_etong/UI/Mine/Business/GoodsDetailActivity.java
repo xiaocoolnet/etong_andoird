@@ -64,6 +64,7 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
+import cn.xiaocool.android_etong.view.etongApplaction;
 
 import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_GOOD_TO_FRIEND;
 
@@ -79,9 +80,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private TextView tx_goods_name, tx_pic_txt, tx_goods_price, tv_goods_address, tv_goods_description, tv_no_content;
     private ImageView img_goods_pic;
     private Button btn_store;
-    private Button btn_lijigoumai, btn_chat,btn_home,btn_sharebuy;//btn_shopping_cart
+    private Button btn_lijigoumai, btn_chat, btn_home, btn_sharebuy;//btn_shopping_cart
     private ImageView btnLike;
-    private String id, pic, goodsname,price,shareprice, shopname, address, description, shopid, shop_uid, shop_photo;
+    private String id, pic, goodsname, price, shareprice, shopname, address, description, shopid, shop_uid, shop_photo;
     private String content;
     private String[] arraypic;
     private String picStr;
@@ -103,7 +104,6 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     public static final String action = "jason.broadcast.action";
     private GoodRecommendAdapter goodRecommendAdapter;
     private Handler handler = new Handler() {
-
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -285,15 +285,16 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     private GridView relevanceGridView;
     private RelativeLayout shareGoodIcon;
     private IWXAPI api;
-//    private TextView tvFreight;
+    private etongApplaction applaction;
 
+    //    private TextView tvFreight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_goodsdetails);
         context = this;
-
+        applaction = (etongApplaction) getApplication();
         // 微信注册初始化
         api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", true);
         api.registerApp("wxb32c00ffa8140d93");
@@ -304,7 +305,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         id = intent.getStringExtra("id");//这是goodsId
         pic = intent.getStringExtra("pic");
         price = intent.getStringExtra("oprice");
-        shareprice =intent.getStringExtra("price");
+        shareprice = intent.getStringExtra("price");
         goodsname = intent.getStringExtra("goodsname");
         shopname = intent.getStringExtra("shopname");
         shop_uid = intent.getStringExtra("shop_uid");
@@ -375,11 +376,12 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         shareGoodIcon.setOnClickListener(this);
 //        tvFreight = (TextView) findViewById(R.id.good_details_freight);
     }
+
     private void setview() {
         tx_goods_name.setText(goodsname);
         tx_goods_price.setText("￥" + price);
-        btn_sharebuy.setText(shareprice+"\n分享购");
-        btn_lijigoumai.setText(price+"\n立即购");
+        btn_sharebuy.setText(shareprice + "\n分享购");
+        btn_lijigoumai.setText(price + "\n立即购");
     }
 
     public void setSelect(int firstPosition, int secondPosition, Boolean judge) {
@@ -390,6 +392,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             }
         }
     }
+
     public Boolean judge() {
         int judge = 0;
         for (int i = 0; i < booleans.size(); i++) {
@@ -476,8 +479,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_lijigoumai:
                 goodsdetail_scrollview.scrollTo(0, 0);
-                showPopwindow(context, arraypic[0], price, goodsname);
+                showPopwindow(0, context, arraypic[0], price, goodsname);
                 break;
+
 //            case R.id.btn_shopping_cart:
 //                goodsdetail_scrollview.scrollTo(0, 0);
 //                showPopwindow_shoppingcart(GoodsDetailActivity.this, arraypic[0], price, goodsname);
@@ -520,7 +524,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 startActivity(intent2);
                 break;
             case R.id.btn_sharebuy:
-                share2weixin(1, goodsname);//朋友圈
+                goodsdetail_scrollview.scrollTo(0, 0);
+                showPopwindow(1, context, arraypic[0], price, goodsname);
+
                 break;
             case R.id.good_details_share_icon:
 //                showPopupMenu(shareGoodIcon);
@@ -580,6 +586,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 share2weixin(0, goodsname);//好友
+                applaction.setjudgeCode("2");//设置微信分享购为2,商品分享
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
@@ -587,6 +594,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 share2weixin(1, goodsname);//朋友圈
+                applaction.setjudgeCode("2");//设置微信分享购为2,商品分享
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
@@ -617,6 +625,38 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (applaction.getShareBuyCode() == 1) {
+            Intent intent = new Intent();
+            intent.putExtra("count", count);
+            intent.putExtra("id", id);
+            intent.putExtra("shopname", shopname);
+            intent.putExtra("label", getLebal());
+            intent.putExtra("proid", proids);
+            intent.setClass(context, ComfirmOrderActivity.class);
+            startActivity(intent);
+            applaction.setShareBuyCode(0);
+        } else {
+
+        }
+//        //把判断微信是否分享成功的值放在applation中
+//        etongApplaction applaction = (etongApplaction) getApplication();
+//        String returnCode = applaction.getSuccessCode();
+//        //这是判断是否分享成功的值,0为失败1为成功
+//        if (returnCode.equals("1")) {
+//            Intent intent = new Intent();
+//            intent.putExtra("count", count);
+//            intent.putExtra("id", id);
+//            intent.putExtra("shopname", shopname);
+//            intent.putExtra("label", getLebal());
+//            intent.putExtra("proid", proids);
+//            intent.setClass(context, ComfirmOrderActivity.class);
+//            startActivity(intent);
+//            applaction.setSuccessCode("0");
+//        }
+    }
 
 //    /**
 //     * 此分享到社交app函数！！废弃！！
@@ -728,7 +768,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     /**
      * 显示popupWindow
      */
-    private void showPopwindow(final Context context, String picname, String goodsprice, String goodsname) {
+    private void showPopwindow(final int code, final Context context, String picname, String goodsprice, String goodname) {
         // 利用layoutInflater获得View
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popwindow_buynow, null);
@@ -767,7 +807,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         ImageView img_pic = (ImageView) view.findViewById(R.id.img_goods_pic_small);
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + picname, img_pic);
         TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
-        tx_goodsname.setText(goodsname);
+        tx_goodsname.setText(goodname);
         TextView tx_goods_price = (TextView) view.findViewById(R.id.tx_goods_price);
         tx_goods_price.setText(goodsprice);
         final TextView tx_goods_count = (TextView) view.findViewById(R.id.tx_goods_count);
@@ -783,18 +823,23 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (judge()) {
-                    Intent intent = new Intent();
-                    intent.putExtra("count", count);
-                    intent.putExtra("id", id);
-                    intent.putExtra("shopname", shopname);
-                    intent.putExtra("label", getLebal());
-                    intent.putExtra("proid", proids);
-                    intent.setClass(context, ComfirmOrderActivity.class);
-                    startActivity(intent);
-                    window.dismiss();
-                } else {
 
+                if (judge()) {
+                    if (code == 0) {
+                        Intent intent = new Intent();
+                        intent.putExtra("count", count);
+                        intent.putExtra("id", id);
+                        intent.putExtra("shopname", shopname);
+                        intent.putExtra("label", getLebal());
+                        intent.putExtra("proid", proids);
+                        intent.setClass(context, ComfirmOrderActivity.class);
+                        startActivity(intent);
+                        window.dismiss();
+                    } else if (code == 1) {
+                        share2weixin(1, goodsname);//朋友圈
+                        applaction.setjudgeCode("0");//设置分享模式为分享购"0"
+                        window.dismiss();
+                    }
                 }
             }
         });

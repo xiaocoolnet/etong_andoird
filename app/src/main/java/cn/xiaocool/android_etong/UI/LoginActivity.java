@@ -317,7 +317,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.btn_weixin:
                 //调用微信登录
                 WXLogin();
-                Log.e("in", "in");
+                applaction.setjudgeCode("3");//设置微信调用模式为微信登录"3"
                 break;
             case R.id.btn_weibo:
                 //微博登录

@@ -48,4 +48,5 @@ dependencies {
     compile files('libs/open_sdk_r5756_lite.jar')
     compile files('libs/libammsdk.jar')
     compile project(':library')
+    compile 'com.ms-square:expandableTextView:0.1.4'
 }

@@ -50,6 +50,7 @@ import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
+import cn.xiaocool.android_etong.view.etongApplaction;
 
 import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_SHOP_TO_FRIEND;
 
@@ -433,6 +434,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 share2weixin(0, shopname);//好友
+                etongApplaction applaction = (etongApplaction) getApplication();
+                applaction.setjudgeCode("1");//设置微信分享为1，店铺分享
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
@@ -440,6 +443,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 share2weixin(1, shopname);//朋友圈
+                etongApplaction applaction = (etongApplaction) getApplication();
+                applaction.setjudgeCode("1");//设置微信分享购为为1，店铺分享
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
