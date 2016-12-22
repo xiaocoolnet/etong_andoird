@@ -72,6 +72,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private ImageView img_store_head;
     private PullToRefreshGridView list_store_goods;
     private ArrayList<StoreHomepage.DataBean> goods_list;
+    private ArrayList<StoreHomepage.DataBean> newArrivalDataBeanListLoading;
     private StoreHomePageAdapter storeHomePageAdapter;
     private Handler handler = new Handler() {
         @Override
@@ -102,10 +103,30 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                 databean.setShowid(shopname);
                                 goods_list.add(databean);
                             }
+                            if (goods_list.size() >= 6) {
+                                for (int i = 0; i < 6; i++) {
+                                    newArrivalDataBeanListLoading.add(goods_list.get(i));
+                                }
+
+                                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                                endLayout.setPullLabel("正在上拉刷新...");
+                                endLayout.setRefreshingLabel("正在玩命加载中...");
+                                endLayout.setReleaseLabel("放开以刷新");
+
+                            } else {
+                                for (int i = 0; i < goods_list.size(); i++) {
+                                    newArrivalDataBeanListLoading.add(goods_list.get(i));
+                                }
+
+                                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                                endLayout.setPullLabel("正在上拉刷新...");
+                                endLayout.setRefreshingLabel("已经没有更多宝贝了");
+                                endLayout.setReleaseLabel("放开以刷新");
+                            }
                             if (storeHomePageAdapter != null) {
                                 storeHomePageAdapter.notifyDataSetChanged();
                             } else {
-                                storeHomePageAdapter = new StoreHomePageAdapter(context, goods_list, shopid, shop_uid, shop_photo);
+                                storeHomePageAdapter = new StoreHomePageAdapter(context, newArrivalDataBeanListLoading, shopid, shop_uid, shop_photo);
                                 list_store_goods.setAdapter(storeHomePageAdapter);
 //                                setListViewHeightBasedOnChildren(list_store_goods);
                             }
@@ -239,8 +260,10 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
 
 
         // 微信注册初始化
-        api = WXAPIFactory.createWXAPI(this, "wxb32c00ffa8140d93", true);
+        api = WXAPIFactory.createWXAPI(this, "wxb32c00f" +
+                "fa8140d93", true);
         api.registerApp("wxb32c00ffa8140d93");
+        initview();
 
 
         if (NetUtil.isConnnected(context)) {
@@ -248,12 +271,12 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         } else {
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
-        initview();
 
     }
 
     private void initview() {
         goods_list = new ArrayList<StoreHomepage.DataBean>();
+        newArrivalDataBeanListLoading = new ArrayList<>();
         list_store_goods = (PullToRefreshGridView) findViewById(R.id.list_store_goods);
         tx_store_name = (TextView) findViewById(R.id.tx_store_name);
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
@@ -288,21 +311,37 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         endLayout.setRefreshingLabel("正在玩命加载中...");
         endLayout.setReleaseLabel("放开以刷新");
 
+        list_store_goods.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+                new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 1).execute();
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+                new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 2).execute();
+
+            }
+        });
     }
 
     /**
      * 异步下载任务
      */
     private static class LoadDataAsyncTask extends AsyncTask<Void, Void, String> {
-        private Context context;
-        public LoadDataAsyncTask(Context context) {
-            this.context = context;
+
+        private StoreHomepageActivity mainActivity;
+        private int judge;
+
+        public LoadDataAsyncTask(StoreHomepageActivity mainActivity, int judge) {
+            this.mainActivity = mainActivity;
+            this.judge = judge;
         }
-
-
         @Override
         protected String doInBackground(Void... params) {
             try {
+                mainActivity.loadData(judge);
                 Thread.sleep(2000);
                 return "seccess";
             } catch (InterruptedException e) {
@@ -310,7 +349,6 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             }
             return null;
         }
-
         /**
          * 完成时的方法
          */
@@ -318,8 +356,39 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if (s.equals("seccess")) {
-
+                mainActivity.storeHomePageAdapter.notifyDataSetChanged();
+                mainActivity.list_store_goods.onRefreshComplete();//刷新完成
             }
+        }
+    }
+
+    private void loadData(int judge) {
+        int size = newArrivalDataBeanListLoading.size();
+        if (judge == 1) {
+            return;
+        } else {
+            if (goods_list.size() >= (size + 6)) {
+
+                for (int i = size; i < size + 6; i++) {
+                    newArrivalDataBeanListLoading.add(goods_list.get(i));
+                }
+
+                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                endLayout.setPullLabel("正在上拉刷新...");
+                endLayout.setRefreshingLabel("正在玩命加载中...");
+                endLayout.setReleaseLabel("放开以刷新");
+            } else {
+
+                for (int i = size; i < goods_list.size(); i++) {
+                    newArrivalDataBeanListLoading.add(goods_list.get(i));
+                }
+
+                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                endLayout.setPullLabel("正在上拉刷新...");
+                endLayout.setRefreshingLabel("已经没有更多宝贝了");
+                endLayout.setReleaseLabel("放开以刷新");
+            }
+            return;
         }
     }
 

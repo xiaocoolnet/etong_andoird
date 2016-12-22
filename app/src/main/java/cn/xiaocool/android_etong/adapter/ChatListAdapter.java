@@ -64,6 +64,7 @@ public class ChatListAdapter extends BaseAdapter {
         }
         ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + entity.getPhoto(), holder.imgHead);
         holder.tvName.setText(entity.getName());
+        holder.tvTime.setText(entity.getChatTime());
         holder.tvContent.setText(entity.getChatMessage());
         holder.rltop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +87,8 @@ public class ChatListAdapter extends BaseAdapter {
         TextView tvName;
         @BindView(R.id.tv_content)
         TextView tvContent;
+        @BindView(R.id.tv_chat_time)
+        TextView tvTime;
         @BindView(R.id.rl_top)
         RelativeLayout rltop;
         ViewHolder(View view) {

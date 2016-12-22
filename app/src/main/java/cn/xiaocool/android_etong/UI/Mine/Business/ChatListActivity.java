@@ -59,7 +59,7 @@ public class ChatListActivity extends Activity implements View.OnClickListener {
                                 JSONObject jsonobj = jsonarry.getJSONObject(i);
                                 PersonChat personChat = new PersonChat();
                                 personChat.setChatMessage(jsonobj.getString("last_content"));
-//                                personChat.setChatTime(getStrTime(jsonobj.getString("create_time")));
+                                personChat.setChatTime(jsonobj.getString("create_time"));
                                 personChat.setchatuid(jsonobj.getString("chat_uid"));
                                 personChat.setPhoto(jsonobj.getString("other_face"));
                                 personChat.setName(jsonobj.getString("other_nickname"));

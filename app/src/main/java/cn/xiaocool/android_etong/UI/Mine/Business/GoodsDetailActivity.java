@@ -539,7 +539,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.good_details_share_icon:
 //                showPopupMenu(shareGoodIcon);
-                showSharePopwindow();
+                showSharePopwindow(0);
                 break;
         }
     }
@@ -548,7 +548,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
     /**
      * 显示分享到社交app的popupWindow
      */
-    private void showSharePopwindow() {
+    private void showSharePopwindow(int code) {
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.show_share_good_popup_window, null);
@@ -845,7 +845,8 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         startActivity(intent);
                         window.dismiss();
                     } else if (code == 1) {
-                        share2weixin(1, goodsname);//朋友圈
+                        showSharePopwindow(1);
+//                        share2weixin(1, goodsname);//朋友圈
                         applaction.setjudgeCode("0");//设置分享模式为分享购"0"
                         window.dismiss();
                     }

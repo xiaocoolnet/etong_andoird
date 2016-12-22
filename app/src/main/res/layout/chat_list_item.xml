@@ -35,6 +35,17 @@
         android:layout_marginBottom="10dp"
         android:text=""
         />
+    <TextView
+        android:id="@+id/tv_chat_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:text="三天前"
+        android:textColor="@color/black1"
+        android:textSize="12sp" />
 </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
