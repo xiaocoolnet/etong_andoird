@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:layout_above="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -37,7 +38,7 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_centerInParent="true"
-                    android:text="确认订单"
+                    android:text="支付订单"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -307,7 +308,8 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/whilte"
                 android:layout_width="match_parent"
-                android:layout_height="360dp">
+                android:layout_height="120dp"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -321,7 +323,7 @@
                     android:layout_marginTop="40dp"
                     android:background="@drawable/edit_border_gray"
                     android:layout_width="356dp"
-                    android:layout_height="101dp">
+                    android:layout_height="60dp">
                     <EditText
                         android:id="@+id/et_customer_remark"
                         android:layout_marginTop="10dp"
@@ -337,10 +339,165 @@
 
                 </RelativeLayout>
             </RelativeLayout>
+
+
+            <!--支付方式选择-->
+
+            <RelativeLayout
+                android:id="@+id/rl_payWay0"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_size_55"
+                android:layout_marginTop="@dimen/activity_size_22"
+                android:background="@color/whilte">
+
+                <ImageView
+                    android:id="@+id/pay_way0_icon"
+                    android:layout_width="@dimen/activity_size_30"
+                    android:layout_height="@dimen/activity_size_30"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    android:background="@mipmap/ic_ka" />
+
+                <TextView
+                    android:id="@+id/pay_way0_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_toRightOf="@+id/pay_way0_icon"
+                    android:text="余额支付"
+                    android:textColor="@color/black2"
+                    android:textSize="@dimen/activity_size_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pay_way0_name"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_5"
+                    android:layout_toRightOf="@+id/pay_way0_icon"
+                    android:text="使用e通商城钱包余额支付"
+                    android:textColor="@color/black3"
+                    android:textSize="@dimen/activity_size_12" />
+
+                <ImageView
+                    android:id="@+id/iv_payWay0_item"
+                    android:layout_width="@dimen/activity_size_18"
+                    android:layout_height="@dimen/activity_size_18"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_size_10"
+                    android:background="@drawable/btn_selecter_icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_payWay1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_size_55"
+                android:layout_marginTop="@dimen/activity_size_1"
+                android:background="@color/whilte">
+
+                <ImageView
+                    android:id="@+id/pay_way1_icon"
+                    android:layout_width="@dimen/activity_size_30"
+                    android:layout_height="@dimen/activity_size_30"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    android:background="@mipmap/ic_weixintubiao" />
+
+                <TextView
+                    android:id="@+id/pay_way1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_toRightOf="@+id/pay_way1_icon"
+                    android:text="微信支付"
+                    android:textColor="@color/black2"
+                    android:textSize="@dimen/activity_size_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pay_way1_name"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_5"
+                    android:layout_toRightOf="@+id/pay_way1_icon"
+                    android:text="推荐安装微信5.0及以上用户使用"
+                    android:textColor="@color/black3"
+                    android:textSize="@dimen/activity_size_12" />
+
+                <ImageView
+                    android:id="@+id/iv_payWay1_item"
+                    android:layout_width="@dimen/activity_size_18"
+                    android:layout_height="@dimen/activity_size_18"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_size_10"
+                    android:background="@drawable/btn_selecter_icon" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_payWay2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_size_55"
+                android:layout_marginTop="@dimen/activity_size_1"
+                android:background="@color/whilte">
+
+                <ImageView
+                    android:id="@+id/pay_way2_icon"
+                    android:layout_width="@dimen/activity_size_30"
+                    android:layout_height="@dimen/activity_size_30"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    android:background="@mipmap/ic_bao" />
+
+                <TextView
+                    android:id="@+id/pay_way2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_10"
+                    android:layout_toRightOf="@+id/pay_way2_icon"
+                    android:text="支付宝支付"
+                    android:textColor="@color/black2"
+                    android:textSize="@dimen/activity_size_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pay_way2_name"
+                    android:layout_marginLeft="@dimen/activity_size_15"
+                    android:layout_marginTop="@dimen/activity_size_5"
+                    android:layout_toRightOf="@+id/pay_way2_icon"
+                    android:text="推荐有支付宝的用户使用"
+                    android:textColor="@color/black3"
+                    android:textSize="@dimen/activity_size_12" />
+
+                <ImageView
+                    android:id="@+id/iv_payWay2_item"
+                    android:layout_width="@dimen/activity_size_18"
+                    android:layout_height="@dimen/activity_size_18"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_size_10"
+                    android:background="@drawable/btn_selecter_icon" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/view_color"
+                ></RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/bottom"
         android:background="@color/whilte"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
