@@ -546,6 +546,98 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
 
     /**
+     * 显示分享购的popupWindow
+     */
+    private void showShareBuyPopwindow() {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.show_share_buy_good_popup_window, null);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        final PopupWindow window = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        window.setOutsideTouchable(true); // 设置popupwindow外部可点击
+        window.setFocusable(true); // 获取焦点
+
+        // 实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(dw);
+
+
+        //设置背景半透明
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        this.getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(cd);
+
+
+//        // 设置popWindow的显示和消失动画
+//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(GoodsDetailActivity.this.findViewById(R.id.btn_lijigoumai),
+                Gravity.BOTTOM, 0, 0);
+
+
+        // 这里检验popWindow里的button是否可以点击
+//        Button first = (Button) view.findViewById(R.id.first);
+        Button icWeChat = (Button) view.findViewById(R.id.pop_share_to_weChat_icon);
+        Button icFriend = (Button) view.findViewById(R.id.pop_share_to_weChat_friend_icon);
+//        Button icQQ = (Button) view.findViewById(R.id.pop_share_to_qq_icon);
+//        Button icMicroBlog = (Button) view.findViewById(R.id.pop_share_to_microBlog_icon);
+        icWeChat.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(0, goodsname);//好友
+                applaction.setjudgeCode("0");//设置微信分享购为0,分享购
+                window.dismiss();
+            }
+        });
+        icFriend.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(1, goodsname);//朋友圈
+                applaction.setjudgeCode("0");//设置微信分享购为0,分享购
+                window.dismiss();
+            }
+        });
+//        icQQ.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtils.makeShortToast(context, "分享到QQ功能正在开发中");
+//            }
+//        });
+//        icMicroBlog.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtils.makeShortToast(context, "分享到微博功能正在开发中");
+//            }
+//        });
+        //popWindow消失监听方法
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                //设置背景变回原色
+                WindowManager.LayoutParams lp = GoodsDetailActivity.this.getWindow().getAttributes();
+                lp.alpha = 1f;
+                GoodsDetailActivity.this.getWindow().setAttributes(lp);
+            }
+        });
+
+    }
+
+
+    /**
      * 显示分享到社交app的popupWindow
      */
     private void showSharePopwindow(int code) {
@@ -555,7 +647,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
 
-        PopupWindow window = new PopupWindow(view,
+        final PopupWindow window = new PopupWindow(view,
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
@@ -596,6 +688,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             public void onClick(View v) {
                 share2weixin(0, goodsname);//好友
                 applaction.setjudgeCode("2");//设置微信分享购为2,商品分享
+                window.dismiss();
             }
         });
         icFriend.setOnClickListener(new View.OnClickListener() {
@@ -604,6 +697,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
             public void onClick(View v) {
                 share2weixin(1, goodsname);//朋友圈
                 applaction.setjudgeCode("2");//设置微信分享购为2,商品分享
+                window.dismiss();
             }
         });
         icQQ.setOnClickListener(new View.OnClickListener() {
@@ -845,9 +939,9 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                         startActivity(intent);
                         window.dismiss();
                     } else if (code == 1) {
-                        showSharePopwindow(1);
+                        showShareBuyPopwindow();
 //                        share2weixin(1, goodsname);//朋友圈
-                        applaction.setjudgeCode("0");//设置分享模式为分享购"0"
+//                        applaction.setjudgeCode("0");//设置分享模式为分享购"0"
                         window.dismiss();
                     }
                 }

@@ -13,6 +13,7 @@ public interface CommunalInterfaces {
     int LOGIN = 0x0005;//登录
     int BIND_WECHAT_AND_USERID = 0x0006;//绑定微信
     int CHECK_WECHAT_BIND = 0x0007;//检查是否已经绑定微信
+    int DELETE_MY_FOOTPRINT = 0x0008;//删除我的足迹
     //首页商城(0x0100开始)
     int LIKE_GOOD = 0x0100;//收藏商城商品
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品

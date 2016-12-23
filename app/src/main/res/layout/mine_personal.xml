@@ -25,7 +25,7 @@
             android:layout_alignLeft="@+id/img_mine_head"
             android:layout_below="@+id/img_mine_head"
             android:layout_marginTop="19dp"
-            android:text="e小妞"
+            android:text="e通商城"
             android:textColor="@color/whilte"
             android:textSize="18sp"
             />

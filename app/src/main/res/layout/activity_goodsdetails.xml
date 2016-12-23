@@ -17,7 +17,7 @@
             android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:background="@color/whilte"
             android:drawableTop="@mipmap/ic_shouye_red_bold"
             android:paddingTop="5dp"
@@ -28,7 +28,7 @@
             android:id="@+id/btn_chat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:background="@color/whilte"
             android:drawableTop="@mipmap/ic_zixun"
             android:paddingTop="5dp"
@@ -40,7 +40,7 @@
             android:id="@+id/btn_store"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:background="@color/whilte"
             android:drawableTop="@mipmap/ic_dianpu_gray"
             android:paddingTop="5dp"
@@ -60,17 +60,19 @@
             android:id="@+id/btn_lijigoumai"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:background="@color/homepage_orange"
-            android:text="立即抢购"
+            android:textSize="@dimen/activity_size_14"
+            android:text="¥0.0\n立即购"
             android:textColor="@color/whilte" />
         <Button
             android:id="@+id/btn_sharebuy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="1.5"
             android:background="@color/main_color_red"
-            android:text="分享购"
+            android:text="¥0.0\n分享购"
+            android:textSize="@dimen/activity_size_14"
             android:textColor="@color/whilte" />
 
     </LinearLayout>
@@ -271,6 +273,7 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:text="商品名称"
+                    android:textSize="@dimen/activity_size_16"
                     android:textColor="@color/black" />
             </RelativeLayout>
 

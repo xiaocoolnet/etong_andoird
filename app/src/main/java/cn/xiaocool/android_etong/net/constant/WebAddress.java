@@ -474,6 +474,12 @@ public interface WebAddress extends NetBaseConstant {
 
     String UpdateUserQQ = NET_BASE_PREFIX + "a=UpdateUserQQ";
 
+    /**
+     * 删除我的足迹
+     */
+
+    String DELETE_MY_FOOTPRINT = NET_BASE_PREFIX + "a=deleteBrowseHistoryByUserid";
+
 }
 
 

@@ -121,10 +121,31 @@ public class MineRequest {
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&type=" + type;//1是我的评价，2是卖家的评价
                 String result_data = NetUtil.getResponse(WebAddress.MY_COMMENT, data);
-                Log.e("get json success",result_data);
+                Log.e("get json success", result_data);
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.MY_COMMENT;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //删除我的足迹
+    public void deleteMyFootprint(final String type) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&type=" + type;
+                String result_data = NetUtil.getResponse(WebAddress.DELETE_MY_FOOTPRINT, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.DELETE_MY_FOOTPRINT;
                     msg.obj = obj;
                 } catch (JSONException e) {
                     e.printStackTrace();

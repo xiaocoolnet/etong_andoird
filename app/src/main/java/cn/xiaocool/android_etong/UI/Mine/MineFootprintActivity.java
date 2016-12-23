@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -28,8 +31,12 @@ import java.util.List;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.MineFootprintAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
+import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.net.constant.request.MineRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
 
 
 /**
@@ -50,6 +57,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case CommunalInterfaces.GetMyBrowseHistory:
+                    Log.e("succ", "succ");
                     JSONObject jsonObject = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject.getString("status");
@@ -80,27 +88,48 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
                             }
                             everydayChoicenessAdapter = new MineFootprintAdapter(context, newArrivalDataBeanListLoading);
                             listView.setAdapter(everydayChoicenessAdapter);
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+                //清空我的足迹
+                case CommunalInterfaces.DELETE_MY_FOOTPRINT:
+                    JSONObject jsonObject1 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject1.getString("status");
+                        if (status.equals("success")) {
+                            Toast.makeText(context, "清空成功！", Toast.LENGTH_SHORT).show();
+                            newArrivalDataBeanListLoading.clear();
+                            everydayChoicenessAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(context, "清空失败！请重试", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
+    private TextView tvClean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.everyday_choiceness);
+        setContentView(R.layout.my_footprint);
         context = this;
         initView();
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         progressDialog.setMessage("正在加载...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        new HomeRequest(this, handler).GetMyBrowseHistory();
-
+        if (NetUtil.isConnnected(this)) {
+            new HomeRequest(this, handler).GetMyBrowseHistory();
+        }
 
         //设置可上拉刷新和下拉刷新
         listView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -142,6 +171,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
             this.mainActivity = mainActivity;
             this.judge = judge;
         }
+
         @Override
         protected String doInBackground(Void... params) {
             try {
@@ -153,6 +183,7 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
             }
             return null;
         }
+
         /**
          * 完成时的方法
          */
@@ -185,13 +216,15 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
     }
 
     private void initView() {
-        listView = (PullToRefreshListView) findViewById(R.id.listView_everyday_choiceness);
+        listView = (PullToRefreshListView) findViewById(R.id.listView_my_footprint);
         newArrivalDataBeanList = new ArrayList<>();
         newArrivalDataBeanListLoading = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("我的足迹");
         rlBack = (RelativeLayout) findViewById(R.id.btn_back);
         rlBack.setOnClickListener(this);
+        tvClean = (TextView) findViewById(R.id.top_clean_footprint);
+        tvClean.setOnClickListener(this);
     }
 
     @Override
@@ -199,6 +232,29 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_back:
                 finish();
+                break;
+            case R.id.top_clean_footprint:
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                dialog.setMessage("清空我的足迹？");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (NetUtil.isConnnected(context)) {
+                                    new MineRequest(context, handler).deleteMyFootprint("1");
+
+                                } else {
+                                    Toast.makeText(context, "请检查网络！", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                );
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
                 break;
         }
     }
