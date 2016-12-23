@@ -12,6 +12,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.MineFootprintAdapter;
@@ -37,6 +40,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.view.SwipeListLayout;
 
 
 /**
@@ -157,7 +161,37 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
 
             }
         });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    //当listview开始滑动时，若有item的状态为Open，则Close，然后移除
+                    case SCROLL_STATE_TOUCH_SCROLL:
+//                        if (sets.size() > 0) {
+//                            for (SwipeListLayout s : sets) {
+//                                s.setStatus(SwipeListLayout.Status.Close, true);
+//                                sets.remove(s);
+//                            }
+//                        }
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
+
+
+
+
+
 
     /**
      * 异步下载任务
