@@ -40,6 +40,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.net.constant.request.MineRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 import cn.xiaocool.android_etong.view.SwipeListLayout;
 
 
@@ -47,7 +48,7 @@ import cn.xiaocool.android_etong.view.SwipeListLayout;
  * Created by 潘 on 2016/10/10.
  */
 
-public class MineFootprintActivity extends Activity implements View.OnClickListener {
+public class MineFootprintActivity extends Activity implements View.OnClickListener, MineFootprintAdapter.DeleteItemListener {
 
     private PullToRefreshListView listView;
     private TextView tvTitle;
@@ -90,7 +91,8 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
                                     newArrivalDataBeanListLoading.add(newArrivalDataBeanList.get(i));
                                 }
                             }
-                            everydayChoicenessAdapter = new MineFootprintAdapter(context, newArrivalDataBeanListLoading);
+                            everydayChoicenessAdapter = new MineFootprintAdapter(context, newArrivalDataBeanListLoading,
+                                    (MineFootprintAdapter.DeleteItemListener) context);
                             listView.setAdapter(everydayChoicenessAdapter);
 
                         }
@@ -115,10 +117,26 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
                         e.printStackTrace();
                     }
                     break;
+                //删除某一条我的足迹
+                case CommunalInterfaces.DELETE_MY_FOOTPRINT_ITEM:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject2.getString("status");
+                        if (status.equals("success")) {
+                            ToastUtils.makeShortToast(context, "删除足迹成功！");
+                        } else {
+                            Toast.makeText(context, "删除失败！请重试", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
     private TextView tvClean;
+    private static Set<SwipeListLayout> sets = new HashSet();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,12 +187,12 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
                 switch (scrollState) {
                     //当listview开始滑动时，若有item的状态为Open，则Close，然后移除
                     case SCROLL_STATE_TOUCH_SCROLL:
-//                        if (sets.size() > 0) {
-//                            for (SwipeListLayout s : sets) {
-//                                s.setStatus(SwipeListLayout.Status.Close, true);
-//                                sets.remove(s);
-//                            }
-//                        }
+                        if (sets.size() > 0) {
+                            for (SwipeListLayout s : sets) {
+                                s.setStatus(SwipeListLayout.Status.Close, true);
+                                sets.remove(s);
+                            }
+                        }
                         break;
 
                 }
@@ -188,9 +206,52 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
         });
     }
 
+    //adapter接口回调
+    public void deleteItem(String goodId) {
+        if (NetUtil.isConnnected(context)) {
+            new MineRequest(context, handler).deleteMyFootprintItem("1", goodId);//默认值type = 1
+        }
+    }
 
+    /**
+     * 滑动删除条目监听
+     */
+    public static class MyOnSlipStatusListener implements SwipeListLayout.OnSwipeStatusListener {
 
+        private SwipeListLayout slipListLayout;
 
+        public MyOnSlipStatusListener(SwipeListLayout slipListLayout) {
+            this.slipListLayout = slipListLayout;
+        }
+
+        @Override
+        public void onStatusChanged(SwipeListLayout.Status status) {
+            if (status == SwipeListLayout.Status.Open) {
+                //若有其他的item的状态为Open，则Close，然后移除
+                if (sets.size() > 0) {
+                    for (SwipeListLayout s : sets) {
+                        s.setStatus(SwipeListLayout.Status.Close, true);
+                        sets.remove(s);
+                    }
+                }
+                sets.add(slipListLayout);
+            } else {
+                if (sets.contains(slipListLayout))
+                    sets.remove(slipListLayout);
+            }
+        }
+
+        @Override
+        public void onStartCloseAnimation() {
+
+        }
+
+        @Override
+        public void onStartOpenAnimation() {
+
+        }
+
+    }
 
 
     /**

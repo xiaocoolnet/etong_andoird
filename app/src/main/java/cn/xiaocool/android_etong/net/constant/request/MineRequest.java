@@ -155,4 +155,24 @@ public class MineRequest {
             }
         }.start();
     }
+    //删除我的足迹某一条目
+    public void deleteMyFootprintItem(final String type,final String goodId) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&type=" + type + "&id=" + goodId;
+                String result_data = NetUtil.getResponse(WebAddress.DELETE_MY_FOOTPRINT_ITEM, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.DELETE_MY_FOOTPRINT_ITEM;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
 }

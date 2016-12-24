@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,15 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Handler;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
+import cn.xiaocool.android_etong.net.constant.request.MineRequest;
+import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
 import cn.xiaocool.android_etong.view.SwipeListLayout;
 
 import static android.R.id.list;
@@ -37,12 +42,16 @@ public class MineFootprintAdapter extends BaseAdapter {
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
-    private Set<SwipeListLayout> sets = new HashSet();
-
-    public MineFootprintAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList) {
+    private DeleteItemListener deleteItemListener;
+    //自定义一个接口
+    public interface DeleteItemListener{
+        void deleteItem(String goodId);
+    }
+    public MineFootprintAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList,DeleteItemListener deleteItemListener) {
         this.layoutInflater = LayoutInflater.from(context);
         this.newArrivalDataBeanList = newArrivalDataBeanList;
         this.context = context;
+        this.deleteItemListener = deleteItemListener;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -65,7 +74,7 @@ public class MineFootprintAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
         final NewArrivalBean.NewArrivalDataBean bean = newArrivalDataBeanList.get(position);
         String picName = newArrivalDataBeanList.get(position).getPicture();
@@ -84,62 +93,20 @@ public class MineFootprintAdapter extends BaseAdapter {
         viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
         viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
 //            viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
-        viewHolder.sll_main.setOnSwipeStatusListener(new MyOnSlipStatusListener(
+        viewHolder.sll_main.setOnSwipeStatusListener(new MineFootprintActivity.MyOnSlipStatusListener(
                 viewHolder.sll_main));
-//        viewHolder.tv_top.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                viewHolder.sll_main.setStatus(SwipeListLayout.Status.Close, true);
-////                String str = list.get(arg0);
-////                list.remove(arg0);
-////                list.add(0, str);
-//                notifyDataSetChanged();
-//            }
-//        });
+        //删除按钮监听
         viewHolder.tv_delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 viewHolder.sll_main.setStatus(SwipeListLayout.Status.Close, true);
-//                list.remove(arg0);
+                deleteItemListener.deleteItem(newArrivalDataBeanList.get(position).getId());
+                newArrivalDataBeanList.remove(position);
+                //调用接口回调activity
                 notifyDataSetChanged();
             }
         });
-//
-
-
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(context).inflate(
-//                    R.layout.minefootprint_item, null);
-//        }
-//
-//        final SwipeListLayout sll_main = (SwipeListLayout) convertView
-//                .findViewById(sll_main);
-//        TextView tv_top = (TextView) convertView.findViewById(R.id.tv_top);
-//        TextView tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
-//        sll_main.setOnSwipeStatusListener(new MyOnSlipStatusListener(
-//                sll_main));
-//        tv_top.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                sll_main.setStatus(SwipeListLayout.Status.Close, true);
-////                String str = list.get(arg0);
-////                list.remove(arg0);
-////                list.add(0, str);
-//                notifyDataSetChanged();
-//            }
-//        });
-//        tv_delete.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                sll_main.setStatus(SwipeListLayout.Status.Close, true);
-////                list.remove(arg0);
-//                notifyDataSetChanged();
-//            }
-//        });
         return convertView;
     }
 
@@ -162,42 +129,7 @@ public class MineFootprintAdapter extends BaseAdapter {
 
     }
 
-    class MyOnSlipStatusListener implements SwipeListLayout.OnSwipeStatusListener {
 
-        private SwipeListLayout slipListLayout;
-
-        public MyOnSlipStatusListener(SwipeListLayout slipListLayout) {
-            this.slipListLayout = slipListLayout;
-        }
-
-        @Override
-        public void onStatusChanged(SwipeListLayout.Status status) {
-            if (status == SwipeListLayout.Status.Open) {
-                //若有其他的item的状态为Open，则Close，然后移除
-                if (sets.size() > 0) {
-                    for (SwipeListLayout s : sets) {
-                        s.setStatus(SwipeListLayout.Status.Close, true);
-                        sets.remove(s);
-                    }
-                }
-                sets.add(slipListLayout);
-            } else {
-                if (sets.contains(slipListLayout))
-                    sets.remove(slipListLayout);
-            }
-        }
-
-        @Override
-        public void onStartCloseAnimation() {
-
-        }
-
-        @Override
-        public void onStartOpenAnimation() {
-
-        }
-
-    }
 
 
 }

@@ -479,6 +479,11 @@ public interface WebAddress extends NetBaseConstant {
      */
 
     String DELETE_MY_FOOTPRINT = NET_BASE_PREFIX + "a=deleteBrowseHistoryByUserid";
+    /**
+     * 删除我的足迹某一条目
+     */
+
+    String DELETE_MY_FOOTPRINT_ITEM = NET_BASE_PREFIX + "a=deleteBrowseHistoryById";
 
 }
 
