@@ -155,8 +155,9 @@ public class MineRequest {
             }
         }.start();
     }
+
     //删除我的足迹某一条目
-    public void deleteMyFootprintItem(final String type,final String goodId) {
+    public void deleteMyFootprintItem(final String type, final String goodId) {
         new Thread() {
             Message msg = Message.obtain();
 
@@ -166,6 +167,48 @@ public class MineRequest {
                 try {
                     JSONObject obj = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.DELETE_MY_FOOTPRINT_ITEM;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //添加反馈留言
+    public void addSuggestions(final String content) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&content=" + content;
+                String result_data = NetUtil.getResponse(WebAddress.ADD_SUGGESTIONS, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.ADD_SUGGESTIONS;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    //获取我的反馈留言列表
+    public void getSuggestions() {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&userid=" + user.getUserId();
+                String result_data = NetUtil.getResponse(WebAddress.GET_SUGGESTIONS, data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.GET_SUGGESTIONS;
                     msg.obj = obj;
                 } catch (JSONException e) {
                     e.printStackTrace();

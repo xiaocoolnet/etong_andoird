@@ -183,6 +183,8 @@
         <activity android:name=".UI.Mine.AgentActivity"></activity>
         <activity android:name=".UI.Mine.Business.ImgTxtDetailActivity"></activity>
         <activity android:name=".UI.Mine.RightsCenterActivity"></activity>
+        <activity android:name=".UI.Mine.WriteSuggestionsActivity"></activity>
+        <activity android:name=".UI.Mine.GetSuggestionsListActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

@@ -131,11 +131,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 dataObject = (JSONObject) jsonArray.get(i);
                                 GuessLikeBean.GuessLikeDataBean guessLikeDataBean = new GuessLikeBean.GuessLikeDataBean();
                                 guessLikeDataBean.setId(dataObject.getString("id"));
-                                guessLikeDataBean.setArtno(dataObject.getString("artno"));
+//                                guessLikeDataBean.setArtno(dataObject.getString("artno"));
                                 guessLikeDataBean.setShopid(dataObject.getString("shopid"));
-                                guessLikeDataBean.setBrand(dataObject.getString("brand"));
+//                                guessLikeDataBean.setBrand(dataObject.getString("brand"));
                                 guessLikeDataBean.setGoodsname(dataObject.getString("goodsname"));
-                                guessLikeDataBean.setAdtitle(dataObject.getString("adtitle"));
+//                                guessLikeDataBean.setAdtitle(dataObject.getString("adtitle"));
                                 guessLikeDataBean.setOprice(dataObject.getString("oprice"));
                                 guessLikeDataBean.setPrice(dataObject.getString("price"));
                                 guessLikeDataBean.setUnit(dataObject.getString("unit"));
@@ -149,11 +149,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 guessLikeDataBean.setRecommend(dataObject.getString("recommend"));
 
 
-                                JSONObject jsonObject2 = dataObject.getJSONObject("shop_name");
-                                guessLikeDataBean.setShopname(jsonObject2.getString("shopname"));
-
-                                guessLikeDataBean.setSales(dataObject.getString("sales"));
-                                guessLikeDataBean.setPaynum(dataObject.getString("paynum"));
+//                                JSONObject jsonObject2 = dataObject.getJSONObject("shop_name");
+//                                guessLikeDataBean.setShopname(jsonObject2.getString("shopname"));
+//
+//                                guessLikeDataBean.setSales(dataObject.getString("sales"));
+//                                guessLikeDataBean.setPaynum(dataObject.getString("paynum"));
 
 
                                 guessLikeDataBeanList.add(guessLikeDataBean);
@@ -207,7 +207,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         initdata();
         initview();
         new HomeRequest(context, handler).getEveryDayShop();//获取每日好店
-        new HomeRequest(context, handler).getGuessLike("&recommend=8");//获取猜你喜欢
+        new HomeRequest(context, handler).getGuessLike();//获取猜你喜欢
         new HomeRequest(context, handler).getMenu("", "");//获取一级菜单列表
     }
 

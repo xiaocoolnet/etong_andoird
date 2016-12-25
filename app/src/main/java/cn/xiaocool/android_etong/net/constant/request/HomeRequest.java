@@ -72,13 +72,13 @@ public class HomeRequest {
     }
 
     //获取首页猜你喜欢
-    public void getGuessLike(final String recommend) {
+    public void getGuessLike() {
         new Thread() {
             Message msg = Message.obtain();
 
             public void run() {
-                String data = recommend;
-                String result_data = NetUtil.getResponse(WebAddress.GET_NEW_ARRIVAL, data);
+                String data = "";
+                String result_data = NetUtil.getResponse(WebAddress.GET_GUESS_LIKE, data);
                 Log.e("accept like success",result_data);
                 try {
                     JSONObject obj = new JSONObject(result_data);

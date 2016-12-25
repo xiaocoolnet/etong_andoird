@@ -148,6 +148,30 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         break;
                 }
                 break;
+            case "4"://微信调用模式为  分享赚佣金
+                switch (resp.errCode) {
+                    case BaseResp.ErrCode.ERR_OK:
+                        result = "分享微信赚佣金成功！";
+                        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                        finish();
+                        break;
+                    case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        result = "取消微信分享赚佣金！";
+                        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                        finish();
+                        break;
+                    case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                        result = "发送被拒绝";
+                        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                        finish();
+                        break;
+                    default:
+                        result = "发送返回";
+                        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                        finish();
+                        break;
+                }
+                break;
         }
     }
 

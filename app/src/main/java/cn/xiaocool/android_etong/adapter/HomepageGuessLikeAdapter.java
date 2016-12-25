@@ -72,21 +72,23 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.homepage_guess_ulike_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.homepageGuessLikeImage, displayImageOptions);
-            viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
-            viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
-            viewHolder.homepageGuessLikePayNum.setText("¥" + guessLikeDataBeanList.get(position).getPaynum());
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.homepageGuessLikeImage, displayImageOptions);
-            viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
-            viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
-            viewHolder.homepageGuessLikePayNum.setText("¥" + guessLikeDataBeanList.get(position).getPaynum());
+//            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+//                    viewHolder.homepageGuessLikeImage, displayImageOptions);
+//            viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
+//            viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
+//            viewHolder.homepageGuessLikePayNum.setText("¥" + guessLikeDataBeanList.get(position).getPaynum());
+
+
         }
 
-
+        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+                viewHolder.homepageGuessLikeImage, displayImageOptions);
+        viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
+        viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
+        viewHolder.homepageGuessLikePayNum.setText(guessLikeDataBeanList.get(position).getPaynum());
 
 
         viewHolder.llClick.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,6 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
                 }
             }
         });
-
 
 
         return convertView;

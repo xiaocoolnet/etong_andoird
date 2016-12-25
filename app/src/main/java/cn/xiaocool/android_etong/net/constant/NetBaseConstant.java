@@ -26,4 +26,8 @@ public interface NetBaseConstant {
      * 会员中心
      */
     String MEMBER_CENTER = "http://mwn.xiaocool.net/index.php?g=portal&m=article&a=member&uid=";
+    /**
+     * 分享h5赚佣金
+     */
+    String SHARE_TO_EARN_PREFIX = "http://mwn.xiaocool.net/index.php?g=Score&m=Score&a=scorepengyou";
 }

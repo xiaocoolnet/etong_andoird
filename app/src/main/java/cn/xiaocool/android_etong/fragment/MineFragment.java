@@ -8,23 +8,32 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +47,11 @@ import cn.xiaocool.android_etong.UI.Mine.AgentActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.CouponActivity;
+import cn.xiaocool.android_etong.UI.Mine.GetSuggestionsListActivity;
 import cn.xiaocool.android_etong.UI.Mine.MemberCenterActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineEditActivity;
 import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
@@ -48,6 +59,7 @@ import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
 import cn.xiaocool.android_etong.UI.Mine.RightsCenterActivity;
 import cn.xiaocool.android_etong.UI.Mine.WalletActivity;
+import cn.xiaocool.android_etong.UI.Mine.WriteSuggestionsActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
@@ -55,9 +67,15 @@ import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.tool.zxingCode.activity.CaptureActivity;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.ToastUtils;
+import cn.xiaocool.android_etong.view.etongApplaction;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_GOOD_TO_FRIEND;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_SHOP_TO_FRIEND;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_TO_EARN;
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+import static cn.xiaocool.android_etong.view.etongApplaction.api;
 
 /**
  * Created by 潘 on 2016/6/12.
@@ -87,16 +105,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     Button btn_daili;
     @BindView(R.id.btn_weiquan)
     Button btn_weiquan;
-    private ImageView img_setup,iv_saoyisao;
+    private ImageView img_setup, iv_saoyisao;
     private CircleImageView img_mine_head;
     private RelativeLayout ry_line, rl_mine_shoucang;
     private Button btn_kaidian;
-    private TextView tx_mine_name,tx_mine_vip;
+    private TextView tx_mine_name, tx_mine_vip;
     private ProgressDialog progressDialog;
     private Context context;
-    private String name , touxiang;
+    private String name, touxiang;
     private UserInfo userInfo;
     private SharedPreferences sp;
+    private etongApplaction applaction;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -116,7 +135,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             name = object.getString("name");
                             touxiang = object.getString("photo");
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), img_mine_head);
-                            if (object.getString("level").equals("0")){
+                            if (object.getString("level").equals("0")) {
                                 tx_mine_vip.setTextColor(context.getResources().getColor(R.color.gray1));
                             }
                         } else {
@@ -141,7 +160,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 progressDialog.dismiss();
                                 Intent intent = new Intent();
                                 intent.putExtra("shopid", shopid);
-                                intent.putExtra("islocal",islocal);
+                                intent.putExtra("islocal", islocal);
                                 intent.setClass(context, BusinessActivity.class);
                                 startActivity(intent);
                             }
@@ -175,7 +194,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     JSONObject jsonObject1 = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject1.getString("status");
-                        if (status.equals("success")){
+                        if (status.equals("success")) {
                             btn_kaidian.setText("我的店铺");
                         }
                     } catch (JSONException e) {
@@ -189,10 +208,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     };
     private Button btnComment;
     private Button btnVip;
+    private Button btnSuggestions, btncheckUpdate, btnShareToEarn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        applaction = new etongApplaction();
         context = getActivity();
         ButterKnife.bind(this, view);
         return view;
@@ -239,12 +260,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         btn_qianbao.setOnClickListener(this);
         btn_zuji.setOnClickListener(this);
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
-        iv_saoyisao = (ImageView)getView().findViewById(R.id.saoyisao);
+        iv_saoyisao = (ImageView) getView().findViewById(R.id.saoyisao);
         iv_saoyisao.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
         btn_daili.setOnClickListener(this);
         btn_weiquan.setOnClickListener(this);
         tx_mine_vip = (TextView) getView().findViewById(R.id.tx_mine_vip);
+        btnSuggestions = (Button) getView().findViewById(R.id.btn_suggestions);
+        btnSuggestions.setOnClickListener(this);
+        btncheckUpdate = (Button) getView().findViewById(R.id.btn_check_update);
+        btncheckUpdate.setOnClickListener(this);
+        btnShareToEarn = (Button) getView().findViewById(R.id.btn_share_to_earn);
+        btnShareToEarn.setOnClickListener(this);
     }
 
     @Override
@@ -324,8 +351,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_qianbao:
                 Intent intent7 = new Intent();
                 intent7.setClass(context, WalletActivity.class);
-                intent7.putExtra("name",name);
-                intent7.putExtra("touxiang",touxiang);
+                intent7.putExtra("name", name);
+                intent7.putExtra("touxiang", touxiang);
                 startActivity(intent7);
                 break;
             case R.id.btn_zuji:
@@ -348,6 +375,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_huiyuanzhongxin:
                 startActivity(new Intent(getActivity(), MemberCenterActivity.class));
                 break;
+            //意见反馈
+            case R.id.btn_suggestions:
+                startActivity(new Intent(getActivity(), GetSuggestionsListActivity.class));
+                break;
+            //检查更新
+            case R.id.btn_check_update:
+
+                break;
+            //分享赚佣金
+            case R.id.btn_share_to_earn:
+                showSharePopwindow();
+                break;
 
         }
     }
@@ -364,7 +403,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 switch (item.getItemId()) {
                     case R.id.quit:
                         userInfo.clearDataExceptPhone(context);
-                        SharedPreferences.Editor e=sp.edit();
+                        SharedPreferences.Editor e = sp.edit();
                         e.clear();
                         e.commit();
                         userInfo.setUserId(null);
@@ -387,6 +426,121 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 //        });
         popupMenu.show();
 
+    }
+
+
+    /**
+     * 显示分享到社交app的popupWindow
+     */
+    private void showSharePopwindow() {
+        // 利用layoutInflater获得View
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.show_share_good_popup_window, null);
+
+        // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+
+        final PopupWindow window = new PopupWindow(view,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        window.setOutsideTouchable(true); // 设置popupwindow外部可点击
+        window.setFocusable(true); // 获取焦点
+
+        // 实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(dw);
+
+
+        //设置背景半透明
+        WindowManager.LayoutParams lp = this.getActivity().getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        this.getActivity().getWindow().setAttributes(lp);
+//                        backgroundAlpha(1f);
+        ColorDrawable cd = new ColorDrawable(0x0000);
+        window.setBackgroundDrawable(cd);
+
+
+//        // 设置popWindow的显示和消失动画
+//        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+        // 在底部显示
+        window.showAtLocation(this.getView().findViewById(R.id.btn_share_to_earn),
+                Gravity.BOTTOM, 0, 0);
+
+
+        // 这里检验popWindow里的button是否可以点击
+//        Button first = (Button) view.findViewById(R.id.first);
+        Button icWeChat = (Button) view.findViewById(R.id.pop_share_to_weChat_icon);
+        Button icFriend = (Button) view.findViewById(R.id.pop_share_to_weChat_friend_icon);
+        Button icQQ = (Button) view.findViewById(R.id.pop_share_to_qq_icon);
+        Button icMicroBlog = (Button) view.findViewById(R.id.pop_share_to_microBlog_icon);
+        icWeChat.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(0, userInfo.getUserId());//好友
+                applaction.setjudgeCode("4");//设置微信分享赚佣金4
+                window.dismiss();
+            }
+        });
+        icFriend.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                share2weixin(1, userInfo.getUserId());//朋友圈
+                applaction.setjudgeCode("4");//设置微信分享赚佣金4
+                window.dismiss();
+            }
+        });
+        icQQ.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ToastUtils.makeShortToast(context, "分享到QQ功能正在开发中");
+            }
+        });
+        icMicroBlog.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ToastUtils.makeShortToast(context, "分享到微博功能正在开发中");
+            }
+        });
+        //popWindow消失监听方法
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                //设置背景变回原色
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+
+    }
+
+    //分享到微信
+    private void share2weixin(int flag, String userId) {
+        if (!api.isWXAppInstalled()) {
+            Toast.makeText(context, "您还未安装微信客户端",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = SHARE_TO_EARN + userId;//分享赚佣金传入userId
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+
+        msg.title = "e通商城";
+        msg.description = "我推荐了e通商城app给你，快来体验吧！";
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(),
+                R.drawable.share_to_wechat_icon);
+        msg.setThumbImage(thumb);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag;
+        api.sendReq(req);
     }
 
 

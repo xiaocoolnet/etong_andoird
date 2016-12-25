@@ -485,6 +485,22 @@ public interface WebAddress extends NetBaseConstant {
 
     String DELETE_MY_FOOTPRINT_ITEM = NET_BASE_PREFIX + "a=deleteBrowseHistoryById";
 
+    /**
+     * 分享赚佣金H5页面
+     */
+
+    String SHARE_TO_EARN = SHARE_TO_EARN_PREFIX + "&userid=";
+    /**
+     * 添加留言反馈
+     */
+
+    String ADD_SUGGESTIONS = NET_BASE_PREFIX + "a=addfeedback";
+ /**
+     * 添加留言反馈
+     */
+
+    String GET_SUGGESTIONS = NET_BASE_PREFIX + "a=getfeedbackList";
+
 }
 
 
