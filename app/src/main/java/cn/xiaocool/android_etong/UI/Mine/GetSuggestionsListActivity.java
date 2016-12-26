@@ -38,7 +38,6 @@ public class GetSuggestionsListActivity extends Activity implements View.OnClick
     private TextView tvAdd;
     private Context context;
     private List<MySuggestionsBean.DataBean> dataBeanList;
-    private GetMySuggestionAdapter getMySuggestionAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
