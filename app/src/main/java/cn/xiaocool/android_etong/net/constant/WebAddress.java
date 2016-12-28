@@ -45,7 +45,10 @@ public interface WebAddress extends NetBaseConstant {
      * 修改手机
      */
     String UPDATAUSERPHONE = NET_BASE_PREFIX + "a=UpdateUserPhone";
-
+    /**
+     * 修改支付密码
+     */
+    String UPDATEPAYPASSWORD = NET_BASE_PREFIX + "a=UpdatePayPass";
     /**
      * 创建店铺
      */
@@ -423,6 +426,11 @@ public interface WebAddress extends NetBaseConstant {
      */
 
     String GetUserBankInfo = NET_BASE_PREFIX + "a=GetUserBankInfo";
+    /**
+     * 获取我的支付密码信息
+     */
+
+    String GetUserPayPass = NET_BASE_PREFIX + "a=GetUserPayPass";
 
     /**
      * 绑定个人银行卡账号

@@ -42,12 +42,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.ForgetPasswordActivity;
 import cn.xiaocool.android_etong.UI.LoginActivity;
 import cn.xiaocool.android_etong.UI.Mine.AgentActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ApplyShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.AuditShopActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
-import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.MyCommentActivity;
 import cn.xiaocool.android_etong.UI.Mine.BusinessActivity;
 import cn.xiaocool.android_etong.UI.Mine.CouponActivity;
@@ -59,7 +59,6 @@ import cn.xiaocool.android_etong.UI.Mine.MyEvaluateActivity;
 import cn.xiaocool.android_etong.UI.Mine.MyLikeActivity;
 import cn.xiaocool.android_etong.UI.Mine.RightsCenterActivity;
 import cn.xiaocool.android_etong.UI.Mine.WalletActivity;
-import cn.xiaocool.android_etong.UI.Mine.WriteSuggestionsActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
@@ -71,8 +70,6 @@ import cn.xiaocool.android_etong.util.ToastUtils;
 import cn.xiaocool.android_etong.view.etongApplaction;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_GOOD_TO_FRIEND;
-import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_SHOP_TO_FRIEND;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.SHARE_TO_EARN;
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 import static cn.xiaocool.android_etong.view.etongApplaction.api;
@@ -401,6 +398,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.updatepass:
+                        Intent intent1 = new Intent(context, ForgetPasswordActivity.class);
+                        startActivityForResult(intent1, 5);
+                        break;
                     case R.id.quit:
                         userInfo.clearDataExceptPhone(context);
                         SharedPreferences.Editor e = sp.edit();

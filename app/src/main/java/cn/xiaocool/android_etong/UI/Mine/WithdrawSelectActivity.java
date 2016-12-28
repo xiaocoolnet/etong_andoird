@@ -111,8 +111,6 @@ public class WithdrawSelectActivity extends Activity implements View.OnClickList
                    if (tv_withdraw1.getText().toString().equals("未绑定")){
                        startActivity(new Intent(context,WithdrawBankActivity.class));
                        finish();
-//                       startActivity(new Intent(context,WithdrawActivity.class));
-                       finish();
                    }else {
                        if(NetUtil.isConnnected(context)){
                            startActivity(new Intent(context,WithdrawActivity.class));

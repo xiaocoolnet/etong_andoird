@@ -185,6 +185,7 @@
         <activity android:name=".UI.Mine.RightsCenterActivity"></activity>
         <activity android:name=".UI.Mine.WriteSuggestionsActivity"></activity>
         <activity android:name=".UI.Mine.GetSuggestionsListActivity"></activity>
+        <activity android:name=".UI.Mine.EditPayPassActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <item
+        android:id="@+id/updatepass"
+        android:orderInCategory="3"
+        android:title="修改密码"
+        >
+    </item>
+    <item
         android:id="@+id/quit"
         android:orderInCategory="3"
         android:title="退出登录"

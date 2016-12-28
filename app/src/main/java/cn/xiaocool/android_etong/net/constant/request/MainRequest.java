@@ -112,6 +112,28 @@ public class MainRequest {
         }.start();
     }
 
+    //忘记密码
+    public void editpaypassword(final String phone, final String code, final String password) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            public void run() {
+                String data = "&phone=" + phone + "&code=" + code + "&password=" + password;
+                Log.e("data is ", data);
+                String result_data = NetUtil.getResponse(WebAddress.UPDATEPAYPASSWORD, data);
+                Log.e("successful", result_data);
+                try {
+                    JSONObject obj = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.UpdatePayPass;
+                    msg.obj = obj;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
     //登录
     public void login(final String phone, final String password) {
         new Thread() {
@@ -1317,7 +1339,7 @@ public class MainRequest {
         }.start();
     }
 
-    // 获取成交信息
+    // 获取银行信息
     public void GetUserBankInfo() {
         new Thread() {
             Message msg = Message.obtain();

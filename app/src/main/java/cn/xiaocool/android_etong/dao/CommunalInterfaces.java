@@ -33,6 +33,7 @@ public interface CommunalInterfaces {
     int UPDATAUSERNAME = 0x0009;//修改姓名
     int UPDATAUSERSEX = 0x0010;//修改性别
     int UPDATAUSERPHONE = 0x0011;//修改手机号
+    int UPDATAUSERPASS = 0x0061;//修改账号密码
 
     //商家
     int AUTHENTICATION = 0x0012; //商家身份认证
@@ -108,4 +109,5 @@ public interface CommunalInterfaces {
     int GetTimeGoodList = 0x0090;//根据时间获得 限时抢购
     int GetUserInfoByQQ = 0x0091;//QQ登录
     int UpdateUserQQ = 0x0092;//绑定QQ
+    int UpdatePayPass = 0x0093;//修改支付密码
 }
