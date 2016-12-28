@@ -24,6 +24,8 @@ import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdr
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetTimeGoodList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserInfoByQQ;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.ShopGetTotalOrderList;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.ShopGetTotalorder;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserBank;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserQQ;
 
@@ -1491,6 +1493,52 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.UpdateUserQQ;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 获取营业额时间
+    public void ShopGetTotalorder(final String shopid,final String begintime , final String endtime) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data = "&shopid="+shopid+"&begintime="+begintime+"&endtime="+endtime;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(ShopGetTotalorder, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.ShopGetTotalorder;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 获取营业额时间
+    public void ShopGetTotalOrderList(final String shopid,final String begintime,final String endtime) {
+        new Thread() {
+            Message msg = Message.obtain();
+            @Override
+            public void run() {
+                String data  = "&shopid="+shopid+"&begintime=" + begintime + "&endtime=" + endtime;
+                Log.e("data=", data);
+                String result_data = NetUtil.getResponse(ShopGetTotalOrderList, data);
+                Log.e("result_data=", result_data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.ShopGetTotalOrderList;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

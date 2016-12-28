@@ -509,6 +509,16 @@ public interface WebAddress extends NetBaseConstant {
 
     String GET_SUGGESTIONS = NET_BASE_PREFIX + "a=getfeedbackList";
 
+    /**
+     * 营业额查询
+     */
+
+    String ShopGetTotalorder = NET_BASE_PREFIX + "a=ShopGetTotalorder";
+
+    /**
+     * 营业额列表
+     */
+    String ShopGetTotalOrderList = NET_BASE_PREFIX + "a=ShopGetTotalOrderList";
 }
 
 

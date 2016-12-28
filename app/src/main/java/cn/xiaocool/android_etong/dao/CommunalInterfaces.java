@@ -110,4 +110,7 @@ public interface CommunalInterfaces {
     int GetUserInfoByQQ = 0x0091;//QQ登录
     int UpdateUserQQ = 0x0092;//绑定QQ
     int UpdatePayPass = 0x0093;//修改支付密码
+    int ShopGetTotalorder = 0x0094;//营业额查询
+    int ShopGetTotalOrderList = 0x0095;//营业额列表
+
 }

@@ -30,6 +30,7 @@ import cn.xiaocool.android_etong.UI.Mine.Business.EditStoreActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.GoodsManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.OrderManageActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.StoreHomepageActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.TurnoverActivity;
 import cn.xiaocool.android_etong.UI.Mine.Business.UploadGoodsActivity;
 import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
@@ -301,17 +302,17 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_huodongbaoming:
                 ToastUtils.makeShortToast(context, "活动报名正在建设中！敬请期待！");
-                Intent intent8 = new Intent();
-//                intent8.putExtra("shopid", shopid);
-//                intent8.setClass(BusinessActivity.this, StoreHomepageActivity.class);
+//                Intent intent8 = new Intent();
+//                intent8.setClass(BusinessActivity.this, TurnoverActivity.class);
 //                startActivity(intent8);
                 break;
             case R.id.btn_caiwujiekuan:
                 ToastUtils.makeShortToast(context, "财务结款正在建设中！敬请期待！");
                 Intent intent9 = new Intent();
 //                intent8.putExtra("shopid", shopid);
-//                intent9.setClass(BusinessActivity.this, StoreHomepageActivity.class);
-//                startActivity(intent9);
+                intent9.putExtra("shopid",shopid);
+                intent9.setClass(BusinessActivity.this, TurnoverActivity.class);
+                startActivity(intent9);
                 break;
             case R.id.btn_want_help:
 //                Intent intentCall = new Intent(Intent.ACTION_DIAL);
