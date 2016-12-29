@@ -203,6 +203,8 @@
         <activity android:name=".UI.Mine.Business.TurnoverActivity"></activity>
         <activity android:name=".UI.Mine.Business.TimeSelectActivity"></activity>
         <activity android:name=".UI.Mine.Business.SelectTurnoverActivity"></activity>
+        <activity android:name=".UI.Mine.Business.ModifyBankActivity"></activity>
+        <activity android:name=".UI.Local.PublishInformationActivity"></activity>
         <activity android:name=".UI.Mine.Business.GoodsManageActivity"></activity>
         <activity android:name=".UI.Mine.Business.EditStoreActivity"></activity>
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>

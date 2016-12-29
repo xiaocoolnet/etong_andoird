@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Mine.Business.ModifyBankActivity;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
@@ -164,7 +165,7 @@ public class WalletActivity extends Activity implements View.OnClickListener {
 ////                startActivity(new Intent(context, .class));
 //                break;
             case R.id.ll_bank:
-                startActivity(new Intent(context, WithdrawSelectActivity.class));
+                startActivity(new Intent(context, ModifyBankActivity.class));
                 break;
             case R.id.btn_withdraw:
                 startActivity(new Intent(context, WithdrawSelectActivity.class));

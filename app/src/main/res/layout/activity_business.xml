@@ -218,9 +218,9 @@
                         android:layout_marginTop="10dp"
                         android:text="今日成交总额"
                         />
-
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_order"
                     android:background="@color/whilte"
                     android:layout_marginLeft="1dp"
                     android:layout_marginRight="1dp"
@@ -282,6 +282,7 @@
                 <!--/>-->
             <include layout="@layout/business_item1"/>
             <include layout="@layout/business_item2"/>
+            <include layout="@layout/business_item3"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

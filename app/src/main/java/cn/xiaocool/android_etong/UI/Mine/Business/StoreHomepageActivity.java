@@ -25,12 +25,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
@@ -70,7 +72,8 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private TextView tx_store_name;
     private Button btn_chat_store, btn_lianximaijia;
     private ImageView img_store_head;
-    private PullToRefreshGridView list_store_goods;
+    private GridView list_store_goods;
+    private PullToRefreshScrollView sv;
     private ArrayList<StoreHomepage.DataBean> goods_list;
     private ArrayList<StoreHomepage.DataBean> newArrivalDataBeanListLoading;
     private StoreHomePageAdapter storeHomePageAdapter;
@@ -108,7 +111,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                     newArrivalDataBeanListLoading.add(goods_list.get(i));
                                 }
 
-                                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                                ILoadingLayout endLayout = sv.getLoadingLayoutProxy(false, true);
                                 endLayout.setPullLabel("正在上拉刷新...");
                                 endLayout.setRefreshingLabel("正在玩命加载中...");
                                 endLayout.setReleaseLabel("放开以刷新");
@@ -118,7 +121,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                                     newArrivalDataBeanListLoading.add(goods_list.get(i));
                                 }
 
-                                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                                ILoadingLayout endLayout = sv.getLoadingLayoutProxy(false, true);
                                 endLayout.setPullLabel("正在上拉刷新...");
                                 endLayout.setRefreshingLabel("已经没有更多宝贝了");
                                 endLayout.setReleaseLabel("放开以刷新");
@@ -277,7 +280,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
     private void initview() {
         goods_list = new ArrayList<StoreHomepage.DataBean>();
         newArrivalDataBeanListLoading = new ArrayList<>();
-        list_store_goods = (PullToRefreshGridView) findViewById(R.id.list_store_goods);
+        list_store_goods = (GridView) findViewById(R.id.list_store_goods);
         tx_store_name = (TextView) findViewById(R.id.tx_store_name);
         img_store_head = (ImageView) findViewById(R.id.img_store_head);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
@@ -295,35 +298,37 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
         btnShare.setOnClickListener(this);
         tvSort = (TextView) findViewById(R.id.tv_store_home_sort);
         tvSort.setOnClickListener(this);
+        sv = (PullToRefreshScrollView) findViewById(R.id.sv);
 
 
         //设置可上拉刷新和下拉刷新
-        list_store_goods.setMode(PullToRefreshBase.Mode.BOTH);
+        sv.setMode(PullToRefreshBase.Mode.BOTH);
 
         //设置刷新时显示的文本
-        ILoadingLayout startLayout = list_store_goods.getLoadingLayoutProxy(true, false);
+        ILoadingLayout startLayout = sv.getLoadingLayoutProxy(true, false);
         startLayout.setPullLabel("正在下拉刷新...");
         startLayout.setRefreshingLabel("正在玩命加载中...");
         startLayout.setReleaseLabel("放开以刷新");
 
-        ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+        ILoadingLayout endLayout = sv.getLoadingLayoutProxy(false, true);
         endLayout.setPullLabel("正在上拉刷新...");
         endLayout.setRefreshingLabel("正在玩命加载中...");
         endLayout.setReleaseLabel("放开以刷新");
 
-        list_store_goods.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
-                new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 1).execute();
 
-            }
+      sv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+          @Override
+          public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+              new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 1).execute();
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
-                new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 2).execute();
+          }
 
-            }
-        });
+          @Override
+          public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+              new StoreHomepageActivity.LoadDataAsyncTask(StoreHomepageActivity.this, 2).execute();
+
+          }
+      });
     }
 
     /**
@@ -357,7 +362,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
             super.onPostExecute(s);
             if (s.equals("seccess")) {
                 mainActivity.storeHomePageAdapter.notifyDataSetChanged();
-                mainActivity.list_store_goods.onRefreshComplete();//刷新完成
+                mainActivity.sv.onRefreshComplete();//刷新完成
             }
         }
     }
@@ -373,7 +378,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                     newArrivalDataBeanListLoading.add(goods_list.get(i));
                 }
 
-                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                ILoadingLayout endLayout = sv.getLoadingLayoutProxy(false, true);
                 endLayout.setPullLabel("正在上拉刷新...");
                 endLayout.setRefreshingLabel("正在玩命加载中...");
                 endLayout.setReleaseLabel("放开以刷新");
@@ -383,7 +388,7 @@ public class StoreHomepageActivity extends Activity implements View.OnClickListe
                     newArrivalDataBeanListLoading.add(goods_list.get(i));
                 }
 
-                ILoadingLayout endLayout = list_store_goods.getLoadingLayoutProxy(false, true);
+                ILoadingLayout endLayout = sv.getLoadingLayoutProxy(false, true);
                 endLayout.setPullLabel("正在上拉刷新...");
                 endLayout.setRefreshingLabel("已经没有更多宝贝了");
                 endLayout.setReleaseLabel("放开以刷新");

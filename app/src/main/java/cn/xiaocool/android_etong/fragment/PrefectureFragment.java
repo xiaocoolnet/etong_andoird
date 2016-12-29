@@ -3,16 +3,20 @@ package cn.xiaocool.android_etong.fragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.UI.Local.PublishInformationActivity;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
@@ -21,6 +25,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class PrefectureFragment extends Fragment implements View.OnClickListener {
     private Context context;
+    private ImageView img_edit;
     private RelativeLayout ry_line;
     private Button[] mTabs;
     private PrefectureMyFragment prefectureMyFragment;
@@ -56,6 +61,8 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
     }
 
     private void initview() {
+        img_edit = (ImageView) getView().findViewById(R.id.img_edit);
+        img_edit.setOnClickListener(this);
         mTabs = new Button[2];
         mTabs[0]  = (Button)getView().findViewById(R.id.btn_prefecture_my);
         mTabs[0].setOnClickListener(this);
@@ -65,6 +72,7 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
         mTabs[0].setSelected(true);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -73,6 +81,9 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_prefecture_product:
                 index = 1;
+                break;
+            case R.id.img_edit:
+                startActivity(new Intent(context, PublishInformationActivity.class));
                 break;
         }
         if (currentTabIndex != index) {

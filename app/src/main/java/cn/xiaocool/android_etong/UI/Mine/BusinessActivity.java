@@ -44,7 +44,7 @@ import cn.xiaocool.android_etong.util.ToastUtils;
  * Created by 潘 on 2016/6/27.
  */
 public class BusinessActivity extends Activity implements View.OnClickListener {
-    private RelativeLayout rl_back;
+    private RelativeLayout rl_back,rl_order;
     private Button btn_uploadgoods, btn_baobeiguanli, btn_dianpuguanli, btn_shouhouguanli, btn_dingdanguanli, btn_changjianwenti,
             btn_huodongbaoming, btn_caiwujiekuan;
     private String shopid, shopType, islocal;
@@ -221,6 +221,8 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         btnWantHelp.setOnClickListener(this);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
+        rl_order = (RelativeLayout) findViewById(R.id.rl_order) ;
+        rl_order.setOnClickListener(this);
         btn_uploadgoods = (Button) findViewById(R.id.btn_uploadgoods);
         btn_uploadgoods.setOnClickListener(this);
         btn_baobeiguanli = (Button) findViewById(R.id.btn_baobeiguanli);
@@ -289,6 +291,13 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 intent5.setClass(BusinessActivity.this, OrderManageActivity.class);
                 startActivity(intent5);
                 break;
+            case R.id.rl_order:
+                Intent intent15 = new Intent();
+                intent15.putExtra("shopid", shopid);
+                intent15.putExtra("islocal", islocal);
+                intent15.setClass(BusinessActivity.this, OrderManageActivity.class);
+                startActivity(intent15);
+                break;
             case R.id.btn_changjianwenti:
                 Intent intent6 = new Intent();
                 intent6.setClass(BusinessActivity.this, CommonProblemActivity.class);
@@ -301,13 +310,11 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 startActivity(intent7);
                 break;
             case R.id.btn_huodongbaoming:
-                ToastUtils.makeShortToast(context, "活动报名正在建设中！敬请期待！");
-//                Intent intent8 = new Intent();
-//                intent8.setClass(BusinessActivity.this, TurnoverActivity.class);
-//                startActivity(intent8);
+                Intent intent8 = new Intent();
+                intent8.setClass(BusinessActivity.this, TurnoverActivity.class);
+                startActivity(intent8);
                 break;
             case R.id.btn_caiwujiekuan:
-//                ToastUtils.makeShortToast(context, "财务结款正在建设中！敬请期待！");
                 Intent intent9 = new Intent();
 //                intent8.putExtra("shopid", shopid);
                 intent9.putExtra("shopid",shopid);

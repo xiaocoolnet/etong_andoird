@@ -60,8 +60,6 @@ public class TurnoverActivity extends Activity implements View.OnClickListener {
     private List<Turnover.DataBean> dataBeans;
     private List<Turnover.DataBean> dataBeansLoding;
     private static Set<SwipeListLayout> sets = new HashSet();
-
-
     private Context context;
     private Handler handler = new Handler() {
         @Override
@@ -129,7 +127,6 @@ public class TurnoverActivity extends Activity implements View.OnClickListener {
             }
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
