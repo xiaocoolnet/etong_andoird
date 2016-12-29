@@ -307,7 +307,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
 //                startActivity(intent8);
                 break;
             case R.id.btn_caiwujiekuan:
-                ToastUtils.makeShortToast(context, "财务结款正在建设中！敬请期待！");
+//                ToastUtils.makeShortToast(context, "财务结款正在建设中！敬请期待！");
                 Intent intent9 = new Intent();
 //                intent8.putExtra("shopid", shopid);
                 intent9.putExtra("shopid",shopid);

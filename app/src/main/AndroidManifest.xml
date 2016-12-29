@@ -201,6 +201,8 @@
         <activity android:name=".UI.Mine.Business.ReturnGoodsActivity"></activity>
         <activity android:name=".UI.Mine.Business.CarouselPicActivity"></activity>
         <activity android:name=".UI.Mine.Business.TurnoverActivity"></activity>
+        <activity android:name=".UI.Mine.Business.TimeSelectActivity"></activity>
+        <activity android:name=".UI.Mine.Business.SelectTurnoverActivity"></activity>
         <activity android:name=".UI.Mine.Business.GoodsManageActivity"></activity>
         <activity android:name=".UI.Mine.Business.EditStoreActivity"></activity>
         <activity android:name=".UI.Mine.Business.AfterSalesManagementActivity"></activity>

@@ -53,8 +53,8 @@ import cn.xiaocool.android_etong.view.SwipeListLayout;
 
 public class TurnoverActivity extends Activity implements View.OnClickListener {
     private RelativeLayout rl_back;
-    private String shopid;
-    private TextView tv_money;
+    private String shopid,begintime,endtime;
+    private TextView tv_money,tv_select_time;
     private PullToRefreshListView list_turnover;
     private TurnoverAdapter turnoverAdapter;
     private List<Turnover.DataBean> dataBeans;
@@ -149,8 +149,8 @@ public class TurnoverActivity extends Activity implements View.OnClickListener {
         int sec = time.second;
         Log.e("当前时间为",year + "年 " + month + "月 " + day + "日 " + hour + "时 " + minute + "分 " + sec + "秒");
         Log.e("月初时间为",year + "年 " + month + "月 " + 1 + "日 " + 0 + "时 " + 0 + "分 " + 0 + "秒");
-        String begintime = year + "年 " + month + "月 " + 1 + "日 " + 0 + "时 " + 0 + "分 " + 0 + "秒";
-        String endtime = year + "年 " + month + "月 " + day + "日 " + hour + "时 " + minute + "分 " + sec + "秒";
+        begintime = year + "年 " + month + "月 " + 1 + "日 " + 0 + "时 " + 0 + "分 " + 0 + "秒";
+        endtime = year + "年 " + month + "月 " + day + "日 " + hour + "时 " + minute + "分 " + sec + "秒";
         Log.e("月初时间戳为",data(begintime));
         Log.e("当前时间戳为",data(endtime));
 
@@ -170,8 +170,10 @@ public class TurnoverActivity extends Activity implements View.OnClickListener {
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         tv_money = (TextView) findViewById(R.id.tv_money);
+        tv_select_time = (TextView) findViewById(R.id.tv_select_time);
+        tv_select_time.setOnClickListener(this);
         list_turnover = (PullToRefreshListView) findViewById(R.id.list_turnover);
-//设置可上拉刷新和下拉刷新
+        //设置可上拉刷新和下拉刷新
         list_turnover.setMode(PullToRefreshBase.Mode.BOTH);
 
         //设置刷新时显示的文本
@@ -229,6 +231,14 @@ public class TurnoverActivity extends Activity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.tv_select_time:
+                Intent intent = new Intent();
+                intent.setClass(context,TimeSelectActivity.class);
+                intent.putExtra("begintime",data(begintime));
+                intent.putExtra("endtime",data(endtime));
+                intent.putExtra("shopid",shopid);
+                startActivity(intent);
                 break;
         }
     }
