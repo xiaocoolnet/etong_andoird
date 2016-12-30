@@ -869,7 +869,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
 
 
     /**
-     * 显示popupWindow
+     * 显示购买的popupWindow
      */
     private void showPopwindow(final int code, final Context context, String picname, String goodsprice, String goodname) {
         // 利用layoutInflater获得View
@@ -912,7 +912,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
         TextView tx_goodsname = (TextView) view.findViewById(R.id.tx_goods_name);
         tx_goodsname.setText(goodname);
         TextView tx_goods_price = (TextView) view.findViewById(R.id.tx_goods_price);
-        tx_goods_price.setText(goodsprice);
+        tx_goods_price.setText("¥" + goodsprice);
         final TextView tx_goods_count = (TextView) view.findViewById(R.id.tx_goods_count);
         tx_goods_count.setText(String.valueOf(count));
         ImageView img_jia = (ImageView) view.findViewById(R.id.img_jia);
