@@ -488,7 +488,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_lijigoumai:
                 goodsdetail_scrollview.scrollTo(0, 0);
-                showPopwindow(0, context, arraypic[0], price, goodsname);
+                showPopwindow(0, context, arraypic[0], price, goodsname);//立即购价格
                 break;
 
 //            case R.id.btn_shopping_cart:
@@ -534,7 +534,7 @@ public class GoodsDetailActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.btn_sharebuy:
                 goodsdetail_scrollview.scrollTo(0, 0);
-                showPopwindow(1, context, arraypic[0], price, goodsname);
+                showPopwindow(1, context, arraypic[0], shareprice, goodsname);//分享购价格
 
                 break;
             case R.id.good_details_share_icon:

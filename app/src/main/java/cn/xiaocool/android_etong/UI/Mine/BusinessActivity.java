@@ -190,12 +190,15 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                     JSONObject jsonObject2 = (JSONObject) msg.obj;
                     try {
                         String status = jsonObject2.getString("status");
+                        Intent intent = new Intent(context, ShopVerifyStatusActivity.class);
+
                         if (status.equals("success")) {
-                            JSONObject object = jsonObject2.getJSONObject("data");
-                            IntentUtils.getIntents(context, ShopVerifySuccessActivity.class);
+                            intent.putExtra("status", "1");//验证成功
+                            startActivity(intent);
                         } else {
-                            ToastUtils.makeShortToast(context, "号码验证失败！");
+                            intent.putExtra("status", "0");//验证失败
                         }
+                        startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

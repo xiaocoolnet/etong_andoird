@@ -648,7 +648,7 @@
                 android:background="@color/main_color_red"
                 android:gravity="center"
                 android:paddingLeft="10dp"
-                android:text="提交订单"
+                android:text="提交并支付"
                 android:textColor="@color/whilte" />
         </LinearLayout>
     </RelativeLayout>

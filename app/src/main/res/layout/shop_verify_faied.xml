@@ -19,7 +19,7 @@
             <ImageView
                 android:layout_width="@dimen/activity_size_60"
                 android:layout_height="@dimen/activity_size_60"
-                android:background="@mipmap/ic_duigou"
+                android:background="@mipmap/ic_chahao"
                 />
 
             <TextView
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_size_10"
                 android:layout_gravity="center"
-                android:text="验证成功"
+                android:text="验证失败"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14" />
 

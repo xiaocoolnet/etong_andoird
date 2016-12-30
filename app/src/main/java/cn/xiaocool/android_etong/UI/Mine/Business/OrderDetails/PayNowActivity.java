@@ -156,7 +156,7 @@ public class PayNowActivity extends Activity {
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
         Log.e("orderid=", orderId);
-//        shopName = getIntent().getStringExtra("orderId");
+//        shopName = getIntent().getStringExtra("orderId");\
         price = getIntent().getStringExtra("price");
         initView();
     }
