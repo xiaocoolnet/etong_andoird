@@ -96,6 +96,7 @@ public class EditGoodLookPicActivity extends Activity implements View.OnClickLis
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
             }
         }
     };

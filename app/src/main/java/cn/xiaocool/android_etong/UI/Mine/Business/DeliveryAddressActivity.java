@@ -23,6 +23,7 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.AddressInfo;
+import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.bean.business.LocationService;
 import cn.xiaocool.android_etong.db.sp.AddressDB;
 import cn.xiaocool.android_etong.util.KeyBoardUtils;
@@ -41,13 +42,15 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
 
     private List<AddressInfo> address = new ArrayList<AddressInfo>();
     private AddressDB addressDB;
-
+    private UserInfo userInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_delivery_address);
         context = this;
+        userInfo = new UserInfo();
+        userInfo.readData(context);
         initview();
         Intent intent = getIntent();
         judge = intent.getStringExtra("judge");
@@ -55,6 +58,9 @@ public class DeliveryAddressActivity extends Activity implements View.OnClickLis
         deliveryAddress = intent.getStringExtra("deliveryaddress");
         phone = intent.getStringExtra("phone");
         name = intent.getStringExtra("name");
+//        deliveryAddress = userInfo.getUserAddr();
+//        phone = userInfo.getUserPhone();
+//        name = userInfo.getUserName();
         if (judge.equals("1")){
             et_change_infor.setText(deliveryAddress);
             et_customer_phone.setText(phone);

@@ -390,8 +390,14 @@ public interface WebAddress extends NetBaseConstant {
     String GET_GOODS_TYPE_LIST = NET_BASE_PREFIX + "a=getShopTypeList&type=0";
 
     String SHOP_GET_EVALUATE = NET_BASE_PREFIX + "a=SellerGetEvaluatelists";
-    //卖家确认
+    /**
+     * 卖家确认验证码
+     */
     String VerifyShoppingCode = NET_BASE_PREFIX + "g=apps&m=index&a=VerifyShoppingCode";
+
+
+
+
     String GET_GOOD_RECOMMEND = NET_BASE_PREFIX + "a=GetRecommendGoodsList";
 
     /**
@@ -503,7 +509,7 @@ public interface WebAddress extends NetBaseConstant {
      */
 
     String ADD_SUGGESTIONS = NET_BASE_PREFIX + "a=addfeedback";
- /**
+    /**
      * 添加留言反馈
      */
 
@@ -519,6 +525,10 @@ public interface WebAddress extends NetBaseConstant {
      * 营业额列表
      */
     String ShopGetTotalOrderList = NET_BASE_PREFIX + "a=ShopGetTotalOrderList";
+    /**
+     * 发布同城互动
+     */
+    String PUBLISH_CITY_BBS = NET_BASE_PREFIX + "a=addbbsposts";
 }
 
 

@@ -219,6 +219,7 @@
         <activity android:name=".UI.Mine.Business.GoodsManageSearchActivity"></activity>
         <activity android:name=".UI.Mine.MemberCenterActivity"></activity>
         <activity android:name=".UI.Mine.Business.SearchStoreHomeActivity"></activity>
+        <activity android:name=".UI.Mine.ShopVerifySuccessActivity"></activity>
 
         <activity android:name=".UI.Mine.Business.UploadGoodDetailsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

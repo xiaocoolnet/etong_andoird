@@ -24,6 +24,7 @@ import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdr
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetTimeGoodList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserInfoByQQ;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.PUBLISH_CITY_BBS;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.ShopGetTotalOrderList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.ShopGetTotalorder;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.UpdateUserBank;
@@ -136,6 +137,7 @@ public class MainRequest {
             }
         }.start();
     }
+
     //登录
     public void login(final String phone, final String password) {
         new Thread() {
@@ -867,6 +869,7 @@ public class MainRequest {
     public void DeleteShoppingCart(final String goodsid) {
         new Thread() {
             Message msg = new Message();
+
             @Override
             public void run() {
                 String data = "&userid=" + user.getUserId() + "&goodsid=" + goodsid;
@@ -916,6 +919,7 @@ public class MainRequest {
     public void SearchShops(final String shop) {
         new Thread() {
             Message msg = new Message();
+
             @Override
             public void run() {
                 String data = "&shop=" + shop;
@@ -1345,6 +1349,7 @@ public class MainRequest {
     public void GetUserBankInfo() {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
                 String data = "&userid=" + user.getUserId();
@@ -1368,10 +1373,11 @@ public class MainRequest {
     public void UpdateUserBank(final String realname, final String idcard, final String bank, final String bankno, final String phone, final String code) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId()+"&realname="+realname+"&idcard="+idcard+
-                        "&bank="+bank+"&bankno="+bankno+"&phone="+phone+"&code="+code;
+                String data = "&userid=" + user.getUserId() + "&realname=" + realname + "&idcard=" + idcard +
+                        "&bank=" + bank + "&bankno=" + bankno + "&phone=" + phone + "&code=" + code;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(UpdateUserBank, data);
                 Log.e("result_data=", result_data);
@@ -1392,9 +1398,10 @@ public class MainRequest {
     public void ApplyWithdraw(final String money, final String banktype) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&userid=" + user.getUserId()+"&money="+money+"&banktype="+banktype;
+                String data = "&userid=" + user.getUserId() + "&money=" + money + "&banktype=" + banktype;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(ApplyWithdraw, data);
                 Log.e("result_data=", result_data);
@@ -1415,6 +1422,7 @@ public class MainRequest {
     public void GetMyApplyWithdraw() {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
                 String data = "&userid=" + user.getUserId();
@@ -1438,9 +1446,10 @@ public class MainRequest {
     public void GetTimeGoodList(final String type) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&type="+type;
+                String data = "&type=" + type;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(GetTimeGoodList, data);
                 Log.e("result_data=", result_data);
@@ -1461,9 +1470,10 @@ public class MainRequest {
     public void GetUserInfoByQQ(final String qq) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&qq="+qq;
+                String data = "&qq=" + qq;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(GetUserInfoByQQ, data);
                 Log.e("result_data=", result_data);
@@ -1484,9 +1494,10 @@ public class MainRequest {
     public void UpdateUserQQ(final String qq) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&userid="+user.getUserId()+"&qq="+qq;
+                String data = "&userid=" + user.getUserId() + "&qq=" + qq;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(UpdateUserQQ, data);
                 Log.e("result_data=", result_data);
@@ -1504,12 +1515,13 @@ public class MainRequest {
     }
 
     // 获取营业额时间
-    public void ShopGetTotalorder(final String shopid,final String begintime , final String endtime) {
+    public void ShopGetTotalorder(final String shopid, final String begintime, final String endtime) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data = "&shopid="+shopid+"&begintime="+begintime+"&endtime="+endtime;
+                String data = "&shopid=" + shopid + "&begintime=" + begintime + "&endtime=" + endtime;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(ShopGetTotalorder, data);
                 Log.e("result_data=", result_data);
@@ -1527,18 +1539,45 @@ public class MainRequest {
     }
 
     // 获取营业额时间
-    public void ShopGetTotalOrderList(final String shopid,final String begintime,final String endtime) {
+    public void ShopGetTotalOrderList(final String shopid, final String begintime, final String endtime) {
         new Thread() {
             Message msg = Message.obtain();
+
             @Override
             public void run() {
-                String data  = "&shopid="+shopid+"&begintime=" + begintime + "&endtime=" + endtime;
+                String data = "&shopid=" + shopid + "&begintime=" + begintime + "&endtime=" + endtime;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(ShopGetTotalOrderList, data);
                 Log.e("result_data=", result_data);
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.ShopGetTotalOrderList;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    // 获取营业额时间
+    public void publishCityBBS(final String typeId, final String city, final String longtitude,
+                               final String latitede, final String title, final String content,
+                               final String pics, final String sound, final String address) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&phone=" + user.getUserPhone() + "&typeid=" + typeId +
+                        "&city=" + city + "&longitude=" + longtitude + "&latitude=" + latitede + "&title=" + title +
+                        "&content=" + content + "&picurl=" + pics + "&sound=" + sound + "&address=" + address;
+                String result_data = NetUtil.getResponse(PUBLISH_CITY_BBS, data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.PUBLISH_CITY_BBS;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

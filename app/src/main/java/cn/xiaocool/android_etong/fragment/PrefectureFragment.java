@@ -25,7 +25,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class PrefectureFragment extends Fragment implements View.OnClickListener {
     private Context context;
-    private ImageView img_edit;
+    private RelativeLayout img_edit;
     private RelativeLayout ry_line;
     private Button[] mTabs;
     private PrefectureMyFragment prefectureMyFragment;
@@ -61,7 +61,7 @@ public class PrefectureFragment extends Fragment implements View.OnClickListener
     }
 
     private void initview() {
-        img_edit = (ImageView) getView().findViewById(R.id.img_edit);
+        img_edit = (RelativeLayout) getView().findViewById(R.id.img_edit);
         img_edit.setOnClickListener(this);
         mTabs = new Button[2];
         mTabs[0]  = (Button)getView().findViewById(R.id.btn_prefecture_my);

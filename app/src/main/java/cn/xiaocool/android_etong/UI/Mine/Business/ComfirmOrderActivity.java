@@ -246,7 +246,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         et_change_infor = (TextView) findViewById(R.id.et_change_infor);
         et_customer_phone = (TextView) findViewById(R.id.et_customer_phone);
         et_customer_name = (TextView) findViewById(R.id.et_customer_name);
-        ll_address = (LinearLayout) findViewById(R.id.ll_address);
+        ll_address = (LinearLayout) findViewById(R.id.top_address);
+        ll_address.setOnClickListener(this);
         tv_judge = (TextView) findViewById(R.id.tv_judge);
         tv_kuaidi = (TextView) findViewById(R.id.tv_kuaidi);
         ivPayWay0Item = (ImageView) findViewById(R.id.iv_payWay0_item);
@@ -304,6 +305,17 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 intent.putExtra("name", name);
                 startActivityForResult(intent, 1);
                 break;
+            case R.id.top_address:
+                //添加地址页面
+                Intent intent1 = new Intent();
+                intent1.setClass(context, DeliveryAddressActivity.class);
+                intent1.putExtra("judge", judge);
+                intent1.putExtra("deliveryaddress", deliveryAddress);
+                intent1.putExtra("phone", phone);
+                intent1.putExtra("name", name);
+                startActivityForResult(intent1, 1);
+                break;
+
             case R.id.tx_comfirm_order:
 
                 String customer_remark = et_customer_remark.getText().toString();

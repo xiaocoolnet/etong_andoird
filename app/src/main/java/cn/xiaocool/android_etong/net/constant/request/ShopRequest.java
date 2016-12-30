@@ -404,7 +404,7 @@ public class ShopRequest {
             Message msg = Message.obtain();
 
             public void run() {
-                String data = "&userid=" + user.getshopId() + "&code=" + result;
+                String data = "&userid=" + user.getUserId() + "&code=" + result;
                 String result_data = NetUtil.getResponse(WebAddress.VerifyShoppingCode, data);
                 try {
                     JSONObject obj = new JSONObject(result_data);

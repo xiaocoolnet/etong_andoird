@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,7 +37,9 @@ import cn.xiaocool.android_etong.bean.UserInfo;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.net.constant.request.ShopRequest;
 import cn.xiaocool.android_etong.tool.zxingCode.activity.CaptureActivity;
+import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
@@ -44,7 +47,7 @@ import cn.xiaocool.android_etong.util.ToastUtils;
  * Created by 潘 on 2016/6/27.
  */
 public class BusinessActivity extends Activity implements View.OnClickListener {
-    private RelativeLayout rl_back,rl_order;
+    private RelativeLayout rl_back, rl_order;
     private Button btn_uploadgoods, btn_baobeiguanli, btn_dianpuguanli, btn_shouhouguanli, btn_dingdanguanli, btn_changjianwenti,
             btn_huodongbaoming, btn_caiwujiekuan;
     private String shopid, shopType, islocal;
@@ -183,10 +186,26 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
+                case CommunalInterfaces.VerifyShoppingCode:
+                    JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    try {
+                        String status = jsonObject2.getString("status");
+                        if (status.equals("success")) {
+                            JSONObject object = jsonObject2.getJSONObject("data");
+                            IntentUtils.getIntents(context, ShopVerifySuccessActivity.class);
+                        } else {
+                            ToastUtils.makeShortToast(context, "号码验证失败！");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     };
     private Button btnWantHelp;
+    private Button btnVerify;
+    private EditText etVerify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,7 +240,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         btnWantHelp.setOnClickListener(this);
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
-        rl_order = (RelativeLayout) findViewById(R.id.rl_order) ;
+        rl_order = (RelativeLayout) findViewById(R.id.rl_order);
         rl_order.setOnClickListener(this);
         btn_uploadgoods = (Button) findViewById(R.id.btn_uploadgoods);
         btn_uploadgoods.setOnClickListener(this);
@@ -251,6 +270,11 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
         img3 = (ImageView) findViewById(R.id.img3);
         img4 = (ImageView) findViewById(R.id.img4);
         img5 = (ImageView) findViewById(R.id.img5);
+        btnVerify = (Button) findViewById(R.id.btn_store_verify_code);
+        btnVerify.setOnClickListener(this);
+        etVerify = (EditText) findViewById(R.id.et_store_verify_code);
+        Button btnClear = (Button) findViewById(R.id.btn_store_clear);
+        btnClear.setOnClickListener(this);
     }
 
     @Override
@@ -317,7 +341,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
             case R.id.btn_caiwujiekuan:
                 Intent intent9 = new Intent();
 //                intent8.putExtra("shopid", shopid);
-                intent9.putExtra("shopid",shopid);
+                intent9.putExtra("shopid", shopid);
                 intent9.setClass(BusinessActivity.this, TurnoverActivity.class);
                 startActivity(intent9);
                 break;
@@ -327,6 +351,20 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
 //                intentCall.setData(data);
 //                startActivity(intentCall);
                 startActivity(new Intent(context, CaptureActivity.class));
+                break;
+            case R.id.btn_store_verify_code:
+                String inputNum = etVerify.getText().toString();
+                if (!(inputNum.length() == 0)) {
+                    if (NetUtil.isConnnected(context)) {
+                        new ShopRequest(context, handler).verifyShoppingCode(inputNum);
+                    }
+                } else {
+                    ToastUtils.makeShortToast(context, "输入不能为空！");
+                }
+                break;
+            //清空
+            case R.id.btn_store_clear:
+                etVerify.setText("");
                 break;
 
         }
