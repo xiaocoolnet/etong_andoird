@@ -1,83 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/whilte"
+    android:layout_height="wrap_content"
     android:layout_marginTop="1dp"
-    android:layout_height="177dp">
+    android:background="@color/whilte"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">
-        <ImageView
-            android:id="@+id/img_prefecture_head"
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_prefecture_head"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/ic_touxiang"
-            />
+            android:background="@mipmap/ic_touxiang" />
+
         <TextView
-            android:id="@+id/tx_prefecture_name"
-            android:layout_centerVertical="true"
+            android:id="@+id/tv_prefecture_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_prefecture_head"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:textSize="13sp"
-            android:textColor="@color/main_color_red"
+            android:layout_toRightOf="@+id/iv_prefecture_head"
             android:text="我是etong"
-            />
+            android:textColor="@color/main_color_red"
+            android:textSize="13sp" />
     </RelativeLayout>
+
     <TextView
+        android:id="@+id/tv_prefecture_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:text="我要美美哒"
         android:textColor="@color/black"
-        android:textSize="13sp"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/tv_prefecture_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/activity_size_3"
         android:text="炎热夏天，清新季，炎热夏天,清新季，我要美美哒"
-        />
+        android:textColor="@color/black"
+        android:textSize="13sp" />
+
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/prefecturemy_pic_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-        <ImageView
-            android:layout_centerInParent="true"
-            android:layout_width="116dp"
-            android:layout_height="91dp"
-            android:background="@mipmap/ic_shaitu"
-            />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <ImageView
-                android:layout_centerInParent="true"
-                android:layout_width="116dp"
-                android:layout_height="91dp"
-                android:background="@mipmap/ic_shaitu"
-                />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_size_3"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/activity_size_5"
+        android:paddingTop="@dimen/activity_size_5">
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <ImageView
-                android:layout_centerInParent="true"
-                android:layout_width="116dp"
-                android:layout_height="91dp"
-                android:background="@mipmap/ic_shaitu"
-                />
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/tx_prefecture_pic0"
+                android:layout_width="@dimen/activity_size_90"
+                android:layout_height="@dimen/activity_size_90"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/activity_size_10" />
+
+
+            <ImageView
+                android:id="@+id/tx_prefecture_pic1"
+                android:layout_width="@dimen/activity_size_90"
+                android:layout_height="@dimen/activity_size_90"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/activity_size_5" />
+
+
+            <ImageView
+                android:id="@+id/tx_prefecture_pic2"
+                android:layout_width="@dimen/activity_size_90"
+                android:layout_height="@dimen/activity_size_90"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/activity_size_5" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

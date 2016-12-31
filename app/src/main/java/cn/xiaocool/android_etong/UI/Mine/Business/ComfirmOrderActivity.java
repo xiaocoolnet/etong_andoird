@@ -234,8 +234,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tx_goods_price_subtotal = (TextView) findViewById(R.id.tx_goods_price_subtotal);
         tx_goods_price_total = (TextView) findViewById(R.id.tx_goods_price_total);
         img_goods_pic = (ImageView) findViewById(R.id.img_goods_pic);
-        ll_delivery_address = (LinearLayout) findViewById(R.id.ll_delivery_address);
-        ll_delivery_address.setOnClickListener(this);
+//        ll_delivery_address = (LinearLayout) findViewById(R.id.ll_delivery_address);
+//        ll_delivery_address.setOnClickListener(this);
         tx_comfirm_order = (TextView) findViewById(R.id.tx_comfirm_order);
         tx_comfirm_order.setOnClickListener(this);
         et_customer_remark = (EditText) findViewById(R.id.et_customer_remark);
@@ -246,9 +246,9 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         et_change_infor = (TextView) findViewById(R.id.et_change_infor);
         et_customer_phone = (TextView) findViewById(R.id.et_customer_phone);
         et_customer_name = (TextView) findViewById(R.id.et_customer_name);
-        ll_address = (LinearLayout) findViewById(R.id.top_address);
-        ll_address.setOnClickListener(this);
-        tv_judge = (TextView) findViewById(R.id.tv_judge);
+//        ll_address = (LinearLayout) findViewById(R.id.ll_address);
+//        ll_address.setOnClickListener(this);
+//        tv_judge = (TextView) findViewById(R.id.tv_judge);
         tv_kuaidi = (TextView) findViewById(R.id.tv_kuaidi);
         ivPayWay0Item = (ImageView) findViewById(R.id.iv_payWay0_item);
         ivPayWay1Item = (ImageView) findViewById(R.id.iv_payWay1_item);
@@ -268,11 +268,11 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         if (address != null) {
             for (int i = 0; i < address.size(); i++) {
                 if (address.get(i).isStatus()) {
-                    ll_address.setVisibility(View.VISIBLE);
+//                    ll_address.setVisibility(View.VISIBLE);
                     et_customer_phone.setText(address.get(i).getPhone());
                     et_customer_name.setText(address.get(i).getName());
                     et_change_infor.setText(address.get(i).getProvinces() + " " + address.get(i).getStreet());
-                    tv_judge.setText("更改收货地址");
+//                    tv_judge.setText("更改收货地址");
                     phone = address.get(i).getPhone();
                     name = address.get(i).getName();
                     deliveryAddress = address.get(i).getProvinces() + " " + address.get(i).getStreet();
@@ -305,15 +305,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 intent.putExtra("name", name);
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.top_address:
-                //添加地址页面
-                Intent intent1 = new Intent();
-                intent1.setClass(context, DeliveryAddressActivity.class);
-                intent1.putExtra("judge", judge);
-                intent1.putExtra("deliveryaddress", deliveryAddress);
-                intent1.putExtra("phone", phone);
-                intent1.putExtra("name", name);
-                startActivityForResult(intent1, 1);
+            case R.id.ll_address:
+
                 break;
 
             case R.id.tx_comfirm_order:

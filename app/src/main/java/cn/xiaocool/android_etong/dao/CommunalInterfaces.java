@@ -18,6 +18,8 @@ public interface CommunalInterfaces {
     int ADD_SUGGESTIONS = 0x0010;//添加留言反馈
     int GET_SUGGESTIONS = 0x0011;//获取留言反馈列表
     int PUBLISH_CITY_BBS = 0x0012;//发布同城互动
+    int ACTIVITY_REGISTER = 0x0013;//我的店铺活动报名
+    int CHECK_ACTIVITY_REGISTER = 0x0014;//我的店铺检测活动报名
     //首页商城(0x0100开始)
     int LIKE_GOOD = 0x0100;//收藏商城商品
     int CANCLE_LIKE_GOOD = 0x0101;//取消收藏商城商品

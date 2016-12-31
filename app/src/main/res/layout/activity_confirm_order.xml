@@ -147,8 +147,9 @@
                 </LinearLayout>
 
 
-                <!--添加收货地址按钮-->
+                <!--添加收货地址按钮               隐藏-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ll_delivery_address"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/activity_size_35"

@@ -186,6 +186,8 @@
         <activity android:name=".UI.Mine.WriteSuggestionsActivity"></activity>
         <activity android:name=".UI.Mine.GetSuggestionsListActivity"></activity>
         <activity android:name=".UI.Mine.EditPayPassActivity"></activity>
+        <activity android:name=".UI.Mine.ActivityRegisterActivity"></activity>
+        <activity android:name=".UI.Mine.ActivityRegisterNowActivity"></activity>
 
         <!--收货地址相关活动-->
         <activity android:name=".UI.Mine.PersonAddress"></activity>

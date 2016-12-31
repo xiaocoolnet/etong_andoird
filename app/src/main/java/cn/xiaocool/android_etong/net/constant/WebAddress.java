@@ -529,6 +529,15 @@ public interface WebAddress extends NetBaseConstant {
      * 发布同城互动
      */
     String PUBLISH_CITY_BBS = NET_BASE_PREFIX + "a=addbbsposts";
+    /**
+     * 活动报名
+     */
+    String ACTIVITY_REGISTER = NET_BASE_PREFIX + "a=ApplyActivity";
+
+    /**
+     * 活动检测是否报名
+     */
+    String CHECK_ACTIVITY_REGISTER = NET_BASE_PREFIX + "a=CheckHadApply";
 }
 
 

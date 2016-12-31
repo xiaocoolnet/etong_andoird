@@ -120,7 +120,16 @@
                         android:layout_marginRight="@dimen/activity_size_10"
                         android:layout_marginTop="@dimen/activity_size_10"
                         android:background="@mipmap/ic_shangchuan" />
+
                 </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="长按可删除图片"
+                    android:textSize="@dimen/text_size_12"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_size_10"
+                    />
 
             </LinearLayout>
         </LinearLayout>

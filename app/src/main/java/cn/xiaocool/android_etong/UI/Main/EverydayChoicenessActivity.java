@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +32,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
  * Created by wzh on 2016/7/24.
  */
 public class EverydayChoicenessActivity extends Activity implements View.OnClickListener {
-    private ListView listView;
+    private PullToRefreshListView listView;
     private TextView tvTitle;
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
@@ -99,7 +101,7 @@ public class EverydayChoicenessActivity extends Activity implements View.OnClick
     }
 
     private void initView() {
-        listView = (ListView) findViewById(R.id.listView_everyday_choiceness);
+        listView = (PullToRefreshListView) findViewById(R.id.listView_everyday_choiceness);
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("每日精选");

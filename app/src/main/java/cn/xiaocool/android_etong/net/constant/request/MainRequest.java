@@ -19,7 +19,9 @@ import cn.xiaocool.android_etong.net.constant.WebAddress;
 import cn.xiaocool.android_etong.util.NetBaseUtils;
 import cn.xiaocool.android_etong.util.NetUtil;
 
+import static cn.xiaocool.android_etong.net.constant.WebAddress.ACTIVITY_REGISTER;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.ApplyWithdraw;
+import static cn.xiaocool.android_etong.net.constant.WebAddress.CHECK_ACTIVITY_REGISTER;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetMyApplyWithdraw;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetTimeGoodList;
 import static cn.xiaocool.android_etong.net.constant.WebAddress.GetUserBankInfo;
@@ -1562,7 +1564,7 @@ public class MainRequest {
         }.start();
     }
 
-    // 获取营业额时间
+    // 获取e专区帖子
     public void publishCityBBS(final String typeId, final String city, final String longtitude,
                                final String latitede, final String title, final String content,
                                final String pics, final String sound, final String address) {
@@ -1578,6 +1580,50 @@ public class MainRequest {
                 try {
                     JSONObject jsonObject = new JSONObject(result_data);
                     msg.what = CommunalInterfaces.PUBLISH_CITY_BBS;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+
+    // 活动报名
+    public void activityRegister(final String id, final String content) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&id=" + id + "&content=" + content;
+                String result_data = NetUtil.getResponse(ACTIVITY_REGISTER, data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.ACTIVITY_REGISTER;
+                    msg.obj = jsonObject;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.sendMessage(msg);
+                }
+            }
+        }.start();
+    }
+
+    public void checkRegisterActivity(final String id) {
+        new Thread() {
+            Message msg = Message.obtain();
+
+            @Override
+            public void run() {
+                String data = "&userid=" + user.getUserId() + "&id=" + id;
+                String result_data = NetUtil.getResponse(CHECK_ACTIVITY_REGISTER, data);
+                try {
+                    JSONObject jsonObject = new JSONObject(result_data);
+                    msg.what = CommunalInterfaces.CHECK_ACTIVITY_REGISTER;
                     msg.obj = jsonObject;
                 } catch (JSONException e) {
                     e.printStackTrace();

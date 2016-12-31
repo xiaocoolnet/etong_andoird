@@ -338,7 +338,7 @@ public class BusinessActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_huodongbaoming:
                 Intent intent8 = new Intent();
-                intent8.setClass(BusinessActivity.this, TurnoverActivity.class);
+                intent8.setClass(BusinessActivity.this, ActivityRegisterActivity.class);
                 startActivity(intent8);
                 break;
             case R.id.btn_caiwujiekuan:
