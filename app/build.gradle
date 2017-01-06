@@ -51,4 +51,9 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //到 volley 是九宫格图片上传
+    compile 'cn.finalteam:galleryfinal:1.4.6'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.baoyz.actionsheet:library:1.1.7'
+    compile files('libs/volley.jar')
 }

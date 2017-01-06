@@ -57,6 +57,7 @@
 
 
             <EditText
+                android:visibility="gone"
                 android:id="@+id/publish_et_title"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -84,8 +85,27 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:background="@color/white">
+                <cn.xiaocool.android_etong.util.NoScrollGridView
+                    android:id="@+id/activity_post_trend_gv_addpic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="3dp"
+                    android:verticalSpacing="3dp"
+                    android:numColumns="3">
+                </cn.xiaocool.android_etong.util.NoScrollGridView>
+            </RelativeLayout>
+
+
+
 
             <cn.xiaocool.android_etong.util.NoScrollGridView
+                android:visibility="gone"
                 android:id="@+id/gridView_show__publish_pics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,6 +121,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/whilte">

@@ -97,6 +97,7 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onResume() {
+        getCityList();
         super.onResume();
     }
 

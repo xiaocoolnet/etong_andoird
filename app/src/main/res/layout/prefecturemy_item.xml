@@ -32,6 +32,7 @@
     </RelativeLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_prefecture_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,8 +50,27 @@
         android:text="炎热夏天，清新季，炎热夏天,清新季，我要美美哒"
         android:textColor="@color/black"
         android:textSize="13sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@color/white">
+        <cn.xiaocool.android_etong.util.NoScrollGridView
+            android:id="@+id/activity_post_trend_gv_addpic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="3dp"
+            android:verticalSpacing="3dp"
+            android:numColumns="3">
+        </cn.xiaocool.android_etong.util.NoScrollGridView>
+    </RelativeLayout>
+
+
+    //原来三张图片 视图设置成gone
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/prefecturemy_pic_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

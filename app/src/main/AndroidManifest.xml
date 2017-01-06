@@ -256,6 +256,7 @@
         <!--本地-->
         <activity android:name=".UI.Local.FoodActivity"></activity>
         <activity android:name=".UI.Local.MoiveActivity"></activity>
+        <activity android:name=".UI.Local.ImageDetailActivity"></activity>
         <activity android:name=".UI.Local.HotelActivity"></activity>
         <activity android:name=".UI.Local.TakeOutFoodAcitvity"></activity>
         <activity android:name=".UI.Local.EntertainmentActivity"></activity>

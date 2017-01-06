@@ -37,6 +37,7 @@ public class MemberCenterActivity extends Activity implements View.OnClickListen
         WebView webView = (WebView) findViewById(R.id.member_center_webView);
 
         webView.loadUrl(MEMBER_CENTER + user.getUserId());
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

@@ -22,7 +22,7 @@
             android:id="@+id/tx_mine_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/img_mine_head"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/img_mine_head"
             android:layout_marginTop="19dp"
             android:text="e通商城"
@@ -31,15 +31,17 @@
             />
         <TextView
             android:id="@+id/tx_mine_vip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tx_mine_name"
-            android:layout_toRightOf="@+id/tx_mine_name"
-            android:layout_marginLeft="8dp"
-            android:textStyle="italic"
-            android:text="VIP"
-            android:textColor="@color/yellow"
-            android:textSize="18sp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/tv_oval_yellow"
+            android:layout_alignLeft="@+id/img_mine_head"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
+            android:text="v1"
+            android:textColor="@color/whilte"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
             />
 
     </RelativeLayout>

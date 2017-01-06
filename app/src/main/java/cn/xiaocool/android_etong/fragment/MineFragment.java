@@ -132,9 +132,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             name = object.getString("name");
                             touxiang = object.getString("photo");
                             ImageLoader.getInstance().displayImage(WebAddress.GETAVATAR + object.getString("photo"), img_mine_head);
-                            if (object.getString("level").equals("0")) {
-                                tx_mine_vip.setTextColor(context.getResources().getColor(R.color.gray1));
-                            }
+                            tx_mine_vip.setText("V"+object.getString("level"));
                         } else {
                             Toast.makeText(context, jsonObject.getString("data"), Toast.LENGTH_SHORT).show();
                         }

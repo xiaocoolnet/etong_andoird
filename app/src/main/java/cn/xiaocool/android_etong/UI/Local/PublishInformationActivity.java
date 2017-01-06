@@ -1,21 +1,25 @@
 package cn.xiaocool.android_etong.UI.Local;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.actionsheet.ActionSheet;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,26 +42,42 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.EditGoodPicAdapter;
-import cn.xiaocool.android_etong.bean.UserInfo;
+import cn.xiaocool.android_etong.adapter.LocalImgGridAdapter;
+import cn.xiaocool.android_etong.bean.PhotoWithPath;
+import cn.xiaocool.android_etong.callback.PushImage;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
+import cn.xiaocool.android_etong.util.GalleryFinalUtil;
+import cn.xiaocool.android_etong.util.GetImageUtil;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.util.NoScrollGridView;
+import cn.xiaocool.android_etong.util.PushImageUtil;
+import cn.xiaocool.android_etong.util.StringJoint;
 import cn.xiaocool.android_etong.util.ToastUtils;
 
 /**
  * Created by hzh on 2016/12/29.
  */
 
-public class PublishInformationActivity extends Activity implements View.OnClickListener {
+public class PublishInformationActivity extends FragmentActivity implements View.OnClickListener {
     private Context context;
     private RelativeLayout rl_back;
+    private ArrayList<PhotoInfo> mPhotoList;
+    private ArrayList<PhotoWithPath> photoWithPaths;
 
-
+    private final int REQUEST_CODE_CAMERA = 1000;
+    private final int REQUEST_CODE_GALLERY = 1001;
+    private LocalImgGridAdapter localImgGridAdapter;
     private List list = new ArrayList();
+    private GalleryFinalUtil galleryFinalUtil;
     private EditGoodPicAdapter editGoodPicAdapter;
+    private NoScrollGridView activityPostTrendGvAddpic;
     private GridView gridView;
+    private String picname;
     private ProgressDialog progressDialog;
     private boolean isShowDelete = false;
     private Handler handler = new Handler() {
@@ -99,9 +121,11 @@ public class PublishInformationActivity extends Activity implements View.OnClick
                     try {
                         String status = jsonObject1.getString("status");
                         if (status.equals("success")) {
+                            progressDialog.dismiss();
                             ToastUtils.makeShortToast(context, "发布成功！");
                             finish();
                         } else {
+                            progressDialog.dismiss();
                             ToastUtils.makeShortToast(context, "发布失败！请重试");
                         }
                     } catch (JSONException e) {
@@ -132,6 +156,7 @@ public class PublishInformationActivity extends Activity implements View.OnClick
         context = this;
         initView();
 
+        progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
 
         editGoodPicAdapter = new EditGoodPicAdapter(this, list);
         gridView.setAdapter(editGoodPicAdapter);
@@ -147,10 +172,14 @@ public class PublishInformationActivity extends Activity implements View.OnClick
                 return true;
             }
         });
+        galleryFinalUtil = new GalleryFinalUtil(9);
+        setGrigView();
 
     }
 
     private void initView() {
+        mPhotoList = new ArrayList<>();
+        photoWithPaths = new ArrayList<>();
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
         rl_back.setOnClickListener(this);
         ImageView ivAddPic = (ImageView) findViewById(R.id.publish_iv_add_pic);
@@ -162,6 +191,7 @@ public class PublishInformationActivity extends Activity implements View.OnClick
         etTitle.setOnClickListener(this);
         etContent = (EditText) findViewById(R.id.publish_et_content);
         etTitle.setOnClickListener(this);
+        activityPostTrendGvAddpic = (NoScrollGridView) findViewById(R.id.activity_post_trend_gv_addpic);
     }
 
     @Override
@@ -176,25 +206,178 @@ public class PublishInformationActivity extends Activity implements View.OnClick
                 }
                 break;
             case R.id.publish_btn_confirm:
-                String str = list.toString();
-                String picAdd = str.replace("[", "").replace("]", "").replace(" ", "");//去除首尾[]和空格
-                String title = etTitle.getText().toString();
-                String content = etContent.getText().toString();
-
-                if (!(title.length() == 0) && !(content.length() == 0)) {
-                    if (NetUtil.isConnnected(context)) {
-                        new MainRequest(this, handler).publishCityBBS("1", "", "", "", title, content, picAdd, "", "");
-                    } else {
-                        ToastUtils.makeShortToast(context, "请检查网络！");
-                    }
-                } else {
-                    ToastUtils.makeShortToast(context, "输入不能为空！");
-                }
+                progressDialog.setMessage("正在加载");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                sendTrend();
                 break;
         }
     }
 
 
+    private void sendTrend() {
+
+        //上传图片成功后发布
+        new PushImageUtil().setPushIamge(this, photoWithPaths, new PushImage() {
+            @Override
+            public void success(boolean state) {
+                //获得图片字符串
+                ArrayList<String> picArray = new ArrayList<>();
+                for (PhotoWithPath photo : photoWithPaths) {
+                    picArray.add(photo.getPicname());
+                }
+                picname = StringJoint.arrayJointchar(picArray, ",");
+                Log.e("success","pic");
+                String str = list.toString();
+                String picAdd = str.replace("[", "").replace("]", "").replace(" ", "");//去除首尾[]和空格
+                String title = etTitle.getText().toString();
+                String content = etContent.getText().toString();
+
+                if (!(content.length() == 0)) {
+                    if (NetUtil.isConnnected(context)) {
+                        Log.e("picname=",picname);
+                        new MainRequest(PublishInformationActivity.this, handler).publishCityBBS("1", "", "", "", title, content, picname, "", "");
+                    } else {
+                        ToastUtils.makeShortToast(context, "请检查网络！");
+                        progressDialog.dismiss();
+
+                    }
+                } else {
+                    ToastUtils.makeShortToast(context, "输入不能为空！");
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void error() {
+                Toast.makeText(context,"图片上传失败",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    /**
+     * 设置添加图片
+     */
+    private void setGrigView() {
+        localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context);
+        activityPostTrendGvAddpic.setAdapter(localImgGridAdapter);
+        activityPostTrendGvAddpic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == mPhotoList.size()) {
+                    showActionSheet();
+                }
+            }
+        });
+    }
+
+    /**
+     * 相册拍照弹出框
+     */
+    private void showActionSheet() {
+        ActionSheet.createBuilder(context,getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("打开相册", "拍照")
+                .setCancelableOnTouchOutside(true)
+                .setListener(new ActionSheet.ActionSheetListener() {
+                    @Override
+                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+                    }
+
+                    @Override
+                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+
+                        switch (index) {
+                            case 0:
+                                galleryFinalUtil.openAblum(context, mPhotoList, REQUEST_CODE_GALLERY, mOnHanlderResultCallback);
+                                break;
+                            case 1:
+                                //获取拍照权限
+                                if (galleryFinalUtil.openCamera(context, mPhotoList, REQUEST_CODE_CAMERA, mOnHanlderResultCallback)) {
+                                    return;
+                                } else {
+                                    String[] perms = {"android.permission.CAMERA"};
+                                    int permsRequestCode = 200;
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(perms, permsRequestCode);
+                                    }
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .show();
+    }
+
+
+    /**
+     * 选择图片后 返回的图片数据
+     */
+
+    private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
+        @Override
+        public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+            if (resultList != null) {
+                photoWithPaths.clear();
+                mPhotoList.clear();
+                mPhotoList.addAll(resultList);
+                photoWithPaths.addAll(GetImageUtil.getImgWithPaths(resultList));
+
+                localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context);
+                activityPostTrendGvAddpic.setAdapter(localImgGridAdapter);
+            }
+        }
+
+        @Override
+        public void onHanlderFailure(int requestCode, String errorMsg) {
+            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    /**
+     * 授权权限
+     *
+     * @param permsRequestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
+
+        switch (permsRequestCode) {
+
+            case 200:
+
+                boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (cameraAccepted) {
+                    //授权成功之后，调用系统相机进行拍照操作等
+                    galleryFinalUtil.openCamera(context, mPhotoList, REQUEST_CODE_CAMERA, mOnHanlderResultCallback);
+                } else {
+                    //用户授权拒绝之后，友情提示一下就可以了
+                    Toast.makeText(this,"已拒绝进入相机，如想开启请到设置中开启！",Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+//此处为旧版本 选择图片截屏 不使用，换成九宫格多张图片选择   相关视图设置成 gone
     //弹出选择相册 拍照
     protected void ShowPickDialog() {
         new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT).setNegativeButton("相册", new DialogInterface.OnClickListener() {

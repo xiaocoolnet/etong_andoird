@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.os.Vibrator;
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -39,9 +41,19 @@ public class etongApplaction extends Application {
     public String judgeCode;
     public int shareBuyCode = 0;
 
+    private static RequestQueue requestQueue;
+    private static RequestQueue requestQueueFile;
+    private static etongApplaction myApplication;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //请求队列
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueueFile = Volley.newRequestQueue(this);
+        myApplication = new etongApplaction();
+
         //极光推送初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -139,5 +151,26 @@ public class etongApplaction extends Application {
 
     public int getShareBuyCode() {
         return shareBuyCode;
+    }
+
+    /**
+     * 拿到消息队列
+     */
+    public static RequestQueue getRequestQueue() {
+        return requestQueue;
+    }
+
+    /**
+     * 拿到消息队列
+     */
+    public static RequestQueue getFileRequestQueue() {
+        return requestQueueFile;
+    }
+
+    /**
+     * 拿到消息队列
+     */
+    public static Application getApplication() {
+        return myApplication;
     }
 }

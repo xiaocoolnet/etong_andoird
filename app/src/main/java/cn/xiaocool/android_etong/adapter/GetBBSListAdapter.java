@@ -15,11 +15,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
+import cn.xiaocool.android_etong.util.NoScrollGridView;
 
 
 /**
@@ -31,6 +33,7 @@ public class GetBBSListAdapter extends BaseAdapter {
     private List<CityBBSBean.DataBean> dataBeenList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
+    private PrefectureMyAdapter prefectureMyAdapter ;
 
     public GetBBSListAdapter(Context context, List<CityBBSBean.DataBean> dataBeenList) {
         this.layoutInflater = LayoutInflater.from(context);
@@ -72,43 +75,49 @@ public class GetBBSListAdapter extends BaseAdapter {
         }
         imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + dataBean.getPhoto(),
                 viewHolder.ivHead, displayImageOptions);
-        switch (arrayPic.length) {
-            case 0:
-                viewHolder.picLL0.setVisibility(View.GONE);
-
-                viewHolder.ivPic0.setVisibility(View.GONE);
-                viewHolder.ivPic1.setVisibility(View.GONE);
-                viewHolder.ivPic2.setVisibility(View.GONE);
-                break;
-            case 1:
-                viewHolder.ivPic0.setVisibility(View.VISIBLE);
-                viewHolder.ivPic1.setVisibility(View.GONE);
-                viewHolder.ivPic2.setVisibility(View.GONE);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                        viewHolder.ivPic0, displayImageOptions);
-                break;
-            case 2:
-                viewHolder.ivPic0.setVisibility(View.VISIBLE);
-                viewHolder.ivPic1.setVisibility(View.VISIBLE);
-                viewHolder.ivPic2.setVisibility(View.GONE);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                        viewHolder.ivPic0, displayImageOptions);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[1],
-                        viewHolder.ivPic1, displayImageOptions);
-                break;
-            case 3:
-                viewHolder.ivPic0.setVisibility(View.VISIBLE);
-                viewHolder.ivPic1.setVisibility(View.VISIBLE);
-                viewHolder.ivPic2.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                        viewHolder.ivPic0, displayImageOptions);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[1],
-                        viewHolder.ivPic1, displayImageOptions);
-                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[2],
-                        viewHolder.ivPic2, displayImageOptions);
-                break;
-
+        ArrayList<String> list=new ArrayList<String>();
+        for(int i=0;i<arrayPic.length;i++){
+            list.add(arrayPic[i]);
         }
+        prefectureMyAdapter = new PrefectureMyAdapter(context,list);
+        viewHolder.activity_post_trend_gv_addpic.setAdapter(prefectureMyAdapter);
+//        switch (arrayPic.length) {
+//            case 0:
+//                viewHolder.picLL0.setVisibility(View.GONE);
+//
+//                viewHolder.ivPic0.setVisibility(View.GONE);
+//                viewHolder.ivPic1.setVisibility(View.GONE);
+//                viewHolder.ivPic2.setVisibility(View.GONE);
+//                break;
+//            case 1:
+//                viewHolder.ivPic0.setVisibility(View.VISIBLE);
+//                viewHolder.ivPic1.setVisibility(View.GONE);
+//                viewHolder.ivPic2.setVisibility(View.GONE);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+//                        viewHolder.ivPic0, displayImageOptions);
+//                break;
+//            case 2:
+//                viewHolder.ivPic0.setVisibility(View.VISIBLE);
+//                viewHolder.ivPic1.setVisibility(View.VISIBLE);
+//                viewHolder.ivPic2.setVisibility(View.GONE);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+//                        viewHolder.ivPic0, displayImageOptions);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[1],
+//                        viewHolder.ivPic1, displayImageOptions);
+//                break;
+//            case 3:
+//                viewHolder.ivPic0.setVisibility(View.VISIBLE);
+//                viewHolder.ivPic1.setVisibility(View.VISIBLE);
+//                viewHolder.ivPic2.setVisibility(View.VISIBLE);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+//                        viewHolder.ivPic0, displayImageOptions);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[1],
+//                        viewHolder.ivPic1, displayImageOptions);
+//                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[2],
+//                        viewHolder.ivPic2, displayImageOptions);
+//                break;
+//
+//        }
 
 
         viewHolder.tvName.setText(dataBean.getName());
@@ -122,6 +131,7 @@ public class GetBBSListAdapter extends BaseAdapter {
         TextView tvName, tvTitle, tvContent;
         ImageView ivHead, ivPic0, ivPic1, ivPic2;
         LinearLayout picLL0;
+        NoScrollGridView activity_post_trend_gv_addpic;
 
         public ViewHolder(View view) {
             ivHead = (ImageView) view.findViewById(R.id.iv_prefecture_head);
@@ -132,6 +142,7 @@ public class GetBBSListAdapter extends BaseAdapter {
             ivPic1 = (ImageView) view.findViewById(R.id.tx_prefecture_pic1);
             ivPic2 = (ImageView) view.findViewById(R.id.tx_prefecture_pic2);
             picLL0 = (LinearLayout) view.findViewById(R.id.prefecturemy_pic_ll);
+            activity_post_trend_gv_addpic = (NoScrollGridView) view.findViewById(R.id.activity_post_trend_gv_addpic);
         }
 
     }
