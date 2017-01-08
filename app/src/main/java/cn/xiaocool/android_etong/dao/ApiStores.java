@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.dao;
 
 import cn.xiaocool.android_etong.bean.ActivityRegisterBean;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
+import cn.xiaocool.android_etong.bean.HttpBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -22,4 +23,13 @@ public interface ApiStores {
 
     @GET(MIDDLE + "getActivityList")
     Call<ActivityRegisterBean> getActivityRegister(@Query("userid") String userId);
+
+    @GET(MIDDLE + "SetLike")
+    Call<HttpBean> SetLike(@Query("userid") String userId, @Query("id")String id, @Query("type")String type);
+    @GET(MIDDLE + "ResetLike")
+    Call<HttpBean> ResetLike(@Query("userid") String userId, @Query("id")String id,  @Query("type")String type);
+    @GET(MIDDLE + "SetComment")
+    Call<HttpBean> SetComment(@Query("userid") String userId, @Query("id")String id,   @Query("comment")String comment,@Query("type")String type);
+    @GET(MIDDLE + "DeleteBbspost")
+    Call<HttpBean> DeleteBbspos(@Query("userid") String userId, @Query("id")String id);
 }

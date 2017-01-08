@@ -58,6 +58,16 @@ public class CityBBSBean {
         private String photo;
         private String pic;
 
+        private List<LikeBean> like;
+        /**
+         * userid : 604
+         * name : 王志恒
+         * content : 哈哈
+         * avatar : weixiaotong.png
+         * comment_time : 1472718250
+         */
+
+        private List<CommentBean> comment;
         public String getMid() {
             return mid;
         }
@@ -145,12 +155,95 @@ public class CityBBSBean {
         public void setPic(String pic) {
             this.pic = pic;
         }
+
+        public List<LikeBean> getLike() {
+            return like;
+        }
+
+        public void setLike(List<LikeBean> like) {
+            this.like = like;
+        }
+
+        public List<CommentBean> getComment() {
+            return comment;
+        }
+
+        public void setComment(List<CommentBean> comment) {
+            this.comment = comment;
+        }
     }
 
     /**
      * status : success
      * data : [{"mid":"9","type":"1","userid":"598","name":"王志恒","phone":"15853503932","title":"测试33333","content":"发布的内容？？？？？","sound":"","create_time":"1483089388","photo":"avatar5981470561563573.jpg","pic":[{"pictureurl":"picture1483089366515.jpg"},{"pictureurl":"picture1483089383593.jpg"}]},{"mid":"8","type":"1","userid":"598","name":"王志恒","phone":"15853503932","title":"15853503932","content":"测试号测试一下","sound":"","create_time":"1483085188","photo":"avatar5981470561563573.jpg","pic":[{"pictureurl":"picture1483084619522.jpg"},{"pictureurl":"picture1483085187156.jpg"}]},{"mid":"7","type":"1","userid":"598","name":"王志恒","phone":"15853503932","title":"15853503932","content":"abcdrdgddx","sound":"","create_time":"1483084454","photo":"avatar5981470561563573.jpg","pic":[{"pictureurl":"picture1483084381619.jpg"},{"pictureurl":"picture1483084392768.jpg"},{"pictureurl":"picture1483084402355.jpg"},{"pictureurl":"picture1483084413490.jpg"},{"pictureurl":"picture1483084425902.jpg"}]},{"mid":"6","type":"1","userid":"598","name":"王志恒","phone":"15853503932","title":"15853503932","content":"abcdrdgddx","sound":"","create_time":"1483084450","photo":"avatar5981470561563573.jpg","pic":[{"pictureurl":"picture1483084381619.jpg"},{"pictureurl":"picture1483084392768.jpg"},{"pictureurl":"picture1483084402355.jpg"},{"pictureurl":"picture1483084413490.jpg"},{"pictureurl":"picture1483084425902.jpg"}]},{"mid":"5","type":"1","userid":"599","name":"菇凉001","phone":"18703422977","title":"","content":"12312312312","sound":"","create_time":"1483018816","photo":"avatar5991470357636503.jpg","pic":[]}]
      */
+    public static class LikeBean {
+        private String userid;
+        private String name;
 
+        public String getUserid() {
+            return userid;
+        }
+
+        public void setUserid(String userid) {
+            this.userid = userid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class CommentBean {
+        private String userid;
+        private String name;
+        private String content;
+        private String avatar;
+        private String comment_time;
+
+        public String getUserid() {
+            return userid;
+        }
+
+        public void setUserid(String userid) {
+            this.userid = userid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getComment_time() {
+            return comment_time;
+        }
+
+        public void setComment_time(String comment_time) {
+            this.comment_time = comment_time;
+        }
+    }
 
 }

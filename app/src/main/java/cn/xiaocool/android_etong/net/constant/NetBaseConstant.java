@@ -9,7 +9,6 @@ public interface NetBaseConstant {
      * 接口前缀
      */
     String NET_BASE_PREFIX = "http://mwn.xiaocool.net/index.php?g=apps&m=index&";
-
     /**
      * 图片网址前缀
      */

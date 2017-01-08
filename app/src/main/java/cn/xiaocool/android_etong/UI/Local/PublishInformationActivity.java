@@ -132,6 +132,13 @@ public class PublishInformationActivity extends FragmentActivity implements View
                         e.printStackTrace();
                     }
                     break;
+                case 5231:
+                    mPhotoList.remove((int)msg.obj);
+                    photoWithPaths.remove((int)msg.obj);
+                    localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context,handler);
+                    activityPostTrendGvAddpic.setAdapter(localImgGridAdapter);
+                    break;
+
             }
         }
     };
@@ -261,7 +268,7 @@ public class PublishInformationActivity extends FragmentActivity implements View
      * 设置添加图片
      */
     private void setGrigView() {
-        localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context);
+        localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context,handler);
         activityPostTrendGvAddpic.setAdapter(localImgGridAdapter);
         activityPostTrendGvAddpic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -329,7 +336,7 @@ public class PublishInformationActivity extends FragmentActivity implements View
                 mPhotoList.addAll(resultList);
                 photoWithPaths.addAll(GetImageUtil.getImgWithPaths(resultList));
 
-                localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context);
+                localImgGridAdapter = new LocalImgGridAdapter(mPhotoList, context,handler);
                 activityPostTrendGvAddpic.setAdapter(localImgGridAdapter);
             }
         }

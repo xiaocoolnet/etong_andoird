@@ -64,7 +64,7 @@ public class PrefectureMyAdapter  extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -84,7 +84,7 @@ public class PrefectureMyAdapter  extends BaseAdapter{
                 Intent intent = new Intent();
                 intent.setClass(context, ImageDetailActivity.class);
                 intent.putStringArrayListExtra("Imgs", a);
-                intent.putExtra("position", 0);
+                intent.putExtra("position", position);
                 intent.putExtra("type", "4");
                 context.startActivity(intent);
             }

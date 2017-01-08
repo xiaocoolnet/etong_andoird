@@ -2,4 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@mipmap/ic_dianzan" android:state_selected="false"/>
     <item android:drawable="@mipmap/ic_dianzandianji" android:state_selected="true"/>
+    <item android:drawable="@mipmap/ic_dianzan" android:state_selected="false"/>
+    <item android:drawable="@mipmap/ic_dianzandianji" android:state_selected="true"/>
 </selector>

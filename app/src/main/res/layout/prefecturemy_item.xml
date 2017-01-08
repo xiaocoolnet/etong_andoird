@@ -13,22 +13,41 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_prefecture_head"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@mipmap/ic_touxiang" />
 
-        <TextView
-            android:id="@+id/tv_prefecture_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_prefecture_head"
-            android:text="我是etong"
-            android:textColor="@color/main_color_red"
-            android:textSize="13sp" />
+            android:layout_toRightOf="@+id/iv_prefecture_head">
+            <TextView
+                android:id="@+id/tv_prefecture_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="我是etong"
+                android:textColor="@color/main_color_red"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/trend_item_tv_time"
+                android:id="@+id/item_sn_delet"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:text="删除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <TextView
@@ -49,7 +68,7 @@
         android:layout_marginTop="@dimen/activity_size_3"
         android:text="炎热夏天，清新季，炎热夏天,清新季，我要美美哒"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,6 +144,13 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
+    <cn.xiaocool.android_etong.util.NoScrollListView
+        android:id="@+id/trend_item_lv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+    </cn.xiaocool.android_etong.util.NoScrollListView>
 
 
     //原来三张图片 视图设置成gone

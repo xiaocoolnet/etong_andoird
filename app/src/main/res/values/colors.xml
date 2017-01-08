@@ -54,5 +54,6 @@
     <color name="main_color_red">#FF5555</color>
     <color name="gray_text">#999999</color>
     <color name="xianshiqianggou">#3A0108</color>
-
+    <drawable name="color_user_item_normal">#FFFFFFFF</drawable>
+    <drawable name="color_user_item_pressed">#FFDDDDDD</drawable>
 </resources>

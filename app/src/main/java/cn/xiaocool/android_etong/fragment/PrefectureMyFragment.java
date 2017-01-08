@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.GetBBSListAdapter;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
 import cn.xiaocool.android_etong.bean.CityBBSBean.DataBean;
+import cn.xiaocool.android_etong.callback.ListRefreshCallBack;
 import cn.xiaocool.android_etong.dao.ApiStores;
+import cn.xiaocool.android_etong.util.ToastUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +42,7 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+        list = new ArrayList<>();
     }
 
     @Override
@@ -58,7 +62,18 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
         if (getBBSListAdapter != null) {
             getBBSListAdapter.notifyDataSetChanged();
         } else {
-            getBBSListAdapter = new GetBBSListAdapter(context, list);
+            getBBSListAdapter = new GetBBSListAdapter(context, list, listView, new ListRefreshCallBack() {
+                @Override
+                public void success() {
+                    getCityList();
+                    ToastUtils.makeShortToast(context,"成功");
+                }
+
+                @Override
+                public void error() {
+
+                }
+            });
             listView.setAdapter(getBBSListAdapter);
         }
     }
@@ -80,7 +95,8 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Call<CityBBSBean> call, Response<CityBBSBean> response) {
                 Log.e("cc", "dd");
-                list = response.body().getData();
+                list.clear();
+                list.addAll(response.body().getData());
                 Log.e("resultlist", list.toString());
                 Log.e("getList", list.get(2).getContent());
                 setAdapter();//异步请求结束后，设置适配器
