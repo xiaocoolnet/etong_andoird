@@ -19,7 +19,7 @@ public interface ApiStores {
 //        Call<CityBBSBean> getWeather(@Path("type") String type);
     //获取e专区bbs列表
     @GET(MIDDLE + "getbbspostlist")
-    Call<CityBBSBean> getBBSList(@Query("type") String type);
+    Call<CityBBSBean> getBBSList(@Query("type") String type,@Query("beginid") String beginid);
 
     @GET(MIDDLE + "getActivityList")
     Call<ActivityRegisterBean> getActivityRegister(@Query("userid") String userId);
@@ -32,4 +32,6 @@ public interface ApiStores {
     Call<HttpBean> SetComment(@Query("userid") String userId, @Query("id")String id,   @Query("comment")String comment,@Query("type")String type);
     @GET(MIDDLE + "DeleteBbspost")
     Call<HttpBean> DeleteBbspos(@Query("userid") String userId, @Query("id")String id);
+    @GET(MIDDLE + "DeleteComment")
+    Call<HttpBean> DeleteComment(@Query("userid") String userId, @Query("id")String id, @Query("type")String type);
 }

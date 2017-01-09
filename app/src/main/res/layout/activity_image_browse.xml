@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/black"/>
+
     <cn.xiaocool.android_etong.view.ViewPagerFixed
         android:id="@+id/viewPager"
 
@@ -18,7 +19,6 @@
         android:layout_weight="1">
 
     </cn.xiaocool.android_etong.view.ViewPagerFixed>
-
 
 
     <LinearLayout

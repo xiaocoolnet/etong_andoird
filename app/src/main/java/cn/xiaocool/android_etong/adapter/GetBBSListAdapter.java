@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -190,7 +191,7 @@ public class GetBBSListAdapter extends BaseAdapter {
                 final EditText editText = commentPopupWindow.ed_comment;
                 commentPopupWindow.showAtLocation(location, Gravity.BOTTOM, 0, 0);
                 //弹出系统输入法
-                KeyBoardUtils.showKeyBoardByTime(editText,0);
+                KeyBoardUtils.showKeyBoardByTime(editText,1);
             }
         });
         //点赞
@@ -220,15 +221,15 @@ public class GetBBSListAdapter extends BaseAdapter {
 
         //判断是否本人
         if(user.getUserId().equals(dataBean.getUserid())){
-            viewHolder.item_sn_delet.setVisibility(View.VISIBLE);
-            viewHolder.item_sn_delet.setOnClickListener(new View.OnClickListener() {
+            viewHolder.delete_layout.setVisibility(View.VISIBLE);
+            viewHolder.delete_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setVersionDialog(dataBean.getMid());
                 }
             });
         }else{
-            viewHolder.item_sn_delet.setVisibility(View.GONE);
+            viewHolder.delete_layout.setVisibility(View.GONE);
 
         }
 
@@ -392,10 +393,11 @@ public class GetBBSListAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView tvName, tvTitle, tvContent,trend_item_tv_praise,trend_item_tv_comment,item_sn_delet;
-        ImageView ivHead, ivPic0, ivPic1, ivPic2;
+        ImageView ivHead, ivPic0, ivPic1, ivPic2,trend_item_iv_delete;
         LinearLayout picLL0,trend_item_ll_praise,trend_item_ll_comment;
         NoScrollGridView activity_post_trend_gv_addpic;
         NoScrollListView trend_item_lv_comment;
+        RelativeLayout delete_layout;
 
         public ViewHolder(View view) {
             ivHead = (ImageView) view.findViewById(R.id.iv_prefecture_head);
@@ -413,6 +415,8 @@ public class GetBBSListAdapter extends BaseAdapter {
             trend_item_ll_comment = (LinearLayout) view.findViewById(R.id.trend_item_ll_comment);
             trend_item_ll_praise = (LinearLayout) view.findViewById(R.id.trend_item_ll_praise);
             item_sn_delet = (TextView) view.findViewById(R.id.item_sn_delet);
+            delete_layout = (RelativeLayout) view.findViewById(R.id.delete_layout);
+            trend_item_iv_delete = (ImageView) view.findViewById(R.id.trend_item_iv_delete);
         }
 
     }

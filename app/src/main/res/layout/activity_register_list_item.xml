@@ -1,41 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="400dp"
     android:background="@color/whilte"
-    android:orientation="horizontal">
-
+    android:orientation="vertical">
     <RelativeLayout
-        android:layout_width="@dimen/activity_size_110"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
 
         <ImageView
             android:id="@+id/iv_activity_pic"
-            android:layout_width="@dimen/activity_size_100"
-            android:layout_height="@dimen/activity_size_100"
-            android:layout_centerInParent="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            />
+
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/tv_activity_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_size_5"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="@dimen/activity_size_5"
                 android:layout_marginTop="@dimen/activity_size_10"
-                android:layout_toRightOf="@+id/iv_activity_pic"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="这是e通商城举办的活动"
@@ -45,11 +35,9 @@
                 android:id="@+id/tv_activity_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_activity_name"
-                android:layout_marginLeft="@dimen/activity_size_5"
+                android:layout_marginTop="@dimen/activity_size_10"
+                android:layout_marginLeft="@dimen/activity_size_10"
                 android:layout_marginRight="@dimen/activity_size_5"
-                android:layout_marginTop="@dimen/activity_size_3"
-                android:layout_toRightOf="@+id/iv_activity_pic"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="活动内容很有趣"
@@ -57,19 +45,16 @@
                 android:textSize="@dimen/activity_size_13" />
 
 
-        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
 
             <Button
                 android:id="@+id/activity_register_btn"
-                android:layout_width="@dimen/activity_size_60"
-                android:layout_height="@dimen/activity_size_30"
+                android:layout_width="@dimen/activity_size_80"
+                android:layout_height="@dimen/activity_size_40"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/activity_size_20"
                 android:background="@drawable/btn_yuanjiao_red"
@@ -77,8 +62,5 @@
                 android:textColor="@color/whilte"
                 android:textSize="@dimen/text_size_10" />
 
-
-        </RelativeLayout>
-
-    </LinearLayout>
+</RelativeLayout>
 </LinearLayout>

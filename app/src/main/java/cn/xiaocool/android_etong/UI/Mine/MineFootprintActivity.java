@@ -253,7 +253,6 @@ public class MineFootprintActivity extends Activity implements View.OnClickListe
 
     }
 
-
     /**
      * 异步下载任务
      */

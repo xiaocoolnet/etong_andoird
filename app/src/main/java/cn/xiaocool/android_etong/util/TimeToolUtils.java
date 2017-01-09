@@ -3,7 +3,9 @@ package cn.xiaocool.android_etong.util;
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class TimeToolUtils {
@@ -89,7 +91,7 @@ public class TimeToolUtils {
         } else if (days == 3) {
             return "3天前";
         } else {
-            return fromateTimeShow(time, "yyyy-MM-dd");
+            return getStrTime(String.valueOf(time));
         }
     }
 
@@ -135,5 +137,16 @@ public class TimeToolUtils {
         }
         return result;
     }
+
+    // 将时间戳转为字符串
+    public static String getStrTime(String cc_time) {
+        String re_StrTime = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // 例如：
+        long lcc_time = Long.valueOf(cc_time);
+        re_StrTime = sdf.format(new Date(lcc_time * 1000L));
+        return re_StrTime;
+    }
+
 
 }

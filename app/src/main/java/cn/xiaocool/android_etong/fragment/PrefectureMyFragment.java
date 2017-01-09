@@ -2,23 +2,46 @@ package cn.xiaocool.android_etong.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Toast;
+
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
+
+import cn.xiaocool.android_etong.UI.BindPhoneActivity;
+import cn.xiaocool.android_etong.UI.LoginActivity;
+import cn.xiaocool.android_etong.UI.MainActivity;
+import cn.xiaocool.android_etong.UI.Mine.MineFootprintActivity;
 import cn.xiaocool.android_etong.adapter.GetBBSListAdapter;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
 import cn.xiaocool.android_etong.bean.CityBBSBean.DataBean;
 import cn.xiaocool.android_etong.callback.ListRefreshCallBack;
 import cn.xiaocool.android_etong.dao.ApiStores;
+import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.util.ToastUtils;
+import cn.xiaocool.android_etong.view.SwipeListLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,8 +59,18 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
     private List<DataBean> list;
     //    private List<CityBBSBean> list;
     private GetBBSListAdapter getBBSListAdapter;
+    private PullToRefreshScrollView scroll;
+    private int beginid = 0;
     private ListView listView;
-
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0x2333:
+                    setAdapter();
+                    break;
+            }
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,17 +89,55 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
         super.onActivityCreated(savedInstanceState);
         initView();
         getCityList();
+        setrefrseh();
     }
 
-    private void setAdapter() {
+
+    private void initView() {
+        listView = (ListView) getView().findViewById(R.id.get_city_bbs_listView);
+        scroll = (PullToRefreshScrollView) getView().findViewById(R.id.scroll);
+    }
+
+
+
+    public void getCityList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(PREFIX)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiStores apiStores = retrofit.create(ApiStores.class);
+        Call<CityBBSBean> call = apiStores.getBBSList("1",String.valueOf(beginid));
+
+        call.enqueue(new Callback<CityBBSBean>() {
+            @Override
+            public void onResponse(Call<CityBBSBean> call, Response<CityBBSBean> response) {
+                Log.e("cc", "dd");
+                list.addAll(response.body().getData());
+                Log.e("resultlist", list.toString());
+                Log.e("getList", list.get(2).getContent());
+                beginid = Integer.parseInt(list.get(list.size()-1).getMid());
+                setAdapter();  //异步请求结束后，设置适配器
+            }
+
+            @Override
+            public void onFailure(Call<CityBBSBean> call, Throwable t) {
+                Log.e("err", t.toString());
+            }
+
+        });
+    }
+
+
+    private boolean setAdapter() {
         if (getBBSListAdapter != null) {
             getBBSListAdapter.notifyDataSetChanged();
         } else {
             getBBSListAdapter = new GetBBSListAdapter(context, list, listView, new ListRefreshCallBack() {
                 @Override
                 public void success() {
-                    getCityList();
-                    ToastUtils.makeShortToast(context,"成功");
+
+//                    ToastUtils.makeShortToast(context,"成功");
                 }
 
                 @Override
@@ -76,44 +147,88 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
             });
             listView.setAdapter(getBBSListAdapter);
         }
+        return  true;
     }
 
-    private void initView() {
-        listView = (ListView) getView().findViewById(R.id.get_city_bbs_listView);
-    }
+    private void setrefrseh() {
+        //设置可上拉刷新和下拉刷新
+        scroll.setMode(PullToRefreshBase.Mode.BOTH);
 
-    public void getCityList() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(PREFIX)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        //设置刷新时显示的文本
+        ILoadingLayout startLayout = scroll.getLoadingLayoutProxy(true, false);
+        startLayout.setPullLabel("正在下拉刷新...");
+        startLayout.setRefreshingLabel("正在玩命加载中...");
+        startLayout.setReleaseLabel("放开以刷新");
 
-        ApiStores apiStores = retrofit.create(ApiStores.class);
-        Call<CityBBSBean> call = apiStores.getBBSList("1");
+        ILoadingLayout endLayout = scroll.getLoadingLayoutProxy(false, true);
+        endLayout.setPullLabel("正在上拉刷新...");
+        endLayout.setRefreshingLabel("正在玩命加载中...");
+        endLayout.setReleaseLabel("放开以刷新");
 
-        call.enqueue(new Callback<CityBBSBean>() {
+
+        scroll.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
-            public void onResponse(Call<CityBBSBean> call, Response<CityBBSBean> response) {
-                Log.e("cc", "dd");
-                list.clear();
-                list.addAll(response.body().getData());
-                Log.e("resultlist", list.toString());
-                Log.e("getList", list.get(2).getContent());
-                setAdapter();//异步请求结束后，设置适配器
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                new LoadDataAsyncTask(context, 1).execute();
             }
 
             @Override
-            public void onFailure(Call<CityBBSBean> call, Throwable t) {
-                Log.e("err", t.toString());
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                Log.e("refesh","refesh");
+                new LoadDataAsyncTask(context, 2).execute();
             }
-
-
         });
+
     }
+
+    /**
+     * 异步下载任务
+     */
+    private class LoadDataAsyncTask extends AsyncTask<Void, Void, String> {
+
+        private Context mainActivity;
+        private int judge;
+
+        public LoadDataAsyncTask(Context mainActivity, int judge) {
+            this.mainActivity = mainActivity;
+            this.judge = judge;
+        }
+
+        @Override
+        protected String doInBackground(Void... params){
+            try {
+                if (judge==1) {
+                    handle.sendEmptyMessage(0x2333);
+                }else {
+                    getCityList();
+                }
+                Log.e("refesh","refesh2");
+                Thread.sleep(2000);
+                return "seccess";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        /**
+         * 完成时的方法
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("seccess")) {
+                Log.e("refesh","refesh3");
+                scroll.onRefreshComplete();//刷新完成
+                return;
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {
-        getCityList();
         super.onResume();
     }
 

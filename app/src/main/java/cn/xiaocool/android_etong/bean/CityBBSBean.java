@@ -204,6 +204,7 @@ public class CityBBSBean {
         private String content;
         private String avatar;
         private String comment_time;
+        private String id;
 
         public String getUserid() {
             return userid;
@@ -243,6 +244,14 @@ public class CityBBSBean {
 
         public void setComment_time(String comment_time) {
             this.comment_time = comment_time;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
         }
     }
 
