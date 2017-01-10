@@ -190,6 +190,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 case 0:
                     logs = "Set tag and alias success";
                     Log.i("Set tag", logs);
+                    Log.e("Set success","success");
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
                     break;
                 case 6002:
@@ -197,6 +198,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     Log.i("Set alias", logs);
                     // 延迟 60 秒来调用 Handler 设置别名
                     handle.sendMessageDelayed(handle.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    Log.e("Set success","success");
 
                     break;
                 default:

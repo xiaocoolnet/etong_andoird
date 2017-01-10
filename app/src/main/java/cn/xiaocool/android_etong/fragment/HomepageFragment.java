@@ -191,6 +191,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
             }
         }
     };
+
     private String[] typeName;
     private int length;
 

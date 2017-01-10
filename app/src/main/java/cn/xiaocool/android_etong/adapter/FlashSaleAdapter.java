@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,59 +65,66 @@ public class FlashSaleAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         final NewArrivalBean.NewArrivalDataBean bean = newArrivalDataBeanList.get(position);
+        String[] arrayPic;
         String picName = newArrivalDataBeanList.get(position).getPicture();
-        String[] arrayPic = picName.split("[,]");
-        Log.e("keyi", "keyi");
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.flash_sale_item, null);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.ivGoodPic, displayImageOptions);
-            viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                    viewHolder.ivGoodPic, displayImageOptions);
-            viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
-            viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
-            viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
-        }
-
-
-        viewHolder.btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.flash_sale_btn) {
-                    Intent intent = new Intent();
-                    intent.setClass(context, GoodsDetailActivity.class);
-                    intent.putExtra("id", bean.getId());//传出goodId
-                    intent.putExtra("artno", bean.getArtno());
-                    intent.putExtra("shopid", bean.getShopid());//传出shopid
-                    intent.putExtra("brand", bean.getBrand());
-                    intent.putExtra("goodsname", bean.getGoodsname());
-                    intent.putExtra("adtitle", bean.getAdtitle());
-                    intent.putExtra("oprice", bean.getOprice());
-                    intent.putExtra("price", bean.getPrice());//传出price
-                    intent.putExtra("unit", bean.getUnit());
-                    intent.putExtra("description", bean.getDescription());
-                    intent.putExtra("pic", bean.getPicture());//传出pic
-                    intent.putExtra("showid", bean.getShowid());
-                    intent.putExtra("address", bean.getAddress());
-                    intent.putExtra("freight", bean.getFreight());
-                    intent.putExtra("pays", bean.getPays());
-                    intent.putExtra("racking", bean.getRacking());
-                    intent.putExtra("recommend", bean.getRecommend());
-                    intent.putExtra("shopname", bean.getShopname());//店铺名字
-                    intent.putExtra("sales", bean.getSales());
-                    intent.putExtra("paynum", bean.getPayNum());
-                    context.startActivity(intent);
-                }
+        arrayPic=null;
+        if (!TextUtils.isEmpty(picName)){
+            Log.e("picname=",picName);
+            arrayPic = picName.split("[,]");
+            Log.e("keyi", "keyi");
+            if (convertView == null) {
+                convertView = layoutInflater.inflate(R.layout.flash_sale_item, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+                        viewHolder.ivGoodPic, displayImageOptions);
+                viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
+                viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
+                viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+                imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+                        viewHolder.ivGoodPic, displayImageOptions);
+                viewHolder.tvGoodDesc.setText(newArrivalDataBeanList.get(position).getDescription());
+                viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
+                viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
             }
-        });
 
+
+            viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getId() == R.id.flash_sale_btn) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, GoodsDetailActivity.class);
+                        intent.putExtra("id", bean.getId());//传出goodId
+                        intent.putExtra("artno", bean.getArtno());
+                        intent.putExtra("shopid", bean.getShopid());//传出shopid
+                        intent.putExtra("brand", bean.getBrand());
+                        intent.putExtra("goodsname", bean.getGoodsname());
+                        intent.putExtra("adtitle", bean.getAdtitle());
+                        intent.putExtra("oprice", bean.getOprice());
+                        intent.putExtra("price", bean.getPrice());//传出price
+                        intent.putExtra("unit", bean.getUnit());
+                        intent.putExtra("description", bean.getDescription());
+                        intent.putExtra("pic", bean.getPicture());//传出pic
+                        intent.putExtra("showid", bean.getShowid());
+                        intent.putExtra("address", bean.getAddress());
+                        intent.putExtra("freight", bean.getFreight());
+                        intent.putExtra("pays", bean.getPays());
+                        intent.putExtra("racking", bean.getRacking());
+                        intent.putExtra("recommend", bean.getRecommend());
+                        intent.putExtra("shopname", bean.getShopname());//店铺名字
+                        intent.putExtra("sales", bean.getSales());
+                        intent.putExtra("paynum", bean.getPayNum());
+                        context.startActivity(intent);
+                    }
+                }
+            });
+
+        }else {
+            Log.e("bukeyi",newArrivalDataBeanList.get(position).getId());
+        }
 
         return convertView;
     }

@@ -56,4 +56,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.baoyz.actionsheet:library:1.1.7'
     compile files('libs/volley.jar')
+
+    compile 'com.lzy.widget:view-core:0.2.1'
+    compile 'com.huxq17.xrefreshview:xrefreshview:3.5.5' //todo refresh
 }

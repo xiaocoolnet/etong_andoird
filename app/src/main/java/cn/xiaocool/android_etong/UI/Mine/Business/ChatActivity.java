@@ -203,7 +203,6 @@ public class ChatActivity extends Activity implements View.OnClickListener {
                 } else {
                     Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }

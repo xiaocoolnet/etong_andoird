@@ -2,6 +2,7 @@ package cn.xiaocool.android_etong.dao;
 
 import cn.xiaocool.android_etong.bean.ActivityRegisterBean;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
+import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.bean.HttpBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -34,4 +35,7 @@ public interface ApiStores {
     Call<HttpBean> DeleteBbspos(@Query("userid") String userId, @Query("id")String id);
     @GET(MIDDLE + "DeleteComment")
     Call<HttpBean> DeleteComment(@Query("userid") String userId, @Query("id")String id, @Query("type")String type);
+
+    @GET(MIDDLE + "GetTimeGoodList")
+    Call<NewArrivalBean> GetTimeGoodList(@Query("type") String type);
 }

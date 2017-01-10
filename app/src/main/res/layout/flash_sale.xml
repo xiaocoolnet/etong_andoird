@@ -2,30 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/gray2">
 
     <include layout="@layout/activity_top"></include>
 
-    <cn.xiaocool.android_etong.util.ReboundScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             >
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp">
-                </com.daimajia.slider.library.SliderLayout>
-            </RelativeLayout>
 
            <LinearLayout
                android:layout_width="match_parent"
@@ -76,80 +65,23 @@
                 android:layout_height="1dp"
                 android:background="@color/whilte"
                 ></RelativeLayout>
-            <LinearLayout
+            <com.lzy.widget.tab.PagerSlidingTabStrip
+                android:id="@+id/activity_address_tab"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_size_50"
-                android:background="@color/whilte">
-              <TextView
-                  android:id="@+id/tv1"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_weight="1"
-                  android:gravity="center"
-                  android:textSize="14sp"
-                  android:text="6:00"
-                  android:background="@drawable/selsct_color"
-                  android:textColor="@color/whilte"
-                  />
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="8:00"
-                    android:background="@drawable/selsct_color"
-                    android:textColor="@color/whilte"
-                    />
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="10:00"
-                    android:background="@drawable/selsct_color"
-                    android:textColor="@color/whilte"
-                    />
+                android:layout_height="50dp"
+                android:textColor="@color/main_color_red"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"
+                app:pstsDividerColor="@color/main_color_red"
+                app:pstsIndicatorColor="@color/main_color_red"
+                app:pstsIndicatorHeight="4dp"
+                app:pstsShouldExpand="true"/>
 
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="12:00"
-                    android:background="@drawable/selsct_color"
-                    android:textColor="@color/whilte"
-                />
-                <TextView
-                    android:id="@+id/tv5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="14:00"
-                    android:background="@drawable/selsct_color"
-                    android:textColor="@color/whilte"
-                    />
-            </LinearLayout>
-
-            <cn.xiaocool.android_etong.util.NoScrollListView
-                android:id="@+id/gridView_flash_sale"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/activity_address_viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnWidth="@dimen/activity_size_70"
-                android:gravity="center"
-                android:numColumns="2"
-                android:padding="@dimen/activity_size_1"
-                android:stretchMode="columnWidth"
-                android:horizontalSpacing="@dimen/activity_size_5"
-                android:verticalSpacing="@dimen/activity_size_5">
-            </cn.xiaocool.android_etong.util.NoScrollListView>
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
-    </cn.xiaocool.android_etong.util.ReboundScrollView>
+
 </LinearLayout>
