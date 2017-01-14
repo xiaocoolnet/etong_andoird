@@ -39,8 +39,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.adapter.FlashSaleAdapter;
+import cn.xiaocool.android_etong.adapter.LocalAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.fragment.FlashSale.FlashSaleFiveFragment;
@@ -56,14 +58,13 @@ import cn.xiaocool.android_etong.util.NetUtil;
  */
 public class FlashSaleActivity extends FragmentActivity implements View.OnClickListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
 
-    private String[] titles = {"6:00", "8:00","10:00","12:00","14:00"};
+    private String[] titles = new String[5];
     private TextView tvTitle,tv_time1,tv_time2,tv_time3;
-    private TextView tv1,tv2,tv3,tv4,tv5;
     private RelativeLayout rlBack;
-    private SliderLayout mDemoSlider;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private Context context;
     private long time;
+    private int position = 0;
     private ArrayList<Fragment> fragments;
     private String type;
     private ProgressBar progressBar;
@@ -77,6 +78,16 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
     FlashSaleThreeFragment flashSaleThreeFragment = new FlashSaleThreeFragment();
     FlashSaleFourFragment flashSaleFourFragment = new FlashSaleFourFragment();
     FlashSaleFiveFragment flashSaleFiveFragment = new FlashSaleFiveFragment();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0X111111:
+                    activityAddressViewPager.setCurrentItem(position);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +97,10 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         context = this;
         progressDialog = new ProgressDialog(context, AlertDialog.THEME_HOLO_LIGHT);
         initView();
-        setFragment();
         judgeTime();
+        setFragment();
+        Log.e("当前选中", String.valueOf(activityAddressViewPager.getCurrentItem()));
+        Log.e("title=",titles[0]);
     }
 
     /**
@@ -102,7 +115,9 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         fragments.add(flashSaleFiveFragment);
         activityAddressViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         activityAddressTab.setViewPager(activityAddressViewPager);
-        Log.e("title=",titles[0]);
+        activityAddressViewPager.setOffscreenPageLimit(4);
+        //Fragment的每次创建 用了 newInstance (为了保证不内存溢出) 因为数据会重新init 在 handler里面再调用ViewPager 的 setCurrentItem方法
+        handler.sendEmptyMessage(0X111111);
     }
 
     /**
@@ -110,10 +125,9 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
      */
     private class MyAdapter extends FragmentPagerAdapter {
 
-
-
         public MyAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
+
         }
 
         @Override
@@ -130,6 +144,7 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         public int getCount() {
             return fragments.size();
         }
+
     }
 
     private void initView() {
@@ -145,7 +160,6 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         activityAddressTab = (PagerSlidingTabStrip) findViewById(R.id.activity_address_tab);
         activityAddressViewPager = (ViewPager) findViewById(R.id.activity_address_viewPager);
-        activityAddressViewPager.setOffscreenPageLimit(4);
     }
 
     @Override
@@ -156,8 +170,6 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
                 break;
         }
     }
-
-
 
     private void judgeTime() {
         Calendar cal = Calendar.getInstance();// 当前日期
@@ -171,64 +183,64 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         final long end4 = 14*60;
         final long end5 = 16*60;
         if (minuteOfDay >= start && minuteOfDay <= end) {
-            activityAddressViewPager.setCurrentItem(0);
             type = "1";
-            titles[0]=("6:00\n正在进行");
-            titles[1]=("8:00\n即将开始");
-            titles[2]=("10:00\n即将开始");
-            titles[3]=("12:00\n即将开始");
-            titles[4]=("14:00\n即将开始");
+            titles[0]=("6:00:正在进行");
+            titles[1]=("8:00:即将开始");
+            titles[2]=("10:00:即将开始");
+            titles[3]=("12:00:即将开始");
+            titles[4]=("14:00:即将开始");
             time = end*60 - minuteOfDay*60;
             handler1.postDelayed(runnable, 1000);
+            position = 0;
         }else if (minuteOfDay >= end && minuteOfDay <= end2){
-            activityAddressViewPager.setCurrentItem(1);
             type = "2";
-            titles[0]=("6:00\n已结束");
-            titles[1]=("8:00\n正在进行");
-            titles[2]=("10:00\n即将开始");
-            titles[3]=("12:00\n即将开始");
-            titles[4]=("14:00\n即将开始");
+            titles[0]=("6:00:已结束");
+            titles[1]=("8:00:正在进行");
+            titles[2]=("10:00:即将开始");
+            titles[3]=("12:00:即将开始");
+            titles[4]=("14:00:即将开始");
             time = end2*60 - minuteOfDay*60;
             handler1.postDelayed(runnable, 1000);
+            position = 1;
         }else if (minuteOfDay >= end2 && minuteOfDay <= end3){
-            activityAddressViewPager.setCurrentItem(2);
             type = "3";
-            titles[0]=("6:00\n已结束");
-            titles[1]=("8:00\n已结束");
-            titles[2]=("10:00\n正在进行");
-            titles[3]=("12:00\n即将开始");
-            titles[4]=("14:00\n即将开始");
+            titles[0]=("6:00:已结束");
+            titles[1]=("8:00:已结束");
+            titles[2]=("10:00:正在进行");
+            titles[3]=("12:00:即将开始");
+            titles[4]=("14:00:即将开始");
             time = end3*60 - minuteOfDay*60;
             handler1.postDelayed(runnable, 1000);
+            position = 2;
         }else if (minuteOfDay >= end3 && minuteOfDay <= end4){
-            activityAddressViewPager.setCurrentItem(3);
             type = "4";
-            titles[0]=("6:00\n已结束");
-            titles[1]=("8:00\n已结束");
-            titles[2]=("10:00\n已结束");
-            titles[3]=("12:00\n正在进行");
-            titles[4]=("14:00\n即将开始");
+            titles[0]=("6:00:已结束");
+            titles[1]=("8:00:已结束");
+            titles[2]=("10:00:已结束");
+            titles[3]=("12:00:正在进行");
+            titles[4]=("14:00:即将开始");
             time = end4*60 - minuteOfDay*60;
             handler1.postDelayed(runnable, 1000);
+            position = 3;
         }else if (minuteOfDay >= end4&& minuteOfDay <= end5){
-            activityAddressViewPager.setCurrentItem(4);
             type = "5";
-            titles[0]=("6:00\n已结束");
-            titles[1]=("8:00\n已结束");
-            titles[2]=("10:00\n已结束");
-            titles[3]=("12:00\n已结束");
-            titles[4]=("14:00\n正在进行");
+            titles[0]=("6:00:已结束");
+            titles[1]=("8:00:已结束");
+            titles[2]=("10:00:已结束");
+            titles[3]=("12:00:已结束");
+            titles[4]=("14:00:正在进行");
             time = end5*60  - minuteOfDay*60;
             handler1.postDelayed(runnable, 1000);
+            position = 4;
         }else if (minuteOfDay >= end5){
-            activityAddressViewPager.setCurrentItem(4);
             type = "5";
-            titles[0]=("6:00\n已结束");
-            titles[1]=("8:00\n已结束");
-            titles[2]=("10:00\n已结束");
-            titles[3]=("12:00\n已结束");
-            titles[4]=("14:00\n已结束");
+            titles[0]=("6:00:已结束");
+            titles[1]=("8:00:已结束");
+            titles[2]=("10:00:已结束");
+            titles[3]=("12:00:已结束");
+            titles[4]=("14:00:已结束");
             tv_time2.setText("已结束");
+            position = 4;
         }
         Log.e("type=",type);
 

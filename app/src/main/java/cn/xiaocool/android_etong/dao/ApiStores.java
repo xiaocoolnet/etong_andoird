@@ -37,5 +37,5 @@ public interface ApiStores {
     Call<HttpBean> DeleteComment(@Query("userid") String userId, @Query("id")String id, @Query("type")String type);
 
     @GET(MIDDLE + "GetTimeGoodList")
-    Call<NewArrivalBean> GetTimeGoodList(@Query("type") String type);
+    Call<NewArrivalBean> GetTimeGoodList(@Query("type") String type,@Query("beginid") String beginid);
 }

@@ -1,6 +1,7 @@
 package cn.xiaocool.android_etong.UI.Mine.Business;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -229,6 +230,14 @@ public class ChatActivity extends Activity implements View.OnClickListener {
 
 
 
+    class Reciver extends BroadcastReceiver{
+
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    }
 
 
 
