@@ -16,18 +16,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.ListView;
+
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.lzy.widget.tab.PagerSlidingTabStrip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +47,7 @@ import cn.xiaocool.android_etong.fragment.FlashSale.FlashSaleThreeFragment;
 import cn.xiaocool.android_etong.fragment.FlashSale.FlashSaleTwoFragment;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import cn.xiaocool.android_etong.view.PagerSlidingTabStrip;
 
 /**
  * Created by wzh on 2016/7/24.
@@ -176,69 +172,64 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
         int hour = cal.get(Calendar.HOUR_OF_DAY);// 获取小时
         int minute = cal.get(Calendar.MINUTE);// 获取分钟
         int minuteOfDay = hour * 60 + minute;// 从0:00分开是到目前为止的分钟数
-        final long start = 6* 60 ;// 起始时间 00:00的分钟数
-        final long end = 8 * 60;// 结束时间 8:00的分钟数
-        final long end2 = 10*60;
-        final long end3 = 12*60;
-        final long end4 = 14*60;
-        final long end5 = 16*60;
+        final long start = 10* 60 ;// 起始时间 00:00的分钟数
+        final long end = 12 * 60;// 结束时间 8:00的分钟数
+        final long end2 = 14*60;
+        final long end3 = 16*60;
+        final long end4 = 18*60;
+        final long end5 = 20*60;
         if (minuteOfDay >= start && minuteOfDay <= end) {
             type = "1";
-            titles[0]=("6:00:正在进行");
-            titles[1]=("8:00:即将开始");
-            titles[2]=("10:00:即将开始");
-            titles[3]=("12:00:即将开始");
-            titles[4]=("14:00:即将开始");
+            titles[0]=("10:00:正在进行");
+            titles[1]=("12:00:即将开始");
+            titles[2]=("14:00:即将开始");
+            titles[3]=("16:00:即将开始");
+            titles[4]=("18:00:即将开始");
             time = end*60 - minuteOfDay*60;
-            handler1.postDelayed(runnable, 1000);
             position = 0;
         }else if (minuteOfDay >= end && minuteOfDay <= end2){
             type = "2";
-            titles[0]=("6:00:已结束");
-            titles[1]=("8:00:正在进行");
-            titles[2]=("10:00:即将开始");
-            titles[3]=("12:00:即将开始");
-            titles[4]=("14:00:即将开始");
+            titles[0]=("10:00:已结束");
+            titles[1]=("12:00:正在进行");
+            titles[2]=("14:00:即将开始");
+            titles[3]=("16:00:即将开始");
+            titles[4]=("18:00:即将开始");
             time = end2*60 - minuteOfDay*60;
-            handler1.postDelayed(runnable, 1000);
             position = 1;
         }else if (minuteOfDay >= end2 && minuteOfDay <= end3){
             type = "3";
-            titles[0]=("6:00:已结束");
-            titles[1]=("8:00:已结束");
-            titles[2]=("10:00:正在进行");
-            titles[3]=("12:00:即将开始");
-            titles[4]=("14:00:即将开始");
+            titles[0]=("10:00:已结束");
+            titles[1]=("12:00:已结束");
+            titles[2]=("14:00:正在进行");
+            titles[3]=("16:00:即将开始");
+            titles[4]=("18:00:即将开始");
             time = end3*60 - minuteOfDay*60;
-            handler1.postDelayed(runnable, 1000);
             position = 2;
         }else if (minuteOfDay >= end3 && minuteOfDay <= end4){
             type = "4";
-            titles[0]=("6:00:已结束");
-            titles[1]=("8:00:已结束");
-            titles[2]=("10:00:已结束");
-            titles[3]=("12:00:正在进行");
-            titles[4]=("14:00:即将开始");
+            titles[0]=("10:00:已结束");
+            titles[1]=("12:00:已结束");
+            titles[2]=("14:00:已结束");
+            titles[3]=("16:00:正在进行");
+            titles[4]=("18:00:即将开始");
             time = end4*60 - minuteOfDay*60;
-            handler1.postDelayed(runnable, 1000);
             position = 3;
         }else if (minuteOfDay >= end4&& minuteOfDay <= end5){
             type = "5";
-            titles[0]=("6:00:已结束");
-            titles[1]=("8:00:已结束");
-            titles[2]=("10:00:已结束");
-            titles[3]=("12:00:已结束");
-            titles[4]=("14:00:正在进行");
+            titles[0]=("10:00:已结束");
+            titles[1]=("12:00:已结束");
+            titles[2]=("14:00:已结束");
+            titles[3]=("16:00:已结束");
+            titles[4]=("18:00:正在进行");
             time = end5*60  - minuteOfDay*60;
-            handler1.postDelayed(runnable, 1000);
             position = 4;
         }else if (minuteOfDay >= end5){
             type = "5";
-            titles[0]=("6:00:已结束");
-            titles[1]=("8:00:已结束");
-            titles[2]=("10:00:已结束");
-            titles[3]=("12:00:已结束");
-            titles[4]=("14:00:已结束");
+            titles[0]=("10:00:已结束");
+            titles[1]=("12:00:已结束");
+            titles[2]=("14:00:已结束");
+            titles[3]=("16:00:已结束");
+            titles[4]=("18:00:已结束");
             tv_time2.setText("已结束");
             position = 4;
         }
@@ -266,30 +257,7 @@ public class FlashSaleActivity extends FragmentActivity implements View.OnClickL
 
     }
 
-    Handler handler1 = new Handler();
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            time--;
-            String formatLongToTimeStr = formatLongToTimeStr(time);
-            String[] split = formatLongToTimeStr.split("：");
-            for (int i = 0; i < split.length; i++) {
-                if(i==0){
-                    tv_time1.setText(split[0]+"小时");
-                }
-                if(i==1){
-                    tv_time2.setText(split[1]+"分钟");
-                }
-                if(i==2){
-                    tv_time3.setText(split[2]+"秒");
-                }
 
-            }
-            if(time>0){
-                handler1.postDelayed(this, 1000);
-            }
-        }
-    };
 
     @Override
     public void onStop() {

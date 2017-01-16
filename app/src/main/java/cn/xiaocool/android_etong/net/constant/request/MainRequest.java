@@ -1232,13 +1232,13 @@ public class MainRequest {
     }
 
     // 获取聊天信息（两个人之间的）
-    public void xcGetChatData(final String receive_uid) {
+    public void xcGetChatData(final String receive_uid,final String beginid) {
         new Thread() {
             Message msg = Message.obtain();
 
             @Override
             public void run() {
-                String data = "&send_uid=" + user.getUserId() + "&receive_uid=" + receive_uid;
+                String data = "&send_uid=" + user.getUserId() + "&receive_uid=" + receive_uid+"&beginid="+beginid;
                 Log.e("data=", data);
                 String result_data = NetUtil.getResponse(WebAddress.xcGetChatData, data);
                 Log.e("result_data=", result_data);

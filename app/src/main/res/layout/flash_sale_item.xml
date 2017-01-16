@@ -17,8 +17,9 @@
 
             <ImageView
                 android:id="@+id/new_arrival_good_img"
-                android:layout_width="@dimen/activity_size_150"
-                android:layout_height="@dimen/activity_size_150"
+                android:layout_width="@dimen/activity_size_140"
+                android:layout_height="@dimen/activity_size_140"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="@dimen/activity_size_10"
                 android:background="#ffffff" />
         </RelativeLayout>
@@ -97,8 +98,9 @@
 
                 <Button
                     android:id="@+id/flash_sale_btn"
-                    android:layout_width="@dimen/activity_size_80"
-                    android:layout_height="@dimen/activity_size_25"
+                    android:layout_width="@dimen/activity_size_100"
+                    android:layout_height="@dimen/activity_size_45"
+                    android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/button_shape"
                     android:text="抢购"

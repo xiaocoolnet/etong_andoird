@@ -48,6 +48,7 @@ public class ChatListActivity extends Activity implements View.OnClickListener {
             int what = msg.what;
             switch (what) {
                 case CommunalInterfaces.xcGetChatListData:
+                    personChats.clear();
                     JSONObject json = (JSONObject) msg.obj;
                     try {
                         String status = json.getString("status");
@@ -124,4 +125,13 @@ public class ChatListActivity extends Activity implements View.OnClickListener {
         return re_StrTime;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (NetUtil.isConnnected(context)) {
+            new MainRequest(context, handler).xcGetChatListData();
+        } else {
+            Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

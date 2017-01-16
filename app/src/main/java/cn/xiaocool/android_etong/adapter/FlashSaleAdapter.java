@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,11 +36,13 @@ public class FlashSaleAdapter extends BaseAdapter {
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private Context context;
+    private int judge;
 
-    public FlashSaleAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList) {
+    public FlashSaleAdapter(Context context, List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList,int judge) {
         this.layoutInflater = LayoutInflater.from(context);
         this.newArrivalDataBeanList = newArrivalDataBeanList;
         this.context = context;
+        this.judge = judge;
         displayImageOptions = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .showImageOnLoading(R.mipmap.default_loading).showImageOnFail(R.mipmap.default_loading)
@@ -73,7 +76,13 @@ public class FlashSaleAdapter extends BaseAdapter {
             arrayPic = picName.split("[,]");
             Log.e("keyi", "keyi");
             if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.flash_sale_item, null);
+                if (judge==1){
+                    convertView = layoutInflater.inflate(R.layout.flash_sale_item3, null);
+                }else if (judge==2){
+                    convertView = layoutInflater.inflate(R.layout.flash_sale_item, null);
+                }else if (judge==3){
+                    convertView = layoutInflater.inflate(R.layout.flash_sale_item1, null);
+                }
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
                 imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
@@ -89,38 +98,55 @@ public class FlashSaleAdapter extends BaseAdapter {
                 viewHolder.tvGoodPrice.setText("¥" + newArrivalDataBeanList.get(position).getPrice());
                 viewHolder.tvGoodOprice.setText("¥" + newArrivalDataBeanList.get(position).getOprice());
             }
-
-
-            viewHolder.btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getId() == R.id.flash_sale_btn) {
-                        Intent intent = new Intent();
-                        intent.setClass(context, GoodsDetailActivity.class);
-                        intent.putExtra("id", bean.getId());//传出goodId
-                        intent.putExtra("artno", bean.getArtno());
-                        intent.putExtra("shopid", bean.getShopid());//传出shopid
-                        intent.putExtra("brand", bean.getBrand());
-                        intent.putExtra("goodsname", bean.getGoodsname());
-                        intent.putExtra("adtitle", bean.getAdtitle());
-                        intent.putExtra("oprice", bean.getOprice());
-                        intent.putExtra("price", bean.getPrice());//传出price
-                        intent.putExtra("unit", bean.getUnit());
-                        intent.putExtra("description", bean.getDescription());
-                        intent.putExtra("pic", bean.getPicture());//传出pic
-                        intent.putExtra("showid", bean.getShowid());
-                        intent.putExtra("address", bean.getAddress());
-                        intent.putExtra("freight", bean.getFreight());
-                        intent.putExtra("pays", bean.getPays());
-                        intent.putExtra("racking", bean.getRacking());
-                        intent.putExtra("recommend", bean.getRecommend());
-                        intent.putExtra("shopname", bean.getShopname());//店铺名字
-                        intent.putExtra("sales", bean.getSales());
-                        intent.putExtra("paynum", bean.getPayNum());
-                        context.startActivity(intent);
+            if (judge==1){
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context,"已设置提醒",Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
+                });
+            }else if (judge==2){
+
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v.getId() == R.id.flash_sale_btn) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, GoodsDetailActivity.class);
+                            intent.putExtra("id", bean.getId());//传出goodId
+                            intent.putExtra("artno", bean.getArtno());
+                            intent.putExtra("shopid", bean.getShopid());//传出shopid
+                            intent.putExtra("brand", bean.getBrand());
+                            intent.putExtra("goodsname", bean.getGoodsname());
+                            intent.putExtra("adtitle", bean.getAdtitle());
+                            intent.putExtra("oprice", bean.getOprice());
+                            intent.putExtra("price", bean.getPrice());//传出price
+                            intent.putExtra("unit", bean.getUnit());
+                            intent.putExtra("description", bean.getDescription());
+                            intent.putExtra("pic", bean.getPicture());//传出pic
+                            intent.putExtra("showid", bean.getShowid());
+                            intent.putExtra("address", bean.getAddress());
+                            intent.putExtra("freight", bean.getFreight());
+                            intent.putExtra("pays", bean.getPays());
+                            intent.putExtra("racking", bean.getRacking());
+                            intent.putExtra("recommend", bean.getRecommend());
+                            intent.putExtra("shopname", bean.getShopname());//店铺名字
+                            intent.putExtra("sales", bean.getSales());
+                            intent.putExtra("paynum", bean.getPayNum());
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+
+            }else if (judge==3){
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context,"已结束",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
 
         }else {
             Log.e("bukeyi",newArrivalDataBeanList.get(position).getId());

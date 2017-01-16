@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xiaocool.android_etong.R;
@@ -17,9 +18,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends BaseAdapter {
 	private Context context;
-	private List<PersonChat> lists;
+	private ArrayList<PersonChat> lists;
 
-	public ChatAdapter(Context context, List<PersonChat> lists) {
+	public ChatAdapter(Context context, ArrayList<PersonChat> lists) {
 		super();
 		this.context = context;
 		this.lists = lists;

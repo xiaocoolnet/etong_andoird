@@ -11,6 +11,8 @@ import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.UI.MainActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ChatActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.ChatListActivity;
 
 
 /**
@@ -41,7 +43,6 @@ public class PushReceiver extends BroadcastReceiver {
 
 
 
-
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
             Log.i(TAG, "[PushReceiver] 接收Registeration Id : " + regId);
@@ -61,11 +62,21 @@ public class PushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.i(TAG, "[PushReceiver] 用户点击打开了通知");
 
-
                 if(true) {
-                    Intent i = new Intent(context, MainActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                    context.startActivity(i);
+                    String json = (String) bundle.get("cn.jpush.android.EXTRA");
+
+                    Log.e("json",json);
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        Intent i = new Intent(context, ChatActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                        i.putExtra("shop_uid",jsonObject.getString("txt"));
+                        context.startActivity(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
@@ -85,14 +96,19 @@ public class PushReceiver extends BroadcastReceiver {
         StringBuilder sb = new StringBuilder();
         for (String key : bundle.keySet()) {
             if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
-                sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
+                sb.append("\nkey:" + key + ", value1:" + bundle.getInt(key));
             }else if(key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)){
-                sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
+                sb.append("\nkey:" + key + ", value2:" + bundle.getBoolean(key));
             }
             else {
-                sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
+                sb.append("\nkey:" + key + ", value3:" + bundle.getString(key));
+            }
+            if (key.equals("cn.jpush.android.EXTRA")){
+                sb.append("\nkey:" + key + ", value_json内容:" + bundle.getString(key));
+
             }
         }
+
         return sb.toString();
     }
 
