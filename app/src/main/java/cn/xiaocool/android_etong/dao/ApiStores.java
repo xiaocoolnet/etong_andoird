@@ -4,6 +4,7 @@ import cn.xiaocool.android_etong.bean.ActivityRegisterBean;
 import cn.xiaocool.android_etong.bean.CityBBSBean;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.bean.HttpBean;
+import cn.xiaocool.android_etong.bean.json.Ranking;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -38,4 +39,7 @@ public interface ApiStores {
 
     @GET(MIDDLE + "GetTimeGoodList")
     Call<NewArrivalBean> GetTimeGoodList(@Query("type") String type,@Query("beginid") String beginid);
+
+    @GET(MIDDLE + "GetLocalShopList")
+    Call<Ranking> GetLocalShopList(@Query("city") String city,@Query("type") String stype,@Query("hottype") String hottype);
 }

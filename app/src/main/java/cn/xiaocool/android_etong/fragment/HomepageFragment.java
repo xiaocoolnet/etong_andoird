@@ -148,14 +148,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 guessLikeDataBean.setRacking(dataObject.getString("racking"));
                                 guessLikeDataBean.setRecommend(dataObject.getString("recommend"));
 
-
-//                                JSONObject jsonObject2 = dataObject.getJSONObject("shop_name");
-//                                guessLikeDataBean.setShopname(jsonObject2.getString("shopname"));
-//
-//                                guessLikeDataBean.setSales(dataObject.getString("sales"));
-//                                guessLikeDataBean.setPaynum(dataObject.getString("paynum"));
-
-
                                 guessLikeDataBeanList.add(guessLikeDataBean);
                             }
                             homepageGuessLikeAdapter = new HomepageGuessLikeAdapter(context, guessLikeDataBeanList);
@@ -232,12 +224,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         ivLeft.setOnClickListener(myListener);
         // 初始化数据项
         listLeft = new ArrayList<Map<String, String>>();
-//        for (int i = 0; i < 9; i++) {
-//            Log.e("length=", String.valueOf(length));
-//            HashMap<String, String> mapTemp = new HashMap<String, String>();
-//            mapTemp.put("item", "a" + i);
-//            listLeft.add(mapTemp);
-//        }
         llTop.getBackground().mutate().setAlpha(0);
     }
 

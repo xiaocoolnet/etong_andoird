@@ -112,10 +112,7 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
         call.enqueue(new Callback<CityBBSBean>() {
             @Override
             public void onResponse(Call<CityBBSBean> call, Response<CityBBSBean> response) {
-                Log.e("cc", "dd");
                 list.addAll(response.body().getData());
-                Log.e("resultlist", list.toString());
-                Log.e("getList", list.get(2).getContent());
                 beginid = Integer.parseInt(list.get(list.size()-1).getMid());
                 setAdapter();  //异步请求结束后，设置适配器
             }

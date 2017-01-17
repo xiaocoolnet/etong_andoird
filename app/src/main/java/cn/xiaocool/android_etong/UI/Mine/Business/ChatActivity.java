@@ -148,8 +148,10 @@ public class ChatActivity extends Activity implements View.OnClickListener {
                                     personChats.add(personChat);
                                 }
                             }
-                            beginid = personChats.get(0).getId();
-                            Log.e("begid=", String.valueOf(beginid));
+                            if (personChats.get(0)!=null){
+                                beginid = personChats.get(0).getId();
+                                Log.e("begid=", String.valueOf(beginid));
+                            }
 
                             /**
                              *setAdapter

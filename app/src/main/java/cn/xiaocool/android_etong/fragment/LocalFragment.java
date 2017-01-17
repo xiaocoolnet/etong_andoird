@@ -52,29 +52,43 @@ import cn.xiaocool.android_etong.UI.Local.RechargeActivity;
 import cn.xiaocool.android_etong.UI.Local.ServiceActivity;
 import cn.xiaocool.android_etong.UI.Local.TakeOutFoodAcitvity;
 import cn.xiaocool.android_etong.UI.Local.TravelAroundActivity;
+import cn.xiaocool.android_etong.adapter.GetBBSListAdapter;
 import cn.xiaocool.android_etong.adapter.LocalAdapter;
+import cn.xiaocool.android_etong.adapter.RankingAdapter;
+import cn.xiaocool.android_etong.bean.CityBBSBean;
 import cn.xiaocool.android_etong.bean.business.LocationService;
+import cn.xiaocool.android_etong.bean.json.Ranking;
+import cn.xiaocool.android_etong.callback.ListRefreshCallBack;
+import cn.xiaocool.android_etong.dao.ApiStores;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 import cn.xiaocool.android_etong.fragment.Local.LocalAddressActivity;
 import cn.xiaocool.android_etong.net.constant.request.MainRequest;
 import cn.xiaocool.android_etong.util.NetUtil;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-;import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
+;import static cn.xiaocool.android_etong.net.constant.NetBaseConstant.PREFIX;
+import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
 /**
  * Created by 潘 on 2016/6/12.
  */
 public class LocalFragment extends Fragment implements View.OnClickListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
-    private SliderLayout mDemoSlider;
     private TextView et_search,tv_local;
     private RelativeLayout ry_line;
     private LinearLayout ll_eqianggou,ll_xinkezhuanxiang,ll_jinritejia;
     private Button btn_quanbu,btn_meishi,btn_dianying,btn_jiudian,btn_waimai,btn_shenghuoyule,
             btn_zhoubianyou,btn_shenghuofuwu,btn_ktv,btn_shoujichongzhi;
     private LocalAdapter localAdapter;
-    private ListView list_local;
+    private ListView list_local,list_ranking;
+    private List<Ranking.DataBean> list = new ArrayList<>();
     private List<Local> locals;
+    private String city;
+    private RankingAdapter rankingAdapter;
     private LocationService locationService;
     private Handler handler = new Handler() {
         @Override
@@ -152,6 +166,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
 
     private void initview() {
         list_local = (ListView)getView().findViewById(R.id.list_local);
+        list_ranking = (ListView) getView().findViewById(R.id.list_ranking);
         locals = new ArrayList<>();
         btn_quanbu = (Button)getView().findViewById(R.id.btn_quanbu);
         btn_quanbu.setOnClickListener(this);
@@ -185,40 +200,40 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         tv_local = (TextView) getView().findViewById(R.id.tv_local);
         tv_local.setOnClickListener(this);
 
-        mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
-        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
-        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
-        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(context);
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
+//
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        url_maps.put("Hannibal", "http://hq.xiaocool.net/uploads/microblog/sp1.jpg");
+//        url_maps.put("Big Bang Theory", "http://hq.xiaocool.net/uploads/microblog/sp2.jpg");
+//        url_maps.put("House of Cards", "http://hq.xiaocool.net/uploads/microblog/sp3.jpg");
+//        url_maps.put("Game of Thrones", "http://hq.xiaocool.net/uploads/microblog/sp4.jpg");
+//
+//        for(String name : url_maps.keySet()){
+//            TextSliderView textSliderView = new TextSliderView(context);
+//            textSliderView
+//                    .description(name)
+//                    .image(url_maps.get(name))
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
+//
+//            //add your extra information
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle()
+//                    .putString("extra",name);
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+//        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+//        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+//        mDemoSlider.setDuration(4000);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
 
     @Override
     public void onStop() {
         // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
-        mDemoSlider.stopAutoCycle();
+//        mDemoSlider.stopAutoCycle();
         super.onStop();
     }
 
@@ -317,7 +332,9 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==1){
+            city = data.getStringExtra("city");
             tv_local.setText(data.getStringExtra("city"));
+            getCityList();
             Log.e("city=",data.getStringExtra("city"));
         }
     }
@@ -471,10 +488,48 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                 }
                 Log.e("sb=", sb.toString());
+                city = location.getCity();
                 tv_local.setText(location.getCity());
                 locationService.stop();
+                getCityList();
             }
         }
     };
+
+    public void getCityList() {
+        list.clear();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(PREFIX)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiStores apiStores = retrofit.create(ApiStores.class);
+        Call<Ranking> call = apiStores.GetLocalShopList(city,"0","1");
+
+        call.enqueue(new Callback<Ranking>() {
+            @Override
+            public void onResponse(Call<Ranking> call, Response<Ranking> response) {
+                list.addAll(response.body().getData());
+                setAdapter();  //异步请求结束后，设置适配器
+            }
+
+            @Override
+            public void onFailure(Call<Ranking> call, Throwable t) {
+                Log.e("err", t.toString());
+            }
+
+        });
+    }
+
+
+    private boolean setAdapter() {
+        if (rankingAdapter != null) {
+            rankingAdapter.notifyDataSetChanged();
+        } else {
+            rankingAdapter = new RankingAdapter(context, list);
+            list_ranking.setAdapter(rankingAdapter);
+        }
+        return  true;
+    }
 
 }

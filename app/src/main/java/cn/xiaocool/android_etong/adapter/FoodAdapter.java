@@ -75,8 +75,8 @@ public class FoodAdapter extends BaseAdapter {
         holder.tvShopName.setText(local.getShopname());
         holder.tvShopAddress.setText(local.getAddress());
         holder.tvGoodsName.setText(local.getGoodsname());
-        holder.tvGoodsPrice.setText(local.getPrice());
-        holder.tvGoodsOprice.setText(local.getOprice());
+        holder.tvGoodsPrice.setText("￥"+local.getPrice());
+        holder.tvGoodsOprice.setText("￥"+local.getOprice());
         holder.tvGoodsOprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         String pic = local.getPicture();
         String[] arraypic = pic.split("[,]");

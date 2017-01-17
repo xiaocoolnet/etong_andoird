@@ -178,7 +178,7 @@ public class FlashSaleFourFragment extends Fragment implements View.OnClickListe
         final long end3 = 16*60;
         final long end4 = 18*60;
         final long end5 = 20*60;
-        if (minuteOfDay<3){
+        if (minuteOfDay<end3){
             tv_zhuangtai.setText("即将开始,先下单先得哦");
             tv_judge.setText("据开始");
             judge =1;

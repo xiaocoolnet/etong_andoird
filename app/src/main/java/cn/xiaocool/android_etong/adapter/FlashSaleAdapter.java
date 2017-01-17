@@ -76,6 +76,7 @@ public class FlashSaleAdapter extends BaseAdapter {
             arrayPic = picName.split("[,]");
             Log.e("keyi", "keyi");
             if (convertView == null) {
+
                 if (judge==1){
                     convertView = layoutInflater.inflate(R.layout.flash_sale_item3, null);
                 }else if (judge==2){
@@ -83,6 +84,7 @@ public class FlashSaleAdapter extends BaseAdapter {
                 }else if (judge==3){
                     convertView = layoutInflater.inflate(R.layout.flash_sale_item1, null);
                 }
+                Log.e("judge=", String.valueOf(judge));
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
                 imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
@@ -161,7 +163,7 @@ public class FlashSaleAdapter extends BaseAdapter {
         Button btn;
 
         public ViewHolder(View view) {
-            ivGoodPic = (ImageView) view.findViewById(R.id.new_arrival_good_img);
+            ivGoodPic = (ImageView) view.findViewById(R.id.new_arrival_good_img1);
             tvGoodDesc = (TextView) view.findViewById(R.id.new_arrival_good_desc);
             tvGoodPrice = (TextView) view.findViewById(R.id.new_arrival_good_price);
             tvGoodOprice = (TextView) view.findViewById(R.id.new_arrival_good_oprice);

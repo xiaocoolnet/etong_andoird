@@ -60,15 +60,77 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_height="160dp">
-            </com.daimajia.slider.library.SliderLayout>
+            <!--<com.daimajia.slider.library.SliderLayout-->
+                <!--android:id="@+id/slider"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_height="160dp">-->
+            <!--</com.daimajia.slider.library.SliderLayout>-->
         <!--美丽的小图标-->
         <include layout="@layout/loace_item1"/>
         <include layout="@layout/local_item2"/>
+
+
+            <RelativeLayout
+                android:background="@color/whilte"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                >
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_yishoucang"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="店铺排行榜"
+                        android:textColor="@color/main_color_red"
+                        android:textSize="16sp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <cn.xiaocool.android_etong.util.NoScrollListView
+                android:id="@+id/list_ranking"
+                android:dividerHeight="2dp"
+                android:transcriptMode="alwaysScroll"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </cn.xiaocool.android_etong.util.NoScrollListView>
+
+            <RelativeLayout
+                android:background="@color/whilte"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                >
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="全城特价汇"
+                        android:textColor="@color/main_color_red"
+                        android:textSize="16sp"
+                        />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
             <!--专区-->
         <include layout="@layout/local_zhuanqu"/>
 
@@ -83,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/ic_yishoucang"
@@ -92,9 +155,9 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginLeft="2dp"
-                  android:text="猜你喜欢"
+                  android:text="附近有好货"
                   android:textColor="@color/main_color_red"
-                  android:textSize="15sp"
+                  android:textSize="16sp"
                   />
 
             </LinearLayout>
@@ -103,7 +166,6 @@
         </RelativeLayout>
             <!--餐厅信息-->
         <cn.xiaocool.android_etong.util.NoScrollListView
-            android:layout_marginTop="10dp"
             android:id="@+id/list_local"
             android:dividerHeight="2dp"
             android:transcriptMode="alwaysScroll"
