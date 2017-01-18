@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -105,7 +106,7 @@ public class LocalAdapter extends BaseAdapter {
         @BindView(R.id.tx_restaurant_yishou)
         TextView txRestaurantYishou;
         @BindView(R.id.rl_item)
-        RelativeLayout rl_item;
+        LinearLayout rl_item;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

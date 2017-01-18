@@ -95,7 +95,16 @@
                         android:textColor="@color/main_color_red"
                         android:textSize="16sp"
                         />
+
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/rank_all_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="全部 >"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"/>
             </RelativeLayout>
             <cn.xiaocool.android_etong.util.NoScrollListView
                 android:id="@+id/list_ranking"
@@ -161,7 +170,14 @@
                   />
 
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/goods_all_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="全部 >"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
 
         </RelativeLayout>
             <!--餐厅信息-->

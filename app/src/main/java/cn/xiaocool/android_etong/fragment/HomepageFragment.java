@@ -57,6 +57,7 @@ import cn.xiaocool.android_etong.net.constant.request.HomeRequest;
 import cn.xiaocool.android_etong.util.IntentUtils;
 import cn.xiaocool.android_etong.util.NoScrollGridView;
 import cn.xiaocool.android_etong.util.ReboundScrollView;
+import cn.xiaocool.android_etong.view.HorizontalListView;
 
 import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHeight;
 
@@ -68,8 +69,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private SliderLayout mDemoSlider;
     private TextView et_search;
     private RelativeLayout rl_meirijingxuan;
-    private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayBargain, rlEverydayChoiceness, rlzero;
-    private LinearLayout llQualityLife, llFlashSale;
+    private RelativeLayout rl_bestshop_left, rl_bestshop_right, rlNewArrival, rlEverydayChoiceness, rlzero,llQualityLife;
+    private LinearLayout rlEverydayBargain , llFlashSale;
     private ImageView typeBtn;
     private RelativeLayout rl_search;
     private NoScrollGridView gridView0, gridView1;
@@ -87,6 +88,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
     private GridView menulistLeft;
     private List<Map<String, String>> listLeft;
 
+    private HorizontalListView fenlei_horlist;
     private SliderLayout sliderLayout;
 
 
@@ -175,6 +177,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                                 listLeft.add(mapTemp);
                                 Log.e("typename", typeName[i]);
                             }
+                            SimpleAdapter listAdapter = new SimpleAdapter(
+                                    context, listLeft, R.layout.pop_menuitem,
+                                    new String[]{"item"},
+                                    new int[]{R.id.menuitem});
+                            fenlei_horlist.setAdapter(listAdapter);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -324,6 +331,25 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
 
     private void initview() {
+        fenlei_horlist = (HorizontalListView) getView().findViewById(R.id.fenlei_horlist);
+
+        // 点击listview中item的处理
+        fenlei_horlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0,
+                                    View arg1, int arg2, long arg3) {
+                // 改变顶部对应TextView值
+                String strItem = listLeft.get(arg2).get(
+                        "item");
+//                                        tvLeft.setText(strItem);
+                //跳转二级列表
+                Intent intent = new Intent();
+                intent.putExtra("strItem", strItem);
+                intent.setClass(context, TypeListActivity.class);
+                startActivity(intent);
+            }
+        });
         et_search = (TextView) getView().findViewById(R.id.et_search);
         et_search.clearFocus();
         et_search.setOnClickListener(this);
@@ -331,11 +357,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         rlNewArrival.setOnClickListener(this);
         typeBtn = (ImageView) getView().findViewById(R.id.homepage_type_img);
         typeBtn.setOnClickListener(this);
-        llQualityLife = (LinearLayout) getView().findViewById(R.id.homepage_ll_quality_life);
+        llQualityLife = (RelativeLayout) getView().findViewById(R.id.homepage_ll_quality_life);
         llQualityLife.setOnClickListener(this);
         llFlashSale = (LinearLayout) getView().findViewById(R.id.homepage_ll_flash_sale);
         llFlashSale.setOnClickListener(this);
-        rlEverydayBargain = (RelativeLayout) getView().findViewById(R.id.homepage_rl_everyday_bargain_price);
+        rlEverydayBargain = (LinearLayout) getView().findViewById(R.id.homepage_rl_everyday_bargain_price);
         rlEverydayBargain.setOnClickListener(this);
         rlEverydayChoiceness = (RelativeLayout) getView().findViewById(R.id.homepage_rl_everyday_choiceness);
         rlEverydayChoiceness.setOnClickListener(this);

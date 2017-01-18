@@ -40,6 +40,7 @@ import cn.xiaocool.android_etong.Local;
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 import cn.xiaocool.android_etong.UI.Local.AllClassifyActivity;
+import cn.xiaocool.android_etong.UI.Local.AllStoreOrGoodsActivity;
 import cn.xiaocool.android_etong.UI.Local.DailySpecialActivity;
 import cn.xiaocool.android_etong.UI.Local.EntertainmentActivity;
 import cn.xiaocool.android_etong.UI.Local.FoodActivity;
@@ -78,7 +79,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
  */
 public class LocalFragment extends Fragment implements View.OnClickListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private Context context;
-    private TextView et_search,tv_local;
+    private TextView et_search,tv_local,rank_all_tv,goods_all_tv;
     private RelativeLayout ry_line;
     private LinearLayout ll_eqianggou,ll_xinkezhuanxiang,ll_jinritejia;
     private Button btn_quanbu,btn_meishi,btn_dianying,btn_jiudian,btn_waimai,btn_shenghuoyule,
@@ -143,13 +144,14 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local,container,false);
-        context = getActivity();
+
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        context = getActivity();
         //设置状态栏高度
         ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
@@ -162,6 +164,21 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
             Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
         }
         onrefrsh();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d("onHiddenChanged",""+hidden);
+        if (!hidden){
+            if (NetUtil.isConnnected(context)){
+                new MainRequest(context,handler).IsLike();
+                getCityList();
+            }else {
+                Toast.makeText(context, "请检查网络", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void initview() {
@@ -199,7 +216,10 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         et_search.setOnClickListener(this);
         tv_local = (TextView) getView().findViewById(R.id.tv_local);
         tv_local.setOnClickListener(this);
-
+        rank_all_tv = (TextView) getView().findViewById(R.id.rank_all_tv);
+        rank_all_tv.setOnClickListener(this);
+        goods_all_tv = (TextView) getView().findViewById(R.id.goods_all_tv);
+        goods_all_tv.setOnClickListener(this);
 //        mDemoSlider = (SliderLayout) getView().findViewById(R.id.slider);
 //
 //        HashMap<String,String> url_maps = new HashMap<String, String>();
@@ -239,9 +259,10 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()){
             case R.id.btn_quanbu:
-                Intent intent = new Intent();
+
 //                intent.putExtra("city",tv_local.getText().toString());
 //                intent.setClass(context, ShopListActivity.class);
                 intent.setClass(context, AllClassifyActivity.class);
@@ -325,6 +346,18 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 intent14.putExtra("city",tv_local.getText().toString());
                 startActivityForResult(intent14,1);
                 break;
+            case R.id.rank_all_tv:
+                intent.setClass(context, AllStoreOrGoodsActivity.class);
+                intent.putExtra("type","rank");
+                intent.putExtra("city",tv_local.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.goods_all_tv:
+                intent.setClass(context, AllStoreOrGoodsActivity.class);
+                intent.putExtra("type","goods");
+                intent.putExtra("city",tv_local.getText().toString());
+                startActivity(intent);
+                break;
         }
     }
 
@@ -373,7 +406,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
             // listAdapter.getCount()返回数据项的数目
             View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
+            // 计算子项View 的宽高(listitem需要时LinearLayout，否则容易报空指针)
             listItem.measure(0, 0);
             // 统计所有子项的总高度
             totalHeight += listItem.getMeasuredHeight();
@@ -504,7 +537,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
                 .build();
 
         ApiStores apiStores = retrofit.create(ApiStores.class);
-        Call<Ranking> call = apiStores.GetLocalShopList(city,"0","1");
+        Call<Ranking> call = apiStores.GetLocalShopList(city,"0","1","0");
 
         call.enqueue(new Callback<Ranking>() {
             @Override
@@ -520,6 +553,7 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
 
         });
     }
+
 
 
     private boolean setAdapter() {

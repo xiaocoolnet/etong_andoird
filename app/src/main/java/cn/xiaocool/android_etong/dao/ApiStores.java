@@ -41,5 +41,5 @@ public interface ApiStores {
     Call<NewArrivalBean> GetTimeGoodList(@Query("type") String type,@Query("beginid") String beginid);
 
     @GET(MIDDLE + "GetLocalShopList")
-    Call<Ranking> GetLocalShopList(@Query("city") String city,@Query("type") String stype,@Query("hottype") String hottype);
+    Call<Ranking> GetLocalShopList(@Query("city") String city,@Query("type") String stype,@Query("hottype") String hottype,@Query("beginid")String beginid);
 }
