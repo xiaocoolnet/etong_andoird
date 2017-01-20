@@ -1,11 +1,13 @@
 package cn.xiaocool.android_etong.UI;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -14,16 +16,17 @@ import android.widget.Button;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.xiaocool.android_etong.R;
+import cn.xiaocool.android_etong.fragment.HomeTabFragment;
 import cn.xiaocool.android_etong.fragment.HomepageFragment;
 import cn.xiaocool.android_etong.fragment.LocalFragment;
 import cn.xiaocool.android_etong.fragment.MineFragment;
 import cn.xiaocool.android_etong.fragment.PrefectureFragment;
 import cn.xiaocool.android_etong.fragment.ShoppingFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener{
 
     private Button mTabs[];
-    private HomepageFragment homepageFragment;
+    private HomeTabFragment homepageFragment;
     private LocalFragment localFragment;
     private PrefectureFragment prefectureFragment;
     private ShoppingFragment shoppingFragment;
@@ -39,19 +42,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         context = this;
-        homepageFragment = new HomepageFragment();
+        homepageFragment = new HomeTabFragment();
         localFragment = new LocalFragment();
         prefectureFragment = new PrefectureFragment();
         shoppingFragment = new ShoppingFragment();
         mineFragment = new MineFragment();
         fragments = new Fragment[]{homepageFragment, localFragment,prefectureFragment,shoppingFragment,mineFragment};
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, homepageFragment).add(R.id.fragment_container,shoppingFragment).hide(shoppingFragment).show(homepageFragment);
         fragmentTransaction.commit();
         initBtn();
        // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        //透明导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }

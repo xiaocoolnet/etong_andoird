@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/gray2">
+
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_topbar"
         android:background="@color/red1"
         android:layout_width="match_parent"
@@ -45,6 +47,7 @@
     </RelativeLayout>
 
     <cn.xiaocool.android_etong.view.HorizontalListView
+        android:visibility="gone"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:widget="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fenlei_horlist"
