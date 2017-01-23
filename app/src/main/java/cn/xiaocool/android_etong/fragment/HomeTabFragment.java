@@ -29,7 +29,6 @@ import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
 //import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
 //import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
 //import cn.xiaocool.android_etong.util.IntentUtils;
-
 /**
  * A simple {@link Fragment} subclass.
  */
