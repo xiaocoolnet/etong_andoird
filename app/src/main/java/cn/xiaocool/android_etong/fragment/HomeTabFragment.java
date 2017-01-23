@@ -21,14 +21,14 @@ import java.util.List;
 
 import cn.xiaocool.android_etong.R;
 import cn.xiaocool.android_etong.UI.HomePage.SearchActivity;
-import cn.xiaocool.android_etong.UI.HomePage.TypeListActivity;
-import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
-import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
-import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
-import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
-import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
-import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
-import cn.xiaocool.android_etong.util.IntentUtils;
+//import cn.xiaocool.android_etong.UI.HomePage.TypeListActivity;
+//import cn.xiaocool.android_etong.UI.Main.EverydayBargainActivity;
+//import cn.xiaocool.android_etong.UI.Main.EverydayChoicenessActivity;
+//import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
+//import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
+//import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
+//import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
+//import cn.xiaocool.android_etong.util.IntentUtils;
 
 /**
  * A simple {@link Fragment} subclass.
