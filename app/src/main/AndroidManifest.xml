@@ -113,7 +113,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"></action>
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -214,7 +214,7 @@
         <activity android:name=".UI.Mine.ShopVerifyStatusActivity" />
         <activity
             android:name=".UI.Mine.Business.UploadGoodDetailsActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".UI.Mine.Business.ChangeGoodTypeActivity" />
         <activity
             android:name=".UI.Mine.Business.ChangeGoodDetailsActivity"
@@ -257,7 +257,7 @@
         <activity android:name=".fragment.Local.LocalAddressActivity" />
         <activity
             android:name=".UI.ShoppingCart.StatementActivity"
-            android:windowSoftInputMode="adjustPan|stateVisible"></activity>
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity android:name=".tool.zxingCode.activity.ResultActivity" />
         <activity android:name=".tool.zxingCode.activity.CaptureActivity" />
         <activity android:name=".UI.Local.AllClassifyActivity" />
@@ -281,7 +281,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -379,7 +379,10 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".UI.Local.AllStoreOrGoodsActivity"></activity>
+        <activity android:name=".UI.Local.AllStoreOrGoodsActivity" />
+        <activity
+            android:name=".UI.HomePage.GoodsTabActivity"
+            android:label="@string/title_activity_goods_tab"></activity>
     </application>
 
 </manifest>

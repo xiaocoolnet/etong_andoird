@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
+            android:visibility="gone"
             android:id="@+id/homepage_type_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,10 +51,10 @@
         android:id="@+id/tab_FindFragment_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red1"
-        app:tabIndicatorColor="@color/white"
-        app:tabSelectedTextColor="@color/gray"
-        app:tabTextColor="@color/white"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/red1"
+        app:tabSelectedTextColor="@color/red1"
+        app:tabTextColor="@color/black"
         />
 
 

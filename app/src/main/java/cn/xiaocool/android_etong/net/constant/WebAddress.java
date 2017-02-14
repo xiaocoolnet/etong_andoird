@@ -316,6 +316,10 @@ public interface WebAddress extends NetBaseConstant {
     String GET_MENU = NET_BASE_PREFIX + "a=GetMenu";
 
     /**
+     * 获取首页分类数据
+     */
+    String GET_GOODTYPE = NET_BASE_PREFIX + "a=getGoodsTypeList";
+    /**
      * 获取商品评价信息
      */
 
@@ -538,6 +542,12 @@ public interface WebAddress extends NetBaseConstant {
      * 活动检测是否报名
      */
     String CHECK_ACTIVITY_REGISTER = NET_BASE_PREFIX + "a=CheckHadApply";
+
+
+    /**
+     * 获取分类中的货物数据
+     */
+    String GET_GOODS_LIST =NET_BASE_PREFIX + "a=GetTypeGoodList";
 }
 
 

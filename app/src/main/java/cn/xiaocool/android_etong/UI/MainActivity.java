@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.hide(fragments[currentIndex]);
             if (!fragments[index].isAdded()) {
-                fragmentTransaction.add(R.id.fragment_container, fragments[index]);
+                fragmentTransaction.replace(R.id.fragment_container, fragments[index]);
             }
             fragmentTransaction.show(fragments[index]);
             fragmentTransaction.commit();

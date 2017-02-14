@@ -57,6 +57,8 @@ dependencies {
     compile 'com.baoyz.actionsheet:library:1.1.7'
     compile 'com.lzy.widget:view-core:0.2.1'
     compile 'com.huxq17.xrefreshview:xrefreshview:3.5.5'
+    compile 'com.android.support:support-v13:23.4.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
 }

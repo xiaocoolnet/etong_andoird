@@ -20,24 +20,20 @@ public class ImgLoadUtil {
     private static DisplayImageOptions options =new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.hyx_default)
             .showImageOnFail(R.drawable.hyx_default)
-            .showImageForEmptyUri(R.drawable.hyx_default)
             .cacheInMemory(true)
             .cacheOnDisc(true)
             .bitmapConfig(Bitmap.Config.RGB_565)
-            .resetViewBeforeLoading(true)
-            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-            .displayer(new FadeInBitmapDisplayer(200))
+            .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
             .build();
 
     private static DisplayImageOptions headerOptions = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.hyx_default)
             .showImageOnFail(R.drawable.hyx_default)
-            .showImageForEmptyUri(R.drawable.hyx_default)
             .cacheInMemory(true)
             .cacheOnDisc(true)
             .bitmapConfig(Bitmap.Config.RGB_565)
             .resetViewBeforeLoading(true)
-            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
             .displayer(new FadeInBitmapDisplayer(200))
             .build();
 

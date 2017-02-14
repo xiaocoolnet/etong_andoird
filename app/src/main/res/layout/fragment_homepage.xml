@@ -5,56 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/gray2">
 
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/rl_topbar"
-        android:background="@color/red1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/homepage_type_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_fenlei"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            />
-        <TextView
-            android:id="@+id/et_search"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="搜索商家、分类"
-            android:textSize="13sp"
-            android:gravity="center"
-            android:background="@mipmap/ic_sousuokuang"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_search_gray"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="80dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_xiaoxi"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            />
-    </RelativeLayout>
-
-    <cn.xiaocool.android_etong.view.HorizontalListView
-        android:visibility="gone"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:widget="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fenlei_horlist"
-        android:divider="#f2f2f2"
-        widget:dividerWidth="0.5dp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_size_40"></cn.xiaocool.android_etong.view.HorizontalListView>
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:id="@+id/a"
         android:layout_width="match_parent"
@@ -442,6 +392,57 @@
             </cn.xiaocool.android_etong.util.NoScrollGridView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_topbar"
+        android:background="@color/red1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/homepage_type_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_fenlei"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            />
+        <TextView
+            android:id="@+id/et_search"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="搜索商家、分类"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:background="@mipmap/ic_sousuokuang"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_search_gray"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="80dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_xiaoxi"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            />
+    </RelativeLayout>
+
+    <cn.xiaocool.android_etong.view.HorizontalListView
+        android:visibility="gone"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:widget="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fenlei_horlist"
+        android:divider="#f2f2f2"
+        widget:dividerWidth="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_size_40"></cn.xiaocool.android_etong.view.HorizontalListView>
 
     <LinearLayout
         android:id="@+id/ll_top"

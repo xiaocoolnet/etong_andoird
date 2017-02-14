@@ -333,7 +333,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     private void initview() {
         fenlei_horlist = (HorizontalListView) getView().findViewById(R.id.fenlei_horlist);
-
         // 点击listview中item的处理
         fenlei_horlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -393,6 +392,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         });
         rlzero = (RelativeLayout) getView().findViewById(R.id.homepage_rl_zero);
         rlzero.setOnClickListener(this);
+
+
+        gridView0.setFocusable(false);
+        gridView1.setFocusable(false);
+
     }
 
     private void initdata() {
