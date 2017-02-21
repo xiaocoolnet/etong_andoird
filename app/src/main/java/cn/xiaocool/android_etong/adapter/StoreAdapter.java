@@ -33,7 +33,7 @@ public class StoreAdapter extends BaseAdapter {
     private CheckBox cb_store;
 
     public StoreAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean> list) {
-        this.inflater = LayoutInflater.from(context.getActivity());
+        this.inflater = LayoutInflater.from(context.mContext);
         this.list = list;
         this.context = context;
         for (int i = 0; i < list.size(); i++) {

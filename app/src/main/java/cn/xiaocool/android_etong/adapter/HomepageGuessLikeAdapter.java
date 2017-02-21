@@ -25,6 +25,7 @@ import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.bean.HomePage.GuessLikeBean;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.net.constant.NetBaseConstant;
+import cn.xiaocool.android_etong.util.ImgLoadUtil;
 
 
 /**
@@ -84,8 +85,11 @@ public class HomepageGuessLikeAdapter extends BaseAdapter {
 
         }
 
-        imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
-                viewHolder.homepageGuessLikeImage, displayImageOptions);
+        if (arrayPic.length>0){
+            ImgLoadUtil.display(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],viewHolder.homepageGuessLikeImage);
+//            imageLoader.displayImage(NetBaseConstant.NET_PIC_PREFIX + arrayPic[0],
+//                    viewHolder.homepageGuessLikeImage, displayImageOptions);
+        }
         viewHolder.newArrivalGoodDesc.setText(guessLikeDataBeanList.get(position).getDescription());
         viewHolder.homepageGuessLikePrice.setText("¥" + guessLikeDataBeanList.get(position).getPrice());
         viewHolder.homepageGuessLikePayNum.setText(guessLikeDataBeanList.get(position).getPaynum());

@@ -158,10 +158,12 @@ public class HomeTabFragment extends Fragment implements View.OnClickListener{
         list_title.clear();
         list_title.add("首页");
         list_fragment.add(new HomepageFragment());
+
         for (int i = 0; i < menuTypeLists.size(); i++) {
-            list_title.add(menuTypeLists.get(i).getName());
             HomeDividerFragment fragment = new HomeDividerFragment();
+            list_title.add(menuTypeLists.get(i).getName());
             fragment.childlistBeanXs = menuTypeLists.get(i).getChildlist();
+            fragment.preMenu = menuTypeLists.get(i);
             fragment.type = menuTypeLists.get(i).getTerm_id();
             list_fragment.add(fragment);
         }
@@ -180,7 +182,7 @@ public class HomeTabFragment extends Fragment implements View.OnClickListener{
         fAdapter = new Find_tab_Adapter(getChildFragmentManager(),list_fragment,list_title);
         //viewpager加载adapter
         vp_FindFragment_pager.setAdapter(fAdapter);
-        vp_FindFragment_pager .setOffscreenPageLimit(2);
+        vp_FindFragment_pager .setOffscreenPageLimit(1);
         //tab_FindFragment_title.setViewPager(vp_FindFragment_pager);
         //TabLayout加载viewpager
         tab_FindFragment_title.setupWithViewPager(vp_FindFragment_pager);

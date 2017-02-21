@@ -219,10 +219,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //设置状态栏高度
-        ry_line = (RelativeLayout) getView().findViewById(R.id.lin);
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height = getStatusBarHeight(context);
-        ry_line.setLayoutParams(linearParams);
+//        ry_line = (RelativeLayout) getView().findViewById(R.id.lin);
+//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+//        linearParams.height = getStatusBarHeight(context);
+//        ry_line.setLayoutParams(linearParams);
         initview();
         userInfo = new UserInfo();
         userInfo.readData(context);

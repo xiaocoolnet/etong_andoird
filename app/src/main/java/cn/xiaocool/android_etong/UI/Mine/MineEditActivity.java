@@ -176,7 +176,7 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
         mContext = this;
         user = new UserInfo();
         user.readData(mContext);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         initdata();
         onrefrsh();
         new MainRequest(mContext, handler).userinfo();
@@ -184,10 +184,10 @@ public class MineEditActivity extends Activity implements View.OnClickListener {
 
     private void initdata() {
         //设置标题栏高度
-        ry_line = (RelativeLayout) findViewById(R.id.lin_edit);
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height = getStatusBarHeight(mContext);
-        ry_line.setLayoutParams(linearParams);
+//        ry_line = (RelativeLayout) findViewById(R.id.lin_edit);
+//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+//        linearParams.height = getStatusBarHeight(mContext);
+//        ry_line.setLayoutParams(linearParams);
         //设置头像
         set_head_img = (CircleImageView) findViewById(R.id.set_head_img);
         set_head_img.setOnClickListener(this);

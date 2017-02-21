@@ -55,7 +55,7 @@ import static cn.xiaocool.android_etong.net.constant.NetBaseConstant.PREFIX;
  * Created by 潘 on 2016/6/14.
  */
 
-public class PrefectureMyFragment extends Fragment implements View.OnClickListener {
+public class PrefectureMyFragment extends BaseFragment implements View.OnClickListener {
     private Context context;
     private List<DataBean> list;
     //    private List<CityBBSBean> list;
@@ -131,7 +131,7 @@ public class PrefectureMyFragment extends Fragment implements View.OnClickListen
         if (getBBSListAdapter != null) {
             getBBSListAdapter.notifyDataSetChanged();
         } else {
-            getBBSListAdapter = new GetBBSListAdapter(context, list, listView, new ListRefreshCallBack() {
+            getBBSListAdapter = new GetBBSListAdapter(mContext, list, listView, new ListRefreshCallBack() {
                 @Override
                 public void success() {
 

@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,12 +26,13 @@ import cn.xiaocool.android_etong.adapter.EverydayChoicenessAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.NewArrivalBean;
 import cn.xiaocool.android_etong.dao.CommunalInterfaces;
 
+
 /**
  * Created by 潘 on 2016/10/11.
  */
 
 public class CouponActivity extends Activity implements View.OnClickListener {
-    private ListView listView;
+    private PullToRefreshListView listView;
     private TextView tvTitle,tv_instructions;
     private RelativeLayout rlBack;
     private List<NewArrivalBean.NewArrivalDataBean> newArrivalDataBeanList;
@@ -78,7 +81,7 @@ public class CouponActivity extends Activity implements View.OnClickListener {
                                 newArrivalDataBeanList.add(newArrivalDataBean);
                             }
                             everydayChoicenessAdapter = new EverydayChoicenessAdapter(context, newArrivalDataBeanList);
-                            listView.setAdapter(everydayChoicenessAdapter);
+                            listView.getRefreshableView().setAdapter(everydayChoicenessAdapter);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -97,7 +100,7 @@ public class CouponActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        listView = (ListView) findViewById(R.id.listView_everyday_choiceness);
+        listView = (PullToRefreshListView) findViewById(R.id.listView_everyday_choiceness);
         newArrivalDataBeanList = new ArrayList<>();
         tvTitle = (TextView) findViewById(R.id.top_title_text);
         tvTitle.setText("优惠券");

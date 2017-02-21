@@ -20,7 +20,7 @@ public class ImgLoadUtil {
     private static DisplayImageOptions options =new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.hyx_default)
             .showImageOnFail(R.drawable.hyx_default)
-            .cacheInMemory(true)
+            .cacheInMemory(false)
             .cacheOnDisc(true)
             .bitmapConfig(Bitmap.Config.RGB_565)
             .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
@@ -40,6 +40,7 @@ public class ImgLoadUtil {
     public static void display(String uri,ImageView imageView){
         ImageLoader.getInstance().displayImage(uri, imageView, options);
     }
+
     public static void displayHeader(String uri,ImageView imageView){
         ImageLoader.getInstance().displayImage(uri, imageView, headerOptions);
     }

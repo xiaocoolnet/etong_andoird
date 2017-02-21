@@ -47,7 +47,7 @@ import static cn.xiaocool.android_etong.util.StatusBarHeightUtils.getStatusBarHe
 /**
  * Created by 潘 on 2016/6/12.
  */
-public class ShoppingFragment extends Fragment implements View.OnClickListener {
+public class ShoppingFragment extends BaseFragment implements View.OnClickListener {
     private Context context;
     private Button btn_statement;
     private TextView tx_shopping_price;
@@ -171,10 +171,10 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //设置状态栏高度
-        ry_line = (RelativeLayout) getView().findViewById(R.id.lin);
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height = getStatusBarHeight(context);
-        ry_line.setLayoutParams(linearParams);
+//        ry_line = (RelativeLayout) getView().findViewById(R.id.lin);
+//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+//        linearParams.height = getStatusBarHeight(context);
+//        ry_line.setLayoutParams(linearParams);
 //        MyApp myApp = (MyApp)getActivity().getApplication();
 //        myApp.setHandler(handler);
         initView();
@@ -368,4 +368,9 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         listView.setLayoutParams(params);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 }

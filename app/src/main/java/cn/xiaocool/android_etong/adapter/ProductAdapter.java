@@ -43,7 +43,7 @@ public class ProductAdapter extends BaseAdapter {
     ShoppingFragment context;
 
     public ProductAdapter(ShoppingFragment context, List<ShoppingCart_StoreName.DataBean.GoodslistBean> list, StoreAdapter adapter, int storePosition, Boolean flag) {
-        this.inflater = LayoutInflater.from(context.getActivity());
+        this.inflater = LayoutInflater.from(context.mContext);
         this.list = list;
         this.adapter = adapter;
         this.storePosition = storePosition;

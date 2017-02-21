@@ -154,10 +154,10 @@ public class LocalFragment extends Fragment implements View.OnClickListener , Ba
         super.onActivityCreated(savedInstanceState);
         context = getActivity();
         //设置状态栏高度
-        ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
-        linearParams.height = getStatusBarHeight(context);
-        ry_line.setLayoutParams(linearParams);
+//        ry_line = (RelativeLayout)getView().findViewById(R.id.lin);
+//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ry_line.getLayoutParams();
+//        linearParams.height = getStatusBarHeight(context);
+//        ry_line.setLayoutParams(linearParams);
         initview();
         if (NetUtil.isConnnected(context)){
             new MainRequest(context,handler).IsLike();

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +50,7 @@ import cn.xiaocool.android_etong.view.CustomerFooter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeDividerFragment extends Fragment {
+public class HomeDividerFragment extends BaseFragment {
 
 
     @BindView(R.id.top_divide)
@@ -60,12 +62,16 @@ public class HomeDividerFragment extends Fragment {
     @BindView(R.id.xrefresh_view)
     XRefreshView xrefreshView;
 
-    private Context context;
     public List<MenuTypeList.ChildlistBeanX> childlistBeanXs = new ArrayList<>();
     public String type = "0";
     private List<TypeGoodsList> typeGoodsLists;
     private DivideListAdapter adapter;
-    private View rootView;
+    public MenuTypeList preMenu;
+    /** 标志位，标志已经初始化完成 */
+    private boolean isPrepared;
+    /** 是否已被加载过一次，第二次就不再去请求数据了 */
+    private boolean mHasLoadedOnce;
+
     private Handler handler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -78,7 +84,7 @@ public class HomeDividerFragment extends Fragment {
                             typeGoodsLists.addAll(getBeanFromJson(jsonObject2.toString()));
                             setAdapter();
                         }else {
-                            typeGoodsLists.addAll(getBeanFromJson((String) SPUtils.get(context, WebAddress.GET_GOODS_LIST,"")));
+                            typeGoodsLists.addAll(getBeanFromJson((String) SPUtils.get(mContext, WebAddress.GET_GOODS_LIST,"")));
                             setAdapter();
                         }
                     } catch (JSONException e) {
@@ -92,7 +98,7 @@ public class HomeDividerFragment extends Fragment {
     private void setAdapter() {
 
 //        if (adapter == null) {
-            adapter = new DivideListAdapter(context,typeGoodsLists);
+            adapter = new DivideListAdapter(mContext,typeGoodsLists,tableDivide);
             tableDivide.setAdapter(adapter);
 //        }else {
 //            adapter.notifyDataSetChanged();
@@ -113,20 +119,29 @@ public class HomeDividerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_home_divider,container, false);
+        if(rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_home_divider, container, false);
+            ButterKnife.bind(this, rootView);
+            isPrepared = true;
         }
-        ButterKnife.bind(this, rootView);
 
+        //因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
+//        ViewGroup parent = (ViewGroup)mFragmentView.getParent();
+//        if(parent != null) {
+//            parent.removeView(mFragmentView);
+//        }
+
+
+        setView();
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (rootView != null) {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
-        }
+//        if (mFragmentView != null) {
+//            ((ViewGroup) mFragmentView.getParent()).removeView(mFragmentView);
+//        }
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -162,7 +177,8 @@ public class HomeDividerFragment extends Fragment {
 
             @Override
             public void onRefresh() {
-                new HomeRequest(context,handler).GetTypeGoodList(type);
+                handler.post(LOAD_DATA);
+//                new HomeRequest(mContext,handler).GetTypeGoodList(type);
                 getView().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -171,16 +187,14 @@ public class HomeDividerFragment extends Fragment {
                 }, 2000);
             }
         });
-        xrefreshView.setCustomFooterView(new CustomerFooter(context));
+        xrefreshView.setCustomFooterView(new CustomerFooter(mContext));
     }
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        context = getActivity();
-        setView();
-        getData();
+
     }
 
     @Override
@@ -189,26 +203,79 @@ public class HomeDividerFragment extends Fragment {
     }
 
     private void getData() {
-        //test
-        TopDivideAdapter topDivideAdapter = new TopDivideAdapter(context, R.layout.item_top_divide,childlistBeanXs);
+        final List<MenuTypeList.ChildlistBeanX> list = new ArrayList<>();
+
+
+
+
         if (childlistBeanXs != null){
             for (int i = 0; i < childlistBeanXs.size(); i++) {
-                topDivideAdapter.add(childlistBeanXs.get(i).getName());
+                if (childlistBeanXs.get(i).getIshot()!=null){
+                    if (childlistBeanXs.get(i).getIshot().equals("1")){
+                        list.add(childlistBeanXs.get(i));
+                    }
+                }
 
             }
-            topDivide.setAdapter(topDivideAdapter);
+
+
 
         }
 
+        //添加全部按钮
+        if (preMenu!=null){
+            List<MenuTypeList.ChildlistBeanX.ChildlistBean> alist = new ArrayList<>();
+            MenuTypeList.ChildlistBeanX all = new MenuTypeList.ChildlistBeanX();
+            all.setName("查看全部");
+            all.setHaschild(preMenu.getHaschild());
+            all.setPhoto("全部");
+            all.setTerm_id(preMenu.getTerm_id());
+            if (childlistBeanXs!=null){
+                for (MenuTypeList.ChildlistBeanX bean : childlistBeanXs){
+                    MenuTypeList.ChildlistBeanX.ChildlistBean a = new MenuTypeList.ChildlistBeanX.ChildlistBean();
+                    a.setTerm_id(bean.getTerm_id());
+                    a.setPhoto(bean.getPhoto());
+                    a.setName(bean.getName());
+                    a.setIshot(bean.getIshot());
+                    alist.add(a);
+                }
+                all.setChildlist(alist);
+                //删除多余的显示的数据
+                List<MenuTypeList.ChildlistBeanX> temp = new ArrayList<>();
+                if (list.size()>7){
+                    for (int i = 0; i < 7; i++) {
+                      temp.add(list.get(i));
+                    }
+                }else {
+                    for (int i = 0; i < list.size(); i++) {
+                        temp.add(list.get(i));
+                    }
+                }
+
+                //将查看全部加到最后一个
+                list.clear();
+                list.addAll(temp);
+                list.add(all);
+
+            }
+
+        }
+
+        TopDivideAdapter topDivideAdapter = new TopDivideAdapter(mContext, R.layout.item_top_divide,list);
+
+        for (int i = 0; i < (list.size()>8?8:list.size()); i++) {
+            topDivideAdapter.add(list.get(i).getName());
+        }
+        topDivide.setAdapter(topDivideAdapter);
 
         topDivide.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(context, GoodsTabActivity.class);
+                Intent intent = new Intent(mContext, GoodsTabActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("menu", (Serializable) childlistBeanXs.get(i).getChildlist());
+                bundle.putSerializable("menu", (Serializable) list.get(i).getChildlist());
                 intent.putExtras(bundle);
-                intent.putExtra("title",childlistBeanXs.get(i).getName());
+                intent.putExtra("title",list.get(i).getName());
                 startActivity(intent);
             }
         });
@@ -219,7 +286,7 @@ public class HomeDividerFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TypeGoodsList bean = typeGoodsLists.get(i);
                 Intent intent = new Intent();
-                intent.setClass(context, GoodsDetailActivity.class);
+                intent.setClass(mContext, GoodsDetailActivity.class);
                 intent.putExtra("id", bean.getId());//传出goodId
                 intent.putExtra("artno", bean.getArtno());
                 intent.putExtra("shopid", bean.getShopid());//传出shopid
@@ -240,26 +307,39 @@ public class HomeDividerFragment extends Fragment {
                 intent.putExtra("shopname", bean.getShopname());//店铺名字
                 intent.putExtra("sales", bean.getSales());
                 intent.putExtra("paynum", bean.getPaynum());
-                context.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
 
 
 
-        handler.postDelayed(LOAD_DATA,500);
+
     }
 
+
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(!isVisibleToUser)handler.removeCallbacks(LOAD_DATA);
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if (isVisible) {
+            getData();
+            handler.postDelayed(LOAD_DATA,500);
+        } else {
+            handler.removeCallbacks(LOAD_DATA);
+        }
+
     }
+
+
 
     private Runnable LOAD_DATA = new Runnable() {
         @Override
         public void run() {
             //在这里数据内容加载到Fragment上
-            new HomeRequest(context,handler).GetTypeGoodList(type);
+            Log.e("LOAD_DATA","LOAD_DATA");
+
+
+
+            new HomeRequest(mContext,handler).GetTypeGoodList(type);
         }
     };
 }
