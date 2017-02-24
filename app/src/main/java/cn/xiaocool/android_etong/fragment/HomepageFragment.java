@@ -49,6 +49,7 @@ import cn.xiaocool.android_etong.UI.Main.FlashSaleActivity;
 import cn.xiaocool.android_etong.UI.Main.NewArrivalActivity;
 import cn.xiaocool.android_etong.UI.Main.QualityLifeActivity;
 import cn.xiaocool.android_etong.UI.Main.ZeroActivity;
+import cn.xiaocool.android_etong.UI.Mine.Business.GoodsDetailActivity;
 import cn.xiaocool.android_etong.adapter.EverydayGoodShopAdapter;
 import cn.xiaocool.android_etong.adapter.HomepageGuessLikeAdapter;
 import cn.xiaocool.android_etong.bean.HomePage.EveryDayGoodShopBean;
@@ -367,6 +368,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
         rlEverydayChoiceness.setOnClickListener(this);
         gridView0 = (NoScrollGridView) getView().findViewById(R.id.homepage_everyday_goodshop_gridview);
         gridView1 = (NoScrollGridView) getView().findViewById(R.id.homepage_guess_like_gridview);
+        getView().findViewById(R.id.etong_home1).setOnClickListener(this);
+        getView().findViewById(R.id.etong_home2).setOnClickListener(this);
         dataBeenList = new ArrayList<>();
         guessLikeDataBeanList = new ArrayList<>();
         initParam();
@@ -447,6 +450,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
+        final GuessLikeBean.GuessLikeDataBean bean;
         switch (v.getId()) {
             case R.id.homepage_rl_new_arrival:
                 IntentUtils.getIntent((Activity) context, NewArrivalActivity.class);
@@ -464,7 +469,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 IntentUtils.getIntent((Activity) context, EverydayChoicenessActivity.class);
                 break;
             case R.id.et_search:
-                Intent intent = new Intent();
                 intent.setClass(context, SearchActivity.class);
                 intent.putExtra("city", "homepage");
                 startActivity(intent);
@@ -474,6 +478,61 @@ public class HomepageFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.homepage_rl_zero:
                 IntentUtils.getIntent((Activity) context, ZeroActivity.class);
+                break;
+            case R.id.etong_home1:
+                if (guessLikeDataBeanList.size()<1){
+                    return;
+                }
+                bean = guessLikeDataBeanList.get(0);
+                intent.setClass(context, GoodsDetailActivity.class);
+                intent.putExtra("id", bean.getId());//传出goodId
+                intent.putExtra("artno", bean.getArtno());
+                intent.putExtra("shopid", bean.getShopid());//传出shopid
+                intent.putExtra("brand", bean.getBrand());
+                intent.putExtra("goodsname", bean.getGoodsname());
+                intent.putExtra("adtitle", bean.getAdtitle());
+                intent.putExtra("oprice", bean.getOprice());
+                intent.putExtra("price", bean.getPrice());//传出price
+                intent.putExtra("unit", bean.getUnit());
+                intent.putExtra("description", bean.getDescription());
+                intent.putExtra("pic", bean.getPicture());//传出pic
+                intent.putExtra("showid", bean.getShowid());
+                intent.putExtra("address", bean.getAddress());
+                intent.putExtra("freight", bean.getFreight());
+                intent.putExtra("pays", bean.getPays());
+                intent.putExtra("racking", bean.getRacking());
+                intent.putExtra("recommend", bean.getRecommend());
+                intent.putExtra("shopname", bean.getShopname());//店铺名字
+                intent.putExtra("sales", bean.getSales());
+                intent.putExtra("paynum", bean.getPaynum());
+                context.startActivity(intent);
+                break;
+            case R.id.etong_home2:
+                if (guessLikeDataBeanList.size()>1){
+                    bean = guessLikeDataBeanList.get(1);
+                    intent.setClass(context, GoodsDetailActivity.class);
+                    intent.putExtra("id", bean.getId());//传出goodId
+                    intent.putExtra("artno", bean.getArtno());
+                    intent.putExtra("shopid", bean.getShopid());//传出shopid
+                    intent.putExtra("brand", bean.getBrand());
+                    intent.putExtra("goodsname", bean.getGoodsname());
+                    intent.putExtra("adtitle", bean.getAdtitle());
+                    intent.putExtra("oprice", bean.getOprice());
+                    intent.putExtra("price", bean.getPrice());//传出price
+                    intent.putExtra("unit", bean.getUnit());
+                    intent.putExtra("description", bean.getDescription());
+                    intent.putExtra("pic", bean.getPicture());//传出pic
+                    intent.putExtra("showid", bean.getShowid());
+                    intent.putExtra("address", bean.getAddress());
+                    intent.putExtra("freight", bean.getFreight());
+                    intent.putExtra("pays", bean.getPays());
+                    intent.putExtra("racking", bean.getRacking());
+                    intent.putExtra("recommend", bean.getRecommend());
+                    intent.putExtra("shopname", bean.getShopname());//店铺名字
+                    intent.putExtra("sales", bean.getSales());
+                    intent.putExtra("paynum", bean.getPaynum());
+                    context.startActivity(intent);
+                }
                 break;
         }
 

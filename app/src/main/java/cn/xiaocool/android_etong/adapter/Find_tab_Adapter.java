@@ -3,6 +3,8 @@ package cn.xiaocool.android_etong.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -41,6 +43,12 @@ public class Find_tab_Adapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
 
         return listTitle.get(position % listTitle.size());
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        Log.e("destroyItem",position+"");
     }
 
 }

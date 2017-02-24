@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class PrefectureFragment extends Fragment {
     @BindView(R.id.vp_FindFragment_pager)
     ViewPager vpFindFragmentPager;
     private Context context;
-    private FragmentPagerAdapter fAdapter;
+    private Find_tab_Adapter fAdapter;
 
     private List<Fragment> list_fragment;
     private List<String> list_title;

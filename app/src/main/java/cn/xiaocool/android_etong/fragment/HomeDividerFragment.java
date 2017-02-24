@@ -67,10 +67,6 @@ public class HomeDividerFragment extends BaseFragment {
     private List<TypeGoodsList> typeGoodsLists;
     private DivideListAdapter adapter;
     public MenuTypeList preMenu;
-    /** 标志位，标志已经初始化完成 */
-    private boolean isPrepared;
-    /** 是否已被加载过一次，第二次就不再去请求数据了 */
-    private boolean mHasLoadedOnce;
 
     private Handler handler = new Handler() {
 
@@ -78,6 +74,7 @@ public class HomeDividerFragment extends BaseFragment {
             switch (msg.what) {
                 case CommunalInterfaces.GET_MENU:
                     JSONObject jsonObject2 = (JSONObject) msg.obj;
+                    xrefreshView.stopRefresh();
                     try {
                         if (jsonObject2.getString("status").equals("success")) {
                             typeGoodsLists.clear();
@@ -97,12 +94,12 @@ public class HomeDividerFragment extends BaseFragment {
 
     private void setAdapter() {
 
-//        if (adapter == null) {
+        if (adapter == null) {
             adapter = new DivideListAdapter(mContext,typeGoodsLists,tableDivide);
             tableDivide.setAdapter(adapter);
-//        }else {
-//            adapter.notifyDataSetChanged();
-//        }
+        }else {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private List<TypeGoodsList> getBeanFromJson(String result) {
@@ -122,26 +119,17 @@ public class HomeDividerFragment extends BaseFragment {
         if(rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_home_divider, container, false);
             ButterKnife.bind(this, rootView);
-            isPrepared = true;
         }
 
-        //因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
-//        ViewGroup parent = (ViewGroup)mFragmentView.getParent();
-//        if(parent != null) {
-//            parent.removeView(mFragmentView);
-//        }
-
-
-        setView();
+        setRefreshView();
+        setMenuData();
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        if (mFragmentView != null) {
-//            ((ViewGroup) mFragmentView.getParent()).removeView(mFragmentView);
-//        }
+        Log.e("destroyItem","type"+type);
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,7 +137,7 @@ public class HomeDividerFragment extends BaseFragment {
         typeGoodsLists = new ArrayList<>();
     }
 
-    private void setView() {
+    private void setRefreshView() {
         xscrollview.setOnScrollListener(new XScrollView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(ScrollView view, int scrollState, boolean arriveBottom) {
@@ -202,12 +190,8 @@ public class HomeDividerFragment extends BaseFragment {
         super.onResume();
     }
 
-    private void getData() {
+    private void setMenuData() {
         final List<MenuTypeList.ChildlistBeanX> list = new ArrayList<>();
-
-
-
-
         if (childlistBeanXs != null){
             for (int i = 0; i < childlistBeanXs.size(); i++) {
                 if (childlistBeanXs.get(i).getIshot()!=null){
@@ -215,11 +199,7 @@ public class HomeDividerFragment extends BaseFragment {
                         list.add(childlistBeanXs.get(i));
                     }
                 }
-
             }
-
-
-
         }
 
         //添加全部按钮
@@ -310,10 +290,6 @@ public class HomeDividerFragment extends BaseFragment {
                 mContext.startActivity(intent);
             }
         });
-
-
-
-
     }
 
 
@@ -321,10 +297,15 @@ public class HomeDividerFragment extends BaseFragment {
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
         if (isVisible) {
-            getData();
-            handler.postDelayed(LOAD_DATA,500);
+            if (typeGoodsLists.size()<1){
+                xrefreshView.startRefresh();
+            }
+
+
+//            handler.postDelayed(LOAD_DATA,500);
         } else {
-            handler.removeCallbacks(LOAD_DATA);
+//            handler.removeCallbacks(LOAD_DATA);
+            xrefreshView.stopRefresh();
         }
 
     }

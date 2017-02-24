@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_content"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
 
-    <LinearLayout
-        android:id="@+id/bottom"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/btn_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:background="@color/whilte"
-            android:drawableTop="@mipmap/ic_shouye_red_bold"
-            android:paddingTop="5dp"
-            android:text="首页"
+        android:layout_height="45dp"
+        android:background="@color/gray_title">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="45dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/ic_fanhui_left_red" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/good_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="宝贝详情"
             android:textColor="@color/black"
-            android:textSize="12sp" />
-        <Button
-            android:id="@+id/btn_chat"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:background="@color/whilte"
-            android:drawableTop="@mipmap/ic_zixun"
-            android:paddingTop="5dp"
-            android:text="咨询"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btn_store"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:background="@color/whilte"
-            android:drawableTop="@mipmap/ic_dianpu_gray"
-            android:paddingTop="5dp"
-            android:text="店铺"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-        <!--<Button-->
-            <!--android:id="@+id/btn_shopping_cart"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1.2"-->
-            <!--android:background="#FF9800"-->
-            <!--android:text="加入购物车"-->
-            <!--android:textColor="@color/whilte" />-->
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+            <!--消息图标-->
+            <RelativeLayout
+                android:id="@+id/good_details_news_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/activity_size_10">
 
-        <Button
-            android:id="@+id/btn_lijigoumai"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/homepage_orange"
-            android:textSize="@dimen/activity_size_14"
-            android:text="¥0.0\n立即购"
-            android:textColor="@color/whilte" />
-        <Button
-            android:id="@+id/btn_sharebuy"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:background="@color/main_color_red"
-            android:text="¥0.0\n分享购"
-            android:textSize="@dimen/activity_size_14"
-            android:textColor="@color/whilte" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/ic_news_red" />
+            </RelativeLayout>
+            <!--分享图标-->
 
-    </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/good_details_share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/activity_size_10">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_etc" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
     <cn.xiaocool.android_etong.util.ReboundScrollView
         android:id="@+id/goodsdetail_scrollview"
         android:layout_width="match_parent"
@@ -84,77 +80,15 @@
         android:layout_above="@+id/bottom"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/gray_title"
-                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/rl_back"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:background="@mipmap/ic_fanhui_left_red" />
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/good_details_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="宝贝详情"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
-                    <!--消息图标-->
-                    <RelativeLayout
-                        android:id="@+id/good_details_news_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/activity_size_10">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginRight="10dp"
-                            android:background="@mipmap/ic_news_red" />
-                    </RelativeLayout>
-                    <!--分享图标-->
-
-                    <RelativeLayout
-                        android:id="@+id/good_details_share_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/activity_size_10">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:background="@mipmap/ic_etc" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -389,4 +323,75 @@
                 android:dividerHeight="2dp"></cn.xiaocool.android_etong.util.NoScrollListView>
         </LinearLayout>
     </cn.xiaocool.android_etong.util.ReboundScrollView>
-</RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_shouye_red_bold"
+            android:paddingTop="5dp"
+            android:text="首页"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+        <Button
+            android:id="@+id/btn_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_zixun"
+            android:paddingTop="5dp"
+            android:text="咨询"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_store"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:background="@color/whilte"
+            android:drawableTop="@mipmap/ic_dianpu_gray"
+            android:paddingTop="5dp"
+            android:text="店铺"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+        <!--<Button-->
+        <!--android:id="@+id/btn_shopping_cart"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1.2"-->
+        <!--android:background="#FF9800"-->
+        <!--android:text="加入购物车"-->
+        <!--android:textColor="@color/whilte" />-->
+
+        <Button
+            android:id="@+id/btn_lijigoumai"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/homepage_orange"
+            android:textSize="@dimen/activity_size_14"
+            android:text="¥0.0\n立即购"
+            android:textColor="@color/whilte" />
+        <Button
+            android:id="@+id/btn_sharebuy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@color/main_color_red"
+            android:text="¥0.0\n分享购"
+            android:textSize="@dimen/activity_size_14"
+            android:textColor="@color/whilte" />
+
+    </LinearLayout>
+
+</LinearLayout>

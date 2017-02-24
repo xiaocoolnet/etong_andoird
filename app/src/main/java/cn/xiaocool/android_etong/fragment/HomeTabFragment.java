@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,7 +64,7 @@ public class HomeTabFragment extends Fragment implements View.OnClickListener{
     private TabLayout tab_FindFragment_title;
     private ViewPager vp_FindFragment_pager;
 
-    private FragmentPagerAdapter fAdapter;
+    private Find_tab_Adapter fAdapter;
 
     private List<Fragment> list_fragment;
     private List<String> list_title;
@@ -182,7 +183,6 @@ public class HomeTabFragment extends Fragment implements View.OnClickListener{
         fAdapter = new Find_tab_Adapter(getChildFragmentManager(),list_fragment,list_title);
         //viewpager加载adapter
         vp_FindFragment_pager.setAdapter(fAdapter);
-        vp_FindFragment_pager .setOffscreenPageLimit(1);
         //tab_FindFragment_title.setViewPager(vp_FindFragment_pager);
         //TabLayout加载viewpager
         tab_FindFragment_title.setupWithViewPager(vp_FindFragment_pager);
